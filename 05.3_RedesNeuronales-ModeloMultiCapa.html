@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Redes Neuronales - Modelo MultiCapa &#8212; Introducción al Aprendizaje Automático</title>
+    <title>Redes Neuronales - Modelo MultiCapa &#8212; visionArtifAgr</title>
   
   
   
@@ -64,7 +64,7 @@
     <link rel="icon" href="_static/EscUpm.jpg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="RRNN - Ejercicio Wine" href="05.4_RRNN-Ejercicio%20Wine.html" />
+    <link rel="next" title="Redes Neuronales Convoluciones con arquitectura Pytorch" href="05.07A_RRNN_Convoluciones_CIFAR_10.html" />
     <link rel="prev" title="Redes Neuronales - Modelo Bicapa" href="05.2_RedesNeuronales-ModeloBicapa.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -151,8 +151,8 @@
       
     
     
-    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
-    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
   
   
 </a></div>
@@ -178,82 +178,26 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html">Clasificación naive-Bayes de secuencias de ADN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html">Ratios e indicadores</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.1_Clustering-K-Means.html">Aprendizaje no supervisado. Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.06_CadenasMarkov.html">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
 <li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Redes Neuronales - Modelo MultiCapa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.4_RRNN-Ejercicio%20Wine.html">RRNN - Ejercicio Wine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
 <li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.03_SOM_Algoritmo.html">El Algoritmo <em>SOM</em></a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
-<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07C_RRNN_Convoluciones_PlantVillage.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
@@ -298,6 +242,84 @@
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/05.3_RedesNeuronales-ModeloMultiCapa.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F05.3_RedesNeuronales-ModeloMultiCapa.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
 
 
 
@@ -432,7 +454,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="redes-neuronales-modelo-multicapa">
 <h1>Redes Neuronales - Modelo MultiCapa<a class="headerlink" href="#redes-neuronales-modelo-multicapa" title="Link to this heading">#</a></h1>
-<p>El <strong>algoritmo de retropropagación que permite entrenar una red multicapa</strong> se introduce en 1970, pero no es hasta 1986 con el artículo de <span id="id1">[<a class="reference internal" href="Bibliografia.html#id42" title="David E Rumelhart, Geoffrey E Hinton, and Ronald J Williams. Learning representations by back-propagating errors. nature, 323(6088):533–536, 1986.">Rumelhart <em>et al.</em>, 1986</a>]</span> cuando se aprecia su potencial. Permitiendo, por ejemplo, clasificar conjuntos donde las clases no están linealmente separadas.</p>
+<p>El <strong>algoritmo de retropropagación que permite entrenar una red multicapa</strong> se introduce en 1970, pero no es hasta 1986 con el artículo de <span id="id1">[<a class="reference internal" href="Bibliografia.html#id14" title="David E Rumelhart, Geoffrey E Hinton, and Ronald J Williams. Learning representations by back-propagating errors. nature, 323(6088):533–536, 1986.">Rumelhart <em>et al.</em>, 1986</a>]</span> cuando se aprecia su potencial. Permitiendo, por ejemplo, clasificar conjuntos donde las clases no están linealmente separadas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -573,9 +595,9 @@ document.write(`
 <a class="reference internal image-reference" href="_images/RedTriCapa5.png"><img alt="_images/RedTriCapa5.png" src="_images/RedTriCapa5.png" style="width: 600px;" /></a>
 <p><strong>Finalmente</strong> las formulas que permiten obtener los <strong>gradientes</strong> <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> en una capa <span class="math notranslate nohighlight">\(l &lt; L\)</span> para una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> o para un bloque de observaciones <span class="math notranslate nohighlight">\(X\)</span> es:</p>
 <div class="math notranslate nohighlight">
-\[\bar{\delta}^l = \bar{\delta}^{l+1} \cdot W^{l+1} \cdot f'(\bar{z}^l)\]</div>
+\[\bar{\delta}^l = \bar{\delta}^{l+1} \cdot W^{l+1} \]</div>
 <div class="math notranslate nohighlight">
-\[\Delta^l = \Delta^{l+1} \cdot W^{l+1}  \cdot f'(Z^l) \]</div>
+\[\Delta^l = \Delta^{l+1} \cdot W^{l+1} \]</div>
 </section>
 </section>
 <section id="el-perceptron-multicapa-de-la-libreria-sk-learn">
@@ -639,8 +661,8 @@ document.write(`
 <li><p>El número de neuronas ocultas debe ser <strong>2/3 del tamaño de la capa de entrada, más el tamaño de la capa de salida</strong>.</p></li>
 <li><p>El número de neuronas ocultas debe ser <strong>inferior al doble del tamaño de la capa de entrada</strong>.</p></li>
 </ul>
-<p>(*) <span id="id2">[<a class="reference internal" href="Bibliografia.html#id49" title="Jeff Heaton. Introduction to neural networks with Java. Heaton Research, Inc., 2008.">Heaton, 2008</a>]</span></p>
-<p>(*) <span id="id3">[<a class="reference internal" href="Bibliografia.html#id50" title="Jeff Heaton, Steven McElwee, James Fraley, and James Cannady. Early stabilizing feature importance for tensorflow deep neural networks. In 2017 International Joint Conference on Neural Networks (IJCNN), 4618–4624. IEEE, 2017.">Heaton <em>et al.</em>, 2017</a>]</span></p>
+<p>(*) <span id="id2">[<a class="reference internal" href="Bibliografia.html#id15" title="Jeff Heaton. Introduction to neural networks with Java. Heaton Research, Inc., 2008.">Heaton, 2008</a>]</span></p>
+<p>(*) <span id="id3">[<a class="reference internal" href="Bibliografia.html#id16" title="Jeff Heaton, Steven McElwee, James Fraley, and James Cannady. Early stabilizing feature importance for tensorflow deep neural networks. In 2017 International Joint Conference on Neural Networks (IJCNN), 4618–4624. IEEE, 2017.">Heaton <em>et al.</em>, 2017</a>]</span></p>
 </section>
 </section>
 <section id="aplicacion-del-perceptron-multicapa-a-la-puerta-xor">
@@ -862,10 +884,6 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\valer_z\anaconda3\Lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:698: UserWarning: Training interrupted by user.
-  warnings.warn(&quot;Training interrupted by user.&quot;)
-</pre></div>
-</div>
 <div class="output text_html"><style>#sk-container-id-2 {color: black;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>MLPClassifier(hidden_layer_sizes=(500, 100), random_state=1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">MLPClassifier</label><div class="sk-toggleable__content"><pre>MLPClassifier(hidden_layer_sizes=(500, 100), random_state=1)</pre></div></div></div></div></div></div></div>
 </div>
 <div class="cell docutils container">
@@ -910,7 +928,7 @@ document.write(`
 <section id="estructura-tridimensional-de-proteinas-alphafold">
 <h2>Estructura tridimensional de proteinas (AlphaFold)<a class="headerlink" href="#estructura-tridimensional-de-proteinas-alphafold" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><span id="id4">[<a class="reference internal" href="Bibliografia.html#id51" title="Andrew W Senior, Richard Evans, John Jumper, James Kirkpatrick, Laurent Sifre, Tim Green, Chongli Qin, Augustin Žídek, Alexander WR Nelson, Alex Bridgland, and others. Protein structure prediction using multiple deep neural networks in the 13th critical assessment of protein structure prediction (casp13). Proteins: Structure, Function, and Bioinformatics, 87(12):1141–1148, 2019.">Senior <em>et al.</em>, 2019</a>]</span>.</p></li>
+<li><p><span id="id4">[]</span>.</p></li>
 </ul>
 <p>El procedimiento seguido ha resultado <strong>paradigmático</strong> en este tipo de metodologías:</p>
 <a class="reference internal image-reference" href="_images/alphafold.png"><img alt="_images/alphafold.png" src="_images/alphafold.png" style="width: 600px;" /></a>
@@ -923,9 +941,9 @@ document.write(`
 <li><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3507700/#B15">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3507700/#B15</a></p></li>
 <li><p><a href="http://science.sciencemag.org/content/313/5786/504">http://science.sciencemag.org/content/313/5786/504</a></p></li>
 <li><p><a href="https://www.tandfonline.com/doi/full/10.1080/13102818.2017.1364977">https://www.tandfonline.com/doi/full/10.1080/13102818.2017.1364977</a></p></li>
-<li><p><span id="id5">[<a class="reference internal" href="Bibliografia.html#id5" title="Anil K Jain, Jianchang Mao, and K Moidin Mohiuddin. Artificial neural networks: a tutorial. Computer, 29(3):31–44, 1996.">Jain <em>et al.</em>, 1996</a>]</span></p></li>
-<li><p><span id="id6">[<a class="reference internal" href="Bibliografia.html#id6" title="Anders Krogh. What are artificial neural networks? Nature biotechnology, 26(2):195–197, 2008.">Krogh, 2008</a>]</span></p></li>
-<li><p><span id="id7">[<a class="reference internal" href="Bibliografia.html#id7" title="Lijing Wang, Jiangzhuo Chen, and Madhav Marathe. Tdefsi: theory-guided deep learning-based epidemic forecasting with synthetic information. ACM Transactions on Spatial Algorithms and Systems (TSAS), 6(3):1–39, 2020.">Wang <em>et al.</em>, 2020</a>]</span></p></li>
+<li><p><span id="id5">[]</span></p></li>
+<li><p><span id="id6">[]</span></p></li>
+<li><p><span id="id7">[]</span></p></li>
 </ul>
 </section>
 </section>
@@ -970,11 +988,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="05.4_RRNN-Ejercicio%20Wine.html"
+       href="05.07A_RRNN_Convoluciones_CIFAR_10.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">RRNN - Ejercicio Wine</p>
+        <p class="prev-next-title">Redes Neuronales Convoluciones con arquitectura Pytorch</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1023,7 +1041,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By Departamento de Matemática Aplicada
+By Valeriano Germán Méndez Fuentes
 </p>
 
   </div>
@@ -1032,7 +1050,7 @@ By Departamento de Matemática Aplicada
     
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>

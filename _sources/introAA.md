@@ -1,12 +1,9 @@
 # Bienvenida
 
-Bienvenidos a la asignatura de Introducción al Aprendizaje Automático.
+Bienvenidos a la asignatura Visión Artificial en la Agricultura.
 
-Esta asignatura forma parte del itinerario Computacional del [Grado en Biotecnología](https://www.etsiaab.upm.es/Docencia/Grados/Biotecnologia2019) de la [Univerisidad Politécnica de Madrid](https://www.upm.es/).
-
-Parte del material de la asignatura podéis encontrarlo en [Moodle](https://moodle.upm.es/).
-
-Podéis encontrar la guía de esta y otras asignaturas en la página web de la [ETSIAAB](https://www.etsiaab.upm.es/).	
+Esta asignatura es una actividad acreditable de los títulos de grado de las ingenierías de la Escuela Técnica Superior de Ingeniería Agronómica, Alimentaria y de Biosistemas [(ETSIAAB)](https://www.etsiaab.upm.es) de la [Univerisidad Politécnica de Madrid](https://www.upm.es/).
+	
 
 
 

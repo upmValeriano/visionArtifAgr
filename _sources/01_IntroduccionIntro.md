@@ -1,14 +1,23 @@
 # Presentación
 
-Esta es una asignatura con un componente computacional importante. Será necesario programar diferentes algoritmos para obtener los resultados. Existen multitud de lenguajes informáticos con los que realizar esta tarea, como Matlab, R, Python, C, Rubi y un largo etcétera.
+Entre los objetivos de la asignatura se encuentra, primero, hacer una introducción al aprendizaje automático (machine learning en inglés) mostrando de una manera sencilla el fundamento de algunos clasificadores y como usarlos en la librería de Python sk-learn.
 
-Los lenguajes más usados para el aprendizaje automático son `R` y `Python`. Ambos son _open source_ y tienen una gran comunidad de gente detrás manteniéndolos y mejorándolos.
+Segundo hacer una presentación suficientemente precisa de las redes neuronales densas y como usar un el Perceptron multicapa en sk-learn. La exposición teórica será una conferencia donde transmitir los conceptos de activación de la red y optimización de sus parametros a partir de sus gradientes.
 
-[Aquí](https://www.ibm.com/cloud/blog/python-vs-r) y [aquí](https://www.guru99.com/r-vs-python.html) podéis encontrar una comparación entre ambos lenguajes.
+Se hará un ejercicio práctico con el Perceptron muy sencillo para el alumno. 
+
+La tercera parte de la asignatura incluye una conferencia sobre la configuración de una red convolucional. Se explicaran los nuevos tipos de activación que se manejan y cómo se generaliza la gestión de los gradientes para optimizar su configuración. 
+
+Antes de pasar a la práctica, se explicará cómo entrenar una red convolucional con Pytorch y como usar la configuración entrenada de forma predictiva. A partir de un cuaderno jupyter ya programado para entrenar un conjunto de fotografías de hojas de diversas variedades y patologías, el alumno tendrá que obtener su configuración y mostrar los resultados.
+
+Uno de los lenguajes más usados para el aprendizaje automático es `Python`. Es _open source_ y tienen una gran comunidad de gente detrás manteniéndolo y mejorándolo.
+
 
 ```{note}
 Usaremos python!
 ```
+
+El alumno podrá optar por instalar en su ordenador Python y las librerías necesarias o ejecutar los cuadernos jupyter en el entorno web de Google Colab. 
 
 En [esta página](content:manualinstalacionpython) podéis encontrar un manual para instalar python y los cuadernos de jupyter.
 
@@ -28,11 +37,8 @@ En [esta página](content:manualinstalacionpython) podéis encontrar un manual p
 
 Usaremos los siguientes paquetes de python:
 
-+ [Bokeh](https://bokeh.org/)
 
 + [glob](https://docs.python.org/3/library/glob.html)
-
-+ [hidden_markov](https://hidden-markov.readthedocs.io/en/latest/#)
 
 + [IPython](https://ipython.org/index.html)
 
@@ -48,8 +54,6 @@ Usaremos los siguientes paquetes de python:
 
 + [PIL](https://pypi.org/project/Pillow/)
 
-+ [pygad](https://pygad.readthedocs.io/en/latest/)
-
 + [Random](https://docs.python.org/3/library/random.html)
 
 + [Scikit-learn,Sklearn](https://scikit-learn.org/stable/)
@@ -59,8 +63,6 @@ Usaremos los siguientes paquetes de python:
 + [Skimage](https://scikit-image.org/)
 
 + [struct](https://docs.python.org/3/library/struct.html)
-
-+ [susi](https://felixriese.github.io/susi/)
 
 + [torch](https://pytorch.org/)
 
