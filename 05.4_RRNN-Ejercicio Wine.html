@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>RRNN - Ejercicio Wine &#8212; Introducción al Aprendizaje Automático</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05.4_RRNN-Ejercicio Wine';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="RRNN Análisis de microarrays" href="05.5_RRNN_Analisis_Microarrays.html" />
+    <link rel="prev" title="Redes Neuronales - Modelo MultiCapa" href="05.3_RedesNeuronales-ModeloMultiCapa.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html">Clasificación naive-Bayes de secuencias de ADN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html">Ratios e indicadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.1_Clustering-K-Means.html">Aprendizaje no supervisado. Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.06_CadenasMarkov.html">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">RRNN - Ejercicio Wine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.03_SOM_Algoritmo.html">El Algoritmo <em>SOM</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/05.4_RRNN-Ejercicio Wine.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>RRNN - Ejercicio Wine</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carga-de-datos-a-partir-de-csv">Carga de datos a partir de CSV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-estandariza-el-conjunto-de-datos-de-entrada">Se estándariza el conjunto de datos de entrada</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-70-y-validacion-30-conjuntos-train-y-test">Se divide el conjunto de datos de entrada en Entrenamiento (70%) y Validación (30%). Conjuntos Train y Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efectuar-el-entrenamiento-con-el-perceptron-multicapa-multilayer-perceptron-mlp">Efectuar el entrenamiento con el Perceptron multicapa (Multilayer perceptron - MLP)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="rrnn-ejercicio-wine">
+<h1>RRNN - Ejercicio Wine<a class="headerlink" href="#rrnn-ejercicio-wine" title="Link to this heading">#</a></h1>
+<p><strong>Ejercicio de redes neuronales para estudiar características vinícolas</strong></p>
+<p>El análisis de productos alimenticios y, en particular, las bebidas alcohólicas resulta de gran interés.</p>
+<p>Utilizar redes neuronales para estudiar un conjunto de datos relativos a las caracterísitcas de unos vinos que han sido producidos en tres regiones italianas. Una versión de estos datos se puede encontrar en el repositorio de la Universidad de California Irvine (UCI):</p>
+<p>http://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data</p>
+<p>También se puede descargar una copia .csv de este fichero wine.csv en Moodle.</p>
+<p>Este archivo contiene los datos de trece atributos del vino y una columna que informa de su región de procedencia. En el primer ejemplo de esta práctica cargamos el fichero y damos un nombre a cada una de las columnas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="carga-de-datos-a-partir-de-csv">
+<h2>Carga de datos a partir de CSV<a class="headerlink" href="#carga-de-datos-a-partir-de-csv" title="Link to this heading">#</a></h2>
+<p>Como el archivo no incluye los nombres de las columnas se asigna el nombre a partir de una lista con el parámetro <strong>names</strong> de <strong>read_csv</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ColNames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Cultivars&quot;</span><span class="p">,</span><span class="s2">&quot;Alcohol&quot;</span><span class="p">,</span><span class="s2">&quot;Malic_acid&quot;</span><span class="p">,</span><span class="s2">&quot;Ash&quot;</span><span class="p">,</span><span class="s2">&quot;Alcalinity_of_ash&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Magnesium&quot;</span><span class="p">,</span><span class="s2">&quot;Total_phenols&quot;</span><span class="p">,</span><span class="s2">&quot;Flavanoids&quot;</span><span class="p">,</span><span class="s2">&quot;Nonflavanoid_phenols&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Proanthocyanins&quot;</span><span class="p">,</span><span class="s2">&quot;Color intensity&quot;</span><span class="p">,</span><span class="s2">&quot;Hue&quot;</span><span class="p">,</span><span class="s2">&quot;OD280/OD315&quot;</span><span class="p">,</span><span class="s2">&quot;Proline&quot;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/wine.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">ColNames</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cultivars</th>
+      <th>Alcohol</th>
+      <th>Malic_acid</th>
+      <th>Ash</th>
+      <th>Alcalinity_of_ash</th>
+      <th>Magnesium</th>
+      <th>Total_phenols</th>
+      <th>Flavanoids</th>
+      <th>Nonflavanoid_phenols</th>
+      <th>Proanthocyanins</th>
+      <th>Color intensity</th>
+      <th>Hue</th>
+      <th>OD280/OD315</th>
+      <th>Proline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>14.23</td>
+      <td>1.71</td>
+      <td>2.43</td>
+      <td>15.6</td>
+      <td>127</td>
+      <td>2.80</td>
+      <td>3.06</td>
+      <td>0.28</td>
+      <td>2.29</td>
+      <td>5.64</td>
+      <td>1.04</td>
+      <td>3.92</td>
+      <td>1065</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>13.20</td>
+      <td>1.78</td>
+      <td>2.14</td>
+      <td>11.2</td>
+      <td>100</td>
+      <td>2.65</td>
+      <td>2.76</td>
+      <td>0.26</td>
+      <td>1.28</td>
+      <td>4.38</td>
+      <td>1.05</td>
+      <td>3.40</td>
+      <td>1050</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>13.16</td>
+      <td>2.36</td>
+      <td>2.67</td>
+      <td>18.6</td>
+      <td>101</td>
+      <td>2.80</td>
+      <td>3.24</td>
+      <td>0.30</td>
+      <td>2.81</td>
+      <td>5.68</td>
+      <td>1.03</td>
+      <td>3.17</td>
+      <td>1185</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>14.37</td>
+      <td>1.95</td>
+      <td>2.50</td>
+      <td>16.8</td>
+      <td>113</td>
+      <td>3.85</td>
+      <td>3.49</td>
+      <td>0.24</td>
+      <td>2.18</td>
+      <td>7.80</td>
+      <td>0.86</td>
+      <td>3.45</td>
+      <td>1480</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>13.24</td>
+      <td>2.59</td>
+      <td>2.87</td>
+      <td>21.0</td>
+      <td>118</td>
+      <td>2.80</td>
+      <td>2.69</td>
+      <td>0.39</td>
+      <td>1.82</td>
+      <td>4.32</td>
+      <td>1.04</td>
+      <td>2.93</td>
+      <td>735</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="se-estandariza-el-conjunto-de-datos-de-entrada">
+<h2>Se estándariza el conjunto de datos de entrada<a class="headerlink" href="#se-estandariza-el-conjunto-de-datos-de-entrada" title="Link to this heading">#</a></h2>
+<p>Para lo que se hace uso de la librería <strong>StandardScaler</strong> de <strong>sklearn</strong>. Si además hubiese algún atributo etiquetado sin valores continuos previamente a la estandarización se etiquetarían estas columnas del dataset haciendo uso de la librería <strong>LabelEncoder</strong> de <strong>sklearn.preprocessing</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## from sklearn.preprocessing import LabelEncoder</span>
+<span class="c1">## le = LabelEncoder()</span>
+<span class="c1">## df(&quot;campo-etiquetado&quot;) = le.fit_transform(df(&quot;campo-etiquetado&quot;))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Alcohol&quot;</span><span class="p">,</span><span class="s2">&quot;Malic_acid&quot;</span><span class="p">,</span><span class="s2">&quot;Ash&quot;</span><span class="p">,</span><span class="s2">&quot;Alcalinity_of_ash&quot;</span><span class="p">,</span> <span class="s2">&quot;Magnesium&quot;</span><span class="p">,</span><span class="s2">&quot;Total_phenols&quot;</span><span class="p">,</span><span class="s2">&quot;Flavanoids&quot;</span><span class="p">,</span><span class="s2">&quot;Nonflavanoid_phenols&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Proanthocyanins&quot;</span><span class="p">,</span><span class="s2">&quot;Color intensity&quot;</span><span class="p">,</span><span class="s2">&quot;Hue&quot;</span><span class="p">,</span><span class="s2">&quot;OD280/OD315&quot;</span><span class="p">,</span><span class="s2">&quot;Proline&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Alcohol&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Malic_acid&quot;</span><span class="p">,</span><span class="s2">&quot;Ash&quot;</span><span class="p">,</span><span class="s2">&quot;Alcalinity_of_ash&quot;</span><span class="p">,</span> <span class="s2">&quot;Magnesium&quot;</span><span class="p">,</span><span class="s2">&quot;Total_phenols&quot;</span><span class="p">,</span><span class="s2">&quot;Flavanoids&quot;</span><span class="p">,</span>
+<span class="s2">&quot;Nonflavanoid_phenols&quot;</span><span class="p">,</span> <span class="s2">&quot;Proanthocyanins&quot;</span><span class="p">,</span><span class="s2">&quot;Color intensity&quot;</span><span class="p">,</span><span class="s2">&quot;Hue&quot;</span><span class="p">,</span><span class="s2">&quot;OD280/OD315&quot;</span><span class="p">,</span><span class="s2">&quot;Proline&quot;</span><span class="p">]])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cultivars</th>
+      <th>Alcohol</th>
+      <th>Malic_acid</th>
+      <th>Ash</th>
+      <th>Alcalinity_of_ash</th>
+      <th>Magnesium</th>
+      <th>Total_phenols</th>
+      <th>Flavanoids</th>
+      <th>Nonflavanoid_phenols</th>
+      <th>Proanthocyanins</th>
+      <th>Color intensity</th>
+      <th>Hue</th>
+      <th>OD280/OD315</th>
+      <th>Proline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1.518613</td>
+      <td>-0.562250</td>
+      <td>0.232053</td>
+      <td>-1.169593</td>
+      <td>1.913905</td>
+      <td>0.808997</td>
+      <td>1.034819</td>
+      <td>-0.659563</td>
+      <td>1.224884</td>
+      <td>0.251717</td>
+      <td>0.362177</td>
+      <td>1.847920</td>
+      <td>1.013009</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0.246290</td>
+      <td>-0.499413</td>
+      <td>-0.827996</td>
+      <td>-2.490847</td>
+      <td>0.018145</td>
+      <td>0.568648</td>
+      <td>0.733629</td>
+      <td>-0.820719</td>
+      <td>-0.544721</td>
+      <td>-0.293321</td>
+      <td>0.406051</td>
+      <td>1.113449</td>
+      <td>0.965242</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>0.196879</td>
+      <td>0.021231</td>
+      <td>1.109334</td>
+      <td>-0.268738</td>
+      <td>0.088358</td>
+      <td>0.808997</td>
+      <td>1.215533</td>
+      <td>-0.498407</td>
+      <td>2.135968</td>
+      <td>0.269020</td>
+      <td>0.318304</td>
+      <td>0.788587</td>
+      <td>1.395148</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1.691550</td>
+      <td>-0.346811</td>
+      <td>0.487926</td>
+      <td>-0.809251</td>
+      <td>0.930918</td>
+      <td>2.491446</td>
+      <td>1.466525</td>
+      <td>-0.981875</td>
+      <td>1.032155</td>
+      <td>1.186068</td>
+      <td>-0.427544</td>
+      <td>1.184071</td>
+      <td>2.334574</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>0.295700</td>
+      <td>0.227694</td>
+      <td>1.840403</td>
+      <td>0.451946</td>
+      <td>1.281985</td>
+      <td>0.808997</td>
+      <td>0.663351</td>
+      <td>0.226796</td>
+      <td>0.401404</td>
+      <td>-0.319276</td>
+      <td>0.362177</td>
+      <td>0.449601</td>
+      <td>-0.037874</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</details>
+</div>
+<section id="se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-70-y-validacion-30-conjuntos-train-y-test">
+<h3>Se divide el conjunto de datos de entrada en Entrenamiento (70%) y Validación (30%). Conjuntos Train y Test<a class="headerlink" href="#se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-70-y-validacion-30-conjuntos-train-y-test" title="Link to this heading">#</a></h3>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">14</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">y_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3., 1., 1., 1., 3., 2., 2., 3., 2., 2., 2., 1., 2., 3., 1., 3., 2.,
+       1., 3., 3., 2., 1., 2., 2., 2., 2., 3., 1., 2., 2., 1., 1., 3., 1.,
+       2., 1., 1., 2., 3., 3., 1., 3., 3., 3., 1., 2., 3., 3., 2., 3., 2.,
+       2., 2., 1., 2., 2., 3., 3., 2., 1., 1., 2., 3., 3., 2., 1., 2., 2.,
+       2., 1., 1., 1., 1., 1., 3., 1., 2., 3., 2., 2., 3., 1., 2., 1., 2.,
+       2., 3., 2., 1., 1., 1., 3., 2., 1., 1., 2., 2., 3., 3., 2., 1., 1.,
+       2., 2., 3., 1., 3., 1., 2., 2., 2., 2., 1., 3., 1., 1., 1., 1., 2.,
+       2., 3., 3., 2., 2.])
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="efectuar-el-entrenamiento-con-el-perceptron-multicapa-multilayer-perceptron-mlp">
+<h2>Efectuar el entrenamiento con el Perceptron multicapa (Multilayer perceptron - MLP)<a class="headerlink" href="#efectuar-el-entrenamiento-con-el-perceptron-multicapa-multilayer-perceptron-mlp" title="Link to this heading">#</a></h2>
+<p>La librería <strong>sk-learn</strong> en el módulo <strong>neural_network</strong> implementa el perceptron multicapa en la clas <strong>MLPClassifier</strong>.</p>
+<p>Los parámetros del constructor de la clase <strong>MLPClassifier</strong> son:</p>
+<ul class="simple">
+<li><p><strong>hidden_layer_sizes</strong> : Este parámetro permite establecer el número de capas y el número de nodos que se desean tener en el clasificador de redes neuronales. Cada elemento de la tupla representa el número de nodos en la i-ésima posición, donde i es el índice de la tupla. Por tanto, la longitud de la tupla denota el número total de capas ocultas en la red.</p></li>
+<li><p><strong>max_iter</strong> : número de épocas de entrenamiento.</p></li>
+<li><p><strong>activation</strong> : función de activación de las capas ocultas.</p></li>
+<li><p><strong>solver</strong> : algoritmo empleado en la optimización de los pesos de los nodos.</p></li>
+<li><p><strong>random_state</strong> : establece una semilla para reproducir los mismos resultados.</p></li>
+</ul>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(13, array([1., 2., 3.]))
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p><strong>El Perceptron va a tener 13 neuronas de entrada (i) y 3 de salida (o)</strong></p>
+<p>Si se usa el criterio para la primera predeterminación del nº de neuronas de la capa oculta:</p>
+<div class="math notranslate nohighlight">
+\[h =\frac{2(i+o)}{3}\]</div>
+<p>Resulta un primer valor de <strong>h=10</strong> que podemos ir subiendo de uno en uno mejorando el score</p>
+<p>Probando, encontramos el mejor score en <strong>h=13</strong></p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Importación de la clase del perceptrón multicapa</span>
+<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
+<span class="c1">## Inicialización y creación del objeto clasificador</span>
+<span class="n">mlp</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Entrenamiento de la red</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">mlp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>MLPClassifier(activation=&#x27;logistic&#x27;, hidden_layer_sizes=13, max_iter=500,
+              random_state=1, solver=&#x27;lbfgs&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">MLPClassifier</label><div class="sk-toggleable__content"><pre>MLPClassifier(activation=&#x27;logistic&#x27;, hidden_layer_sizes=13, max_iter=500,
+              random_state=1, solver=&#x27;lbfgs&#x27;)</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exactitud del conjunto de entrenamiento: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exactitud del conjunto de prueba: </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del conjunto de entrenamiento: 1.000
+Exactitud del conjunto de prueba: 1.000
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+    <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span><span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;logistic&#39;</span><span class="p">,</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">mlp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exactitud del conjunto de prueba: </span><span class="si">{}</span><span class="s2"> </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del conjunto de prueba: 4 1.000
+Exactitud del conjunto de prueba: 5 1.000
+Exactitud del conjunto de prueba: 6 1.000
+Exactitud del conjunto de prueba: 7 1.000
+Exactitud del conjunto de prueba: 8 1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del conjunto de prueba: 9 0.963
+Exactitud del conjunto de prueba: 10 0.981
+Exactitud del conjunto de prueba: 11 0.963
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del conjunto de prueba: 12 0.981
+Exactitud del conjunto de prueba: 13 1.000
+Exactitud del conjunto de prueba: 14 1.000
+Exactitud del conjunto de prueba: 15 1.000
+Exactitud del conjunto de prueba: 16 1.000
+Exactitud del conjunto de prueba: 17 0.981
+Exactitud del conjunto de prueba: 18 1.000
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del conjunto de prueba: 19 1.000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05.3_RedesNeuronales-ModeloMultiCapa.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Redes Neuronales - Modelo MultiCapa</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05.5_RRNN_Analisis_Microarrays.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">RRNN Análisis de microarrays</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#carga-de-datos-a-partir-de-csv">Carga de datos a partir de CSV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-estandariza-el-conjunto-de-datos-de-entrada">Se estándariza el conjunto de datos de entrada</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-70-y-validacion-30-conjuntos-train-y-test">Se divide el conjunto de datos de entrada en Entrenamiento (70%) y Validación (30%). Conjuntos Train y Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#efectuar-el-entrenamiento-con-el-perceptron-multicapa-multilayer-perceptron-mlp">Efectuar el entrenamiento con el Perceptron multicapa (Multilayer perceptron - MLP)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Departamento de Matemática Aplicada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1170 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Ratios e indicadores &#8212; Introducción al Aprendizaje Automático</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02.3_MetodosdeClasificacion-Ratioseindicadores';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Árboles de Decisión" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html" />
+    <link rel="prev" title="Clasificación naive-Bayes de secuencias de ADN" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html">Clasificación naive-Bayes de secuencias de ADN</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Ratios e indicadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.1_Clustering-K-Means.html">Aprendizaje no supervisado. Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.06_CadenasMarkov.html">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.4_RRNN-Ejercicio%20Wine.html">RRNN - Ejercicio Wine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.03_SOM_Algoritmo.html">El Algoritmo <em>SOM</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02.3_MetodosdeClasificacion-Ratioseindicadores.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ratios e indicadores</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-hace-una-carga-del-conjunto-iris-desde-la-libreria-sk-learn">Se hace una Carga del conjunto Iris desde la librería sk-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-hace-el-ajuste-por-naive-bayes-con-la-clase-disponible-en-sk-learn">Se hace el ajuste por Naïve-Bayes con la clase disponible en sk-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">Matriz de Confusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ratios-que-miden-la-precision-de-la-clasificacion">Ratios que miden la precisión de la clasificación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1 - Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consejos-generales">Consejos Generales (*)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primeramente-obtenemos-la-prediccion-del-modelo-sobre-el-conjunto-de-test">Primeramente obtenemos la predicción del modelo sobre el conjunto de Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-calculamos-los-indicadores">Y calculamos los indicadores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-del-error-de-clasicacion">Control del error de Clasicación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicacion">Explicación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-mejora-de-la-precision">Una mejora de la precisión</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-del-error-por-bootstraping">Estimación del error por Bootstraping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-del-bagging">Implementación del Bagging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-del-bagging-libreria-sk-learn">Implementación del Bagging (librería sk-learn)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#es-bueno-el-clasificador-p-valor">¿Es bueno el clasificador? P-Valor</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ratios-e-indicadores">
+<h1>Ratios e indicadores<a class="headerlink" href="#ratios-e-indicadores" title="Link to this heading">#</a></h1>
+<section id="se-hace-una-carga-del-conjunto-iris-desde-la-libreria-sk-learn">
+<h2>Se hace una Carga del conjunto Iris desde la librería sk-learn<a class="headerlink" href="#se-hace-una-carga-del-conjunto-iris-desde-la-libreria-sk-learn" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Primero se vuelca a un DataFrame, con 4 columnas con sus caracteristicas y una columna con la clasificación objetivo</p></li>
+<li><p>Se muestra la descripción de cada uno de los valores (0, 1, 2) objetivo.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">
+<h3>Se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test<a class="headerlink" href="#se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="se-hace-el-ajuste-por-naive-bayes-con-la-clase-disponible-en-sk-learn">
+<h3>Se hace el ajuste por Naïve-Bayes con la clase disponible en sk-learn<a class="headerlink" href="#se-hace-el-ajuste-por-naive-bayes-con-la-clase-disponible-en-sk-learn" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="n">clf_NB</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianNB()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianNB</label><div class="sk-toggleable__content"><pre>GaussianNB()</pre></div></div></div></div></div></div></div>
+</div>
+</section>
+</section>
+<section id="matriz-de-confusion">
+<h2>Matriz de Confusión<a class="headerlink" href="#matriz-de-confusion" title="Link to this heading">#</a></h2>
+<p>Para el caso de un clasificador binario, una matriz de confusion es una matriz cuadrada <span class="math notranslate nohighlight">\(2 \times 2\)</span> que proporciona los :</p>
+<ul class="simple">
+<li><p>Verdaderos Positivos (VP): valores positivos correctos</p></li>
+<li><p>Verdaderos Negativos (VN): valores negativos correctos</p></li>
+<li><p>Falsos Positivos (FP): valores positivos incorrectos</p></li>
+<li><p>Falsos Negativos (FN): valores negativos incorrectos</p></li>
+</ul>
+<p>Además consideramos la realidad representada a la izquierda y la predicción en la barra superior:</p>
+<a class="reference internal image-reference" href="_images/Mat_Confusion.png"><img alt="_images/Mat_Confusion.png" src="_images/Mat_Confusion.png" style="width: 500px;" /></a>
+<p>En nuestro conjunto <strong>Iris</strong> al disponer de 3 clases distintas, en lugar de una matriz <span class="math notranslate nohighlight">\(2 \times 2\)</span> dispondremos una matriz <span class="math notranslate nohighlight">\(3 \times 3\)</span>, que es posible calcular directamente con la librería sk-learn.</p>
+<p>Como se observa hay <strong>un único elemento mal</strong> en el conjunto de <strong>test</strong> predicho que aparece como versicolor, cuando debe ser virginica.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">cm_display</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9fbb6b93ba9a6bd226cbca8e0db1c8d4f5a372e378bc50bea54c2915f9077ada.png" src="_images/9fbb6b93ba9a6bd226cbca8e0db1c8d4f5a372e378bc50bea54c2915f9077ada.png" />
+</div>
+</div>
+</section>
+<section id="ratios-que-miden-la-precision-de-la-clasificacion">
+<h2>Ratios que miden la precisión de la clasificación<a class="headerlink" href="#ratios-que-miden-la-precision-de-la-clasificacion" title="Link to this heading">#</a></h2>
+<p>El <strong>error</strong> de predicción (<b>ERR</b>) y la <strong>exactitud</strong> (<b>ACC</b>, accuracy) mide cuantos ejemplos están mal clasificados o <strong>calidad del modelo</strong>. El error de predicción se calcula:</p>
+<div class="math notranslate nohighlight">
+\[ERR=\frac{FP+FN}{VP+FN+FP+VN}\]</div>
+<p>La exactitud es:</p>
+<div class="math notranslate nohighlight">
+\[ACC=\frac{VP+VN}{VP+FN+FP+VN}=1-ERR\]</div>
+<p>Otro ratio para medir la calidad es la <strong>Precisión</strong> (<strong>PRE</strong>, Precision), ratio de verdaderos positivos frente a positivos de la predicción:</p>
+<div class="math notranslate nohighlight">
+\[PRE=\frac{VP}{VP+FP}\]</div>
+<p>Un <strong>clasificador perfecto</strong> tendrá <strong>ERR = 0</strong>, <strong>ACC = 1</strong> y <strong>PRE = 1</strong>.</p>
+<p>En un conjunto de datos de entrenamiento donde <strong>las clases están equilibradas</strong> son suficientes los anteriores ratios y también son utiles los ratios:</p>
+<ul class="simple">
+<li><p><strong>Sensibilidad - SEN, TPR</strong> <em>(True Positive Rate o Razón de Verdaderos Positivos)</em> : Es la probabilidad de que un positivo sea realmente positivo o capacidad del estimador para dar casos positivos (”<em>enfermos</em>”). Es la tasa de verdaderos positivos frente a positivos. Este parámetro también se denomina recall o exhaustividad.</p></li>
+<li><p><strong>Especificidad - SPC, TNR</strong> <em>(True Negative Rate o Razón de Verdaderos Negativos)</em> : Es la probabilidad de que un negativo sea realmente negativo o capacidad del estimador de dar casos negativos (”<em>sanos</em>”). Tasa de verdaderos negativos frente a negativos.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[SEN=\frac{VP}{P}=\frac{VP}{VP+FN}\]</div>
+<div class="math notranslate nohighlight">
+\[SPC=\frac{VN}{N}=\frac{VN}{VN+FP}\]</div>
+<p>Otros ratios interesantes que se pueden formar con la matriz de confusión son:</p>
+<ul class="simple">
+<li><p><strong>Razón de Falsas Alarmas - FPR</strong> <em>(False Posive Rate o Ratio de Falsos Positivos)</em> : Es la tasa de falsos positivos entre los positivos reales. Es igual <strong>1 - Especificidad</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[FPR =\frac{FP}{N}=\frac{FP}{VN+FP}=1-SPC\]</div>
+<p>Un <strong>clasificador perfecto</strong> tendrá <strong>SEN=1</strong>, <strong>SPC=1</strong> y <strong>FPR=0</strong>.</p>
+<section id="f1-score">
+<h3>F1 - Score<a class="headerlink" href="#f1-score" title="Link to this heading">#</a></h3>
+<p>El <strong>Valor-F</strong>, o <strong>F1-score</strong>, combina las medidas de <strong>precision y sensibilidad</strong> en un sólo valor. Permite comparar el rendimiento combinado de la precisión y la sensibilidad entre varios modelos.:</p>
+<div class="math notranslate nohighlight">
+\[F1=2\frac{PRE \times SEN}{PRE + SEN}\]</div>
+<p>El F1-Score es de gran utilidad cuando la distribución de las clases es desigual.</p>
+<p>Conforme a los estadísticos de Precisión y Sensibilidad se tienen las siguientes posibilidades:</p>
+<ul class="simple">
+<li><p>Alta precisión y alta sensibilidad: el modelo de Machine Learning escogido maneja perfectamente esa clase.</p></li>
+<li><p>Alta precisión y baja sensibilidad: el modelo de Machine Learning escogido no detecta la clase muy bien, pero cuando lo hace es altamente confiable.</p></li>
+<li><p>Baja precisión y alta sensibilidad: El modelo de Machine Learning escogido detecta bien la clase,  pero también incluye muestras de la otra clase.</p></li>
+<li><p>Baja precisión y baja sensibilidad: El modelo de Machine Learning escogido no logra clasificar la clase correctamente.</p></li>
+</ul>
+<p>Un <strong>clasificador perfecto</strong> (<strong>SEN=1</strong> y <strong>ESP=1</strong>) tendrá <strong>F1=1</strong>.</p>
+<p>Estos ratios están implementados en la <strong>librería sklearn.metrics</strong></p>
+<p>https://scikit-learn.org/stable/modules/model_evaluation.html</p>
+<p><strong>NOTA A sklearn.metrics</strong>:__ Algunas métricas se definen esencialmente para tareas de clasificación binaria (por ejemplo, f1_score, roc_auc_score). En estos casos, por defecto solo se evalúa la etiqueta positiva, asumiendo por defecto que la clase positiva está etiquetada como 1 (aunque esto puede configurarse a través del <strong>parámetro pos_label</strong>).</p>
+</section>
+<section id="consejos-generales">
+<h3>Consejos Generales (*)<a class="headerlink" href="#consejos-generales" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>La precisión</strong> es un gran estadístico, Pero es útil únicamente cuando se tienen “datasets” simétricos (la cantidad de casos de la clase 1 y de las clase 2 tienen magnitudes similares)</p></li>
+<li><p><strong>El indicador F1</strong> de la matriz de confusión es útil si se  tiene una distribución de clases desigual.</p></li>
+<li><p><strong>Elija mayor precisión</strong> para conocer qué tan seguro está de los verdaderos positivos, Mientras que la sensibilidad o  “Recall” le servirá para saber si no está perdiendo positivos.</p></li>
+<li><p><strong>Las Falsas Alarmas:</strong>  Por ejemplo,  si cree que es mejor en su caso tener falsos positivos que falsos negativos, utilice una sensibilidad alta  (Recall) , cuando la aparición de falsos negativos le resulta inaceptable pero no le importa tener falsos positivos adicionales (falsas alarmas).</p></li>
+</ul>
+<p>Por ejemplo si es preferible que algunas personas sanas sean etiquetadas como diabéticas en lugar de dejar a una persona diabética etiquetada como sana.</p>
+<ul class="simple">
+<li><p><strong>Elija precisión ( precision en inglés)</strong>  para estar más seguro de sus verdaderos positivos. por ejemplo, correos electrónicos no deseados.  En este caso se prefiere tener algunos correos electrónicos “no deseados” en su bandeja de entrada en lugar de tener correos electrónicos “reales” en su bandeja de SPAM.</p></li>
+<li><p><strong>Elija alta Especificidad</strong>:  si desea identificar los verdaderos negativos, o lo que es igual cuando no desea falsos positivos. Por ejemplo conductores  y las pruebas de alcoholemia, donde sería intolerable que un falso positivo, libre de alcohol, sea penado.</p></li>
+</ul>
+<p><em>(*)</em> <span id="id1">[<a class="reference internal" href="Bibliografia.html#id34" title="J Barrios Arce. La matriz de confusión y sus métricas. Health Big Data https://www. juanbarrios. com/la-matriz-de-confusion-y-sus-metricas, 2019.">Barrios Arce, 2019</a>]</span></p>
+</section>
+<section id="primeramente-obtenemos-la-prediccion-del-modelo-sobre-el-conjunto-de-test">
+<h3>Primeramente obtenemos la predicción del modelo sobre el conjunto de Test<a class="headerlink" href="#primeramente-obtenemos-la-prediccion-del-modelo-sobre-el-conjunto-de-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_pred</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2., 0., 0., 0., 1., 0., 1., 1., 0., 1., 2., 2., 2., 1., 2., 1., 2.,
+       1., 1., 1., 1., 2., 2., 1., 0., 0., 0., 1., 2., 0., 0., 2., 1., 0.,
+       0., 1., 2., 2.])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="y-calculamos-los-indicadores">
+<h3>Y calculamos los indicadores<a class="headerlink" href="#y-calculamos-los-indicadores" title="Link to this heading">#</a></h3>
+<p>En el cálculo de la <strong>precisión</strong> si hay más de 2 clases distintas es obligatorio el parametro <strong>average</strong> con las opciones:</p>
+<ul class="simple">
+<li><p>‘<strong>binary</strong>’: Informa únicamente los resultados de la clase especificada por <strong>pos_label</strong>. Esto es aplicable solo si los destinos (y_ {true, pred}) son binarios.</p></li>
+<li><p>‘<strong>micro</strong>’: Calcula métricas a nivel global contando el total de verdaderos positivos, falsos negativos y falsos positivos.</p></li>
+<li><p>‘<strong>macro</strong>’: Calcula métricas para cada etiqueta y encuentre su media no ponderada. Esto no tiene en cuenta el desequilibrio de etiquetas.</p></li>
+<li><p>‘<strong>weighted</strong>’ (‘ponderado’): Calcula métricas para cada etiqueta y encuentre su promedio ponderado por soporte (el número de instancias verdaderas para cada etiqueta). Altera la métrica ‘macro’ para tener en cuenta el desequilibrio de etiquetas; puede resultar en una puntuación F que no se encuentra entre la precisión y el recuerdo.</p></li>
+<li><p>‘<strong>samples</strong>’ (‘muestras’): Calcula métricas para cada instancia y encuentre su promedio (solo es significativo para la clasificación de múltiples etiquetas donde esto difiere de la puntuación de precisión).</p></li>
+</ul>
+<p>De forma análoga se encuentra el parámetro <strong>average</strong> en las funciones <strong>recall_score</strong> y <strong>f1_score</strong> usadas para el cálculo de los otros 2 indicadores</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sensibilidad - Recall: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F1: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.974
+Precision: 0.974
+Sensibilidad - Recall: 0.974
+F1: 0.974
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_realidad</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">_estimado</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">VN</span><span class="p">,</span> <span class="n">VP</span><span class="p">,</span> <span class="n">FN</span><span class="p">,</span> <span class="n">FP</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">P</span>  <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span>
+<span class="n">PRE</span> <span class="o">=</span> <span class="n">VP</span><span class="o">/</span><span class="p">(</span><span class="n">VP</span><span class="o">+</span><span class="n">FP</span><span class="p">)</span>
+<span class="n">SEN</span> <span class="o">=</span> <span class="n">VP</span><span class="o">/</span><span class="p">(</span><span class="n">VP</span><span class="o">+</span><span class="n">FN</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">),</span> <span class="p">(</span><span class="n">VP</span><span class="o">+</span><span class="n">VN</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">P</span><span class="o">+</span><span class="n">N</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">),</span> <span class="n">PRE</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sensibilidad - Recall: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">),</span> <span class="n">SEN</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F1: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">PRE</span><span class="o">*</span><span class="n">SEN</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">PRE</span><span class="o">+</span><span class="n">SEN</span><span class="p">)))</span>
+<span class="n">CMD</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.900 / 0.900
+Precision: 0.833 / 0.833
+Sensibilidad - Recall: 1.000 / 1.000
+F1: 0.909 / 0.909
+</pre></div>
+</div>
+<img alt="_images/4cb2af507b2647b116301f4cd64d7f2020ec9b7db3301149ff5a128c764aba11.png" src="_images/4cb2af507b2647b116301f4cd64d7f2020ec9b7db3301149ff5a128c764aba11.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_realidad</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<span class="n">_estimado</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<span class="n">VN</span><span class="p">,</span> <span class="n">VP</span><span class="p">,</span> <span class="n">FN</span><span class="p">,</span> <span class="n">FP</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">P</span>  <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span>
+<span class="n">PRE</span> <span class="o">=</span> <span class="n">VP</span><span class="o">/</span><span class="p">(</span><span class="n">VP</span><span class="o">+</span><span class="n">FP</span><span class="p">)</span>
+<span class="n">SEN</span> <span class="o">=</span> <span class="n">VP</span><span class="o">/</span><span class="p">(</span><span class="n">VP</span><span class="o">+</span><span class="n">FN</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">),</span> <span class="p">(</span><span class="n">VP</span><span class="o">+</span><span class="n">VN</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">P</span><span class="o">+</span><span class="n">N</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Precision: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="n">PRE</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sensibilidad - Recall: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="n">SEN</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;F1: </span><span class="si">{:.3f}</span><span class="s1"> / </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">PRE</span><span class="o">*</span><span class="n">SEN</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">PRE</span><span class="o">+</span><span class="n">SEN</span><span class="p">)))</span>
+<span class="n">CMD</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">_realidad</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">_estimado</span><span class="p">),</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.900 / 0.900
+Precision: 0.833 / 0.833
+Sensibilidad - Recall: 1.000 / 1.000
+F1: 0.909 / 0.909
+</pre></div>
+</div>
+<img alt="_images/b6346fecc95102ec3bfde3445483d7f2c0de6d5b444ca4d40e5728709cb1a3c4.png" src="_images/b6346fecc95102ec3bfde3445483d7f2c0de6d5b444ca4d40e5728709cb1a3c4.png" />
+</div>
+</div>
+<p><strong>El ratio que se utilizará a partir de ahora es la exactitud o accuracy</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.974
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="control-del-error-de-clasicacion">
+<h2>Control del error de Clasicación<a class="headerlink" href="#control-del-error-de-clasicacion" title="Link to this heading">#</a></h2>
+<p><strong>Cuando clasificamos nuevas instancias</strong>:</p>
+<ul class="simple">
+<li><p>Interesa reducir la <strong>tasa de error esperada</strong>.</p></li>
+<li><p>Realizar promedios reduce la varianza: <span class="math notranslate nohighlight">\(Var(\bar{X}) = \frac{1}{N} Var(X)\)</span></p></li>
+<li><p>Problema: sólo tenemos <strong>un conjunto de entrenamiento</strong>.</p></li>
+<li><p>Una de las técnicas habituales es la llamada <strong>bootstrapping</strong>: se estima el error generando <span class="math notranslate nohighlight">\(N\)</span> muestras equiprobables con reemplazamiento del conjunto de entrenamiento <span class="math notranslate nohighlight">\(D_N\)</span>.</p></li>
+<li><p>Como las muestras con reemplazamiento tienen el mismo tamaño que <span class="math notranslate nohighlight">\(D_N\)</span>, se espera una fracción <span class="math notranslate nohighlight">\(1 - \frac{1}{e}\)</span> de registros en el conjunto de entrenamiento: es la llamada <strong>regla <span class="math notranslate nohighlight">\(0.632\)</span></strong> para el estimador bootstrap.</p></li>
+</ul>
+<section id="explicacion">
+<h3>Explicación<a class="headerlink" href="#explicacion" title="Link to this heading">#</a></h3>
+<p>Dada una muestra <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span> original, el método bootstrap consiste en tomar nuevas muestras a partir de ella <strong>con reemplazamiento</strong>.</p>
+<p>Al generar una nueva muestra, tomamos elementos de la muestra original uno a uno. La probabilidad de escoger, por ejemplo, el elemento <span class="math notranslate nohighlight">\(x_1\)</span> es <span class="math notranslate nohighlight">\(1/n\)</span>, por tanto la probabilidad de no tomarlo es <span class="math notranslate nohighlight">\(1-1/n\)</span>. Como las nuevas muestras tienen <span class="math notranslate nohighlight">\(n\)</span> elementos, tomados de manera independiente, con reemplazamiento, la probabilidad que <span class="math notranslate nohighlight">\(x_1\)</span> no esté en la nueva muestra es <span class="math notranslate nohighlight">\((1-1/n)^n\)</span>.</p>
+<p>Al hacer <span class="math notranslate nohighlight">\(n\to\infty\)</span> tenemos <span class="math notranslate nohighlight">\(1/e\)</span> que es la probabilidad de que un elemento no haya sido escogido.</p>
+<p>Por lo tanto, la probabilidad que un elemento esté en las muestras tomadas con bootstrapping es <span class="math notranslate nohighlight">\(1-1/e\approx0.632\)</span>.</p>
+<p>Esto quiere decir que cada una de las muestras que se crean usando el método bootstraping, tiene, en media, un 63% del conjunto original.</p>
+</section>
+</section>
+<section id="una-mejora-de-la-precision">
+<h2>Una mejora de la precisión<a class="headerlink" href="#una-mejora-de-la-precision" title="Link to this heading">#</a></h2>
+<p><strong>Bagging (“bootstrap aggregating”)</strong>:</p>
+<ul class="simple">
+<li><p>Realizamos N réplicas del conjunto de entrenamiento mediante <strong>bootstrapping</strong>.</p></li>
+<li><p>En media, cada conjunto de entrenamiento tendrá un 63% de las instancias del conjunto inicial.</p></li>
+<li><p>Utilizamos cada una de las réplicas para clasificar el conjunto de validación.</p></li>
+<li><p>Usamos la regla del <strong>voto mayoritario</strong> para asignar las clases.</p></li>
+<li><p>Este método ayuda a corregir resultados de clasificadores “inestables”.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/Bagging.png"><img alt="_images/Bagging.png" src="_images/Bagging.png" style="width: 500px;" /></a>
+<section id="estimacion-del-error-por-bootstraping">
+<h3>Estimación del error por Bootstraping<a class="headerlink" href="#estimacion-del-error-por-bootstraping" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">## Hacemos el entrenamiento de los clasificadores</span>
+<span class="n">NumRepeticiones</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># hacemos 100 muestras con bootstrap</span>
+<span class="n">NumMuestras</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># el número de muestras totales en X_train</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># un listado con los índices de X_train 1,2,...,NumMuestras</span>
+<span class="n">clf_Boot</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">scores</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NumRepeticiones</span><span class="p">):</span>
+    <span class="n">indicesNew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span><span class="n">NumMuestras</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#nuevos indices cogidos al azar</span>
+    <span class="n">X_train_Boot</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">indicesNew</span><span class="p">]</span> <span class="c1"># tomamos los datos X de esos indices</span>
+    <span class="n">y_train_Boot</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">indicesNew</span><span class="p">]</span> <span class="c1"># y sus categorías</span>
+    <span class="n">clf_Boot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_Boot</span><span class="p">,</span> <span class="n">y_train_Boot</span><span class="p">)</span>
+    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clf_Boot</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Exactitud: </span><span class="si">%.3f</span><span class="s1"> +/- </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">scores</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud: 0.962 +/- 0.021
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="implementacion-del-bagging">
+<h3>Implementación del Bagging<a class="headerlink" href="#implementacion-del-bagging" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">## Hacemos el entrenamiento de los clasificadores</span>
+<span class="n">NumRepeticiones</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># hacemos 100 muestras con bootstrap</span>
+<span class="n">NumMuestras</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># el número de muestras totales en X_train</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># un listado con los índices de X_train 1,2,...,NumMuestras</span>
+<span class="n">clf_Bagg</span> <span class="o">=</span> <span class="p">[</span><span class="n">GaussianNB</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumRepeticiones</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NumRepeticiones</span><span class="p">):</span>
+    <span class="n">indicesNew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span><span class="n">NumMuestras</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#nuevos indices cogidos al azar</span>
+    <span class="n">X_train_Bagg</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">indicesNew</span><span class="p">]</span> <span class="c1"># tomamos los datos X de esos indices</span>
+    <span class="n">y_train_Bagg</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">indicesNew</span><span class="p">]</span> <span class="c1"># y sus categorías</span>
+    <span class="n">clf_Bagg</span><span class="p">[</span><span class="n">rep</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_Bagg</span><span class="p">,</span> <span class="n">y_train_Bagg</span><span class="p">)</span>    
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Ahora se hace uso de N clasificadores entrenados para predecir con voto mayoritario el conjunto de test</strong></p>
+<p><strong>Se usa la moda como forma de obtener la etiqueta más votada</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### ATENCIÓN: HAY QUE USAR EL VOTO MAYORITARIO, POR TANTO HAY QUE GUARDAR TODOS LOS VOTOS</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="n">y_predMult</span> <span class="o">=</span> <span class="p">[</span><span class="n">clf_Bagg</span><span class="p">[</span><span class="n">rep</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumRepeticiones</span><span class="p">)]</span>
+<span class="n">y_predVoto</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">y_predMult</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_predVoto</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.9737
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="implementacion-del-bagging-libreria-sk-learn">
+<h3>Implementación del Bagging (librería sk-learn)<a class="headerlink" href="#implementacion-del-bagging-libreria-sk-learn" title="Link to this heading">#</a></h3>
+<p>En la librería sk-learn se encuentra una implementación del Bagging para clasificadores en la sublibrería <strong>BaggingClassifier</strong>:</p>
+<p>https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingClassifier.html</p>
+<p>Los <strong>parámetros</strong> más importantes del constructor son:</p>
+<ul class="simple">
+<li><p><strong>base_estimator</strong> : el estimador base que utiliza. Por defecto es <strong>DecisionTreeClassifier</strong>.</p></li>
+<li><p><strong>n_estimators</strong> : número de estimadores, <strong>por defecto son 10</strong>.</p></li>
+</ul>
+<p>Los <strong>métodos</strong> que se pueden invocar desde el objeto creado con el constructor son, entre otros:</p>
+<ul class="simple">
+<li><p><strong>fit(X,y)</strong> : realiza el ajuste del modelo a partir de una conjunto <strong>X</strong> de características y un conjuno <strong>y</strong> de respuestas.</p></li>
+<li><p><strong>predict(X)</strong> : predice las resupuestas de un conjunto de características <strong>X</strong>.</p></li>
+<li><p><strong>score(X,y)</strong> : devuelve la exactitud o accuracy conocidos un conjunto de características <strong>X</strong> y sus respuestas correctas <strong>y</strong>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
+<span class="n">bggC</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">()</span>
+<span class="n">bggC</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">bggC</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.9737
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Se repite el Bagging cambiando el clasificador</strong></p>
+<p>Se usa el clasificador K-Vecinos</p>
+<p>https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="n">bggC</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">KNeighborsClassifier</span><span class="p">())</span>
+<span class="n">bggC</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">bggC</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.9737
+</pre></div>
+</div>
+</div>
+</div>
+<p><span style='color:Red'> <font size="5"> <b>Información Complementaria</b></font> </span></p>
+</section>
+</section>
+<section id="es-bueno-el-clasificador-p-valor">
+<h2>¿Es bueno el clasificador? P-Valor<a class="headerlink" href="#es-bueno-el-clasificador-p-valor" title="Link to this heading">#</a></h2>
+<p>Un clasificador implica:</p>
+<ul class="simple">
+<li><p>Un conjunto de datos D</p></li>
+<li><p>Un clasificador entrenado, F, sobre D.</p></li>
+<li><p>Una medida de la exactitud del clasificador, accuracy (ACC).</p></li>
+</ul>
+<p>Se tiene un único dato (ACC) y con eso no se puede hacer nada. Es como si mide la altura de una persona, no dice nada acerca de la media de una población</p>
+<p>Entonces, <strong>¿cómo contestar la pregunta anterior acerca de si un solo clasificador es bueno?</strong></p>
+<p>Usando un test de permutación se mide la probabilidad de que el ACC alcanzado haya sido por pura casualidad. El p-valor representará la fracción de datos aleatorios en los que el clasificador se comporta igual o mejor que en los datos reales que tenemos.</p>
+<p>En el fondo se está analizando si hay correlación entre X e Y. El clasificador se encarga de encontrar esta estructura/conexión, pero si ésta no existe, el clasificador no está cumpliendo su función, y no debe ser considerado un buen clasificador.</p>
+<p><strong>La hipótesis nula es que el clasificador que tenemos ha actuado por pura suerte</strong>, es decir, no es bueno. Y el método consiste en:</p>
+<ul class="simple">
+<li><p>Generar, a partir de los datos, nuevos conjuntos de datos “aleatorios”, realizando permutaciones de los que tenemos. Generamos conjuntos D’ a partir de D. El número de nuevos conjuntos es M.</p></li>
+<li><p>Para cada nuevo conjunto de datos, D’, usamos el clasificador F, y hallamos una precisión ACC’</p></li>
+<li><p>Contamos el número de veces que ACC’ es mejor que la ACC original que teníamos con los datos originales, lo llamamos “Cont”</p></li>
+</ul>
+<p>La formula para calcular el p-valor es</p>
+<div class="math notranslate nohighlight">
+\[p\_valor = \frac{Cont+1}{M+1}\]</div>
+<p>El p-valor representa la fracción de las muestra aleatorias en que el clasificador se comportó mejor que en los datos originales. <strong>Por tanto, si el p-valor es pequeño, podemos decir que la ACC es significativa (significativamente alta) y el clasificador es significativo sobre la hipótesis nula, es decir, rechazamos la hipótesis nula.</strong></p>
+<p>Respecto a las versiones “randomizadas” de los datos, D’ (las permutaciones), es importante subrayar que, idealmente, <strong>deberían tomarse</strong> todas las posibles permutaciones de los datos, pero esto es costosísimo computacionalmente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Entrenamiento inicial y toma del ACC</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="n">clf_NB</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span><span class="o">=</span><span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">ACC_Ini</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy Inicial: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ACC_Ini</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy Inicial: 0.974
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Se mide la Exactitud en M permutaciones</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">## Hacemos el entrenamiento de los clasificadores</span>
+<span class="n">NumRepeticiones</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># hacemos 100 muestras con bootstrap</span>
+<span class="n">NumMuestras</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># el número de muestras totales en X_train</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># un listado con los índices de X_train 1,2,...,NumMuestras</span>
+<span class="n">clf_Boot</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">Cont</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">rep</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NumRepeticiones</span><span class="p">):</span>
+    <span class="n">indicesNew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span><span class="n">NumMuestras</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#nuevos indices cogidos al azar</span>
+    <span class="n">X_train_Boot</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">indicesNew</span><span class="p">]</span> <span class="c1"># tomamos los datos X de esos indices</span>
+    <span class="n">y_train_Boot</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">indicesNew</span><span class="p">]</span> <span class="c1"># y sus categorías</span>
+    <span class="n">clf_Boot</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_Boot</span><span class="p">,</span> <span class="n">y_train_Boot</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">clf_Boot</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ACC_Ini</span><span class="p">:</span>
+        <span class="n">Cont</span> <span class="o">+=</span><span class="mi">1</span>
+
+<span class="n">p_valor</span> <span class="o">=</span> <span class="p">(</span><span class="n">Cont</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">NumRepeticiones</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">p_valor</span><span class="p">,</span> <span class="n">Cont</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.009900990099009901, 0)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Luego podemos concluir que el clasificador GaussianNB para el conjunto Iris es bueno</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indices</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,
+        13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,
+        26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,  38,
+        39,  40,  41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,
+        52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,  64,
+        65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,
+        78,  79,  80,  81,  82,  83,  84,  85,  86,  87,  88,  89,  90,
+        91,  92,  93,  94,  95,  96,  97,  98,  99, 100, 101, 102, 103,
+       104, 105, 106, 107, 108, 109, 110, 111])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span><span class="n">NumMuestras</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 22,  53,  80,  84,  72,  10,  88,  94,  13,  26,  31,  29,  44,
+        15,  56, 102,  36,  48,  40,  91,  82,  97,   4,  43,  20,  17,
+        15,  89,  63,   7,  93, 109,  21, 106,  13,  38, 106,  58,   6,
+        11,  89,  64,  28,  73,  92,  14,  18,  19,  76,   8,  13,  37,
+        23,  64,  58,  32,  23,  55,  45,  39,  43,  37,  62,  99,  26,
+        69,  56, 109,  98,  86,  42, 105,  48,  74,  57,  77,  99,  12,
+        85,  41,  85,  20,  21,  48,  93,  70,  23,  91, 107,  82,  52,
+        78, 108,  78,  99,  77,  36,  17,  98,  66,  31,  96,  46, 102,
+        20,  35,  76,  74,   9,  81,  76,   2])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clasificación naive-Bayes de secuencias de ADN</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Árboles de Decisión</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-hace-una-carga-del-conjunto-iris-desde-la-libreria-sk-learn">Se hace una Carga del conjunto Iris desde la librería sk-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-hace-el-ajuste-por-naive-bayes-con-la-clase-disponible-en-sk-learn">Se hace el ajuste por Naïve-Bayes con la clase disponible en sk-learn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">Matriz de Confusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ratios-que-miden-la-precision-de-la-clasificacion">Ratios que miden la precisión de la clasificación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1 - Score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consejos-generales">Consejos Generales (*)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primeramente-obtenemos-la-prediccion-del-modelo-sobre-el-conjunto-de-test">Primeramente obtenemos la predicción del modelo sobre el conjunto de Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-calculamos-los-indicadores">Y calculamos los indicadores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-del-error-de-clasicacion">Control del error de Clasicación</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicacion">Explicación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#una-mejora-de-la-precision">Una mejora de la precisión</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-del-error-por-bootstraping">Estimación del error por Bootstraping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-del-bagging">Implementación del Bagging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-del-bagging-libreria-sk-learn">Implementación del Bagging (librería sk-learn)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#es-bueno-el-clasificador-p-valor">¿Es bueno el clasificador? P-Valor</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Departamento de Matemática Aplicada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

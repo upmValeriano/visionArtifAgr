@@ -1,0 +1,1866 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Clasificación naive-Bayes de secuencias de ADN &#8212; Introducción al Aprendizaje Automático</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Ratios e indicadores" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html" />
+    <link rel="prev" title="Clasificación naive-Bayes" href="02.1_MetodosdeClasificacion-Naive-Bayes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Clasificación naive-Bayes de secuencias de ADN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html">Ratios e indicadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.1_Clustering-K-Means.html">Aprendizaje no supervisado. Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.06_CadenasMarkov.html">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.4_RRNN-Ejercicio%20Wine.html">RRNN - Ejercicio Wine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.03_SOM_Algoritmo.html">El Algoritmo <em>SOM</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clasificación naive-Bayes de secuencias de ADN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corta-pega-en-rna">“Corta-pega” en RNA:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema">Problema</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conjunto-de-datos-de-entrenamiento">Conjunto de datos de entrenamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preproceso-de-las-secuencias">Preproceso de las secuencias</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtener-dos-subconjuntos-uno-de-entrenamiento-y-otro-de-validacion">Obtener dos subconjuntos, uno de entrenamiento y otro de validación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-calculan-las-probabilidades-de-cada-clase-en-funcion-de-la-posicion">Se calculan las probabilidades de cada clase en función de la posición</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-representa-la-probabilidad-clase-a-clase-de-cada-letra-en-su-posicion">Se representa la probabilidad clase a clase de cada letra en su posición</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-evalua-el-conjunto-de-pruebas-test-con-las-frecuencias-anteriores">Se evalua el conjunto de Pruebas (test) con las frecuencias anteriores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-con-la-libreria-sk-learn">Implementación con la librería sk-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primero-se-prepara-la-matriz-x-de-los-conjuntos-de-entranamiento-y-pruebas">Primero se prepara la matriz X de los conjuntos de entranamiento y pruebas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ademas-se-convierten-los-caracteres-alfabeticos-en-numeros">Además se convierten los caracteres alfabéticos en números</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#y-se-presenta-la-correspondiente-matriz-de-confusion">Y se presenta la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-con-la-libreria-sk-learn-formato-de-etiquetas-one-hot">Implementación con la librería sk-learn (formato de etiquetas one-hot)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtener-la-matriz-de-60-columnas">Obtener la matriz de 60 columnas.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convertir-las-etiquetas-al-formato-one-hot">Convertir las etiquetas al formato one-hot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repetir-el-entrenamiento-y-validacion">Repetir el entrenamiento y validación</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clasificacion-naive-bayes-de-secuencias-de-adn">
+<h1>Clasificación naive-Bayes de secuencias de ADN<a class="headerlink" href="#clasificacion-naive-bayes-de-secuencias-de-adn" title="Link to this heading">#</a></h1>
+<p>La <strong>transcripción</strong> del ADN es el proceso en el que se transfiere la información genética contenida en el ADN, mediante la síntesis de otra molécula llamada ARN. Este proceso lo realizan las enzimas <strong>ARN polimerasas</strong> y tiene 3 etapas:</p>
+<ul class="simple">
+<li><p><strong>Iniciación</strong>: la ARN polimerasa se une a una secuencia de ADN (promotor) , que se encuentra al inicio de un gen (cada gen tiene su propio promotor) y se genera un cebador de ARN al que se le van a unir los nucleótidos complementarios de la cadena molde de ADN.</p></li>
+<li><p><strong>Elongación</strong>: la ARN polimerasa ’lee’ base a base el molde de ADN y va uniendo secuencialmente, a partir del cebador, los nucleótidos de ARN complementarios a la secuencia molde formando una cadena que crece en dirección <span class="math notranslate nohighlight">\(5' -&gt; 3'\)</span>. Esa cadena de ARNm (ARN mensajero), se llama transcrito y tiene la misma información, pero complementaria, que la cadena de ADN molde y en lugar de la base timina (T) tiene Uracilo (U).</p></li>
+<li><p><strong>Terminación</strong>: una vez que la ARN polimerasa llega a las secuencias de terminación del ADN, la ARN polimerasa libera el transcrito.</p></li>
+</ul>
+<p>Después de estas tres fases, en eucariotas, el transcrito se modifica. Primero se le añade una caperuza al extremo 5’(CAP 5’) y una cola de adeninas (poli-A) al extremo 3’. También, se produce la escisión (eliminación) de los intrones (secuencias no codificantes) y la unión de los exones (secuencias codificantes) en un proceso llamado <strong>splicing</strong>.</p>
+<p>El <strong>ARNm</strong> maduro luego va al citoplasma y se produce su <strong>traducción a polipéptido</strong>. En el proceso de traducción se genera una cadena polipeptídica a partir del transcrito maduro utilizando el código genético como referencia y con la ayuda del <strong>ARNt</strong> (ARN transferente) y las dos subunidades del ribosoma. Al igual que la transcripción, la traducción tiene tres etapas, iniciación, elongación y terminación:</p>
+<ul class="simple">
+<li><p><strong>Iniciación</strong>: el ribosoma y el ARNt se unen al ARNm y forman el complejo de iniciación.</p></li>
+<li><p><strong>Elongación</strong>: proceso entre ARNt y ARNm para formar los sucesivos enlaces peptídicos desde el sitio A (codón) del ribosoma.</p></li>
+<li><p><strong>Terminación</strong>: entra al codón del ribosoma un codón de stop del ARNm, que no es reconocido por el ARNt y se produce la liberación del polipéptido y el desacoplamiento de las subunidades del ribosoma.</p></li>
+</ul>
+<p>Se acepta como definición de <strong>gen</strong> a todo segmento de ADN que se encuentra a continuación de un promotor y que puede ser transcrito, originando un ARN funcional (ARNm, ARNt, ARNsn, …).</p>
+<p>La <strong>transcriptoma</strong> estudia los transcritos que se forma en el proceso de copia de la información genética contenida en el ADN en forma de ARN (<strong>transcripción</strong>). Actualmente existen tecnologías de secuenciación masiva llamadas <strong>NGS</strong> (Next Generation Sequencing). La tecnología NGS más popular es la secuenciación directa de ARN (<strong>ARN-seq</strong>).</p>
+<p>La metodología <strong>ARN-seq</strong> tiene las etapas:</p>
+<ul class="simple">
+<li><p>Extracción del ARN total desde la muestra biológica.</p></li>
+<li><p>Fragmentación del ARN.</p></li>
+<li><p>Generación de librerías ARN-seq.</p></li>
+<li><p>Amplificación del ADN circular (por <em>reacción en cadena de la polimerasa</em>) y secuenciación para obtener pequeñas secuencias de nucleótidos (<strong>reads</strong>).</p></li>
+</ul>
+<p>Consorcios científicos proporcionan gran cantidad datos de transcriptoma, genoma y proteoma:</p>
+<ul class="simple">
+<li><p>Proyecto <strong>ENCODE</strong> (ENCyclopedia Of DNA Elements).</p></li>
+<li><p>Proyecto <strong>GTEX</strong> (genotype-tissue expression).</p></li>
+</ul>
+<p>Para datos de expresión génica, el clustering se puede realizar en función de los genes o de las muestras. En la agrupación basada en genes (<em>gene-based clustering</em>), los genes se consideran objetos mientras que las muestras se consideran características, mientras que en la agrupación basada en muestras, las muestras se pueden segregar en grupos idénticos donde los genes se tratan como características y las muestras como objetos.</p>
+<section id="corta-pega-en-rna">
+<h2>“Corta-pega” en RNA:<a class="headerlink" href="#corta-pega-en-rna" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>En algunos genes, las secciones del DNA que codifican proteínas (<strong>exones</strong>) a veces están interrumpidas por regiones no
+codificantes (<strong>intrones</strong>).</p></li>
+<li><p>El proceso de “corta-pega” del RNA <strong>quita los intrones</strong> del mRNA para generar la secuencia final que codifica la proteina, dejando únicamente los exones en el RNA editado. Los intrones vienen caracterizados por un sitio <strong>donor</strong> (frontera exón-intrón) y uno <strong>aceptor</strong> (frontera intrón-exón).</p></li>
+</ul>
+<p>Una animación del proceso se muestra en: https://dnalc.cshl.edu/resources/3d/rna-splicing.html</p>
+<section id="problema">
+<h3>Problema<a class="headerlink" href="#problema" title="Link to this heading">#</a></h3>
+<p>¿<strong>a partir de una lista de secuencias de DNA de las que conocemos “sitios donores”, ¿podemos predecir los sitios donores en nuevas secuencias</strong>?</p>
+</section>
+</section>
+<section id="conjunto-de-datos-de-entrenamiento">
+<h2>Conjunto de datos de entrenamiento<a class="headerlink" href="#conjunto-de-datos-de-entrenamiento" title="Link to this heading">#</a></h2>
+<p>El conjunto de datos esta en el archivo ‘splice.txt’ que puedes descargar de Moodle. Las primeras líneas del archivo son (hemos truncado las ultimas posiciones de las secuencias solo para ajustarlas al texto de este documento):</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/splice.txt&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Instance</th>
+      <th>Sequence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>EI</td>
+      <td>ATRINS-DONOR-521</td>
+      <td>CCAGCTGCATCACAGGAGGCCAGCGAGCAGGTCTGTTCCAAGGGCC...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>EI</td>
+      <td>ATRINS-DONOR-905</td>
+      <td>AGACCCGCCGGGAGGCGGAGGACCTGCAGGGTGAGCCCCACCGCCC...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>EI</td>
+      <td>BABAPOE-DONOR-30</td>
+      <td>GAGGTGAAGGACGTCCTTCCCCAGGAGCCGGTGAGAAGCGCAGTCG...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>EI</td>
+      <td>BABAPOE-DONOR-867</td>
+      <td>GGGCTGCGTTGCTGGTCACATTCCTGGCAGGTATGGGGCGGGGCTT...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>EI</td>
+      <td>BABAPOE-DONOR-2817</td>
+      <td>GCTCAGCCCCCAGGTCACCCAGGAACTGACGTGAGTGTCCCCATCC...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Todas las secuencias tienen 60 pares de bases. La primera columna (<strong>Class</strong>) indica la clase a la que pertenece la secuencia: EI para las que proporcionan un salto exon-intrón (donores); IE para las secuencias que contienen una frontera intron-exón (aceptores); N para aquellas secuencias que no son ni EI ni IE.</p>
+<p>La segunda columna (<strong>Instance</strong>) es una etiqueta para cada una de las instancias (filas), y la tercera columna da la <strong>secuencia</strong> correspondiente en terminos del alfabeto A, T, C y G.</p>
+</section>
+<section id="preproceso-de-las-secuencias">
+<h2>Preproceso de las secuencias<a class="headerlink" href="#preproceso-de-las-secuencias" title="Link to this heading">#</a></h2>
+<p>Algunas de las secuencias tienen ambiguedad en determinadas posiciones, de forma que incluyen las letras D, N, S o R de acuerdo con la siguiente tabla:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Letra</p></th>
+<th class="head"><p>Significado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>D</p></td>
+<td><p>A o G o T</p></td>
+</tr>
+<tr class="row-odd"><td><p>N</p></td>
+<td><p>A o G o T o C</p></td>
+</tr>
+<tr class="row-even"><td><p>S</p></td>
+<td><p>C o G</p></td>
+</tr>
+<tr class="row-odd"><td><p>R</p></td>
+<td><p>A o G</p></td>
+</tr>
+</tbody>
+</table>
+<p>Estos caracteres ambiguos aparecen en muy pocas instancias, así que se van a eliminar de los datos para simplificar el analisis. Primero se realiza un proceso de filtrado para saber cuantas secuencias quedan:</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sequence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;D|N|S|R&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sequence
+False    3175
+True       15
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sequence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;D|N|S|R&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Instance</th>
+      <th>Sequence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>107</th>
+      <td>EI</td>
+      <td>HUMALPI1-DONOR-42</td>
+      <td>CACACAGGGCACCCCCTCANNNNNNNNNNNNNNNNNNNNNNNNNNN...</td>
+    </tr>
+    <tr>
+      <th>239</th>
+      <td>EI</td>
+      <td>HUMCSPB-DONOR-2010</td>
+      <td>AACTTCTCCAACGACATCATGCTACTGCAGGTNAGGCACACTCCTG...</td>
+    </tr>
+    <tr>
+      <th>365</th>
+      <td>EI</td>
+      <td>HUMH19-DONOR-2562</td>
+      <td>TCTGGGCTCCCAGAACCCACAACATGAAAGGTGAGGGNCTTCCTGC...</td>
+    </tr>
+    <tr>
+      <th>366</th>
+      <td>EI</td>
+      <td>HUMH19-DONOR-2766</td>
+      <td>ACTACCTGACTCAGGAATCGGCTCTGGAAGGTGAGCACCAGCGCTC...</td>
+    </tr>
+    <tr>
+      <th>485</th>
+      <td>EI</td>
+      <td>HUMMHCD8A-DONOR-1087</td>
+      <td>TCAGCCACTTCGTGCCGGTCTTCCTGCCAGGTCCGCGCGCCGGGTT...</td>
+    </tr>
+    <tr>
+      <th>1247</th>
+      <td>IE</td>
+      <td>HUMMHB27B-ACCEPTOR-1202</td>
+      <td>DGACGGGGCTGACCGCGGGGGCGGGTCCAGGGTCTCACACCCTCCA...</td>
+    </tr>
+    <tr>
+      <th>1440</th>
+      <td>IE</td>
+      <td>HUMSPRO-ACCEPTOR-2841</td>
+      <td>ATACCCCTTTTCACTTTCCCCACCTCTTAGGGTARTCAGTACTGGC...</td>
+    </tr>
+    <tr>
+      <th>1441</th>
+      <td>IE</td>
+      <td>HUMSPRO-ACCEPTOR-3195</td>
+      <td>CCCTCCTAATGCCCACCATCCCGTCCTCAGGGAAASAGTACTGGGA...</td>
+    </tr>
+    <tr>
+      <th>1804</th>
+      <td>N</td>
+      <td>HUMC1A1-NEG-3901</td>
+      <td>ATGGCCTACATGGGTGTGGGTGCTGCAATTTCCGCTNCGGCAGACA...</td>
+    </tr>
+    <tr>
+      <th>2069</th>
+      <td>N</td>
+      <td>HUMFERG2-NEG-1</td>
+      <td>GGATCCCTAGTATAACACATTCAGTGTTCCCCNTTTCAGCCCNTTT...</td>
+    </tr>
+    <tr>
+      <th>2135</th>
+      <td>N</td>
+      <td>HUMGCB-NEG-2281</td>
+      <td>TGTGAACATGCGCTGTGTGCTGCTTGCTTTGGAAACTNGCCTGGGT...</td>
+    </tr>
+    <tr>
+      <th>2578</th>
+      <td>N</td>
+      <td>HUMMHB27B-NEG-1201</td>
+      <td>GDGACGGGGCTGACCGCGGGGGCGGGTCCAGGGTCTCACACCCTCC...</td>
+    </tr>
+    <tr>
+      <th>2636</th>
+      <td>N</td>
+      <td>HUMMHDRR2-NEG-121</td>
+      <td>TAAATCCTCTCGCTGCGTGGTGAGAAAACTGATGCCTNGAGTCTGT...</td>
+    </tr>
+    <tr>
+      <th>2637</th>
+      <td>N</td>
+      <td>HUMMHDRS1-NEG-241</td>
+      <td>AAAATACAAAAATTAGCCNNNGGGAGGCCGAGATTACAATGAGCTG...</td>
+    </tr>
+    <tr>
+      <th>2910</th>
+      <td>N</td>
+      <td>HUMRSCNTT-NEG-121</td>
+      <td>TGAGGTTAAAGGTNGAAAAGGAAATATCTTCGTATAAAAACTAGAC...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</details>
+</div>
+<p>Finalmente se <strong>borran</strong> los registros de secuencia ambigua</p>
+<p><em>Nota</em>: Hay que recordar que en una lista de datos con con <em>true</em> se copian y ~(Alt-126 o insertar símbolo) niega.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sequence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;D|N|S|R&quot;</span><span class="p">)]</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Instance</th>
+      <th>Sequence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>EI</td>
+      <td>ATRINS-DONOR-521</td>
+      <td>CCAGCTGCATCACAGGAGGCCAGCGAGCAGGTCTGTTCCAAGGGCC...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>EI</td>
+      <td>ATRINS-DONOR-905</td>
+      <td>AGACCCGCCGGGAGGCGGAGGACCTGCAGGGTGAGCCCCACCGCCC...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>EI</td>
+      <td>BABAPOE-DONOR-30</td>
+      <td>GAGGTGAAGGACGTCCTTCCCCAGGAGCCGGTGAGAAGCGCAGTCG...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>EI</td>
+      <td>BABAPOE-DONOR-867</td>
+      <td>GGGCTGCGTTGCTGGTCACATTCCTGGCAGGTATGGGGCGGGGCTT...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>EI</td>
+      <td>BABAPOE-DONOR-2817</td>
+      <td>GCTCAGCCCCCAGGTCACCCAGGAACTGACGTGAGTGTCCCCATCC...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3185</th>
+      <td>N</td>
+      <td>ORAHBPSBD-NEG-2881</td>
+      <td>TCTCTTCCCTTCCCCTCTCTCTTTCTTTCTTTTCTCTCCTCTTCTC...</td>
+    </tr>
+    <tr>
+      <th>3186</th>
+      <td>N</td>
+      <td>ORAINVOL-NEG-2161</td>
+      <td>GAGCTCCCAGAGCAGCAAGAGGGCCAGCTGAAGCACCTGGAGAAGC...</td>
+    </tr>
+    <tr>
+      <th>3187</th>
+      <td>N</td>
+      <td>ORARGIT-NEG-241</td>
+      <td>TCTCGGGGGCGGCCGGCGCGGCGGGGAGCGGTCCCCGGCCGCGGCC...</td>
+    </tr>
+    <tr>
+      <th>3188</th>
+      <td>N</td>
+      <td>TARHBB-NEG-541</td>
+      <td>ATTCTACTTAGTAAACATAATTTCTTGTGCTAGATAACCAAATTAA...</td>
+    </tr>
+    <tr>
+      <th>3189</th>
+      <td>N</td>
+      <td>TARHBD-NEG-1981</td>
+      <td>AGGCTGCCTATCAGAAGGTGGTGGCTGGTGTGGCTGCTGCTCTGGC...</td>
+    </tr>
+  </tbody>
+</table>
+<p>3175 rows × 3 columns</p>
+</div></div></div>
+</details>
+</div>
+<section id="obtener-dos-subconjuntos-uno-de-entrenamiento-y-otro-de-validacion">
+<h3>Obtener dos subconjuntos, uno de entrenamiento y otro de validación<a class="headerlink" href="#obtener-dos-subconjuntos-uno-de-entrenamiento-y-otro-de-validacion" title="Link to this heading">#</a></h3>
+<p>Divide el conjunto de datos en una parte para entrenamiento y otra parte para validacion, empleando muestreo aleatorio sin repetición. Reserva un 70 % de las instancias para entrenamiento y un 30 % para el conjunto de validacion</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;GATGTTAACCATTCTCCTTCTCCCCAACAGTTCCCCAGGGACCTCTCTCTAATCAGCCCT&#39;,
+       &#39;GTCTTTGCTTTTCTCTGTATTATATCAAACATTGGGAAATTCAGCCTCTCCAGGCGATGG&#39;,
+       &#39;CCTGTCTCCTTGCCTGCCCCACCGTGTCAGGACTACTCCGCAGCTCCCCGGGGCCGATTT&#39;,
+       ...,
+       &#39;GCTAATAAAAACAAGCACTATTGTTCAACTTTTAGGTGTGTGTACTTTGGAGCCACCATT&#39;,
+       &#39;CTTAGAGTAGTTAAAATTTTCAAACTGAGATTTTAAAACTGTAATTTATTTAAAGGGTTA&#39;,
+       &#39;CTTGCACATACCTATGCTTCAAGAAATCCCAACATGAAGAAAGGAGACGAGTGTAAAAAC&#39;],
+      dtype=object)
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="se-calculan-las-probabilidades-de-cada-clase-en-funcion-de-la-posicion">
+<h2>Se calculan las probabilidades de cada clase en función de la posición<a class="headerlink" href="#se-calculan-las-probabilidades-de-cada-clase-en-funcion-de-la-posicion" title="Link to this heading">#</a></h2>
+<p>Sobre el conjunto de entrenamiento, <b>X_train</b> e <b>y_train</b>.</p>
+<p>Crear una lista de nombre, por ejemplo, <strong>frecuencias</strong> de tres dimensiones por clase, letra, posición. Hacer un recuento de las letras por clase y posición y guardar el resultado en la variable frecuencias. Finalmente dividir el recuento por el número de registros que tiene cada clase para obtener la frecuencia.</p>
+<p>Sobre una lista de nombre, por ejemplo, <strong>probaClase</strong> guardar la frecuencia de cada clase.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_60</span> <span class="o">=</span> <span class="p">[[</span><span class="n">letra</span> <span class="k">for</span> <span class="n">letra</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span> <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="n">y_real</span> <span class="o">=</span> <span class="n">y_train</span>
+<span class="n">clases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_real</span><span class="p">))</span>
+<span class="n">letras</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">X_60</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">numClases</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">clases</span><span class="p">)</span>
+<span class="n">numLetras</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">letras</span><span class="p">)</span>
+<span class="n">numPosicion</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_60</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#frecuencias = np.asarray([[[0 for i in range(numPosicion)] for j in range(numLetras) ] for k in range(numClases)], dtype=np.float64)</span>
+<span class="n">frecuencias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">numClases</span><span class="p">,</span> <span class="n">numPosicion</span><span class="p">,</span> <span class="n">numLetras</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="c1">### Se recuenta el nº de letras que hay en cada clase, posición y tipo de letra</span>
+<span class="k">for</span> <span class="n">fila</span><span class="p">,</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_60</span><span class="p">,</span> <span class="n">y_real</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPosicion</span><span class="p">):</span>
+        <span class="n">letra</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+        <span class="n">iClas</span> <span class="o">=</span> <span class="n">clases</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
+        <span class="n">iLetr</span> <span class="o">=</span> <span class="n">letras</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">letra</span><span class="p">)</span>
+        <span class="n">frecuencias</span><span class="p">[</span><span class="n">iClas</span><span class="p">][</span><span class="n">pos</span><span class="p">][</span><span class="n">iLetr</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+<span class="c1">### Por último se divide por el nº de elementos en cada clase y se almacena la probabilidad de clase</span>
+<span class="n">probaClases</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">clases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">frecuencias</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">frecuencias</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_real</span><span class="p">[</span><span class="n">y_real</span> <span class="o">==</span> <span class="n">cl</span><span class="p">])</span>
+    <span class="n">probaClases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_real</span><span class="p">[</span><span class="n">y_real</span> <span class="o">==</span> <span class="n">cl</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_real</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="se-representa-la-probabilidad-clase-a-clase-de-cada-letra-en-su-posicion">
+<h3>Se representa la probabilidad clase a clase de cada letra en su posición<a class="headerlink" href="#se-representa-la-probabilidad-clase-a-clase-de-cada-letra-en-su-posicion" title="Link to this heading">#</a></h3>
+<p>Elegir 4 colores para cada una de las letras.
+Hacer un plot múltiple, con 3 subplots por cada una de las clase. Por ejemplo:</p>
+<p><strong>fig, axs = plt.subplots(numClases, figsize=(15,10))</strong></p>
+<p>Crear una lista con valores de 0 a 59 para construir los valores X de cada subplot y en Y poner las frecuencias para cada una de las clases. Pasar a scatter en cada subplot un bloque completo por letra.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">]</span>
+<span class="n">iClas</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">lstX</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPosicion</span><span class="p">)]</span>
+<span class="n">nombreClases</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Entron-Intron&#39;</span><span class="p">,</span> <span class="s1">&#39;Intron-Entron&#39;</span><span class="p">,</span> <span class="s1">&#39;Ni Entron- Ni Intron&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">numClases</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Frecuencia de las proteinas según posición por clase&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">iClas</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">iLetr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numLetras</span><span class="p">):</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">iClas</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">lstX</span><span class="p">,</span> <span class="n">frecuencias</span><span class="p">[</span><span class="n">iClas</span><span class="p">,:,</span><span class="n">iLetr</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">iLetr</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">letras</span><span class="p">[</span><span class="n">iLetr</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="p">,</span> <span class="n">nomCl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">nombreClases</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">nomCl</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">letras</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower center&quot;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">numLetras</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6952bbca004ac7b0e3031413c96605b8798bc38f49d72701025314aa8a4fdbad.png" src="_images/6952bbca004ac7b0e3031413c96605b8798bc38f49d72701025314aa8a4fdbad.png" />
+</div>
+</div>
+</section>
+<section id="se-evalua-el-conjunto-de-pruebas-test-con-las-frecuencias-anteriores">
+<h3>Se evalua el conjunto de Pruebas (test) con las frecuencias anteriores<a class="headerlink" href="#se-evalua-el-conjunto-de-pruebas-test-con-las-frecuencias-anteriores" title="Link to this heading">#</a></h3>
+<p>Ir leyendo fila a fila la matriz X_test y calcular la frecuencia de cada clase <span class="math notranslate nohighlight">\(k\)</span> valor de letra <span class="math notranslate nohighlight">\(p\)</span> en la posición <span class="math notranslate nohighlight">\(i\)</span> y obtener como clase aquella de mayor valor de acuerdo a:</p>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} \frac{n_k}{N}\prod\limits_{i=1}^{n} f_{k,i}(p)\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(f_{k,i}(p)=\frac{n_{k,i,p}}{n_k}\)</span></p>
+<p>Además <span class="math notranslate nohighlight">\(n_{k,i,p}\)</span> es el número de elementos del conjunto de entrenamiento que cumple <span class="math notranslate nohighlight">\(x_i=p\)</span> además de <span class="math notranslate nohighlight">\(y=k\)</span></p>
+<p>Finalmente <span class="math notranslate nohighlight">\(n_k\)</span> es el número de elementos del conjunto de entrenamiento que cumple <span class="math notranslate nohighlight">\(y=k\)</span></p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aciertos</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">X_60</span> <span class="o">=</span> <span class="p">[[</span><span class="n">letra</span> <span class="k">for</span> <span class="n">letra</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span> <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">]</span>
+<span class="n">y_real</span> <span class="o">=</span> <span class="n">y_test</span>
+<span class="k">for</span> <span class="n">fila</span><span class="p">,</span> <span class="n">claseOk</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_60</span><span class="p">,</span> <span class="n">y_real</span><span class="p">):</span>
+    <span class="n">probabilidad</span> <span class="o">=</span> <span class="p">[</span><span class="n">prob</span> <span class="k">for</span> <span class="n">prob</span> <span class="ow">in</span> <span class="n">probaClases</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">iCl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPosicion</span><span class="p">):</span>
+            <span class="n">letra</span> <span class="o">=</span> <span class="n">fila</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+            <span class="n">iLetr</span> <span class="o">=</span> <span class="n">letras</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">letra</span><span class="p">)</span>
+            <span class="n">probabilidad</span><span class="p">[</span><span class="n">iCl</span><span class="p">]</span> <span class="o">*=</span> <span class="n">frecuencias</span><span class="p">[</span><span class="n">iCl</span><span class="p">][</span><span class="n">pos</span><span class="p">][</span><span class="n">iLetr</span><span class="p">]</span>
+
+    <span class="n">claseEstimada</span> <span class="o">=</span> <span class="n">clases</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probabilidad</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">claseEstimada</span> <span class="o">==</span> <span class="n">claseOk</span><span class="p">:</span>
+        <span class="n">aciertos</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Porcentaje de aciertos=&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">aciertos</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_real</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Porcentaje de aciertos= 94.43861490031479
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="implementacion-con-la-libreria-sk-learn">
+<h2>Implementación con la librería sk-learn<a class="headerlink" href="#implementacion-con-la-libreria-sk-learn" title="Link to this heading">#</a></h2>
+<section id="primero-se-prepara-la-matriz-x-de-los-conjuntos-de-entranamiento-y-pruebas">
+<h3>Primero se prepara la matriz X de los conjuntos de entranamiento y pruebas<a class="headerlink" href="#primero-se-prepara-la-matriz-x-de-los-conjuntos-de-entranamiento-y-pruebas" title="Link to this heading">#</a></h3>
+<p>Para hacer el entrenamiento hay que <strong>convertir la cadena de 60 caracteres en 60 caracteristicas de 1 caracter</strong>:</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train60</span> <span class="o">=</span> <span class="p">[[</span><span class="n">letra</span> <span class="k">for</span> <span class="n">letra</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span> <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="n">X_test60</span> <span class="o">=</span> <span class="p">[[</span><span class="n">letra</span> <span class="k">for</span> <span class="n">letra</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span> <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train60</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train60</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test60</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test60</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+<span class="n">dfw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_train60</span><span class="p">)</span>
+<span class="n">dfw</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2222 60 2222
+953 60 953
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>50</th>
+      <th>51</th>
+      <th>52</th>
+      <th>53</th>
+      <th>54</th>
+      <th>55</th>
+      <th>56</th>
+      <th>57</th>
+      <th>58</th>
+      <th>59</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>G</td>
+      <td>A</td>
+      <td>T</td>
+      <td>G</td>
+      <td>T</td>
+      <td>T</td>
+      <td>A</td>
+      <td>A</td>
+      <td>C</td>
+      <td>C</td>
+      <td>...</td>
+      <td>A</td>
+      <td>A</td>
+      <td>T</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>C</td>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+      <td>G</td>
+      <td>C</td>
+      <td>T</td>
+      <td>T</td>
+      <td>...</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>G</td>
+      <td>C</td>
+      <td>G</td>
+      <td>A</td>
+      <td>T</td>
+      <td>G</td>
+      <td>G</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>T</td>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+      <td>...</td>
+      <td>G</td>
+      <td>G</td>
+      <td>G</td>
+      <td>C</td>
+      <td>C</td>
+      <td>G</td>
+      <td>A</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C</td>
+      <td>T</td>
+      <td>A</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>C</td>
+      <td>...</td>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>C</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>T</td>
+      <td>G</td>
+      <td>G</td>
+      <td>A</td>
+      <td>G</td>
+      <td>A</td>
+      <td>C</td>
+      <td>T</td>
+      <td>C</td>
+      <td>A</td>
+      <td>...</td>
+      <td>A</td>
+      <td>C</td>
+      <td>T</td>
+      <td>A</td>
+      <td>T</td>
+      <td>G</td>
+      <td>C</td>
+      <td>C</td>
+      <td>G</td>
+      <td>G</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 60 columns</p>
+</div></div></div>
+</details>
+</div>
+</section>
+<section id="ademas-se-convierten-los-caracteres-alfabeticos-en-numeros">
+<h3>Además se convierten los caracteres alfabéticos en números<a class="headerlink" href="#ademas-se-convierten-los-caracteres-alfabeticos-en-numeros" title="Link to this heading">#</a></h3>
+<p><strong>Hay varias posibilidades para hacer ésto, damos una</strong>:</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_train60</span><span class="p">)</span>
+<span class="n">bases</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
+<span class="n">base_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">iCol</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">iCol</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">iCol</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">base_mapping</span><span class="p">)</span>
+<span class="n">X_train60</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_test60</span><span class="p">)</span>
+<span class="n">bases</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;G&#39;</span><span class="p">]</span>
+<span class="n">base_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">iCol</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">iCol</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">iCol</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">base_mapping</span><span class="p">)</span>
+<span class="n">X_test60</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">X_train60</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test60</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">X_train60</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[3, 0, 1, ..., 2, 2, 1],
+       [3, 1, 2, ..., 1, 3, 3],
+       [2, 2, 1, ..., 1, 1, 1],
+       ...,
+       [3, 2, 1, ..., 0, 1, 1],
+       [2, 1, 1, ..., 1, 1, 0],
+       [2, 1, 1, ..., 0, 0, 2]], dtype=int64)
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">
+<h3>Se Resuelve utilizando el clasificador Naive Bayes de sklearn<a class="headerlink" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn" title="Link to this heading">#</a></h3>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="n">clf_NB</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train60</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train60</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test60</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;accuracy_score&#39; is not defined
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="y-se-presenta-la-correspondiente-matriz-de-confusion">
+<h4>Y se presenta la correspondiente matriz de confusión<a class="headerlink" href="#y-se-presenta-la-correspondiente-matriz-de-confusion" title="Link to this heading">#</a></h4>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test60</span><span class="p">)</span>
+<span class="n">cm</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[226   0   3]
+ [ 29 197   3]
+ [ 31  20 444]]
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">cm_display</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;IE&#39;</span><span class="p">,</span><span class="s1">&#39;EI&#39;</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b36a1499f5e2532d9f0fd954d6300c340375ed41d7f4a3ae7e802071f27c884d.png" src="_images/b36a1499f5e2532d9f0fd954d6300c340375ed41d7f4a3ae7e802071f27c884d.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="implementacion-con-la-libreria-sk-learn-formato-de-etiquetas-one-hot">
+<h2>Implementación con la librería sk-learn (formato de etiquetas one-hot)<a class="headerlink" href="#implementacion-con-la-libreria-sk-learn-formato-de-etiquetas-one-hot" title="Link to this heading">#</a></h2>
+<p>El conjunto de letras, según orden alfabético {A, C, G, T}  se convierte según un formato One-hot hacia un vector numérico de 4 dimensiones. Dando lugar a las siguientes conversiones:</p>
+<p>A -&gt; (1, 0, 0, 0)
+C -&gt; (0, 1, 0, 0)
+G -&gt; (0, 0, 1, 0)
+T -&gt; (0, 0, 0, 1)</p>
+<p>Permite una mayor suavidad en el cambio de rango numérico al cambiar de valor de etiqueta, lo que puede permitir unos mejor ajustes</p>
+<section id="obtener-la-matriz-de-60-columnas">
+<h3>Obtener la matriz de 60 columnas.<a class="headerlink" href="#obtener-la-matriz-de-60-columnas" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train60</span> <span class="o">=</span> <span class="p">[[</span><span class="n">letra</span> <span class="k">for</span> <span class="n">letra</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span> <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">X_train</span><span class="p">]</span>
+<span class="n">X_test60</span> <span class="o">=</span> <span class="p">[[</span><span class="n">letra</span> <span class="k">for</span> <span class="n">letra</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span> <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train60</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train60</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test60</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test60</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+<span class="n">dfw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_train60</span><span class="p">)</span>
+<span class="n">dfw</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2222 60 2222
+953 60 953
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>50</th>
+      <th>51</th>
+      <th>52</th>
+      <th>53</th>
+      <th>54</th>
+      <th>55</th>
+      <th>56</th>
+      <th>57</th>
+      <th>58</th>
+      <th>59</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>G</td>
+      <td>A</td>
+      <td>T</td>
+      <td>G</td>
+      <td>T</td>
+      <td>T</td>
+      <td>A</td>
+      <td>A</td>
+      <td>C</td>
+      <td>C</td>
+      <td>...</td>
+      <td>A</td>
+      <td>A</td>
+      <td>T</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>C</td>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+      <td>G</td>
+      <td>C</td>
+      <td>T</td>
+      <td>T</td>
+      <td>...</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>G</td>
+      <td>C</td>
+      <td>G</td>
+      <td>A</td>
+      <td>T</td>
+      <td>G</td>
+      <td>G</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>T</td>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+      <td>...</td>
+      <td>G</td>
+      <td>G</td>
+      <td>G</td>
+      <td>C</td>
+      <td>C</td>
+      <td>G</td>
+      <td>A</td>
+      <td>T</td>
+      <td>T</td>
+      <td>T</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C</td>
+      <td>T</td>
+      <td>A</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>C</td>
+      <td>A</td>
+      <td>G</td>
+      <td>C</td>
+      <td>...</td>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>C</td>
+      <td>T</td>
+      <td>G</td>
+      <td>T</td>
+      <td>C</td>
+      <td>C</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>T</td>
+      <td>G</td>
+      <td>G</td>
+      <td>A</td>
+      <td>G</td>
+      <td>A</td>
+      <td>C</td>
+      <td>T</td>
+      <td>C</td>
+      <td>A</td>
+      <td>...</td>
+      <td>A</td>
+      <td>C</td>
+      <td>T</td>
+      <td>A</td>
+      <td>T</td>
+      <td>G</td>
+      <td>C</td>
+      <td>C</td>
+      <td>G</td>
+      <td>G</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 60 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="convertir-las-etiquetas-al-formato-one-hot">
+<h3>Convertir las etiquetas al formato one-hot<a class="headerlink" href="#convertir-las-etiquetas-al-formato-one-hot" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train60</span><span class="p">)</span>
+<span class="n">X_train240</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train60</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">X_test240</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test60</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">X_train240</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test240</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((2222, 240), (953, 240))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_train240</span><span class="p">)</span>
+<span class="n">dfw</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>230</th>
+      <th>231</th>
+      <th>232</th>
+      <th>233</th>
+      <th>234</th>
+      <th>235</th>
+      <th>236</th>
+      <th>237</th>
+      <th>238</th>
+      <th>239</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 240 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="repetir-el-entrenamiento-y-validacion">
+<h3>Repetir el entrenamiento y validación<a class="headerlink" href="#repetir-el-entrenamiento-y-validacion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="n">clf_NB</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train240</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test240</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.9161
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>La exactitud ha mejorado ligeramente al usar el formato one-hot!</em></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02.1_MetodosdeClasificacion-Naive-Bayes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clasificación naive-Bayes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02.3_MetodosdeClasificacion-Ratioseindicadores.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ratios e indicadores</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#corta-pega-en-rna">“Corta-pega” en RNA:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problema">Problema</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conjunto-de-datos-de-entrenamiento">Conjunto de datos de entrenamiento</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preproceso-de-las-secuencias">Preproceso de las secuencias</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtener-dos-subconjuntos-uno-de-entrenamiento-y-otro-de-validacion">Obtener dos subconjuntos, uno de entrenamiento y otro de validación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-calculan-las-probabilidades-de-cada-clase-en-funcion-de-la-posicion">Se calculan las probabilidades de cada clase en función de la posición</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-representa-la-probabilidad-clase-a-clase-de-cada-letra-en-su-posicion">Se representa la probabilidad clase a clase de cada letra en su posición</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-evalua-el-conjunto-de-pruebas-test-con-las-frecuencias-anteriores">Se evalua el conjunto de Pruebas (test) con las frecuencias anteriores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-con-la-libreria-sk-learn">Implementación con la librería sk-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primero-se-prepara-la-matriz-x-de-los-conjuntos-de-entranamiento-y-pruebas">Primero se prepara la matriz X de los conjuntos de entranamiento y pruebas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ademas-se-convierten-los-caracteres-alfabeticos-en-numeros">Además se convierten los caracteres alfabéticos en números</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#y-se-presenta-la-correspondiente-matriz-de-confusion">Y se presenta la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-con-la-libreria-sk-learn-formato-de-etiquetas-one-hot">Implementación con la librería sk-learn (formato de etiquetas one-hot)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtener-la-matriz-de-60-columnas">Obtener la matriz de 60 columnas.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convertir-las-etiquetas-al-formato-one-hot">Convertir las etiquetas al formato one-hot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#repetir-el-entrenamiento-y-validacion">Repetir el entrenamiento y validación</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Departamento de Matemática Aplicada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1772 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Aprendizaje no supervisado. Clustering &#8212; Introducción al Aprendizaje Automático</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03.1_Clustering-K-Means';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clustering Jerárquico, Densidad y Mean-Shift" href="03.2_Clustering-Jerarquicosydensidad.html" />
+    <link rel="prev" title="Utilidad para Clustering" href="03.0_ClusteringUtilidades.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html">Clasificación naive-Bayes de secuencias de ADN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html">Ratios e indicadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Aprendizaje no supervisado. Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.06_CadenasMarkov.html">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.4_RRNN-Ejercicio%20Wine.html">RRNN - Ejercicio Wine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.03_SOM_Algoritmo.html">El Algoritmo <em>SOM</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03.1_Clustering-K-Means.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Aprendizaje no supervisado. Clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-no-supervisado">Aprendizaje no supervisado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-de-agrupamiento">Métodos de agrupamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similitud-y-distancia">Similitud y distancia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similitud">Similitud</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-k-medias-k-means-o-algoritmo-lloyd">Clustering K-Medias, K-Means o Algoritmo Lloyd</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estandarizacion-de-atributos">Estandarización de atributos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-y-contras-de-k-medias">Pros y contras de K-Medias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentacion-de-los-datos-iris-con-k-means">Segmentación de los datos Iris con K-means</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-de-validacion-interna">Medidas de validación interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-del-codo">Método del codo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#criterio-de-la-silueta">Criterio de la silueta</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolucion-del-algoritmo-k-means-con-un-desarrollo-propio">Resolución del algoritmo K-Means con un desarrollo propio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-agrupacion-probabilisticos-distribucion-gaussiana">Modelos de Agrupación Probabilísticos (distribución gaussiana)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-en-sk-learn">Implementación en sk-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eleccion-del-numero-de-clusters-en-clustering-probabilisticos">Elección del número de Clusters en clustering probabilísticos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-de-validacion-externas">Medidas de validación externas</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="aprendizaje-no-supervisado-clustering">
+<h1>Aprendizaje no supervisado. Clustering<a class="headerlink" href="#aprendizaje-no-supervisado-clustering" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="aprendizaje-no-supervisado">
+<h2>Aprendizaje no supervisado<a class="headerlink" href="#aprendizaje-no-supervisado" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Aquí partimos de un conjunto de <strong>validación</strong> que no ha sido clasificado previamente.</p></li>
+<li><p>Este conjunto de <strong>validación</strong> está formado por <span class="math notranslate nohighlight">\(N\)</span> registros <span class="math notranslate nohighlight">\(\{ x^1, ..., x^i, ..., x^N \}\)</span>, cada una de las cuales está descrito por un vector de <span class="math notranslate nohighlight">\(n\)</span> atributos, por tanto <span class="math notranslate nohighlight">\(x^i \in R^n\)</span>.</p></li>
+<li><p>Al no existir la matriz <span class="math notranslate nohighlight">\(y\)</span> con la variable objetivo, no existe un conjunto de entrenamiento.</p></li>
+<li><p>Los métodos no supervisados pretenden “aprender” relaciones entre los datos y clasificarlos “sin usar conocimiento previo”.</p></li>
+<li><p>Estos métodos se basan en buscar <strong>estructuras</strong>, <strong>patrones</strong> o <strong>características</strong> que sirvan para aprender posibles relaciones en los datos.</p></li>
+</ul>
+</section>
+<section id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h2>
+<p><strong>Clustering</strong> se refiere a las técnicas para encontrar <strong>subgrupos o clusters</strong> en conjunto de datos. Cuando se hace un cluster se buscan particiones en las que las observaciones sean similares entre sí.</p>
+<p>El clustering busca encontrar subgrupos homogéneos en las observaciones.</p>
+<p>Para realizar las agrupaciones utilizamos las <strong>distancias</strong> o <strong>similitudes</strong> entre los vectores de atributos <span class="math notranslate nohighlight">\(x\)</span> asociados a distintos registros.</p>
+<p>Un ejemplo de clustering para el grupo Iris:</p>
+<a class="reference internal image-reference" href="_images/Clustering_Iris.png"><img alt="_images/Clustering_Iris.png" src="_images/Clustering_Iris.png" style="width: 500px;" /></a>
+<p>O un ejemplo de agrupación de semillas:</p>
+<a class="reference internal image-reference" href="_images/Clustering_Semillas.png"><img alt="_images/Clustering_Semillas.png" src="_images/Clustering_Semillas.png" style="width: 500px;" /></a>
+<p>O finalmente un ejemplo de cultivos celulares:</p>
+<a class="reference internal image-reference" href="_images/Clustering_CultCell.png"><img alt="_images/Clustering_CultCell.png" src="_images/Clustering_CultCell.png" style="width: 500px;" /></a>
+<p>Las <strong>redes de coexpresión génica (GCN)</strong> son una herramienta fundamental para caracterizar genes mediante el estudio de sus patrones de correlación. Los genes <strong>se agrupan en función de su similitud</strong> formando módulos (grupos). Se asume que los genes que se encuentran en el mismo módulo están <strong>relacionados con un fenotipo determinado</strong>, una enfermedad o tienen una función similar. Los métodos habituales para generar GCN usan algoritmos de <strong>clustering</strong>.</p>
+<section id="objetivo">
+<h3>Objetivo<a class="headerlink" href="#objetivo" title="Link to this heading">#</a></h3>
+<p>Dadas N observaciones (registros) de n atributos, queremos asignarlas a K <strong>grupos</strong> de forma que:</p>
+<ul class="simple">
+<li><p><strong>Cada</strong> elemento esté asignado a un <strong>único</strong> grupo.</p></li>
+<li><p><strong>Todo</strong> elemento esté asignado a <strong>algún</strong> grupo.</p></li>
+<li><p>Cada grupo sea internamente <strong>homogéneo</strong>.</p></li>
+<li><p>Los grupos sean distintos (<strong>separados</strong>) entre sí.</p></li>
+</ul>
+<p>A veces la primera de las condiciones se relaja (“análisis de grupos difusos” o “<em>fuzzy cluster analysis</em>”).</p>
+</section>
+<section id="metodos-de-agrupamiento">
+<h3>Métodos de agrupamiento<a class="headerlink" href="#metodos-de-agrupamiento" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Métodos de partición</strong>. Tenemos datos heterogéneos y queremos <strong>dividirlos</strong> en un número de grupos conocido de antemano (<strong>K-means</strong>).</p></li>
+<li><p><strong>Métodos jerárquicos</strong>. Se descomponen <strong>jerárquicamente</strong> los datos de acuerdo con su proximidad o similitud. Inspirados en el paradigma Darwiniano (<strong>hipótesis similaridad - proximidad evolutiva en filogenias</strong>)</p></li>
+<li><p><strong>Métodos basados en densidades</strong>. Utilizan el grado de aglomeración de los datos para estimar los grupos (<strong>DBSCAN</strong>).</p></li>
+<li><p><strong>Métodos basados en distribuciones</strong>. Proponen un modelo como hipótesis y se busca el mejor ajuste de los datos (”<strong>Gaussian mixture models</strong>”, ajustados mediante el algoritmo de “expectation-maximization”).</p></li>
+</ul>
+</section>
+<section id="similitud-y-distancia">
+<h3>Similitud y distancia<a class="headerlink" href="#similitud-y-distancia" title="Link to this heading">#</a></h3>
+<p><strong>¿Cómo asignamos una observación a un grupo?</strong></p>
+<ul class="simple">
+<li><p>En función de la <strong>distancia</strong> de esa observación a los elementos del grupo.</p></li>
+<li><p>En función de la <strong>similitud</strong> de esa observación a los elementos del grupo.</p></li>
+</ul>
+<p>En un espacio vectorial se define una <strong>distancia</strong> <span class="math notranslate nohighlight">\(d_{ij}\)</span> entre dos vectores <span class="math notranslate nohighlight">\(x^{(i)}\)</span> y <span class="math notranslate nohighlight">\(x^{(j)}\)</span> si cumple:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d_{ij} \ge 0\)</span>. Además si <span class="math notranslate nohighlight">\(d(u, v) = 0 \rightarrow u=v\)</span> (<strong>definida positiva</strong>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(d_{ij} = d_{ji}\)</span> o <strong>propiedad simétrica</strong>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(d_{ij} + d_{jk} \ge d_{ik}\)</span> o <strong>propiedad triangular</strong>.</p></li>
+</ul>
+<p>Las medidas de distancia son útiles cuando los atributos son <strong>cuantitativos</strong> exclusivamente.</p>
+<p><strong>Ejemplos de distancia</strong>:</p>
+<ul class="simple">
+<li><p>Distancia <strong>euclídea</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[d_{ij} = \sqrt{ \sum_{p=1}^n (x_p^{(i)}-x_p^{(j)})^2}\]</div>
+<ul class="simple">
+<li><p>Distancia rectangular <strong>(Manhattan)</strong> <a href="https://es.wikipedia.org/wiki/Geometr%C3%ADa_del_taxista">(ver detalle)</a>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[d_{ij} = \sum_{p=1}^n \begin{vmatrix}x_p^{(i)}-x_p^{(j)}\end{vmatrix}\]</div>
+<ul class="simple">
+<li><p>Distancia <strong>Mahalanobis</strong> (cercanía entre variables aleatorias multidimensionales, teniendo en cuenta la correlación entre las variables aleatorias):</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[d_{ij} = \sqrt{ (x^{(i)}-x^{(j)})^T \Gamma ^{-1} (x^{(i)}-x^{(j)}) }\]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(\Gamma\)</span> la matriz de varianzas y covarianzas.</p>
+</section>
+<section id="similitud">
+<h3>Similitud<a class="headerlink" href="#similitud" title="Link to this heading">#</a></h3>
+<p>En el espacio vectorial <span class="math notranslate nohighlight">\(\mathcal{R}^n\)</span> se define la <strong>similitud</strong> entre dos vectores <span class="math notranslate nohighlight">\(u\)</span> y <span class="math notranslate nohighlight">\(v\)</span> como</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \le s_{ij} \le 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(s_{ij} = s_{ji}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(s_{ii}=1\)</span></p></li>
+</ul>
+<p>Por ejemplo el <strong>coeficiente de Gower</strong> se puede emplear para calcular la similitud tanto para propiedades continuas como discretas:</p>
+<div class="math notranslate nohighlight">
+\[s_{ij}=\frac{\sum_{k=1}^n w_k^{ij}s_k^{ij}}{\sum_{k=1}^n w_k^{ij}} \qquad  s_p^{ij} = 1 - \frac{|x_p^i - x_p^j|}{rango(p)} \]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(s_p^{ij}\)</span> la similitud entre los registros i y j para el atributo p, <span class="math notranslate nohighlight">\(w_k^{ij} \in \{0,1\}\)</span> (según esté el atributo incluido o no), y el rango del atributo</p>
+<div class="math notranslate nohighlight">
+\[rango(p)=\displaystyle\max_{i \in \{1,...,N\}}x_p^i - \min_{i \in \{1,...,N\}} x_p^i \]</div>
+<p>Las medidas de similitud son útiles cuando los atributos son <strong>categóricos</strong> (o de ambos tipos).</p>
+<p>En el caso de usar una similitud los algoritmos de clustering seran igual pero sustituyendo la matriz de distancia por una de similitud. La diagonal principal serían <em>unos</em> y el cálculo de las similitudes entre dos elementos sería como se indica en el ejemplo que aparece a continuación.</p>
+<p>Se calcula la similitud entre las variedades <strong>Canilla/Trad</strong> y <strong>Criollo</strong>. Se consideran todas los atributos incluidos entre las dos variedades consideradas.</p>
+<a class="reference internal image-reference" href="_images/Calculo_Similitud.png"><img alt="_images/Calculo_Similitud.png" src="_images/Calculo_Similitud.png" style="width: 700px;" /></a>
+</section>
+</section>
+<section id="clustering-k-medias-k-means-o-algoritmo-lloyd">
+<h2>Clustering K-Medias, K-Means o Algoritmo Lloyd<a class="headerlink" href="#clustering-k-medias-k-means-o-algoritmo-lloyd" title="Link to this heading">#</a></h2>
+<p>El <strong>algoritmo K-Means o K-Medias</strong> propuesto por <strong>Lloyd</strong> pretende partir un conjunto de <b><span class="math notranslate nohighlight">\(N\)</span></b> registros u observaciones en <b><span class="math notranslate nohighlight">\(K\)</span></b> grupos, de forma que su distancia al centroide de cada grupo sea mínima (o la similitud con respecto al centroide sea máxima).</p>
+<p>El algoritmo mínimiza la <strong>Inercia</strong> que es la <strong>suma de las distancias al cuadrado entre cada punto y su centroide</strong></p>
+<p>Se suponen <span class="math notranslate nohighlight">\(N\)</span> observaciones <span class="math notranslate nohighlight">\(x_i\)</span> que conforma el conjunto de entrenamiento <span class="math notranslate nohighlight">\(X\)</span> y que tienen una dimensión <span class="math notranslate nohighlight">\(p\)</span>. Se quieren obtener <span class="math notranslate nohighlight">\(K\)</span> grupos representados por unos prototipos tambien <span class="math notranslate nohighlight">\(p\)</span>-dimensionales:</p>
+<div class="math notranslate nohighlight">
+\[Z=z_1, ..., z_j, ..., z_K\]</div>
+<p>Los prototipos <span class="math notranslate nohighlight">\(Z\)</span> no tiene que ser muestras del conjunto de observaciones, pero tienen que representarlo bien.</p>
+<p>Cada observación <span class="math notranslate nohighlight">\(x_i\)</span> se asignar a uno de los prototipos. Por ejemplo <span class="math notranslate nohighlight">\(A(x_i)=j\)</span>, lo que signica que el prototipo <span class="math notranslate nohighlight">\(j\)</span>-ésimo se usa para representar o aproximar <span class="math notranslate nohighlight">\(x_i\)</span> .</p>
+<p>La función objetivo a optimizar es:</p>
+<div class="math notranslate nohighlight">
+\[L(Z,A)=\sum_{i=1}^N |x_i - z_{A(x_i)}|^2\]</div>
+<p>En la anterior función se está utilizando la distancia euclídea y se está optimizando el error cuadrático total entre las muestras de entrenamiento y sus prototipos. Y lo que ha de buscarse es la función de asignación <span class="math notranslate nohighlight">\(A\)</span> y los prototipos que minimicen la <strong>Inercia o error cuadrático total</strong>.</p>
+<p>Hay dos condiciones para una solución óptima:</p>
+<ul>
+<li><p><strong>Condición 1</strong>: Dados unos prototipos fijos ya conocidos <span class="math notranslate nohighlight">\(Z\)</span>, la función de asignación es la regla del vecino más cercano, que con la distancia ecuclídea sería:</p>
+<div class="math notranslate nohighlight">
+\[A(x_i)= \underset{j \in \{1,...,K\}}{\arg\min}|x_i-z_j|\]</div>
+</li>
+<li><p><strong>Condición 2</strong>: Dada una función de asignación <span class="math notranslate nohighlight">\(A(.)\)</span>, el prototipo <span class="math notranslate nohighlight">\(z_j\)</span> debe ser el promedio de todas las observaciones asignadas a él, que es el <strong>centroide</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[z_j=\frac{\sum_{i:A(x_i)=j}x_i}{N_j}\]</div>
+<p>Las dos condiciones anteriores dan lugar a los <strong>pasos del algoritmo</strong> que se van alternando:</p>
+<ul class="simple">
+<li><p>Para un conjunto fijo de centroides (prototipos), optimizar <span class="math notranslate nohighlight">\(A\)</span> asignando cada observación a su centroide más cercano utilizando la distancia euclidea.</p></li>
+<li><p>Actualizar los centroides calculando el promedio de todas las muestras asignadas a él.</p></li>
+</ul>
+<p>El algoritmo se <strong>detenie</strong> cuando las asignaciones <span class="math notranslate nohighlight">\(A(.)\)</span> entre dos iteraciones <strong>no sufren cambios</strong> o sufren un porcentaje de cambios menores a una <strong>tolerancia</strong> o cuando se supera un <strong>máximo de iteraciones</strong>.</p>
+<p>Y el algoritmo se <strong>inicia</strong> creando una primer versión de los prototipos. Esto puede hacerse de varias maneras, <strong>aleatoriamente</strong> asignado los valores de una observación <span class="math notranslate nohighlight">\(x_i\)</span> como coordenadas de un prototipo <span class="math notranslate nohighlight">\(z_j\)</span> o proporcionando una <strong>semillas</strong> <span class="math notranslate nohighlight">\(z_j\)</span> que no tienen porque coincidir con ninguna observación, pero han de representar bien el conjunto de entrenamiento</p>
+<p><strong>Resumiendo gráficamente los pasos del algoritmo</strong></p>
+<a class="reference internal image-reference" href="_images/Kmedias-esquema.png"><img alt="_images/Kmedias-esquema.png" src="_images/Kmedias-esquema.png" style="width: 900px;" /></a>
+<p><strong>Observaciones sobre el algoritmo K-Medias:</strong></p>
+<ul class="simple">
+<li><p>Algoritmo abordable con una <strong>programación estándar</strong> aunque conviene estructurar las n observaciones en un <strong>árbol kd</strong> donde los puntos d-dimensionales se dividen en k medianas sucesivas, lo que facilita las búsquedas.</p></li>
+<li><p>El algoritmo es <strong>muy dependiente de la elección random de los primeros K puntos como centroides iniciales</strong>.</p></li>
+<li><p>Matemáticamente equivale a dividir el espacio de atributos en <strong>polígonos o celdas de Voronoi</strong>.</p></li>
+</ul>
+<section id="estandarizacion-de-atributos">
+<h3>Estandarización de atributos<a class="headerlink" href="#estandarizacion-de-atributos" title="Link to this heading">#</a></h3>
+<p><strong>La suma de cuadrados NO es invariante bajo cambios de escala:</strong></p>
+<ul class="simple">
+<li><p>Si las unidades de medida de los atributos son <strong>distintas</strong>, el resultado de K-means puede depender de cambios irrelevantes en la escala de medida.</p></li>
+<li><p>Entonces conviene estandarizar cada atributo de forma <strong>univariante</strong>: restamos la media y dividimos entre la desviación típica. Así las medidas de distancia <strong>tienen sentido</strong>.</p></li>
+</ul>
+<p><strong>Cuando tenemos las mismas unidades suele ser mejor no estandarizar:</strong></p>
+<a class="reference internal image-reference" href="_images/Kmedias-standarizado.png"><img alt="_images/Kmedias-standarizado.png" src="_images/Kmedias-standarizado.png" style="width: 700px;" /></a>
+</section>
+<section id="pros-y-contras-de-k-medias">
+<h3>Pros y contras de K-Medias<a class="headerlink" href="#pros-y-contras-de-k-medias" title="Link to this heading">#</a></h3>
+<p><strong>Ventajas</strong>:</p>
+<ul class="simple">
+<li><p>Es <strong>eficiente</strong> (converge rápidamente).</p></li>
+<li><p>La busqueda <strong>heurística</strong> termina en un óptimo local.</p></li>
+</ul>
+<p><strong>Desventajas</strong>:</p>
+<ul class="simple">
+<li><p>No <strong>robusto</strong> frente a observaciones <strong>atípicas</strong>.</p></li>
+<li><p>No aplicable si las variables son <strong>categóricas</strong> (necesitamos que la media esté definida).</p></li>
+<li><p>No funciona si se buscan grupos <strong>no convexos</strong>.</p></li>
+<li><p>El número de grupos K <strong>no es un resultado del método</strong> (debe especificarse al inicio).</p></li>
+</ul>
+</section>
+</section>
+<section id="segmentacion-de-los-datos-iris-con-k-means">
+<h2>Segmentación de los datos Iris con K-means<a class="headerlink" href="#segmentacion-de-los-datos-iris-con-k-means" title="Link to this heading">#</a></h2>
+<p><strong>Se utilizan los 4 atributos del sépalo y pétalo (alto y largo) para segmentar en 3 grupos</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">clases</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+<span class="n">marcas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">]</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clases</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marcas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">clases</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Longitud de pétalo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Ancho de pétalo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/29d5332feb3dfa9e9f898e4873b59338437073b5aa569159887a72e53ed7f8bb.png" src="_images/29d5332feb3dfa9e9f898e4873b59338437073b5aa569159887a72e53ed7f8bb.png" />
+</div>
+</div>
+<p>Se llevará a cabo una agrupación de 3 grupos (<strong>n_cluster</strong>), se ejecuta el algoritmo 10 veces (<strong>n_init</strong>) independientemente con diferentes centroides aleatorios para elegir el modelo final que tiene la <strong>Inercia</strong> más baja. Se elege una tolerancia (<strong>tol</strong>) de 0.0001 (<span class="math notranslate nohighlight">\(10^{-4}\)</span>) para controlar la convergencia de los mínimos cuadrados.</p>
+<p>Un problema con k-means es que uno o más grupos pueden estar vacíos. Sin embargo, en la implementación actual de kmeans en scikit-learn, si un grupo está vacío, el algoritmo tomará la muestra más cercana al centroide del grupo vacío. Luego reasignará el centroide para que sea el punto más alejado.</p>
+<p>La variable <strong>init</strong> permite los tipos:</p>
+<ul class="simple">
+<li><p>‘<strong>k-means++</strong>’: selecciona los centros de clúster iniciales para el agrupamiento de k-means de una manera inteligente para acelerar la convergencia.</p></li>
+<li><p>‘<strong>random</strong>’: elija n_clusters observaciones (filas) al azar de los datos para los centroides iniciales.</p></li>
+<li><p><strong>ndarray</strong>: debe tener forma (n_clusters, n_features) y en él se proporcionan los centros iniciales o <strong>semillas</strong>.</p></li>
+<li><p><strong>callable</strong>: se le pasa el nombre de una rutina externa que realiza la inicialización.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_km</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span><span class="o">.</span><span class="n">cluster_centers_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[5.006     , 3.428     , 1.462     , 0.246     ],
+       [5.9016129 , 2.7483871 , 4.39354839, 1.43387097],
+       [6.85      , 3.07368421, 5.74210526, 2.07105263]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">semillas</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">6.85</span>      <span class="p">,</span> <span class="mf">3.07368421</span><span class="p">,</span> <span class="mf">5.74210526</span><span class="p">,</span> <span class="mf">2.07105263</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">5.006</span>     <span class="p">,</span> <span class="mf">3.428</span>     <span class="p">,</span> <span class="mf">1.462</span>     <span class="p">,</span> <span class="mf">0.246</span>     <span class="p">],</span>
+       <span class="p">[</span><span class="mf">5.9016129</span> <span class="p">,</span> <span class="mf">2.7483871</span> <span class="p">,</span> <span class="mf">4.39354839</span><span class="p">,</span> <span class="mf">1.43387097</span><span class="p">]]</span>
+<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="n">semillas</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_km</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">y_km</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0,
+       0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0, 2, 2, 0, 0, 0, 0,
+       0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>La inercia es la suma de la distancia al cuadrado entre cada punto y su centroide</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+<span class="n">iner</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">et</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_km</span><span class="p">):</span>
+    <span class="n">centr</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">[</span><span class="n">et</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">[</span><span class="n">y_km</span><span class="o">==</span><span class="n">et</span><span class="p">]:</span>
+        <span class="n">iner</span> <span class="o">+=</span> <span class="p">((</span><span class="n">centr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">centr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">centr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">centr</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">centr</span><span class="p">,</span><span class="n">iner</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iner</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>78.85144142614601
+[6.85       3.07368421 5.74210526 2.07105263] 23.879473684210524
+[5.006 3.428 1.462 0.246] 39.03047368421053
+[5.9016129  2.7483871  4.39354839 1.43387097] 78.85144142614607
+78.85144142614607
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Podemos mostrar las coordenadas de los centroides</strong></p>
+<p>Directamente mostrando la variable <b>cluster_centers_</b> que aparece en el objeto que hemos creado con KMeans o algo más vistoso con un DataFrame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="n">data</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6.850000</td>
+      <td>3.073684</td>
+      <td>5.742105</td>
+      <td>2.071053</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5.006000</td>
+      <td>3.428000</td>
+      <td>1.462000</td>
+      <td>0.246000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.901613</td>
+      <td>2.748387</td>
+      <td>4.393548</td>
+      <td>1.433871</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La visualización del ajuste realizado es el siguiente:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">clases</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+<span class="n">clases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;virginica&#39;</span><span class="p">,</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span><span class="s1">&#39;versicolor&#39;</span><span class="p">]</span>
+<span class="n">marcas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">]</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clases</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y_km</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y_km</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marcas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">clases</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Longitud de pétalo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Ancho de pétalo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9b4b6173f2fbed62e06c0ae3ea0e0812e7faed3c34f942e39826b587a0f9910f.png" src="_images/9b4b6173f2fbed62e06c0ae3ea0e0812e7faed3c34f942e39826b587a0f9910f.png" />
+</div>
+</div>
+</section>
+<section id="medidas-de-validacion-interna">
+<h2>Medidas de validación interna<a class="headerlink" href="#medidas-de-validacion-interna" title="Link to this heading">#</a></h2>
+<p><strong>Objetivos</strong>:</p>
+<ul class="simple">
+<li><p>Queremos grupos <strong>homogéneos</strong>.</p></li>
+<li><p>Tienen que estar <strong>bien separados</strong> entre sí.</p></li>
+</ul>
+<p><strong>En K-means</strong>:</p>
+<ul class="simple">
+<li><p>Buscamos el menor cociente entre la variabilidad <strong>intra</strong>-grupo y la variabilidad <strong>total</strong> (grupos homogéneos).</p></li>
+<li><p>Buscamos el mayor cociente posible entre la variabilidad <strong>entre</strong> grupos y la variabilidad <strong>total</strong> (grupos separados).</p></li>
+</ul>
+<section id="metodo-del-codo">
+<h3>Método del codo<a class="headerlink" href="#metodo-del-codo" title="Link to this heading">#</a></h3>
+<p>Para cuantificar la calidad de la agrupación, necesitamos utilizar métricas intrínsecas, como la <strong>Inercia</strong> (suma de la distancia al cuadrado de cada uno de las observaciones a su centroide) dentro del cluster. La <em>Inercia</em> mide la distorsión, y permite comparar el rendimiento de diferentes agrupaciones de k-medias. No es necesirio calcular de forma explícita la <em>Inercia</em> dentro del clúster cuando usamos scikit-learn, ya que es accesible a través del atributo <strong>inertia</strong>_ después de ajustar un modelo KMeans.</p>
+<p>Se puede graficar el nº de Clusters contra la <em>Inercia</em> interna, lo que nos permite obtener el nº de cluster optimo. Se denomina <strong>método del codo</strong> por la forma que adopta el gráfico, ya que en el cambio brusco de la pendiente se situa el óptimo (en nuestro ejemplo se ve que está entre 2 y 3):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distortions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">distortions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">distortions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Inercia vs k&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Número de Clusters&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Distorsión&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f76991dd75154a1f37af584ac4efecf31cb8afe724c79f844517c02b78d03b7d.png" src="_images/f76991dd75154a1f37af584ac4efecf31cb8afe724c79f844517c02b78d03b7d.png" />
+</div>
+</div>
+<p>Se puede calcular la <strong>Inercia relativa</strong> dividiendo por la Inercia total, calculada con K = 1</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Iner_total</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span>
+<span class="n">distortions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">distortions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">km</span><span class="o">.</span><span class="n">inertia_</span><span class="o">/</span><span class="n">Iner_total</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">distortions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Inercia vs k&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Número de Clusters&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Distorsión&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3bfd7c9f301e828a7ed77cc4ea1d63acae07f7a7929dc08b9120691509af868f.png" src="_images/3bfd7c9f301e828a7ed77cc4ea1d63acae07f7a7929dc08b9120691509af868f.png" />
+</div>
+</div>
+</section>
+<section id="criterio-de-la-silueta">
+<h3>Criterio de la silueta<a class="headerlink" href="#criterio-de-la-silueta" title="Link to this heading">#</a></h3>
+<p>El <strong>coeficiente de silueta</strong> se calcula utilizando la <strong>distancia media dentro del grupo (a)</strong> y la <strong>distancia media del grupo más cercano (b)</strong> para cada muestra <span class="math notranslate nohighlight">\(x_i\)</span> del conjunto <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>Para cada <span class="math notranslate nohighlight">\(x_i\)</span> se calcula <span class="math notranslate nohighlight">\(a_i\)</span> como la distancia media al resto de puntos de su grupo. Y se calcula <span class="math notranslate nohighlight">\(b_i\)</span> como la distancia media al siguiente grupo más cercano. Siendo el valor de la silueta en <span class="math notranslate nohighlight">\(x_i\)</span>, si el grupo al que pertenece tiene más de 1 punto:</p>
+<div class="math notranslate nohighlight">
+\[s_i = \frac{b_i-a_i}{max\{a_i,b_i\}}\]</div>
+<p>En el caso que <span class="math notranslate nohighlight">\(x_i\)</span> sea un punto aislado, <span class="math notranslate nohighlight">\(s_i\)</span> se hace a <span class="math notranslate nohighlight">\(0\)</span> para evitar que proliferen.</p>
+<p>Si <span class="math notranslate nohighlight">\(a_i=b_i\)</span> se cumple que <span class="math notranslate nohighlight">\(s_i=0\)</span> y en general se cumple <span class="math notranslate nohighlight">\(-1 \le s_i \le 1\)</span>.</p>
+<p>Si <span class="math notranslate nohighlight">\(a_i &lt;&lt; b_i\)</span> el valor de <span class="math notranslate nohighlight">\(s_i\)</span> se acerca a 1. Como <span class="math notranslate nohighlight">\(a_i\)</span> mide la disimilitud de la muestra <span class="math notranslate nohighlight">\(i\)</span> con respecto a su grupo y <span class="math notranslate nohighlight">\(b_i\)</span> mide la disimilitud en el grupo vecino, cuando <span class="math notranslate nohighlight">\(s_i\)</span> se acerca a 1 indica que <span class="math notranslate nohighlight">\(i\)</span> está bien emparejado.</p>
+<p>Si <span class="math notranslate nohighlight">\(a_i &gt;&gt; b_i\)</span> lleva a que <span class="math notranslate nohighlight">\(s_i\)</span> esté cerca de -1, lo que indican muestras mal emparejadas.</p>
+<p>El <strong>coeficiente de silueta</strong> para una agrupación en <span class="math notranslate nohighlight">\(k\)</span> grupos es el <strong>promedio</strong> de todos los valores <span class="math notranslate nohighlight">\(s_i\)</span></p>
+<p><strong>El mejor valor es 1 y el peor valor es -1</strong>. Los valores cercanos a 0 indican clústeres superpuestos. Los valores negativos generalmente indican que una muestra se ha asignado al conglomerado equivocado.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">metrics</span>
+<span class="n">siluetas</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">silueta</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
+    <span class="n">siluetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">silueta</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">siluetas</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Silueta vs K&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Número de Clusters&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Silueta&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/461dd1c9a4fdf65519c1c2aaccbbd4ae1ea9780a0dd7041c657ff89474fef0d4.png" src="_images/461dd1c9a4fdf65519c1c2aaccbbd4ae1ea9780a0dd7041c657ff89474fef0d4.png" />
+</div>
+</div>
+<p><strong>Para obtener el código de silueta</strong> <span class="math notranslate nohighlight">\(s_i\)</span> de todos los registros de <strong>X</strong> es necesario usar la librería:</p>
+<p>sklearn.metrics.silhouette_samples</p>
+<p>Se pueden mostrar la lista de <span class="math notranslate nohighlight">\(s_i\)</span> en un gráfico para varios valores de k:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">metrics</span>
+<span class="n">siluetas</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">siluetas</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_samples</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
+    <span class="n">silueta</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">km</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euclidean&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">siluetas</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Grupos K=</span><span class="si">{:}</span><span class="s2"> - Coeficiente de silueta=</span><span class="si">{:.3}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">silueta</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/682154b4ec0ccf265ca5339a39d803bdb9ed3b9e8bfa0f5c55fe0ca84369d80b.png" src="_images/682154b4ec0ccf265ca5339a39d803bdb9ed3b9e8bfa0f5c55fe0ca84369d80b.png" />
+</div>
+</div>
+<p><strong>El criterio de la silueta</strong> nos da el mejor número de grupos en <strong>2</strong>.</p>
+</section>
+</section>
+<section id="resolucion-del-algoritmo-k-means-con-un-desarrollo-propio">
+<h2>Resolución del algoritmo K-Means con un desarrollo propio<a class="headerlink" href="#resolucion-del-algoritmo-k-means-con-un-desarrollo-propio" title="Link to this heading">#</a></h2>
+<p><span style='color:Red'> <font size="3"> <b>Información Complementaria:</b> Código con un desarrollo básico del algoritmo K-Means </font> </span></p>
+<p><strong>Nota:</strong> se resuelve el algoritmo creado una clase para acercarnos al formato de las librerías estándar.</p>
+<p>Una <strong>clase</strong> se crea con la palabra reservada <span style='color:Green'> <font size="3"> <b>class</b></font></span><span style='color:Blue'> <font size="3"> NombreClase </font></span><strong>:</strong></p>
+<p>La primera llamada a la clase se hace a través del <strong>constructor</strong> que es una función de nombre:</p>
+<p><span style='color:Green'> <font size="3"> <b>def</b></font></span><span style='color:Blue'> <font size="3"> –init– </font></span> ([Parmetros]). <strong>init</strong> entre 2 underscores o guiones bajos</p>
+<p>La llamada al constructor nos devuelve el objeto (<strong>kmed</strong> en este ejemplo):</p>
+<ul class="simple">
+<li><p>kmed = KMedias(n_clusters=3, max_iter=20, random_state=0)</p></li>
+</ul>
+<p><strong>self</strong> es la referencia para la memoria de las variables accesibles desde el objeto. Dentro de la clase se accede a ella indicando self. y desde fuera indicando kmed.</p>
+<p>Todas aquellas funciones de la clase que llevan un primer parámetro (self, son los métodos de la clase. Estos métodos son llamados desde dentro de la clase:</p>
+<ul class="simple">
+<li><p>self.ClusterCercano(x) <b><em>(ocurre cuando se está programando la clase)</em></b>.</p></li>
+</ul>
+<p>O desde el objeto:</p>
+<ul class="simple">
+<li><p>clcer = kmed.ClusterCercano(x) <b><em>(ocurre cuando se estamos usando una clase programada)</em></b>.</p></li>
+</ul>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">class</span> <span class="nc">KMedias</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span>   <span class="c1">## En el constructor de la clase se guardan los 3 parámetros</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span>
+    
+    <span class="k">def</span> <span class="nf">clusterCercano</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="c1">#Método que recupera el cluster más cercano a la observación x</span>
+        <span class="n">i_min</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="n">dis_min</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)):</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="c1">## Se calcula la distancia euclidea entre punto y centroide</span>
+            <span class="c1">#print(k, self.centroids[k], x, x-self.centroids[k], dist)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dis_min</span><span class="o">&gt;</span><span class="n">dist</span> <span class="ow">or</span> <span class="n">i_min</span><span class="o">==-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">i_min</span><span class="o">=</span><span class="n">k</span>
+                <span class="n">dis_min</span><span class="o">=</span><span class="n">dist</span>
+        <span class="c1">#print(&quot;clusterCercano&quot;, x, i_min)</span>
+        <span class="k">return</span> <span class="n">i_min</span>
+    
+    <span class="k">def</span> <span class="nf">generaCentroides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="c1">## Regenera el centroide de un grupo</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">for</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">==</span><span class="n">lbl</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">==</span><span class="n">lbl</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span> <span class="c1">## Ajusta el modelo con la matriz de observaciones X</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1">## Si es una lista pura se pasa a Array de numpy</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;La matriz de entrada X debe ser una lista de 2 dimensiones&quot;</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="c1">## Nº de observaciones</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="c1">## Dimensión de las observaciones</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">,</span><span class="n">d</span><span class="p">))</span> <span class="c1">## Matriz donde almacenar los K centroides necesarios de dimensión d</span>
+        <span class="c1">## En self.y se anotan los ID de cluster que corresponden a cada observación. -1 significa que no está asignado</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>   <span class="c1">## Todos los puntos con -1 : desasignados</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>   <span class="c1">## Se toma los n_clusters vértices iniciales aleatorios</span>
+            <span class="n">ix</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">N</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">),</span><span class="nb">int</span><span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span>
+            <span class="c1">#print(&quot;Centroid Inicial&quot;, i, ix, self.centroids[i])</span>
+        <span class="c1">## El resto de observaciones no asignados se insertan en sus cluster más cercano, regenerado el centroide del cluster</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusterCercano</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">generaCentroides</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1">## Se itera para balancear los puntos entre los clusters</span>
+        <span class="n">it</span><span class="o">=</span><span class="mi">0</span>
+        <span class="n">cambios</span><span class="o">=</span><span class="kc">True</span>
+        <span class="k">while</span> <span class="n">it</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="ow">and</span> <span class="n">cambios</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iteracion...&quot;</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span>
+            <span class="n">cambios</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusterCercano</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">w_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clusterCercano</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="n">cambios</span><span class="o">=</span><span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generaCentroides</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">it</span><span class="o">+=</span><span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kmed</span> <span class="o">=</span> <span class="n">KMedias</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y_kmed</span> <span class="o">=</span> <span class="n">kmed</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteracion... 0
+Iteracion... 1
+Iteracion... 2
+Iteracion... 3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">clases</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+<span class="n">clases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span><span class="s1">&#39;versicolor&#39;</span><span class="p">,</span><span class="s1">&#39;virginica&#39;</span><span class="p">]</span>
+<span class="n">marcas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">]</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clases</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y_kmed</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y_kmed</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marcas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">clases</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Longitud de pétalo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Ancho de pétalo&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e7711c14fb9c98a27db8e8f2f02fe411e9bde5163c22803670d0d17339edc57c.png" src="_images/e7711c14fb9c98a27db8e8f2f02fe411e9bde5163c22803670d0d17339edc57c.png" />
+</div>
+</div>
+</section>
+<section id="modelos-de-agrupacion-probabilisticos-distribucion-gaussiana">
+<h2>Modelos de Agrupación Probabilísticos (distribución gaussiana)<a class="headerlink" href="#modelos-de-agrupacion-probabilisticos-distribucion-gaussiana" title="Link to this heading">#</a></h2>
+<p>Los métodos de agrupación basado en <strong>similitudes o distancias</strong> son métodos heurísticos de fácil implementación, pero adolecen de falta de base estadística sobre la que aplicar inferencia sobre una población a partir de una muestra. Los métodos de <strong>agrupación probabilísticos</strong> suplen esta carencia asumiendo que existe una probabilidad de distribución subyacente. Se dice aquí que el clustering es <em>difuso</em> o <em>borroso</em> (”<strong>fuzzy</strong>”), pues cada observación tiene una probabilidad de pertenecer a un grupo.</p>
+<p>Los <strong>modelos de mezcla</strong> finitos se utilizan para clasificar variables en grupos proporcionando una representación natural de la heterogeneidad de los datos con un número finito de “variables latentes” (no se observadas) y que se deducen, mediante un modelo matemático, de otras variables observadas.</p>
+<p>El algoritmo de <strong>Expectación-Maximización</strong> consta de los siguientes pasos:</p>
+<ul class="simple">
+<li><p><strong>Inicialización</strong> : Se actualizan los parámetros con unos valores iniciales. Por ejemplo se generan K grupos con K-Means.</p></li>
+<li><p><strong>Itera hasta convergencia</strong> : Si no hay convergencia se detiene la iteración o hasta superar un valor de pasos.</p>
+<ul>
+<li><p><strong>Paso E - Expectación</strong> : Se actualizan las variables del modelo estadístico con los datos observados,</p></li>
+<li><p><strong>Paso M - Maximización</strong> : Se actualizan los parámetros a partir de los datos completos generados en la expectativa.</p></li>
+</ul>
+</li>
+</ul>
+<p>Un modelo gaussiano univariante tiene una función de densidad que depende de dos variables <span class="math notranslate nohighlight">\(\mu\)</span> y <span class="math notranslate nohighlight">\(\sigma\)</span>. Si fuera <span class="math notranslate nohighlight">\(n\)</span>-variante, tendremos un vector de medias <span class="math notranslate nohighlight">\(n\)</span>-dimensional (<span class="math notranslate nohighlight">\(\mu\)</span>) y una matriz <span class="math notranslate nohighlight">\(n \times n\)</span> de covarianzas (<span class="math notranslate nohighlight">\(\Sigma\)</span>) respectivamente.</p>
+<p>Para <span class="math notranslate nohighlight">\(K\)</span> mezclas gaussianas en el paso inicial <span class="math notranslate nohighlight">\(m=0\)</span> se adoptan valores de las probabilidades de pertenencia (pesos) a una mezcla <span class="math notranslate nohighlight">\(w_j^{(0)}\)</span>, medias <span class="math notranslate nohighlight">\(\mu_j^{(0)}\)</span> y covarianzas <span class="math notranslate nohighlight">\(\Sigma_j^{(0)}\)</span>, siendo <span class="math notranslate nohighlight">\(j=1, ...,K\)</span>. Lo que permite hacer un cálculo de la <strong>log-verosimilitud</strong> (siendo <span class="math notranslate nohighlight">\(\phi\)</span> la función de distribución gaussiana):</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}^{(0)}=\frac{1}{N} \sum^N_{i=1} log (\sum^K_{j=1} w_j^{(0)} \phi(x_i|\mu_j^{(0)}, \Sigma_j^{(0)}))\]</div>
+<p>En el <strong>paso E</strong> (de expectación), se calcula la probabilidad <span class="math notranslate nohighlight">\(\gamma_{ij}\)</span> de que el i-ésimo elemento pertenezca a la mezcla j-esima:</p>
+<div class="math notranslate nohighlight">
+\[\gamma_{ij}^{(m)} = \frac{w_j^{(m)} \phi(x_i|\mu_j^{(m)}, \Sigma_j^{(m)})}{\sum_{k=1}^K w_k^{(m)} \phi(x_i|\mu_k^{(m)}, \Sigma_k^{(m)})} \]</div>
+<p>Y la suma de las probabilidades de los <span class="math notranslate nohighlight">\(N\)</span> elementos en cada uno de los <span class="math notranslate nohighlight">\(K\)</span> grupos:</p>
+<div class="math notranslate nohighlight">
+\[n_j^{(m)} = \sum_{i=1}^N \gamma_{ij}^{(m)}, j=1, ...K\]</div>
+<p>En el <strong>paso M</strong> (de maximización) se re-estiman los parámetros para una nueva etapa del algoritmo. En el caso de las mezclas gaussianas, los nuevos valores resultan (para <span class="math notranslate nohighlight">\(j=1, ...K\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[ w_j^{(m+1)}=\frac{n_j^{(m)}}{N} \]</div>
+<div class="math notranslate nohighlight">
+\[ \mu_j^{(m+1)} = \frac{1}{n_j^{(m)}} \sum_{i=1}^N \gamma_{ij}^{(m)} x_i\]</div>
+<div class="math notranslate nohighlight">
+\[ \Sigma_j^{(m+1)} = \frac{1}{n_j^{(m)}} \sum_{i=1}^N \gamma_{ij}^{(m)} (x_i - \mu_j^{(m+1)})(x_i - \mu_j^{(m+1)})^T\]</div>
+<p>Se calcula la <strong>nueva función de log-verosimilitud</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}^{(m+1)}=\frac{1}{N} \sum^N_{i=1} log (\sum^K_{j=1} w_j^{(m+1)} \phi(x_i|\mu_j^{(m+1)}, \Sigma_j^{(m+1)}))\]</div>
+<p>Se controla la <strong>convergencia</strong> volviendo al paso E en función de un umbral <span class="math notranslate nohighlight">\(\delta\)</span> siempre que se cumpla:</p>
+<div class="math notranslate nohighlight">
+\[|\mathcal{L}^{(m+1)}-\mathcal{L}^{(m)}|&gt;\delta\]</div>
+<p>En caso de que la diferencia entre las dos log-verosimilitudes hubiera quedado por debajo del umbral, el algoritmo terminaría.</p>
+<section id="implementacion-en-sk-learn">
+<h3>Implementación en sk-learn<a class="headerlink" href="#implementacion-en-sk-learn" title="Link to this heading">#</a></h3>
+<p>El algoritmo <strong>Gaussian mixture models (GMM)</strong>, que se encuentra implementado en la librería <strong>sklearn.cluster.GaussianMixture</strong>, teniendo el constructor los siguientes parámetros básicos:</p>
+<ul class="simple">
+<li><p><strong>n_components</strong>: Número de distribuciones normales (o Clusters).</p></li>
+<li><p><strong>n_iter</strong>: número máximo de ejecuciones de los pasos de esperanza y maximización a realizar en el caso de que no converjan las medias de las distribuciones normales</p></li>
+<li><p><strong>init_params</strong>: El método utilizado para inicializar los pesos, las medias y las precisiones. Puede ser ‘kmeans’ o ‘random’</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="n">num_clusters</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">num_clusters</span><span class="p">,</span> <span class="n">init_params</span><span class="o">=</span><span class="s1">&#39;kmeans&#39;</span><span class="p">)</span>
+<span class="n">gmm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianMixture(n_components=3)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianMixture</label><div class="sk-toggleable__content"><pre>GaussianMixture(n_components=3)</pre></div></div></div></div></div></div></div>
+</div>
+<p><strong>Se tiene los valores medios de cada cluster</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span><span class="o">.</span><span class="n">means_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6.54632887, 2.94943079, 5.4834877 , 1.98716063],
+       [5.006     , 3.428     , 1.462     , 0.246     ],
+       [5.91697517, 2.77803998, 4.20523542, 1.29841561]])
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>La matrices de covarianzas de cada grupo</strong></p>
+<p>Por ejemplo, la matriz del primer grupo:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span><span class="o">.</span><span class="n">covariances_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.38741443, 0.09223101, 0.30244612, 0.06089936],
+       [0.09223101, 0.11040631, 0.08386768, 0.0557538 ],
+       [0.30244612, 0.08386768, 0.32595958, 0.07283247],
+       [0.06089936, 0.0557538 , 0.07283247, 0.08488025]])
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>La probabilidad de pertenencia a cada cluster</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span><span class="o">.</span><span class="n">weights_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.36548058, 0.33333333, 0.30118609])
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Log-verosimilitud del modelo</strong></p>
+<p>Lo calculamos de acuerdo a la ecuación planteada anteriormente</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span> <span class="k">as</span> <span class="n">MN</span>
+<span class="n">logVer</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">:</span>
+    <span class="n">Verosi</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">vMedia</span><span class="p">,</span> <span class="n">mCov</span><span class="p">,</span> <span class="n">peso</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">means_</span><span class="p">,</span> <span class="n">gmm</span><span class="o">.</span><span class="n">covariances_</span><span class="p">,</span> <span class="n">gmm</span><span class="o">.</span><span class="n">weights_</span><span class="p">):</span>
+        <span class="n">Verosi</span> <span class="o">+=</span> <span class="n">MN</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">vMedia</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">mCov</span><span class="p">)</span><span class="o">*</span><span class="n">peso</span>
+    <span class="n">logVer</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Verosi</span><span class="p">)</span>
+<span class="n">logVer</span><span class="o">/</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.2013049060973464
+</pre></div>
+</div>
+</div>
+</div>
+<p>La <strong>log-verosimilitud</strong> del modelo se puede recuperar desde el método <strong>gmm.score()</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.2013049060973466
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Con el método predict() se obtienen los clusters</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_gmm</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Desde Pyplot se imprime los clusters con los datos de la distribución gaussiana</strong></p>
+<ul class="simple">
+<li><p>Se hace uso de una función a la medida de Dibujo de Elipses</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="mf">03.0</span><span class="n">_ClusteringUtilidades</span><span class="o">.</span><span class="n">ipynb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>load done!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="s1">&#39;equal&#39;</span><span class="p">},</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span><span class="mf">7.0</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))),</span> <span class="n">colors</span><span class="p">):</span>
+    <span class="c1">## Lista de Trues para las posiciones de la etiqueta en curso</span>
+    <span class="n">my_members</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_gmm</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span>
+
+    <span class="c1">## El centroide en negro y más grande</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">means_</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+    <span class="c1">#p.scatter(centroid[0],centroid[1], marker=&quot;asterisk&quot;, size=12, legend_label=&quot;centroides&quot;, fill_color=col)</span>
+    <span class="c1">#p.scatter(X[my_members, 0], X[my_members, 1], marker=&quot;circle&quot;, size=5, fill_color=col, legend_label=&quot;Grupo %d&quot; % k)</span>
+    <span class="c1">#plt.scatter(x, y, s=area, c=colors, alpha=0.5)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centroid</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">centroid</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;centroides&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">my_members</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">my_members</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Grupo </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+<span class="n">make_ellipses</span><span class="p">(</span><span class="n">gmm</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2236e21de85984a93e91c64769f466c8b730c8ff0e141e4517e2cd6af5eb71e7.png" src="_images/2236e21de85984a93e91c64769f466c8b730c8ff0e141e4517e2cd6af5eb71e7.png" />
+</div>
+</div>
+</section>
+<section id="eleccion-del-numero-de-clusters-en-clustering-probabilisticos">
+<h3>Elección del número de Clusters en clustering probabilísticos<a class="headerlink" href="#eleccion-del-numero-de-clusters-en-clustering-probabilisticos" title="Link to this heading">#</a></h3>
+<p>Elegimos el modelo que <strong>minimiza</strong> el índice <strong>BIC</strong> (<strong>criterio de información bayesiano</strong>)</p>
+<div class="math notranslate nohighlight">
+\[BIC=p \cdot ln(N) - 2 \cdot ln(\mathcal{L})\]</div>
+<p>Donde <strong>p</strong> y <strong>N</strong> son, respectivamente, el número de parámetros libres y el total de registros del conjunto <strong>X</strong> y <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> la función de verosimilitud del modelo.</p>
+<p>El índice <strong>BIC</strong> se obtiene con el método <strong>bic(X)</strong> de la clase <strong>GaussianMixture</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">bic</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="c1">##covariance_type=&quot;full&quot;</span>
+    <span class="c1">## n_components : nº de clusters</span>
+    <span class="c1">## cov_params = n_components * n_features * (n_features + 1) / 2.0</span>
+    <span class="c1">## mean_params = n_features * self.n_components</span>
+    <span class="c1">## p (Nº de parámetros libres) --&gt; _n_parameters =  int(cov_params + mean_params + self.n_components - 1)</span>
+    <span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">init_params</span><span class="o">=</span><span class="s1">&#39;kmeans&#39;</span><span class="p">)</span>
+    <span class="n">gmm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">bic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+    <span class="c1">#wbic = gmm._n_parameters()*np.log(X.shape[0])-2*gmm.score(X)*X.shape[0]</span>
+    <span class="c1">#print(&quot;Log-Verosimilitud Promedio&quot;, gmm.score(X_scaled), &quot;Parámetros libres&quot;, gmm._n_parameters(),&quot;bic&quot;, gmm.bic(X_scaled), wbic)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">bic</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;BIC vs k&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Número de Clusters&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;BIC&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/13e3c6ffd79ce457582416608dc1a2b7761b6aaeb230b30a90e949374310d15a.png" src="_images/13e3c6ffd79ce457582416608dc1a2b7761b6aaeb230b30a90e949374310d15a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="medidas-de-validacion-externas">
+<h2>Medidas de validación externas<a class="headerlink" href="#medidas-de-validacion-externas" title="Link to this heading">#</a></h2>
+<p><strong>INDICE DE RAND</strong>: es una medida de <strong>similitud entre dos particiones</strong>.</p>
+<p>Dadas dos particiones</p>
+<div class="math notranslate nohighlight">
+\[X={X_1, ..., X_K}\]</div>
+<div class="math notranslate nohighlight">
+\[Y={Y_1, ..., Y_Q}\]</div>
+<p>Se definen las cantidades:</p>
+<ul class="simple">
+<li><p><b><span class="math notranslate nohighlight">\(N_{00}\)</span></b> es el número de pares de instancias que están en el <strong>mismo</strong> subconjunto de <span class="math notranslate nohighlight">\(X\)</span> y en el <strong>mismo</strong> subconjunto de <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><b><span class="math notranslate nohighlight">\(N_{11}\)</span></b> es el número de pares de instancias que están en <strong>distintos</strong> subconjuntos de <span class="math notranslate nohighlight">\(X\)</span> y en <strong>distintos</strong> subconjuntos de <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><b><span class="math notranslate nohighlight">\(N_{01}\)</span></b> es el número de pares de instancias que están en el <strong>mismo</strong> subconjunto de <span class="math notranslate nohighlight">\(X\)</span> y en <strong>distintos</strong> subconjuntos de <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><b><span class="math notranslate nohighlight">\(N_{10}\)</span></b> es el número de pares de instancias que están en <strong>distintos</strong> subconjuntos de <span class="math notranslate nohighlight">\(X\)</span> y en el <strong>mismo</strong> subconjunto de <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+</ul>
+<p>Dada la definición de estos 4 números se tiene:</p>
+<ul class="simple">
+<li><p><b><span class="math notranslate nohighlight">\(N_{00} + N_{11}\)</span></b> es una medida del número de aciertos entre las dos particiones <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><b><span class="math notranslate nohighlight">\(N_{01} + N_{10}\)</span></b> es una medida del número de fallos entre <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> .</p></li>
+<li><p>Definimos:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[R = \frac{N_{00} + N_{11}}{N_{00} + N_{11} + N_{01} + N_{10}}=\frac{N_{00} + N_{11}}{\binom{N}{2}}\]</div>
+<ul class="simple">
+<li><p>El denominador <span class="math notranslate nohighlight">\(a+b+c+d = \binom{N}{2}\)</span> es el número total de pares de instancias posibles.</p></li>
+<li><p>El <strong>Índice de Rand ajustado (ARI)</strong> normaliza numerador y denominador teniendo en cuenta los valores esperados cuando las particiones X e Y se hacen al azar.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ARI  = \frac{R - R_{Experado}}{max(R) - R_{Experado}} = \frac{2(N_{00}N_{11}-N_{01}N_{10})}{(N_{00}+N_{01})(N_{01}+N_{11})+(N_{00}+N_{10})(N_{10}+N_{11})} \]</div>
+<p>El índice ARI tendrá un valor cercano a 0,0 para el etiquetado aleatorio independientemente del número de agrupaciones y muestras y exactamente 1,0 cuando las agrupaciones son idénticas.</p>
+<p>Si comparamos con una partición fiable <strong>previa</strong> (hecha por expertos), interesa que ARI sea cercano a 1.</p>
+<p>La librería <strong>sklearn.metrics.cluster</strong> contiene métricas de evaluación para los resultados del análisis de clusters. Hay dos formas de evaluación:</p>
+<ul class="simple">
+<li><p><strong>supervisado</strong>, que utiliza valores de clase correctos para cada muestra.</p></li>
+<li><p><strong>sin supervisión</strong>, mide la “calidad” intrínseca del propio modelo.</p></li>
+</ul>
+<p>Así dentro de esta librería tenemos las clases:</p>
+<ul class="simple">
+<li><p><strong>rand_score</strong>: que calcula el Índice Rand. A partir de una lista de etiquetas real y predicha.</p></li>
+<li><p><strong>adjusted_rand_score</strong>: que calcula el Índice ARI. También a partir de una lista de etiquetas real y predicha</p></li>
+</ul>
+<p>Se muestra algo de código para ver en que consiste el índice Rand estándar y ajustado. Pero lo calcularemos a través de las librerías <strong>sklearn.metrics.cluster.rand_score</strong> y <strong>sklearn.metrics.cluster.adjusted_rand_score</strong>:</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">RandIndex</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="n">N00</span><span class="p">,</span><span class="n">N01</span><span class="p">,</span><span class="n">N10</span><span class="p">,</span><span class="n">N11</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="o">==</span>  <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y2</span><span class="p">)),</span><span class="s2">&quot;El tamaño de los clusters debe ser idéntico&quot;</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">N00</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">y2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">N01</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">y1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">N10</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">N11</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">N00</span><span class="o">+</span><span class="n">N11</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N00</span><span class="o">+</span><span class="n">N11</span><span class="o">+</span><span class="n">N10</span><span class="o">+</span><span class="n">N01</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">AdjustedRandIndex</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="n">N00</span><span class="p">,</span><span class="n">N01</span><span class="p">,</span><span class="n">N10</span><span class="p">,</span><span class="n">N11</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="o">==</span>  <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y2</span><span class="p">)),</span><span class="s2">&quot;El tamaño de los clusters debe ser idéntico&quot;</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">j</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">N00</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">y2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">N01</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">y1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">and</span> <span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y2</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">N10</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">N11</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">N00</span><span class="o">*</span><span class="n">N11</span><span class="o">-</span><span class="n">N01</span><span class="o">*</span><span class="n">N10</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">N00</span><span class="o">+</span><span class="n">N01</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">N01</span><span class="o">+</span><span class="n">N11</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">N00</span><span class="o">+</span><span class="n">N10</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">N10</span><span class="o">+</span><span class="n">N11</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p><strong>Vamos a validar el cluster obtenido contra el valor real de la etiqueta del conjunto Iris</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">rand_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMeans    R_Libreria=</span><span class="si">%.3f</span><span class="s2">   R_propia=</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels_pred</span><span class="o">=</span><span class="n">y_km</span><span class="p">),</span> <span class="n">RandIndex</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMeans  ARI_Libreria=</span><span class="si">%.3f</span><span class="s2"> ARI_propia=</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels_pred</span><span class="o">=</span><span class="n">y_km</span><span class="p">),</span> <span class="n">AdjustedRandIndex</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KMeans    R_Libreria=0.880   R_propia=0.880
+KMeans  ARI_Libreria=0.730 ARI_propia=0.730
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">RandIndex</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="n">rand_score</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.5, 0.5)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">rand_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">adjusted_rand_score</span>
+<span class="n">y_gmm</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMeans  R=</span><span class="si">%.3f</span><span class="s2"> ARI=</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels_pred</span><span class="o">=</span><span class="n">y_km</span><span class="p">),</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels_pred</span><span class="o">=</span><span class="n">y_km</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GaussMM R=</span><span class="si">%.3f</span><span class="s2"> ARI=</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels_pred</span><span class="o">=</span><span class="n">y_gmm</span><span class="p">),</span> <span class="n">adjusted_rand_score</span><span class="p">(</span><span class="n">labels_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">labels_pred</span><span class="o">=</span><span class="n">y_gmm</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KMeans  R=0.880 ARI=0.730
+GaussMM R=0.790 ARI=0.444
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>INDICE VI (VARIACIÓN DE LA INFORMACIÓN) DE MARINA MEILĂ</strong></p>
+<p>El <strong>Índice VI</strong> <span id="id1">[<a class="reference internal" href="Bibliografia.html#id36" title="Marina Meilă. Comparing clusterings by the variation of information. Learning theory and kernel machines. Springer, 2003.">Meilă, 2003</a>]</span> es una medida de la <strong>distancia (“disimilaridad”) entre dos particiones</strong>.</p>
+<ul class="simple">
+<li><p>Mide la cantidad de “información” ganada o perdida al pasar del agrupamiento <span class="math notranslate nohighlight">\(X\)</span> a <span class="math notranslate nohighlight">\(Y\)</span> .</p></li>
+<li><p>Se define como suma de dos “entropías condicionadas”:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[VI(X,Y) = H(X|Y) + H(Y|X)\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H(X|Y)\)</span> mide la cantidad de información sobre <span class="math notranslate nohighlight">\(X\)</span> que <strong>perdemos</strong> al pasar de <span class="math notranslate nohighlight">\(X\)</span> a <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(H(Y|X)\)</span> mide la cantidad de información sobre <span class="math notranslate nohighlight">\(Y\)</span> que <strong>ganamos</strong> al pasar de <span class="math notranslate nohighlight">\(X\)</span> a <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+</ul>
+<p>El <strong>índice VI</strong> resulta ser (<span id="id2">[<a class="reference internal" href="Bibliografia.html#id35" title="Concha Bielza and Pedro Larrañaga. Data-driven computational neuroscience: machine learning and statistical models. Cambridge University Press, 2020.">Bielza and Larrañaga, 2020</a>]</span> - pp 462):</p>
+<div class="math notranslate nohighlight">
+\[VI(X,Y) = H(X) + H(Y) - 2*IM(X, Y)\]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(H(X)\)</span> y <span class="math notranslate nohighlight">\(H(Y)\)</span> la entropia de cada cluster e <span class="math notranslate nohighlight">\(IM(X, Y)\)</span> la <strong>información mutua</strong>. La información mutua aparece calculada en la rutina propia <strong>informacionMutua</strong> que es idéntica a <strong>sklearn.metrics.cluster.mutual_info_score</strong>.</p>
+<p>Si comparamos con una partición fiable <strong>previa</strong> (hecha por expertos), interesa que VI sea pequeño.</p>
+<p>A partir del índice VI estándar es posible definir:</p>
+<ul class="simple">
+<li><p><strong>Indice VI ajustado</strong>: dividiendo por el logaritmo neperiano de <span class="math notranslate nohighlight">\(N\)</span> (<span id="id3">[<a class="reference internal" href="Bibliografia.html#id37" title="Marina Meilă. Comparing clusterings—an information based distance. Journal of multivariate analysis, 98(5):873–895, 2007.">Meilă, 2007</a>]</span>). Implementación propia en <strong>adjustedVariationInformation</strong>.</p></li>
+<li><p><strong>Indice VI normalizado</strong>: dividiendo por la suma de las entropias de <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> (<span id="id4">[<a class="reference internal" href="Bibliografia.html#id35" title="Concha Bielza and Pedro Larrañaga. Data-driven computational neuroscience: machine learning and statistical models. Cambridge University Press, 2020.">Bielza and Larrañaga, 2020</a>]</span> - pp 462; <span id="id5">[<a class="reference internal" href="Bibliografia.html#id38" title="Junjie Wu, Jian Chen, Hui Xiong, and Ming Xie. External validation measures for k-means clustering: a data distribution perspective. Expert Systems with Applications, 36(3):6050–6061, 2009.">Wu <em>et al.</em>, 2009</a>]</span>). Implementación propia en <strong>normalizedVariationInformation</strong>.</p></li>
+</ul>
+<p><strong>Nota sobre el cálculo de la entropía</strong></p>
+<p>La entropia está disponible en la librería</p>
+<p><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html">scipy.stats.entropy</a></p>
+<p>La base de cálculo del logaritmo es <span class="math notranslate nohighlight">\(e\)</span>, aunque se puede cambiar.</p>
+<p>No obstante el cálculo del <strong>VI</strong> se muestra con código propio completo:</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">mutual_info_score</span>
+<span class="k">def</span> <span class="nf">EntropiaCluster</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">etiquetas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">entropia</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">et</span> <span class="ow">in</span> <span class="n">etiquetas</span><span class="p">:</span>
+        <span class="n">fr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">et</span><span class="p">])</span><span class="o">/</span><span class="n">n</span>
+        <span class="n">entropia</span> <span class="o">+=</span> <span class="o">-</span><span class="n">fr</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entropia</span>
+<span class="k">def</span> <span class="nf">probEtiqueta</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">et</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">et</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">probConjunta</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">et1</span><span class="p">,</span> <span class="n">et2</span><span class="p">):</span>
+    <span class="c1">## Se parte que el nº de elementos en y1 e y2 es el mismo</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">[(</span><span class="n">y1</span><span class="o">==</span><span class="n">et1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">y2</span><span class="o">==</span><span class="n">et2</span><span class="p">)])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">informacionMutua</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="n">etiquetas1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+    <span class="n">etiquetas2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+    
+    <span class="n">infoMutua</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">et1</span> <span class="ow">in</span> <span class="n">etiquetas1</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">et2</span> <span class="ow">in</span> <span class="n">etiquetas2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">probConjunta</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">et1</span><span class="p">,</span> <span class="n">et2</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">infoMutua</span> <span class="o">+=</span> <span class="n">probConjunta</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">et1</span><span class="p">,</span> <span class="n">et2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probConjunta</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">et1</span><span class="p">,</span> <span class="n">et2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">probEtiqueta</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">et1</span><span class="p">)</span><span class="o">*</span><span class="n">probEtiqueta</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">et2</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">infoMutua</span>
+<span class="k">def</span> <span class="nf">variationInformation</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">EntropiaCluster</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="o">+</span> <span class="n">EntropiaCluster</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">informacionMutua</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+    <span class="c1">#return EntropiaCluster(y1) + EntropiaCluster(y2) - 2*mutual_info_score(y1, y2)</span>
+
+<span class="k">def</span> <span class="nf">adjustedVariationInformation</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">variationInformation</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">normalizedVariationInformation</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">variationInformation</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">EntropiaCluster</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="o">+</span> <span class="n">EntropiaCluster</span><span class="p">(</span><span class="n">y2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KMeans  VI=</span><span class="si">%.3f</span><span class="s2"> AVI=</span><span class="si">%.3f</span><span class="s2">  NVI=</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">variationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">),</span> <span class="n">adjustedVariationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">),</span> 
+                                             <span class="n">normalizedVariationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GaussMM VI=</span><span class="si">%.3f</span><span class="s2"> AVI=</span><span class="si">%.3f</span><span class="s2">  NVI=</span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">variationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_gmm</span><span class="p">),</span> <span class="n">adjustedVariationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_gmm</span><span class="p">),</span> 
+                                             <span class="n">normalizedVariationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_gmm</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KMeans  VI=0.527 AVI=0.105  NVI=0.242
+GaussMM VI=1.224 AVI=0.244  NVI=0.387
+</pre></div>
+</div>
+</div>
+</div>
+<p>El <strong>VI</strong> y el <strong>AVI</strong> cumplen ser una distancia  (Meilă, 2007). Tienen las propiedades <strong>reflexiva</strong>, <strong>simétrica</strong> y <strong>triangular</strong>.</p>
+<p>Ademas el valor de <strong>VI</strong> depende solo del tamaño relativo de los grupos. No depende directamente del número de observaciones del conjunto de datos. Se cumple:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(VI(X,Y) \le ln(N)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(VI(X,Y) \le 2 \cdot ln(K)\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reflexiva  VI(y,y)=</span><span class="si">%.5f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">variationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simétrica  VI(y,y_km)=</span><span class="si">%.5f</span><span class="s2">  VI(y_km,y)=</span><span class="si">%.5f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">variationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">),</span> <span class="n">variationInformation</span><span class="p">(</span><span class="n">y_km</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Triangular VI(y,y_km) + VI(y_km,y_gmm)=</span><span class="si">%.5f</span><span class="s2"> &gt;= VI(y,y_gmm)=</span><span class="si">%.5f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">variationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_km</span><span class="p">)</span> 
+                <span class="o">+</span> <span class="n">variationInformation</span><span class="p">(</span><span class="n">y_km</span><span class="p">,</span> <span class="n">y_gmm</span><span class="p">),</span> <span class="n">variationInformation</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_gmm</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reflexiva  VI(y,y)=0.00000
+Simétrica  VI(y,y_km)=0.52665  VI(y_km,y)=0.52665
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Triangular VI(y,y_km) + VI(y_km,y_gmm)=1.61405 &gt;= VI(y,y_gmm)=1.22352
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Para acabar se indica el enlace donde encontrar una vista conjunta del tema de Cluster en sk-learn</strong></p>
+<p><a href="https://scikit-learn.org/stable/modules/clustering.html">https://scikit-learn.org/stable/modules/clustering.html</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03.0_ClusteringUtilidades.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Utilidad para Clustering</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03.2_Clustering-Jerarquicosydensidad.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clustering Jerárquico, Densidad y Mean-Shift</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-no-supervisado">Aprendizaje no supervisado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo">Objetivo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-de-agrupamiento">Métodos de agrupamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similitud-y-distancia">Similitud y distancia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similitud">Similitud</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-k-medias-k-means-o-algoritmo-lloyd">Clustering K-Medias, K-Means o Algoritmo Lloyd</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estandarizacion-de-atributos">Estandarización de atributos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pros-y-contras-de-k-medias">Pros y contras de K-Medias</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentacion-de-los-datos-iris-con-k-means">Segmentación de los datos Iris con K-means</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-de-validacion-interna">Medidas de validación interna</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-del-codo">Método del codo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#criterio-de-la-silueta">Criterio de la silueta</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolucion-del-algoritmo-k-means-con-un-desarrollo-propio">Resolución del algoritmo K-Means con un desarrollo propio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-agrupacion-probabilisticos-distribucion-gaussiana">Modelos de Agrupación Probabilísticos (distribución gaussiana)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-en-sk-learn">Implementación en sk-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eleccion-del-numero-de-clusters-en-clustering-probabilisticos">Elección del número de Clusters en clustering probabilísticos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-de-validacion-externas">Medidas de validación externas</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Departamento de Matemática Aplicada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

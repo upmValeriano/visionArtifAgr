@@ -1,0 +1,1215 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>El Algoritmo SOM &#8212; Introducción al Aprendizaje Automático</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '06.03_SOM_Algoritmo';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Aplicaciones en biotecnología" href="06.04_SOM_AplicacionesBiotecnologia.html" />
+    <link rel="prev" title="Mapas autoorganizativos" href="06.02_SOM_MapaAutoorganizativo.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html">Clasificación naive-Bayes de secuencias de ADN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html">Ratios e indicadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.1_Clustering-K-Means.html">Aprendizaje no supervisado. Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.06_CadenasMarkov.html">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.4_RRNN-Ejercicio%20Wine.html">RRNN - Ejercicio Wine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">El Algoritmo <em>SOM</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/06.03_SOM_Algoritmo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>El Algoritmo SOM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pasos-del-algoritmo">Pasos del algoritmo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-numericos">Datos numéricos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-y-entorno-local"><em>Grid</em> y entorno local</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidimensionales">Unidimensionales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bidimensionales">Bidimensionales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-asociado-a-las-neuronas">Vector asociado a las neuronas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-vecindad-nucleo-de-entorno">Función de <em>vecindad</em>: <strong>núcleo de entorno</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recordatorio-distancia-euclidea">Recordatorio: Distancia euclídea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opciones-de-funcion-de-vecindad">Opciones de función de vecindad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radio-de-influencia">Radio de influencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observaciones">Observaciones</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#competicion"><em>Competición</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eleccion-de-la-best-matching-unit">Elección de la <em>Best Matching Unit</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#best-matching-unit"><strong>Best Matching Unit:</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cooperacion-y-adaptacion"><em>Cooperación y Adaptación</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actualizacion-de-los-vectores-de-referencia">Actualización de los vectores de referencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-tasa-de-aprendizaje">La tasa de aprendizaje</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado">Resultado</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizaciones">Visualizaciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades">Propiedades</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergencia">Convergencia</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-abiertas">Preguntas abiertas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantificacion-del-error">Cuantificación del <em>error</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-versiones-del-som">Otras versiones del SOM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudocodigo">Pseudocódigo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-learning"><em>Stochastic learning</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-learning"><em>Batch learning</em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bioinspirado">Bioinspirado</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="el-algoritmo-som">
+<h1>El Algoritmo <em>SOM</em><a class="headerlink" href="#el-algoritmo-som" title="Link to this heading">#</a></h1>
+<section id="pasos-del-algoritmo">
+<h2>Pasos del algoritmo<a class="headerlink" href="#pasos-del-algoritmo" title="Link to this heading">#</a></h2>
+<p>Pasos elementales del algoritmo básico (<em>online</em>) de generación de un mapa auto-organizativo a partir de un conjunto de datos:</p>
+<ol class="arabic simple">
+<li><p>Seleccionar tamaño y tipo (hexagonal, cuadrado) del mapa</p>
+<ul class="simple">
+<li><p>Típicamente se prefieren <em>grids</em> hexagonales</p></li>
+</ul>
+</li>
+<li><p>Inicializar todos los vectores de pesos</p>
+<ul class="simple">
+<li><p>Posiblemente de manera aleatoria, aunque existen variantes</p></li>
+</ul>
+</li>
+<li><p>Elegir un dato del conjunto de entrenamiento y <em>enfrentarlo</em> al SOM</p></li>
+<li><p>(<em>Competición</em>) Encontrar la mejor neurona (<em>Best Matching Unit</em>, BMU) del mapa, e.g. la más similiar</p>
+<ul class="simple">
+<li><p>Usualmente la más cercana de acuerdo con la métrica euclídea</p></li>
+</ul>
+</li>
+<li><p>(<em>Cooperación</em>) Determinar las neuronas dentro del entorno de la BMU</p>
+<ul class="simple">
+<li><p>Usualmente el tamaño del entorno decrece con la iteración</p></li>
+</ul>
+</li>
+<li><p>(<em>Adaptación</em>) Ajustar los pesos de las neuronas en el entorno de la BMU hacia el dato mostrado.</p>
+<ul class="simple">
+<li><p>En general, la tasa de aprendizaje decrece con cada iteración</p></li>
+<li><p>La magnitud del ajuste es proporcional a la proximidad de la neurona a la BMU</p></li>
+</ul>
+</li>
+<li><p>Repetir pasos 2-6 para <span class="math notranslate nohighlight">\(N\)</span> iteraciones hasta convergencia</p></li>
+</ol>
+</section>
+<section id="datos-numericos">
+<h2>Datos numéricos<a class="headerlink" href="#datos-numericos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Consideramos en caso <em>discreto</em> donde el espacio de entrada <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> son <span class="math notranslate nohighlight">\(N\)</span> puntos de <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span></p></li>
+<li><p>Un conjunto finito de vectores con <span class="math notranslate nohighlight">\(d\)</span> componentes / <strong>atributos</strong></p></li>
+</ul>
+</section>
+<section id="grid-y-entorno-local">
+<h2><em>Grid</em> y entorno local<a class="headerlink" href="#grid-y-entorno-local" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Las neuronas del mapa forman un <em>mallado</em> de <span class="math notranslate nohighlight">\(L\)</span> elementos, en una o dos dimensiones</p>
+<ul>
+<li><p>También se puede realizar en dimensiones mayores</p></li>
+<li><p>El mallado define la relación de vecindad de las neuronas</p></li>
+</ul>
+</li>
+</ul>
+<section id="unidimensionales">
+<h3>Unidimensionales<a class="headerlink" href="#unidimensionales" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Espacios <strong>unidimensionales</strong></p>
+<ul>
+<li><p>Las neuronas quedan dispuestas sobre una línea</p></li>
+<li><p>Una neurona está conectada / es más cercana a las neuronas que tiene a los lados</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default" id="markdown-fig-6-03-1">
+<a class="bg-primary mb-1 reference internal image-reference" href="_images/som_mapa_lineal.png"><img alt="fishy" class="bg-primary mb-1" src="_images/som_mapa_lineal.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">SOM unidimensional</span><a class="headerlink" href="#markdown-fig-6-03-1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="bidimensionales">
+<h3>Bidimensionales<a class="headerlink" href="#bidimensionales" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Las neuronas se colocan sobre un mallado bidimensional</p>
+<ul>
+<li><p>Son los más habituales en las aplicaciones</p></li>
+<li><p>Hay mallados rectangulares y hexagonales</p></li>
+<li><p>Una neurona tiene más <em>vecinos</em> en un mallado hexagonal que en uno rectangular</p></li>
+</ul>
+</li>
+</ul>
+<figure class="align-default" id="markdown-fig-6-03-2">
+<a class="bg-primary mb-1 reference internal image-reference" href="_images/som_mapas_bidimensionales.png"><img alt="fishy" class="bg-primary mb-1" src="_images/som_mapas_bidimensionales.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Ejemplos de SOM bidimensionales</span><a class="headerlink" href="#markdown-fig-6-03-2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="vector-asociado-a-las-neuronas">
+<h2>Vector asociado a las neuronas<a class="headerlink" href="#vector-asociado-a-las-neuronas" title="Link to this heading">#</a></h2>
+<p>A cada neurona se le asocia un vector (<em>prototipo</em>)</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W}_j\in\mathbb{R}^d,\quad j=1,\ldots,L
+\]</div>
+<p>Es decir:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W}_j=(W_{1}^j,\ldots,W_{d}^j),\quad j=1,\ldots,L
+\]</div>
+<p>donde</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(d\)</span>: dimensión de las instancias (número de atributos)</p></li>
+<li><p><span class="math notranslate nohighlight">\(L\)</span>: número de neuronas (unidades) de la red</p></li>
+</ul>
+<p>Los valores iniciales de estos vectores se suelen asignar aleatoriamente (aunque existen otras técnicas). Estos vectores cambian con el <em>tiempo</em> (iteración) de aprendizaje, hasta formar el SOM.</p>
+<p>El conjunto de todos los prototipos en un tiempo de aprendizaje / iteración <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{W}_t=\{\mathbf{W}_1(t),\ldots,\mathbf{W}_L(t)\}
+\]</div>
+</section>
+<section id="funcion-de-vecindad-nucleo-de-entorno">
+<h2>Función de <em>vecindad</em>: <strong>núcleo de entorno</strong><a class="headerlink" href="#funcion-de-vecindad-nucleo-de-entorno" title="Link to this heading">#</a></h2>
+<p>Dado <span class="math notranslate nohighlight">\(\mathcal{L}=\{1,\ldots,L\}\)</span> el conjunto de las neuronas, y <span class="math notranslate nohighlight">\(t\)</span> el tiempo (iteración de aprendizaje), se define una función</p>
+<div class="math notranslate nohighlight">
+\[
+h_t:\mathcal{L}\times\mathcal{L}\to \mathbb{R}^+
+\]</div>
+<p>que satisface las siguientes propiedades:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(h\)</span> es simétrica</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_t(k,k)=1\)</span> para todo <span class="math notranslate nohighlight">\(k\in\mathcal{L}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(h_t(k,l)\)</span> depende únicamente de la distancia <span class="math notranslate nohighlight">\(d(k,l)\)</span> entre las neuronas <span class="math notranslate nohighlight">\(k\)</span> y <span class="math notranslate nohighlight">\(l\)</span> en el <em>mallado</em></p></li>
+</ul>
+<p>denotamos distancia <span class="math notranslate nohighlight">\(d(k,l)=\|r_k-r_l\|\)</span>, y entonces</p>
+<div class="math notranslate nohighlight">
+\[
+h_t(k,l)=h(\|r_k-r_l\|)
+\]</div>
+<ul class="simple">
+<li><p>es monótona decreciente</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+h_t(k,l)\to0\quad\text{si}\quad \|r_k-r_l\|\to \infty
+\]</div>
+<section id="recordatorio-distancia-euclidea">
+<h3>Recordatorio: Distancia euclídea<a class="headerlink" href="#recordatorio-distancia-euclidea" title="Link to this heading">#</a></h3>
+<p>La distancia euclídea entre dos puntos de <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> es</p>
+<div class="math notranslate nohighlight">
+\[
+d(\mathbf{x},\mathbf{y})
+=\|\mathbf{x}-\mathbf{y}\|_2
+=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}
+\]</div>
+</section>
+<section id="opciones-de-funcion-de-vecindad">
+<h3>Opciones de función de vecindad<a class="headerlink" href="#opciones-de-funcion-de-vecindad" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Función <em>meseta</em>: es igual a 1 si la distancia entre <span class="math notranslate nohighlight">\(k\)</span> y <span class="math notranslate nohighlight">\(l\)</span> es menor que cierto radio (que puede ser función del tiempo), y 0 en otro caso</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+h_t(k,l)=\begin{cases}1&amp;\text{ si }&amp;d(k,l)&lt;\rho(t)\\
+0&amp;\text{ otro caso}&amp;
+\end{cases}
+\end{split}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\rho(t)\)</span> es una función decreciente con el tiempo.</p>
+<ul class="simple">
+<li><p>Función gaussiana:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+h_t(c,k)=\alpha(t)e^{-\frac{\|r_c-r_k\|^2}{2\sigma^2(t)}}
+\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\alpha\)</span> y <span class="math notranslate nohighlight">\(\sigma\)</span> son funciones decrecientes del tiempo.</p>
+<p>Un ejemplo puede ser</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha(t)=\frac{A}{B+t},\qquad \sigma(t)=Ce^{-Dt},\qquad A,B,C,D\in\mathbb{R}^+
+\]</div>
+<ul class="simple">
+<li><p>Función <strong>recortada</strong>: si definimos un conjunto de puntos, <span class="math notranslate nohighlight">\(N_c\subset\mathcal{L}\)</span>, que conforman el entorno de una neurona cualquiera <span class="math notranslate nohighlight">\(c\in\mathcal{L}\)</span> entonces:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+h_t(c,k)=\begin{cases}
+\alpha(t)&amp;\text{si}&amp;k\in N_c\\
+0&amp;\text{si}&amp;k\notin N_c
+\end{cases}
+\end{split}\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\alpha(t)\)</span> es una función monótona decreciente para todo <span class="math notranslate nohighlight">\(t\)</span> y <span class="math notranslate nohighlight">\(0&lt;\alpha(t)&lt;1\)</span>.</p>
+</section>
+<section id="radio-de-influencia">
+<h3>Radio de influencia<a class="headerlink" href="#radio-de-influencia" title="Link to this heading">#</a></h3>
+<p>El <strong>radio</strong>, <span class="math notranslate nohighlight">\(\sigma\)</span> determina el tamaño de la región de influencia del dato de entrenamiento <span class="math notranslate nohighlight">\(x\)</span>. Una estrategia común es comenzar el aprendizaje con un radio grande e ir reduciéndolo a medida que avanzan las iteraciones.</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(t)=\sigma(0)\exp\left(-t*\beta\right)
+\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\beta&lt;0\)</span> es la tasa de decaimiento.</p>
+<p><strong>Observación:</strong> usando un <span class="math notranslate nohighlight">\(\sigma^2\leq 10\)</span>, el valor del <em>kernel</em> es casi cero para neuronas a distancia mayor o igual a 10.</p>
+</section>
+<section id="observaciones">
+<h3>Observaciones<a class="headerlink" href="#observaciones" title="Link to this heading">#</a></h3>
+<p>Si la distancia de la neurona <span class="math notranslate nohighlight">\((i,j)\)</span> al BMU es grande, <span class="math notranslate nohighlight">\(h_t\)</span> tenderá a cero, realizándose en ese caso un cambio casi imperceptible en el vector prototipo de la neurona.</p>
+<p>Los datos de aprendizaje afectan, por tanto, al BMU (en la mayor cantidad) y a las neuronas vecinas en cantidad decreciente con la distancia de éstas al BMU.</p>
+<figure class="align-default" id="markdown-fig-6-03-3">
+<a class="bg-primary mb-1 reference internal image-reference" href="_images/som_vecindades.png"><img alt="fishy" class="bg-primary mb-1" src="_images/som_vecindades.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Funciones vecindad e impacto en el mallado del SOM</span><a class="headerlink" href="#markdown-fig-6-03-3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">sigma_sq</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">141</span>
+<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sigma_sq</span><span class="p">,</span> <span class="n">plt_ind</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">distance</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$\sigma^2$ = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Neighborhood function $f$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/e5640635e42c2a1aa6a9950145862024cac573d25ed3fec3d4b9418f191dc8c9.png" src="_images/e5640635e42c2a1aa6a9950145862024cac573d25ed3fec3d4b9418f191dc8c9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="competicion">
+<h2><em>Competición</em><a class="headerlink" href="#competicion" title="Link to this heading">#</a></h2>
+<section id="eleccion-de-la-best-matching-unit">
+<h3>Elección de la <em>Best Matching Unit</em><a class="headerlink" href="#eleccion-de-la-best-matching-unit" title="Link to this heading">#</a></h3>
+<p>Supongamos:</p>
+<ul class="simple">
+<li><p>paso <span class="math notranslate nohighlight">\(t\)</span> del aprendizaje</p></li>
+<li><p>el vector de entrada es <span class="math notranslate nohighlight">\(\mathbf{x}_i=(x_{i1},x_{i2},\ldots,x_{im})\)</span></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><span class="math notranslate nohighlight">\(i\)</span> no tiene que ser igual a <span class="math notranslate nohighlight">\(t\)</span> <strong>¿por qué?</strong></p>
+</div>
+<ul class="simple">
+<li><p>asociada a cada neurona <span class="math notranslate nohighlight">\(j\in\mathcal{L}\)</span> en el paso <span class="math notranslate nohighlight">\(t\)</span> está asociado el vector</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W}_j(t)=(W_{1}^j(t),W_{2}^j(t),\ldots,W_{d}^j(t)),\quad W_s^j(t)\in\mathbb{R},\quad s\in\{1,\ldots,d\}
+\]</div>
+<blockquote>
+<div><p><strong>Nota:</strong> si el mapa es bidimensional entonces <span class="math notranslate nohighlight">\(\mathcal{L}=\mathcal{L}_1\times \mathcal{L}_2\)</span> es el número total de neuronas dispuestas en el mapa bidimensional.</p>
+</div></blockquote>
+<section id="best-matching-unit">
+<h4><strong>Best Matching Unit:</strong><a class="headerlink" href="#best-matching-unit" title="Link to this heading">#</a></h4>
+<p>La neurona que mejor refleja la información recogida en el vector de entrada <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> es la <strong>Best Matching Unit</strong> (<strong>BMU</strong>) y es la neurona que cumple que la distancia de su prototipo en el tiempo <span class="math notranslate nohighlight">\(t\)</span> al dato de entrada es mínima:</p>
+<div class="math notranslate nohighlight">
+\[
+BMU_t(\mathbf{x_i})=
+\underset{k\in\mathcal{L}}{\mathrm{argmin}}=
+\|\mathbf{x}_i-\mathbf{W}_k(t)\|
+\]</div>
+<p>En la práctica se suele elegir la distancia euclídea:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\mathbf{x}_i-\mathbf{W}_j(t)\|
+=
+\sqrt{
+\sum_{s=1}^d (x_{is}-W_{js})^2
+}
+\]</div>
+</section>
+</section>
+</section>
+<section id="cooperacion-y-adaptacion">
+<h2><em>Cooperación y Adaptación</em><a class="headerlink" href="#cooperacion-y-adaptacion" title="Link to this heading">#</a></h2>
+<section id="actualizacion-de-los-vectores-de-referencia">
+<h3>Actualización de los vectores de referencia<a class="headerlink" href="#actualizacion-de-los-vectores-de-referencia" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="markdown-fig-6-03-4">
+<a class="bg-primary mb-1 reference internal image-reference" href="_images/som_actualizacion.png"><img alt="fishy" class="bg-primary mb-1" src="_images/som_actualizacion.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Actualización de los vectores</span><a class="headerlink" href="#markdown-fig-6-03-4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Durante el proceso de entrenamiento, las neuronas <strong>cercanas</strong> a la que verifica la condición de máxima proximidad, <span class="math notranslate nohighlight">\(BMU\)</span>, se actualizan:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W}_k(t+1)=\mathbf{W}_k(t)+ \eta(t)h_t(BMU,k)(\mathbf{x}_i-\mathbf{W}_k(t)),\quad k\in N_{BMU} \text{ ó }k\in\mathcal{L}
+\]</div>
+<p>donde</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(BMU\)</span> es <span class="math notranslate nohighlight">\(BMU_t(i)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta(t)\)</span> es la <em>tasa de aprendizaje</em> (positiva, <span class="math notranslate nohighlight">\(&lt;1\)</span>, monótona decreciente)</p></li>
+<li><p><span class="math notranslate nohighlight">\(h_t(BMU,k)\)</span> es el núcleo de entorno (centrado en <span class="math notranslate nohighlight">\(BMU_t(i)\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\((\mathbf{x}_i-\mathbf{W}_k(t))\)</span> es un vector cuyo origen está en <span class="math notranslate nohighlight">\(\mathbf{W}_k(t)\)</span> y extremo en <span class="math notranslate nohighlight">\(\mathbf{x}\)</span></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Esto quiere decir que hay un <span class="math notranslate nohighlight">\(\delta\in[0,1]\)</span> tal que:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W}_k(t+1)=(1-\delta)\mathbf{W}_k(t)+\delta\mathbf{x_i}
+\]</div>
+</div>
+<blockquote>
+<div><p><strong>Pregunta:</strong> ¿Qué efecto <em>geométrico</em> está realizando esta operación? ¿Tiene algún efecto sobre la posición de las neuronas en el mapa?</p>
+</div></blockquote>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Si hemos definido un entorno <span class="math notranslate nohighlight">\(N_c\)</span> para cada neurona <span class="math notranslate nohighlight">\(\mathbf{c}\in\mathcal{L}\)</span> la actualización se realiza únicamente para las funciones de dicho entorno.</p>
+</div>
+</section>
+<section id="la-tasa-de-aprendizaje">
+<h3>La tasa de aprendizaje<a class="headerlink" href="#la-tasa-de-aprendizaje" title="Link to this heading">#</a></h3>
+<p>La tasa de aprendizaje <em>escala</em> la cantidad que se acerca el vector <em>prototipo</em> de la neurona al dato multidimensional que estamos considerando en la iteración.</p>
+<ul class="simple">
+<li><p>Si <span class="math notranslate nohighlight">\(\eta=0\)</span> entonces no hay ningún cambio</p></li>
+<li><p>Si <span class="math notranslate nohighlight">\(\eta=1\)</span> entonces el vector prototipo <span class="math notranslate nohighlight">\(W_{k}(t+1)\)</span> tomará el valor del dato <span class="math notranslate nohighlight">\(x\)</span></p></li>
+</ul>
+<p>Usualmente se considera una función <span class="math notranslate nohighlight">\(\eta\)</span> decreciente con el <em>tiempo</em> de aprendizaje (iteraciones, épocas del algoritmo). Una posible representación funcional de este comportamiento es:</p>
+<div class="math notranslate nohighlight">
+\[
+\eta(t)=\eta(0)e^{-t*\lambda}
+\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\lambda&lt;0\)</span> es la tasa de decaimiento.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">epochs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">lr_decay</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">141</span>
+<span class="k">for</span> <span class="n">decay</span><span class="p">,</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lr_decay</span><span class="p">,</span> <span class="n">plt_ind</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+    <span class="n">learn_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">epochs</span> <span class="o">*</span> <span class="n">decay</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">learn_rate</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;decay rate: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">decay</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epochs $t$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\eta^(t)$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/ed2d7f86d8d598b95c2ef58c35e63c66db011a485d6c87891fd59f27a703c7c1.png" src="_images/ed2d7f86d8d598b95c2ef58c35e63c66db011a485d6c87891fd59f27a703c7c1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="resultado">
+<h2>Resultado<a class="headerlink" href="#resultado" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Obtenemos una partición del espacio de los datos llamada <a class="reference external" href="https://en.wikipedia.org/wiki/Voronoi_diagram">teselación de Voronoi</a></p></li>
+</ul>
+<figure class="align-default" id="markdown-fig-6-03-5">
+<a class="bg-primary mb-1 reference internal image-reference" href="_images/som_voronoi.png"><img alt="fishy" class="bg-primary mb-1" src="_images/som_voronoi.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text"><em>Clusters</em> en un SOM</span><a class="headerlink" href="#markdown-fig-6-03-5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>Al terminar el aprendizaje se obtiene un <strong>SOM</strong> donde el efecto de la transformación puede hacer aparecer <em>clusters</em> asociados a las neuronas</p>
+<ul>
+<li><p>Un <em>cluster</em> <span class="math notranslate nohighlight">\(C_k\)</span> se define como el conjunto de los <em>inputs</em> (datos de entrada) que son más <em>cercanos</em> a <span class="math notranslate nohighlight">\(\mathbf{W}_k(\infty)\)</span> que a cualquier otro <span class="math notranslate nohighlight">\(\mathbf{W}_j(\infty)\)</span>, <span class="math notranslate nohighlight">\(j\neq k\)</span>.</p></li>
+<li><p>Existe una <em>estructura de vecindad</em> (una topología) entre los <em>clusters</em></p></li>
+</ul>
+</li>
+</ul>
+<section id="visualizaciones">
+<h3>Visualizaciones<a class="headerlink" href="#visualizaciones" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>El mapa de Kohonen consiste en, o bien la representación de los <em>prototipos</em> (vectores asociados a las neuronas), o de los contenidos de cada <em>cluster</em> de acuerdo a la estructura de vecindad (posición en el <em>lattice</em>) de las neuronas.</p></li>
+</ul>
+</section>
+<section id="propiedades">
+<h3>Propiedades<a class="headerlink" href="#propiedades" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Los prototipos del SOM representan el espacio de los datos de entrada fielmente, como hacen otros algoritmos de <em>clustering</em></p></li>
+<li><p><strong>Auto-organización:</strong> los prototipos preservan la <em>topología</em> de los datos: <em>inputs</em> cercanos estarán o bien en el mismo <em>cluster</em> (como hacen otros algoritmos de <em>clustering</em>) o en <em>clusters</em> cercanos</p></li>
+</ul>
+</section>
+</section>
+<section id="convergencia">
+<h2>Convergencia<a class="headerlink" href="#convergencia" title="Link to this heading">#</a></h2>
+<p>El algoritmo es fácil de programar y usar, y muchos estudios prácticos confirman que <em>funciona</em>.</p>
+<p>No obstante, el problema de la convergencia en algoritmos <strong>no supervisados</strong> no es inmediata.</p>
+<p>Cuando <span class="math notranslate nohighlight">\(t\to\infty\)</span> el proceso estocástico</p>
+<div class="math notranslate nohighlight">
+\[
+(\mathbf{W}_k(t))_{k\in\mathcal{L}}
+\]</div>
+<p>en <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> puede presentar</p>
+<ul class="simple">
+<li><p>oscilaciones</p></li>
+<li><p><em>explotar</em> al infinito</p></li>
+<li><p>convergencia (en distribución) a un proceso de equilibrio</p></li>
+<li><p>convergencia (en distribución o casi seguro) a un conjunto finito de puntos en <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span></p></li>
+</ul>
+<p>De hecho, en el caso de SOM bidimensionales no existe una prueba completa y el problema permanece abierto.</p>
+<ul class="simple">
+<li><p><span id="id1">[<a class="reference internal" href="Bibliografia.html#id20" title="J. Fort. Som's mathematics. Neural Networks, 19(6-7):812-816, 2006.">Fort, 2006</a>]</span></p></li>
+</ul>
+<p>En el caso de SOM unidimensionales hay resultados más completos</p>
+<ul class="simple">
+<li><p><span id="id2">[<a class="reference internal" href="Bibliografia.html#id21" title="M. Cottrell, M. Olteanu, F. Rossi, and N. Villa-Vialeneix. Self-organizing maps, theory and applications. Revista de Investigación Operacional, 39(1):1-22, 2018.">Cottrell <em>et al.</em>, 2018</a>]</span></p></li>
+</ul>
+<section id="preguntas-abiertas">
+<h3>Preguntas abiertas<a class="headerlink" href="#preguntas-abiertas" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>¿Es el algoritmo convergente en distribución o casi seguro cuando <span class="math notranslate nohighlight">\(t\to\infty\)</span>?</p></li>
+<li><p>¿Cuál es el efecto de <span class="math notranslate nohighlight">\(\eta(t)\)</span>?</p></li>
+<li><p>Si existe un estado límite, ¿es estable?</p></li>
+<li><p>¿Cómo caracterizamos la <em>organización</em>?</p></li>
+</ul>
+</section>
+</section>
+<section id="cuantificacion-del-error">
+<h2>Cuantificación del <em>error</em><a class="headerlink" href="#cuantificacion-del-error" title="Link to this heading">#</a></h2>
+<p>Una manera de medir la convergencia hacia una organización óptima es mediante una función error.</p>
+<p>En el caso discreto, se puede probar que</p>
+<div class="math notranslate nohighlight">
+\[
+E(\mathcal{W})=\frac{1}{2N}\sum_{i=1}^N\sum_{k=1}^{L}h(BMU,k)\|W_k-x_i\|^2
+\]</div>
+<p>donde</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(BMU=BMU(x_i)\)</span> (elegida según el algoritmo descrito más arriba)</p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> es el número total de datos de entrada</p></li>
+</ul>
+<p>es una función de energía o, también denominada, <code class="docutils literal notranslate"><span class="pre">distorsión</span></code>.</p>
+<p>Esta función combina dos criterios:</p>
+<ul class="simple">
+<li><p>un criterio de <em>clustering</em></p></li>
+<li><p>un criterio de organización correcta</p></li>
+</ul>
+<p>No obstante, la existencia de esta función energía no asegura la convergencia</p>
+<ul class="simple">
+<li><p>el gradiente de la función no es continua en los bordes de los <em>clusters</em></p></li>
+</ul>
+<p>Para minimizar este error se realizan varios entrenamientos con diferentes condiciones iniciales</p>
+<ul class="simple">
+<li><p>se elige el mapa con el menor error</p></li>
+</ul>
+</section>
+<section id="otras-versiones-del-som">
+<h2>Otras versiones del SOM<a class="headerlink" href="#otras-versiones-del-som" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>SOM Determinista <em>Batch</em></p></li>
+</ul>
+<p>Existe una versión determinista del SOM, para obtener resultados reproducibles cuando los los valores iniciales de los prototipos son fijos.</p>
+<p>En esta versión se usan <em>todos</em> los datos en cada iteración.</p>
+<ul class="simple">
+<li><p>SOM para datos no numéricos</p></li>
+</ul>
+<p>Existen versiones del SOM para datos no numéricos</p>
+</section>
+<section id="pseudocodigo">
+<h2>Pseudocódigo<a class="headerlink" href="#pseudocodigo" title="Link to this heading">#</a></h2>
+<section id="stochastic-learning">
+<h3><em>Stochastic learning</em><a class="headerlink" href="#stochastic-learning" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>foreach</strong> <span class="math notranslate nohighlight">\(\mathbf{w}_i\in\mathbf{W}\)</span>:</p>
+<ul>
+<li><p>Initialize <span class="math notranslate nohighlight">\(w_i\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>while</strong> _stopping condition(s) not true:</p>
+<ul>
+<li><p>Select random input vector <span class="math notranslate nohighlight">\(\mathbf{x}_i\in\mathbf{X}\)</span></p></li>
+<li><p>Find the best mathching neuron (BMU) for <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span></p></li>
+<li><p><strong>foreach</strong> <span class="math notranslate nohighlight">\(\mathbf{w}_i\in\mathbf{W}\)</span>:</p>
+<ul>
+<li><p>Update <span class="math notranslate nohighlight">\(\mathbf{w}_i\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>end for</strong></p></li>
+</ul>
+</li>
+<li><p><strong>end</strong></p></li>
+</ul>
+</section>
+<section id="batch-learning">
+<h3><em>Batch learning</em><a class="headerlink" href="#batch-learning" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>foreach</strong> <span class="math notranslate nohighlight">\(\mathbf{w}_i\in\mathbf{W}\)</span>:</p>
+<ul>
+<li><p>Initialize <span class="math notranslate nohighlight">\(w_i\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>while</strong> _stopping condition(s) not true:</p>
+<ul>
+<li><p><strong>foreach</strong> <span class="math notranslate nohighlight">\(\mathbf{w}_i\in\mathbf{W}\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(X_i\leftarrow\emptyset\)</span></p></li>
+<li><p><strong>foreach</strong> <span class="math notranslate nohighlight">\(\mathbf{x}_i\in\mathbf{X}\)</span>:</p>
+<ul>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> is in neighbourhood of <span class="math notranslate nohighlight">\(\mathbf{w}_i\)</span>:</p>
+<ul>
+<li><p>Add <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> to <span class="math notranslate nohighlight">\(X_i\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>end if</strong></p></li>
+</ul>
+</li>
+<li><p><strong>end for</strong></p></li>
+</ul>
+</li>
+<li><p><strong>end for</strong></p></li>
+<li><p><strong>foreach</strong> <span class="math notranslate nohighlight">\(\mathbf{w}_i\in\mathbf{W}\)</span>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{w}_i\leftarrow\)</span> update mean over <span class="math notranslate nohighlight">\(X_i\)</span></p></li>
+</ul>
+</li>
+<li><p><strong>end for</strong></p></li>
+</ul>
+</li>
+<li><p><strong>end</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="bioinspirado">
+<h2>Bioinspirado<a class="headerlink" href="#bioinspirado" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span id="id3">[<a class="reference internal" href="Bibliografia.html#id16" title="T. Kohonen. Self-organized formation of topologically correct feature maps. Biol. Cybern., 43:59-69, 1982.">Kohonen, 1982</a>]</span></p></li>
+<li><p><span id="id4">[<a class="reference internal" href="Bibliografia.html#id17" title="T. Kohonen. Analysis of a simple self-organizing process. Biol. Cybern., 44:135-140, 1982.">Kohonen, 1982</a>]</span></p></li>
+<li><p><span id="id5">[<a class="reference internal" href="Bibliografia.html#id24" title="T. Kohonen. Self-Organizing Maps. Springer-Verlag, 3rd edition edition, 2000.">Kohonen, 2000</a>]</span></p></li>
+<li><p>Existe una ingente cantidad de experimentos y observaciones que demuestran la existencia de un orden espacial en  la organización de las funciones cerebrales.</p>
+<ul>
+<li><p>Ubicuo en los sistemas nerviosos</p></li>
+<li><p>Implantado en los modelos de redes neuronales?</p></li>
+</ul>
+</li>
+<li><p>Compartimentalización del cerebro en partes <em>macroscópicas</em> (no necesariamente anatómicas) con <em>funciones</em> concretas</p>
+<ul>
+<li><p><em>nuclei</em> que controlan la emoción, <em>arousal</em>, intención</p></li>
+<li><p>existe una organización espacial en el tejido cerebral en el que observa una correlación entre funciones neuronales y coordenadas del área cerebral</p></li>
+<li><p>hay <em>areas asociativas</em> en las cuales las señales de diferente modalidad convergen</p></li>
+</ul>
+</li>
+<li><p>La posibilidad de que la representación del conocimiento de una particular categoría de cosas pueda asumir la forma de un mapa de características que está geométricamente organizado sobre un trozo correspondiente de cerebro motivó a Kohonen para crear los SOM.</p></li>
+<li><p>Kohonen pretende crear un mecanismo de aprendizaje que crease mapas globalmente ordenados de diferentes <em>inputs</em> sensoriales en una red neuronal con capas.</p></li>
+<li><p>En la fase de aprendizaje</p>
+<ul>
+<li><p><em>inputs</em> recibidos por la experiencia práctica, sin supervisión</p></li>
+<li><p>los <em>inputs</em> controlan las conexiones neuronales: se <em>refuerzan</em> o <em>desaparecen</em></p></li>
+</ul>
+</li>
+<li><p>Modeliza la plasticidad de las conexiones sinápticas en el cerebro.</p></li>
+<li><p>La selección de vector del <em>codebook</em> más próximo, llamado <em>ganador</em> o <strong>BMU</strong> no está basada en una comparación métrica directa, si no en un mecanismo de interacción colectiva, que se observa en <em>networks</em> interconectadas similares a las del cerébro.</p></li>
+<li><p>El proceso se denomina <a class="reference external" href="https://en.wikipedia.org/wiki/Competitive_learning">competitive learning</a></p>
+<ul>
+<li><p>en neurociencia se suele hablar de <em>competición</em> entre los elementos cuando son estimulados por el mismo input, y el elemento, cuyos parámetros se ajustan más al <em>input</em> es el más activado</p></li>
+<li><p>si el elemento más activado suprime la actividad de las neuronas adyacentes, se le conoce como <em>winner</em></p></li>
+<li><p>si el proceso se repite aparece una estructura en la organización de las neuronas: emergen mapas que están relacionados topológicamente a los inputs sensoriales (signal space)</p></li>
+</ul>
+</li>
+<li><p>En las redes en las que se da el <em>competitive learning</em>, las <em>células</em> reciben el mismo <em>input</em> de información, sobre el cual compiten.</p>
+<ul>
+<li><p>un mensaje entrante <span class="math notranslate nohighlight">\(X\)</span> se compara con todos los posibles modelos <span class="math notranslate nohighlight">\(M_i\)</span></p></li>
+</ul>
+</li>
+<li><p>Mediante interacciones laterales (positivas y negativas), una de las <em>células</em> se convierte en la <strong>ganadora</strong> (y suprime la actividad de todas las demás <em>células</em> con un feedback negativo).</p></li>
+<li><p>emergencia de <em>feature-specific-cells</em>_: neuronas (o sistemas de neuronas) que responden de manera selectiva a <em>input patterns</em></p></li>
+<li><p>las <em>celdas</em> o <em>unidades</em> no se mueven a ninguna parte: el conjunto de sus parámetros internos es el que cambia y define la especificidad de cada <em>celda</em></p></li>
+<li><p>Como las <em>networks</em> son usualmente planas, entonces obtenemos funciones que mapean el espacio de los inputs, preservando las relaciones topológicas y reduciendo la dimensión.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06.02_SOM_MapaAutoorganizativo.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Mapas autoorganizativos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06.04_SOM_AplicacionesBiotecnologia.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Aplicaciones en biotecnología</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pasos-del-algoritmo">Pasos del algoritmo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos-numericos">Datos numéricos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-y-entorno-local"><em>Grid</em> y entorno local</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unidimensionales">Unidimensionales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bidimensionales">Bidimensionales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-asociado-a-las-neuronas">Vector asociado a las neuronas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-vecindad-nucleo-de-entorno">Función de <em>vecindad</em>: <strong>núcleo de entorno</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recordatorio-distancia-euclidea">Recordatorio: Distancia euclídea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opciones-de-funcion-de-vecindad">Opciones de función de vecindad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radio-de-influencia">Radio de influencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observaciones">Observaciones</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#competicion"><em>Competición</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eleccion-de-la-best-matching-unit">Elección de la <em>Best Matching Unit</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#best-matching-unit"><strong>Best Matching Unit:</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cooperacion-y-adaptacion"><em>Cooperación y Adaptación</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actualizacion-de-los-vectores-de-referencia">Actualización de los vectores de referencia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#la-tasa-de-aprendizaje">La tasa de aprendizaje</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultado">Resultado</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizaciones">Visualizaciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades">Propiedades</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergencia">Convergencia</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preguntas-abiertas">Preguntas abiertas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cuantificacion-del-error">Cuantificación del <em>error</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-versiones-del-som">Otras versiones del SOM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudocodigo">Pseudocódigo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-learning"><em>Stochastic learning</em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-learning"><em>Batch learning</em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bioinspirado">Bioinspirado</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Departamento de Matemática Aplicada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

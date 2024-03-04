@@ -1,0 +1,2382 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Práctica 1: cadenas de Markov como Modelos de Secuencias &#8212; Introducción al Aprendizaje Automático</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04.06_CadenasMarkov';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Práctica 2: predicción de estructuras secundarias en proteínas" href="04.07_CadenasDeMarkovOcultas.html" />
+    <link rel="prev" title="Análisis de HMM" href="04.05_AnalisisHMM.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="Introducción al Aprendizaje Automático - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="Introducción al Aprendizaje Automático - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion-Naive-Bayes-RNA-SPLICING.html">Clasificación naive-Bayes de secuencias de ADN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_MetodosdeClasificacion-Ratioseindicadores.html">Ratios e indicadores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_ClusteringIntro.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.0_ClusteringUtilidades.html">Utilidad para Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.1_Clustering-K-Means.html">Aprendizaje no supervisado. Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_Clustering-Jerarquicosydensidad.html">Clustering Jerárquico, Densidad y Mean-Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_Clustering_Analisis_Microarrays.html">Clustering. Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_ClusteringEntregaDiabetesIndiosPima.html">Ejercicio de Clustering con fichero de diabetes (indios Pima)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="04_CadenasMarkovIntro.html">Cadenas de Markov</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="04.00_ObjetivoAnalisisSecuencias.html">Análisis de Secuencias: Objetivo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01_CadenasMarkovIntroduccion.html">Ejemplo inicial de cadena de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.01B_CadenasMarkovEjemplos.html">Otros ejemplos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02_CadenasMarkovResultados.html">Cadenas de Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.02B_CadenasMarkovAsintotico.html">Comportamiento asintótico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.03_CadenasMarkovModelosSecuencias.html">Cadenas de Markov como modelos de secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.04_ModelosMarkovOcultos.html">Modelos de Markov Ocultos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.05_AnalisisHMM.html">Análisis de HMM</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Práctica 1: cadenas de Markov como Modelos de Secuencias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.07_CadenasDeMarkovOcultas.html">Práctica 2: predicción de estructuras secundarias en proteínas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04.08_MarkovExtra.html">Entrega: secuencia más probable en una cadena de Markov.</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.4_RRNN-Ejercicio%20Wine.html">RRNN - Ejercicio Wine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.5_RRNN_Analisis_Microarrays.html">RRNN Análisis de microarrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.6_RRNN-EjerciciosplicingparaEntrega.html">RNNN - Ejercicio splicing para Entrega</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.08RRNN_AlphaFold_GeometriaProteinas_Pytorch.html">AlphaFold. Geometria de las Proteinas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.09RRNN_PointNet_con_Pytorch.html">Identificación 3D con PointNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.10RRNN_Segmentar_Imagenes_2D.html">Segmentación de imágenes 2D con redes completamente convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.11RRNN_Segmentar_Imagenes_2D_cityscapes.html">Segmentación de imágenes 2D con redes completamente convolucionales (conjunto Cityscapes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.12RRNN_Segmentacion_Instancias_2D_MaskRCNN.html">Segmentación de instancias 2D con Mask R-CNN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.13RRNN_Implementar_una_red_LSTM_con_pytorch_series_temporales.html">Implementar una Red Neuronal para una Serie Temporal (LSTM)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="06_mapasAutoorganizativosIntro.html">Mapas Autoorganizativos</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="06.01_SOM_VisualizarDatos.html">Motivación: visualizar datos multidimensionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.02_SOM_MapaAutoorganizativo.html">Mapas autoorganizativos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.03_SOM_Algoritmo.html">El Algoritmo <em>SOM</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.04_SOM_AplicacionesBiotecnologia.html">Aplicaciones en biotecnología</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.05_SOM_EjemploPoblacionIrlanda.html">Ejemplo con Datos demográficos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.06_SOM_EjemploColoresRGB.html">Ejemplo con Colores RGB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.07_SOM_Practica1_Python_v5.html">Práctica 1: Algoritmo SOM de Kohonen en una dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.08_SOM_Practica2_RegionesVinicolas_Python.html">Práctica 2. <em>Clustering</em> de regiones vinícolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.09_SOM_Practica3_SOMClasificador_Python.html">Práctica 2. Continuación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06.10_SOM_Practica4_TareaExtra.html">Entrega</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="07_algoritmosGeneticosIntro.html">Algoritmos Genéticos</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="07.01_GA1.html">Algoritmos Genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.02_GA2.html">Los algoritmos genéticos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.03_GA3.html">El Algoritmo Genético</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.04_GA4_Robbie.html">Robbie el Robot Recogebasura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.05_GA5_Practica1.html">Práctica 1: Pasos elementales del GA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.06_GA6_Practica2_OptimizarFuncion.html">Práctica 2: Optimizar función</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.07_GA7_Practica3_TSP.html">Práctica 3: <em>Travelling Salesman</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="07.08_GA8_Practica_Extra.html">Entrega: <em>Animula Vagula Blandula</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/04.06_CadenasMarkov.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Práctica 1: cadenas de Markov como Modelos de Secuencias</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-1-conjunto-de-datos">Ejemplo 1: Conjunto de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-2-definiciones-previas">Ejemplo 2. Definiciones previas.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-3-vector-de-frecuencias-en-la-primera-posicion">Ejemplo 3. Vector de frecuencias en la primera posición</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-vector-inicial-de-probabilidades">Ejercicio 1. Vector inicial de probabilidades</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-matriz-de-transiciones">Ejercicio 2. Matriz de Transiciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-matriz-de-transiciones">Ejercicio 3. Matriz de transiciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-mapa-de-calor-de-la-matriz">Extra: mapa de calor de la matriz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-es-una-matriz-regular">Extra: es una matriz regular?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-4-distribucion-de-equilibrio">Ejemplo 4. Distribución de Equilibrio</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autovalores-y-autovectores">Autovalores y autovectores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-preguntas">Ejercicio 4. Preguntas.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-5-representacion-grafica">Ejemplo 5. Representación gráfica.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-distribucion-empirica">Ejercicio 5. Distribución empírica.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-6-verosimilitudes-de-secuencias">Ejercicio 6. Verosimilitudes de secuencias</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="practica-1-cadenas-de-markov-como-modelos-de-secuencias">
+<h1>Práctica 1: cadenas de Markov como Modelos de Secuencias<a class="headerlink" href="#practica-1-cadenas-de-markov-como-modelos-de-secuencias" title="Link to this heading">#</a></h1>
+<p>Usaremos el paquete <code class="docutils literal notranslate"><span class="pre">hidden_markov</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install hidden_markov</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import required Libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">hidden_markov</span> <span class="kn">import</span> <span class="n">hmm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Also http://scikit-learn.sourceforge.net/stable/modules/hmm.html</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="ejemplo-1-conjunto-de-datos">
+<h2>Ejemplo 1: Conjunto de datos<a class="headerlink" href="#ejemplo-1-conjunto-de-datos" title="Link to this heading">#</a></h2>
+<p>Cargamos datos de secuencias de proteínas.</p>
+<p>Carga el conjunto de datos <code class="docutils literal notranslate"><span class="pre">prots-L30.txt</span></code> que puedes descargar en Moodle. Como vamos a trabajar con cadenas de caracteres, convierte todas las columnas que involucren cadenas de caracteres al tipo character. Visualiza el conjunto de datos. La primera columna se refiere al identificador de la proteina en PDB. La segunda es la secuencia de aminoácidos, y la tercera es la estructura secundaria más probable predicha para esa secuencia en la base de datos. La cuarta columna es la longitud de la secuencia.</p>
+<p>¿Tienen todas las secuencias la misma longitud?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataFolder</span> <span class="o">=</span> <span class="s1">&#39;./data/&#39;</span>
+<span class="n">dataFile</span> <span class="o">=</span> <span class="s1">&#39;prots-L30.txt&#39;</span>
+<span class="n">dataFilepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataFolder</span><span class="p">,</span><span class="n">dataFile</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataFilepath</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pdb_id</th>
+      <th>seq</th>
+      <th>sst3</th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1AI0</td>
+      <td>FVNQHLCGSHLVEALYLVCGERGFFYTPKT</td>
+      <td>CCCHHHHHHHHHHHHHHHHHHHCEEECCCC</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1APH</td>
+      <td>FVNQHLCGSHLVEALYLVCGERGFFYTPKA</td>
+      <td>CCCCCCCCHHHHHHHHHHHHHHCEEECCCC</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1B4G</td>
+      <td>MISSVCVSSYRGRKSGNKPPSKTCLKEEMA</td>
+      <td>CCCCCECCCCCCCCCCCCCCCCCCCCCCCC</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1B9E</td>
+      <td>FVNQHLCGEHLVEALYLVCGERGFFYTPKT</td>
+      <td>CCCCCCCHHHHHHHHHHHHHHHCEEECCCC</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1BH4</td>
+      <td>CGESCVWIPCISAALGCSCKNKVCYRNGIP</td>
+      <td>CCCCCCCCCCCHHHHCCCCCCCCCCCCCCC</td>
+      <td>30</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>len</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>174.0</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>30.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pdb_id    object
+seq       object
+sst3      object
+len        int64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">seq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;FVNQHLCGSHLVEALYLVCGERGFFYTPKT&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">seq</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-2-definiciones-previas">
+<h2>Ejemplo 2. Definiciones previas.<a class="headerlink" href="#ejemplo-2-definiciones-previas" title="Link to this heading">#</a></h2>
+<p>Define el alfabeto, formado por 20 aminoácidos, siguiendo este orden: <code class="docutils literal notranslate"><span class="pre">RKDEQSCHNTWYMAILFVPG</span></code>. Obtén las longitudes del alfabeto y la longitud de cada secuencia, así como el numero de instancias en el conjunto de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alfabeto</span><span class="o">=</span><span class="p">[</span><span class="n">ele</span> <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="s2">&quot;RKDEQSCHNTWYMAILFVPG&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Longitud del alfabeto =</span><span class="si">{}</span><span class="se">\n</span><span class="s1">Número de secuencias =</span><span class="si">{}</span><span class="se">\n</span><span class="s1">Longitud de las secuencias = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">alfabeto</span><span class="p">),</span>
+                               <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;seq&#39;</span><span class="p">]),</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;seq&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Longitud del alfabeto =20
+Número de secuencias =174
+Longitud de las secuencias = 30
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-3-vector-de-frecuencias-en-la-primera-posicion">
+<h2>Ejemplo 3. Vector de frecuencias en la primera posición<a class="headerlink" href="#ejemplo-3-vector-de-frecuencias-en-la-primera-posicion" title="Link to this heading">#</a></h2>
+<p>Vamos a calcular las probabilidades iniciales de cada aminoácido.</p>
+<blockquote>
+<div><p>Calcula las frecuencias absolutas de cada aminoacido en la primera posición de la secuencia.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numSecuencias</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;seq&#39;</span><span class="p">])</span>
+<span class="n">lenAlfab</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">alfabeto</span><span class="p">)</span>
+<span class="c1">#frecAbsoluPos1 = [0 for i in range(lenAlfab)]</span>
+<span class="n">Pini</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">lenAlfab</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">nseq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numSecuencias</span><span class="p">):</span>
+    <span class="n">secuenciaTabla</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nseq</span><span class="p">,</span><span class="s1">&#39;seq&#39;</span><span class="p">]</span>
+    <span class="n">primerAminoacido</span> <span class="o">=</span> <span class="n">secuenciaTabla</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">posicionAlfabeto</span> <span class="o">=</span> <span class="n">alfabeto</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">primerAminoacido</span><span class="p">)</span>
+    <span class="n">Pini</span><span class="p">[</span><span class="n">posicionAlfabeto</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">frecuenciasAbsolutasIniciales</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">alfabeto</span><span class="p">,</span><span class="n">Pini</span><span class="p">))</span>
+<span class="n">frecuenciasAbsolutasIniciales</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;R&#39;: 2.0,
+ &#39;K&#39;: 10.0,
+ &#39;D&#39;: 6.0,
+ &#39;E&#39;: 8.0,
+ &#39;Q&#39;: 3.0,
+ &#39;S&#39;: 8.0,
+ &#39;C&#39;: 9.0,
+ &#39;H&#39;: 3.0,
+ &#39;N&#39;: 3.0,
+ &#39;T&#39;: 3.0,
+ &#39;W&#39;: 0.0,
+ &#39;Y&#39;: 3.0,
+ &#39;M&#39;: 15.0,
+ &#39;A&#39;: 21.0,
+ &#39;I&#39;: 1.0,
+ &#39;L&#39;: 2.0,
+ &#39;F&#39;: 39.0,
+ &#39;V&#39;: 9.0,
+ &#39;P&#39;: 5.0,
+ &#39;G&#39;: 24.0}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-1-vector-inicial-de-probabilidades">
+<h2>Ejercicio 1. Vector inicial de probabilidades<a class="headerlink" href="#ejercicio-1-vector-inicial-de-probabilidades" title="Link to this heading">#</a></h2>
+<p>Comprueba que la suma del vector calculado
+en el ejemplo anterior coincide con el número de instancias. Normaliza el vector dividiendo
+por la suma para transformarlo en un vector de probabilidades.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Suma de Pini: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Número de secuencias: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">Pini</span><span class="p">),</span><span class="n">numSecuencias</span><span class="p">))</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">Pini</span><span class="p">),</span><span class="n">numSecuencias</span>
+<span class="c1"># Frecuencias Relativas</span>
+<span class="n">sumFrecuenciasAbsolutas</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">Pini</span><span class="p">)</span>
+<span class="n">Pini</span> <span class="o">=</span> <span class="n">Pini</span><span class="o">/</span><span class="n">sumFrecuenciasAbsolutas</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Pini</span><span class="p">,</span><span class="n">Pini</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">frecuenciasRelativasIniciales</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">alfabeto</span><span class="p">,</span><span class="n">Pini</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">frecuenciasRelativasIniciales</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Suma de Pini: 174.0
+Número de secuencias: 174
+
+
+[0.01149425 0.05747126 0.03448276 0.04597701 0.01724138 0.04597701
+ 0.05172414 0.01724138 0.01724138 0.01724138 0.         0.01724138
+ 0.0862069  0.12068966 0.00574713 0.01149425 0.22413793 0.05172414
+ 0.02873563 0.13793103] 1.0
+
+
+{&#39;R&#39;: 0.011494252873563218, &#39;K&#39;: 0.05747126436781609, &#39;D&#39;: 0.034482758620689655, &#39;E&#39;: 0.04597701149425287, &#39;Q&#39;: 0.017241379310344827, &#39;S&#39;: 0.04597701149425287, &#39;C&#39;: 0.05172413793103448, &#39;H&#39;: 0.017241379310344827, &#39;N&#39;: 0.017241379310344827, &#39;T&#39;: 0.017241379310344827, &#39;W&#39;: 0.0, &#39;Y&#39;: 0.017241379310344827, &#39;M&#39;: 0.08620689655172414, &#39;A&#39;: 0.1206896551724138, &#39;I&#39;: 0.005747126436781609, &#39;L&#39;: 0.011494252873563218, &#39;F&#39;: 0.22413793103448276, &#39;V&#39;: 0.05172413793103448, &#39;P&#39;: 0.028735632183908046, &#39;G&#39;: 0.13793103448275862}
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="ejercicio-2-matriz-de-transiciones">
+<h2>Ejercicio 2. Matriz de Transiciones<a class="headerlink" href="#ejercicio-2-matriz-de-transiciones" title="Link to this heading">#</a></h2>
+<p>Define una matriz de ceros, de tamaño <span class="math notranslate nohighlight">\(20 \times 20\)</span>, de forma que los nombres de filas y columnas sean precisamente los nombres de cada aminoácido.</p>
+<p>Actualiza esta matriz para que contenga las frecuencias absolutas de las <span class="math notranslate nohighlight">\(20 \times 20\)</span> posibles transiciones que hay entre los aminoácidos. Para ello tendrás que recorrer cada secuencia e identificar los dos residuos <span class="math notranslate nohighlight">\(R_i \rightarrow R_f\)</span> involucrados en las 29 transiciones posibles (tenemos secuencias de longitud 30) y actualizar el contador en la fila y columna correspondientes a la transición observada. Habrá que acumular los conteos
+recorriendo todas las secuencias del conjunto de datos.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="n">alfabeto</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">alfabeto</span>
+<span class="n">MT</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">rows</span><span class="p">)</span> <span class="c1"># inicializamos como float</span>
+<span class="k">for</span> <span class="n">nseq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">secuencia</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nseq</span><span class="p">,</span><span class="s1">&#39;seq&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">naa</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">secuencia</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="c1"># recorremos hasta el penultimo</span>
+        <span class="n">pos1</span> <span class="o">=</span> <span class="n">secuencia</span><span class="p">[</span><span class="n">naa</span><span class="p">]</span>
+        <span class="n">pos2</span> <span class="o">=</span> <span class="n">secuencia</span><span class="p">[</span><span class="n">naa</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">MT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pos1</span><span class="p">,</span><span class="n">pos2</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+<span class="n">MT</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>R</th>
+      <th>K</th>
+      <th>D</th>
+      <th>E</th>
+      <th>Q</th>
+      <th>S</th>
+      <th>C</th>
+      <th>H</th>
+      <th>N</th>
+      <th>T</th>
+      <th>W</th>
+      <th>Y</th>
+      <th>M</th>
+      <th>A</th>
+      <th>I</th>
+      <th>L</th>
+      <th>F</th>
+      <th>V</th>
+      <th>P</th>
+      <th>G</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>R</th>
+      <td>32.0</td>
+      <td>14.0</td>
+      <td>6.0</td>
+      <td>10.0</td>
+      <td>9.0</td>
+      <td>6.0</td>
+      <td>12.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>9.0</td>
+      <td>3.0</td>
+      <td>17.0</td>
+      <td>2.0</td>
+      <td>18.0</td>
+      <td>24.0</td>
+      <td>29.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>15.0</td>
+      <td>52.0</td>
+    </tr>
+    <tr>
+      <th>K</th>
+      <td>17.0</td>
+      <td>27.0</td>
+      <td>7.0</td>
+      <td>21.0</td>
+      <td>10.0</td>
+      <td>20.0</td>
+      <td>17.0</td>
+      <td>10.0</td>
+      <td>12.0</td>
+      <td>49.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>18.0</td>
+      <td>9.0</td>
+      <td>13.0</td>
+      <td>2.0</td>
+      <td>11.0</td>
+      <td>23.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>15.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>16.0</td>
+      <td>12.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+      <td>17.0</td>
+      <td>3.0</td>
+      <td>9.0</td>
+      <td>12.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>E</th>
+      <td>71.0</td>
+      <td>29.0</td>
+      <td>16.0</td>
+      <td>16.0</td>
+      <td>5.0</td>
+      <td>11.0</td>
+      <td>7.0</td>
+      <td>3.0</td>
+      <td>8.0</td>
+      <td>7.0</td>
+      <td>2.0</td>
+      <td>8.0</td>
+      <td>1.0</td>
+      <td>52.0</td>
+      <td>14.0</td>
+      <td>15.0</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>4.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td>9.0</td>
+      <td>11.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>35.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>10.0</td>
+      <td>8.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>S</th>
+      <td>10.0</td>
+      <td>27.0</td>
+      <td>20.0</td>
+      <td>10.0</td>
+      <td>9.0</td>
+      <td>21.0</td>
+      <td>35.0</td>
+      <td>34.0</td>
+      <td>11.0</td>
+      <td>8.0</td>
+      <td>7.0</td>
+      <td>12.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>8.0</td>
+      <td>17.0</td>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>12.0</td>
+      <td>25.0</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <td>26.0</td>
+      <td>24.0</td>
+      <td>14.0</td>
+      <td>10.0</td>
+      <td>12.0</td>
+      <td>33.0</td>
+      <td>36.0</td>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>24.0</td>
+      <td>1.0</td>
+      <td>25.0</td>
+      <td>4.0</td>
+      <td>24.0</td>
+      <td>43.0</td>
+      <td>8.0</td>
+      <td>2.0</td>
+      <td>19.0</td>
+      <td>16.0</td>
+      <td>89.0</td>
+    </tr>
+    <tr>
+      <th>H</th>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>12.0</td>
+      <td>7.0</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>68.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>N</th>
+      <td>15.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>43.0</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>8.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>7.0</td>
+      <td>18.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>T</th>
+      <td>8.0</td>
+      <td>30.0</td>
+      <td>6.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>13.0</td>
+      <td>34.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>2.0</td>
+      <td>9.0</td>
+      <td>6.0</td>
+      <td>14.0</td>
+      <td>7.0</td>
+      <td>11.0</td>
+      <td>8.0</td>
+      <td>13.0</td>
+      <td>32.0</td>
+      <td>9.0</td>
+    </tr>
+    <tr>
+      <th>W</th>
+      <td>0.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>19.0</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Y</th>
+      <td>8.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>21.0</td>
+      <td>6.0</td>
+      <td>40.0</td>
+      <td>3.0</td>
+      <td>9.0</td>
+      <td>35.0</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>8.0</td>
+      <td>11.0</td>
+      <td>49.0</td>
+      <td>3.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>24.0</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>7.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>A</th>
+      <td>14.0</td>
+      <td>6.0</td>
+      <td>14.0</td>
+      <td>24.0</td>
+      <td>14.0</td>
+      <td>16.0</td>
+      <td>45.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+      <td>5.0</td>
+      <td>10.0</td>
+      <td>12.0</td>
+      <td>37.0</td>
+      <td>13.0</td>
+      <td>56.0</td>
+      <td>28.0</td>
+      <td>12.0</td>
+      <td>14.0</td>
+      <td>37.0</td>
+    </tr>
+    <tr>
+      <th>I</th>
+      <td>7.0</td>
+      <td>14.0</td>
+      <td>7.0</td>
+      <td>8.0</td>
+      <td>4.0</td>
+      <td>16.0</td>
+      <td>8.0</td>
+      <td>4.0</td>
+      <td>10.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>20.0</td>
+      <td>0.0</td>
+      <td>38.0</td>
+      <td>15.0</td>
+      <td>16.0</td>
+      <td>8.0</td>
+      <td>7.0</td>
+      <td>29.0</td>
+      <td>17.0</td>
+    </tr>
+    <tr>
+      <th>L</th>
+      <td>10.0</td>
+      <td>22.0</td>
+      <td>8.0</td>
+      <td>24.0</td>
+      <td>12.0</td>
+      <td>16.0</td>
+      <td>44.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>11.0</td>
+      <td>21.0</td>
+      <td>43.0</td>
+      <td>5.0</td>
+      <td>21.0</td>
+      <td>13.0</td>
+      <td>36.0</td>
+      <td>21.0</td>
+      <td>86.0</td>
+      <td>9.0</td>
+      <td>10.0</td>
+    </tr>
+    <tr>
+      <th>F</th>
+      <td>8.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>7.0</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>16.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>34.0</td>
+      <td>0.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>36.0</td>
+      <td>48.0</td>
+      <td>6.0</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>V</th>
+      <td>9.0</td>
+      <td>9.0</td>
+      <td>4.0</td>
+      <td>46.0</td>
+      <td>4.0</td>
+      <td>7.0</td>
+      <td>55.0</td>
+      <td>1.0</td>
+      <td>40.0</td>
+      <td>11.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>20.0</td>
+      <td>14.0</td>
+      <td>11.0</td>
+      <td>6.0</td>
+      <td>10.0</td>
+      <td>10.0</td>
+      <td>17.0</td>
+    </tr>
+    <tr>
+      <th>P</th>
+      <td>10.0</td>
+      <td>28.0</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>21.0</td>
+      <td>12.0</td>
+      <td>3.0</td>
+      <td>8.0</td>
+      <td>19.0</td>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>2.0</td>
+      <td>30.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>4.0</td>
+      <td>16.0</td>
+      <td>48.0</td>
+      <td>38.0</td>
+    </tr>
+    <tr>
+      <th>G</th>
+      <td>30.0</td>
+      <td>19.0</td>
+      <td>7.0</td>
+      <td>72.0</td>
+      <td>4.0</td>
+      <td>56.0</td>
+      <td>19.0</td>
+      <td>2.0</td>
+      <td>11.0</td>
+      <td>29.0</td>
+      <td>6.0</td>
+      <td>10.0</td>
+      <td>6.0</td>
+      <td>13.0</td>
+      <td>18.0</td>
+      <td>21.0</td>
+      <td>36.0</td>
+      <td>11.0</td>
+      <td>43.0</td>
+      <td>18.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</details>
+</div>
+</section>
+<section id="ejercicio-3-matriz-de-transiciones">
+<h2>Ejercicio 3. Matriz de transiciones<a class="headerlink" href="#ejercicio-3-matriz-de-transiciones" title="Link to this heading">#</a></h2>
+<p>Normaliza la matriz calculada en el ejercicio anterior para que sea <code class="docutils literal notranslate"><span class="pre">estocástica</span></code> por filas.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">MT</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">MT</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">fila</span> <span class="o">=</span> <span class="n">MT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="p">,:]</span>
+    <span class="n">filaSum</span> <span class="o">=</span> <span class="n">fila</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">MT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">MT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="p">,:]</span><span class="o">/</span><span class="n">filaSum</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">MT</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span><span class="n">MT</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;P&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="n">MT</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;R&#39;, &#39;K&#39;, &#39;D&#39;, &#39;E&#39;, &#39;Q&#39;, &#39;S&#39;, &#39;C&#39;, &#39;H&#39;, &#39;N&#39;, &#39;T&#39;, &#39;W&#39;, &#39;Y&#39;, &#39;M&#39;, &#39;A&#39;,
+       &#39;I&#39;, &#39;L&#39;, &#39;F&#39;, &#39;V&#39;, &#39;P&#39;, &#39;G&#39;],
+      dtype=&#39;object&#39;)
+0.9999999999999999 1.1046864587116754
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>R</th>
+      <th>K</th>
+      <th>D</th>
+      <th>E</th>
+      <th>Q</th>
+      <th>S</th>
+      <th>C</th>
+      <th>H</th>
+      <th>N</th>
+      <th>T</th>
+      <th>W</th>
+      <th>Y</th>
+      <th>M</th>
+      <th>A</th>
+      <th>I</th>
+      <th>L</th>
+      <th>F</th>
+      <th>V</th>
+      <th>P</th>
+      <th>G</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>R</th>
+      <td>0.114695</td>
+      <td>0.050179</td>
+      <td>0.021505</td>
+      <td>0.035842</td>
+      <td>0.032258</td>
+      <td>0.021505</td>
+      <td>0.043011</td>
+      <td>0.017921</td>
+      <td>0.025090</td>
+      <td>0.032258</td>
+      <td>0.010753</td>
+      <td>0.060932</td>
+      <td>0.007168</td>
+      <td>0.064516</td>
+      <td>0.086022</td>
+      <td>0.103943</td>
+      <td>0.017921</td>
+      <td>0.014337</td>
+      <td>0.053763</td>
+      <td>0.186380</td>
+    </tr>
+    <tr>
+      <th>K</th>
+      <td>0.059028</td>
+      <td>0.093750</td>
+      <td>0.024306</td>
+      <td>0.072917</td>
+      <td>0.034722</td>
+      <td>0.069444</td>
+      <td>0.059028</td>
+      <td>0.034722</td>
+      <td>0.041667</td>
+      <td>0.170139</td>
+      <td>0.010417</td>
+      <td>0.020833</td>
+      <td>0.003472</td>
+      <td>0.062500</td>
+      <td>0.031250</td>
+      <td>0.045139</td>
+      <td>0.006944</td>
+      <td>0.038194</td>
+      <td>0.079861</td>
+      <td>0.041667</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>0.025641</td>
+      <td>0.057692</td>
+      <td>0.096154</td>
+      <td>0.038462</td>
+      <td>0.025641</td>
+      <td>0.102564</td>
+      <td>0.076923</td>
+      <td>0.025641</td>
+      <td>0.032051</td>
+      <td>0.032051</td>
+      <td>0.012821</td>
+      <td>0.032051</td>
+      <td>0.006410</td>
+      <td>0.044872</td>
+      <td>0.044872</td>
+      <td>0.108974</td>
+      <td>0.019231</td>
+      <td>0.057692</td>
+      <td>0.076923</td>
+      <td>0.083333</td>
+    </tr>
+    <tr>
+      <th>E</th>
+      <td>0.240678</td>
+      <td>0.098305</td>
+      <td>0.054237</td>
+      <td>0.054237</td>
+      <td>0.016949</td>
+      <td>0.037288</td>
+      <td>0.023729</td>
+      <td>0.010169</td>
+      <td>0.027119</td>
+      <td>0.023729</td>
+      <td>0.006780</td>
+      <td>0.027119</td>
+      <td>0.003390</td>
+      <td>0.176271</td>
+      <td>0.047458</td>
+      <td>0.050847</td>
+      <td>0.013559</td>
+      <td>0.030508</td>
+      <td>0.013559</td>
+      <td>0.044068</td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td>0.054878</td>
+      <td>0.067073</td>
+      <td>0.024390</td>
+      <td>0.048780</td>
+      <td>0.036585</td>
+      <td>0.018293</td>
+      <td>0.073171</td>
+      <td>0.213415</td>
+      <td>0.024390</td>
+      <td>0.024390</td>
+      <td>0.006098</td>
+      <td>0.073171</td>
+      <td>0.000000</td>
+      <td>0.073171</td>
+      <td>0.060976</td>
+      <td>0.048780</td>
+      <td>0.006098</td>
+      <td>0.018293</td>
+      <td>0.018293</td>
+      <td>0.109756</td>
+    </tr>
+    <tr>
+      <th>S</th>
+      <td>0.033898</td>
+      <td>0.091525</td>
+      <td>0.067797</td>
+      <td>0.033898</td>
+      <td>0.030508</td>
+      <td>0.071186</td>
+      <td>0.118644</td>
+      <td>0.115254</td>
+      <td>0.037288</td>
+      <td>0.027119</td>
+      <td>0.023729</td>
+      <td>0.040678</td>
+      <td>0.010169</td>
+      <td>0.040678</td>
+      <td>0.027119</td>
+      <td>0.057627</td>
+      <td>0.016949</td>
+      <td>0.030508</td>
+      <td>0.040678</td>
+      <td>0.084746</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <td>0.062651</td>
+      <td>0.057831</td>
+      <td>0.033735</td>
+      <td>0.024096</td>
+      <td>0.028916</td>
+      <td>0.079518</td>
+      <td>0.086747</td>
+      <td>0.000000</td>
+      <td>0.012048</td>
+      <td>0.057831</td>
+      <td>0.002410</td>
+      <td>0.060241</td>
+      <td>0.009639</td>
+      <td>0.057831</td>
+      <td>0.103614</td>
+      <td>0.019277</td>
+      <td>0.004819</td>
+      <td>0.045783</td>
+      <td>0.038554</td>
+      <td>0.214458</td>
+    </tr>
+    <tr>
+      <th>H</th>
+      <td>0.007576</td>
+      <td>0.030303</td>
+      <td>0.007576</td>
+      <td>0.022727</td>
+      <td>0.007576</td>
+      <td>0.090909</td>
+      <td>0.053030</td>
+      <td>0.045455</td>
+      <td>0.007576</td>
+      <td>0.015152</td>
+      <td>0.000000</td>
+      <td>0.015152</td>
+      <td>0.030303</td>
+      <td>0.037879</td>
+      <td>0.053030</td>
+      <td>0.515152</td>
+      <td>0.007576</td>
+      <td>0.037879</td>
+      <td>0.000000</td>
+      <td>0.015152</td>
+    </tr>
+    <tr>
+      <th>N</th>
+      <td>0.099338</td>
+      <td>0.033113</td>
+      <td>0.026490</td>
+      <td>0.026490</td>
+      <td>0.284768</td>
+      <td>0.026490</td>
+      <td>0.039735</td>
+      <td>0.000000</td>
+      <td>0.039735</td>
+      <td>0.052980</td>
+      <td>0.013245</td>
+      <td>0.013245</td>
+      <td>0.000000</td>
+      <td>0.039735</td>
+      <td>0.046358</td>
+      <td>0.119205</td>
+      <td>0.013245</td>
+      <td>0.026490</td>
+      <td>0.033113</td>
+      <td>0.066225</td>
+    </tr>
+    <tr>
+      <th>T</th>
+      <td>0.034934</td>
+      <td>0.131004</td>
+      <td>0.026201</td>
+      <td>0.039301</td>
+      <td>0.004367</td>
+      <td>0.056769</td>
+      <td>0.148472</td>
+      <td>0.021834</td>
+      <td>0.017467</td>
+      <td>0.034934</td>
+      <td>0.008734</td>
+      <td>0.039301</td>
+      <td>0.026201</td>
+      <td>0.061135</td>
+      <td>0.030568</td>
+      <td>0.048035</td>
+      <td>0.034934</td>
+      <td>0.056769</td>
+      <td>0.139738</td>
+      <td>0.039301</td>
+    </tr>
+    <tr>
+      <th>W</th>
+      <td>0.000000</td>
+      <td>0.065789</td>
+      <td>0.013158</td>
+      <td>0.065789</td>
+      <td>0.039474</td>
+      <td>0.052632</td>
+      <td>0.039474</td>
+      <td>0.013158</td>
+      <td>0.026316</td>
+      <td>0.065789</td>
+      <td>0.026316</td>
+      <td>0.039474</td>
+      <td>0.026316</td>
+      <td>0.250000</td>
+      <td>0.052632</td>
+      <td>0.118421</td>
+      <td>0.026316</td>
+      <td>0.039474</td>
+      <td>0.026316</td>
+      <td>0.013158</td>
+    </tr>
+    <tr>
+      <th>Y</th>
+      <td>0.033755</td>
+      <td>0.016878</td>
+      <td>0.008439</td>
+      <td>0.004219</td>
+      <td>0.088608</td>
+      <td>0.025316</td>
+      <td>0.168776</td>
+      <td>0.012658</td>
+      <td>0.037975</td>
+      <td>0.147679</td>
+      <td>0.004219</td>
+      <td>0.016878</td>
+      <td>0.000000</td>
+      <td>0.033755</td>
+      <td>0.046414</td>
+      <td>0.206751</td>
+      <td>0.012658</td>
+      <td>0.021097</td>
+      <td>0.012658</td>
+      <td>0.101266</td>
+    </tr>
+    <tr>
+      <th>M</th>
+      <td>0.045455</td>
+      <td>0.060606</td>
+      <td>0.106061</td>
+      <td>0.060606</td>
+      <td>0.015152</td>
+      <td>0.045455</td>
+      <td>0.090909</td>
+      <td>0.000000</td>
+      <td>0.015152</td>
+      <td>0.030303</td>
+      <td>0.060606</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.090909</td>
+      <td>0.106061</td>
+      <td>0.106061</td>
+      <td>0.030303</td>
+      <td>0.045455</td>
+      <td>0.060606</td>
+      <td>0.030303</td>
+    </tr>
+    <tr>
+      <th>A</th>
+      <td>0.036939</td>
+      <td>0.015831</td>
+      <td>0.036939</td>
+      <td>0.063325</td>
+      <td>0.036939</td>
+      <td>0.042216</td>
+      <td>0.118734</td>
+      <td>0.013193</td>
+      <td>0.013193</td>
+      <td>0.031662</td>
+      <td>0.013193</td>
+      <td>0.026385</td>
+      <td>0.031662</td>
+      <td>0.097625</td>
+      <td>0.034301</td>
+      <td>0.147757</td>
+      <td>0.073879</td>
+      <td>0.031662</td>
+      <td>0.036939</td>
+      <td>0.097625</td>
+    </tr>
+    <tr>
+      <th>I</th>
+      <td>0.029412</td>
+      <td>0.058824</td>
+      <td>0.029412</td>
+      <td>0.033613</td>
+      <td>0.016807</td>
+      <td>0.067227</td>
+      <td>0.033613</td>
+      <td>0.016807</td>
+      <td>0.042017</td>
+      <td>0.037815</td>
+      <td>0.004202</td>
+      <td>0.084034</td>
+      <td>0.000000</td>
+      <td>0.159664</td>
+      <td>0.063025</td>
+      <td>0.067227</td>
+      <td>0.033613</td>
+      <td>0.029412</td>
+      <td>0.121849</td>
+      <td>0.071429</td>
+    </tr>
+    <tr>
+      <th>L</th>
+      <td>0.023474</td>
+      <td>0.051643</td>
+      <td>0.018779</td>
+      <td>0.056338</td>
+      <td>0.028169</td>
+      <td>0.037559</td>
+      <td>0.103286</td>
+      <td>0.018779</td>
+      <td>0.014085</td>
+      <td>0.025822</td>
+      <td>0.049296</td>
+      <td>0.100939</td>
+      <td>0.011737</td>
+      <td>0.049296</td>
+      <td>0.030516</td>
+      <td>0.084507</td>
+      <td>0.049296</td>
+      <td>0.201878</td>
+      <td>0.021127</td>
+      <td>0.023474</td>
+    </tr>
+    <tr>
+      <th>F</th>
+      <td>0.037383</td>
+      <td>0.014019</td>
+      <td>0.009346</td>
+      <td>0.032710</td>
+      <td>0.000000</td>
+      <td>0.046729</td>
+      <td>0.074766</td>
+      <td>0.009346</td>
+      <td>0.004673</td>
+      <td>0.042056</td>
+      <td>0.009346</td>
+      <td>0.158879</td>
+      <td>0.000000</td>
+      <td>0.032710</td>
+      <td>0.032710</td>
+      <td>0.046729</td>
+      <td>0.168224</td>
+      <td>0.224299</td>
+      <td>0.028037</td>
+      <td>0.028037</td>
+    </tr>
+    <tr>
+      <th>V</th>
+      <td>0.031034</td>
+      <td>0.031034</td>
+      <td>0.013793</td>
+      <td>0.158621</td>
+      <td>0.013793</td>
+      <td>0.024138</td>
+      <td>0.189655</td>
+      <td>0.003448</td>
+      <td>0.137931</td>
+      <td>0.037931</td>
+      <td>0.027586</td>
+      <td>0.020690</td>
+      <td>0.006897</td>
+      <td>0.068966</td>
+      <td>0.048276</td>
+      <td>0.037931</td>
+      <td>0.020690</td>
+      <td>0.034483</td>
+      <td>0.034483</td>
+      <td>0.058621</td>
+    </tr>
+    <tr>
+      <th>P</th>
+      <td>0.035088</td>
+      <td>0.098246</td>
+      <td>0.035088</td>
+      <td>0.017544</td>
+      <td>0.007018</td>
+      <td>0.073684</td>
+      <td>0.042105</td>
+      <td>0.010526</td>
+      <td>0.028070</td>
+      <td>0.066667</td>
+      <td>0.017544</td>
+      <td>0.031579</td>
+      <td>0.007018</td>
+      <td>0.105263</td>
+      <td>0.010526</td>
+      <td>0.042105</td>
+      <td>0.014035</td>
+      <td>0.056140</td>
+      <td>0.168421</td>
+      <td>0.133333</td>
+    </tr>
+    <tr>
+      <th>G</th>
+      <td>0.069606</td>
+      <td>0.044084</td>
+      <td>0.016241</td>
+      <td>0.167053</td>
+      <td>0.009281</td>
+      <td>0.129930</td>
+      <td>0.044084</td>
+      <td>0.004640</td>
+      <td>0.025522</td>
+      <td>0.067285</td>
+      <td>0.013921</td>
+      <td>0.023202</td>
+      <td>0.013921</td>
+      <td>0.030162</td>
+      <td>0.041763</td>
+      <td>0.048724</td>
+      <td>0.083527</td>
+      <td>0.025522</td>
+      <td>0.099768</td>
+      <td>0.041763</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</details>
+</div>
+<section id="extra-mapa-de-calor-de-la-matriz">
+<h3>Extra: mapa de calor de la matriz<a class="headerlink" href="#extra-mapa-de-calor-de-la-matriz" title="Link to this heading">#</a></h3>
+<p>Realizar un <em>mapa de calor</em> de la matriz de transiciones con el paquete <code class="docutils literal notranslate"><span class="pre">seaborn</span></code></p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">MT</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="_images/bcdc5905d2480926cdce23f3b10422c01be314521ffc9ad31c58561ffe3c01cc.png" src="_images/bcdc5905d2480926cdce23f3b10422c01be314521ffc9ad31c58561ffe3c01cc.png" />
+</div>
+</details>
+</div>
+</section>
+<section id="extra-es-una-matriz-regular">
+<h3>Extra: es una matriz regular?<a class="headerlink" href="#extra-es-una-matriz-regular" title="Link to this heading">#</a></h3>
+<p>Comprobar que la matriz de transiciones es una matriz <strong>regular</strong>.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MTdata</span> <span class="o">=</span> <span class="n">MT</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">MTdataTranspose</span><span class="o">=</span> <span class="n">MTdata</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+<span class="n">numzeros0</span> <span class="o">=</span> <span class="n">MTdataTranspose</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">MTdataTranspose</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">MTdataTranspose</span><span class="p">)</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">MTdataTranspose</span><span class="p">,</span><span class="n">MTdataTranspose</span><span class="p">)</span>
+<span class="n">numzeros1</span> <span class="o">=</span><span class="n">MTdataTranspose</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">MTdataTranspose</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="n">numzeros0</span><span class="p">,</span><span class="n">numzeros1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(14, 0)
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="ejemplo-4-distribucion-de-equilibrio">
+<h2>Ejemplo 4. Distribución de Equilibrio<a class="headerlink" href="#ejemplo-4-distribucion-de-equilibrio" title="Link to this heading">#</a></h2>
+<p>Supón que hemos llamado <code class="docutils literal notranslate"><span class="pre">MT</span></code> a la matriz de transiciones hallada en el ejercicio anterior.</p>
+<p>Utilizando la función <strong>eig</strong> del módulo <strong>linalg</strong> de <strong>numpy</strong>, que calcula autovalores y autovectores de una matriz cuadrada, obten las probabilidades de equilibrio asociadas a cada aminoácido según el modelo. La función eig devuelve una lista de dos
+elementos:</p>
+<ul class="simple">
+<li><p><strong>eigenValues</strong> contiene los autovectores,</p></li>
+<li><p><strong>eigenVectors</strong> es una matriz cuyas columnas son los autovectores asociados a cada autovalor (siguiendo el orden dado en values).</p></li>
+</ul>
+<section id="autovalores-y-autovectores">
+<h3>Autovalores y autovectores<a class="headerlink" href="#autovalores-y-autovectores" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://numpy.org/doc/stable/reference/generated/numpy.linalg.eig.html</span>
+
+<span class="n">eigVal</span><span class="p">,</span><span class="n">eigVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">MTdataTranspose</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigVal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.0000000000000004+0j)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigVec</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.2382502 +0.j, 0.24467417+0.j, 0.12601374+0.j, 0.23640415+0.j,
+       0.13599602+0.j, 0.23976837+0.j, 0.34758931+0.j, 0.10802277+0.j,
+       0.12708041+0.j, 0.21794427+0.j, 0.06293577+0.j, 0.19054646+0.j,
+       0.04222282+0.j, 0.30020173+0.j, 0.1964877 +0.j, 0.35043236+0.j,
+       0.1397589 +0.j, 0.22869757+0.j, 0.24098499+0.j, 0.34057742+0.j])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigVec</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;complex128&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">autovector</span> <span class="o">=</span> <span class="n">eigVec</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">autovectorReal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">autovector</span><span class="p">)</span>
+<span class="n">autovectorReal</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.2382502 , 0.24467417, 0.12601374, 0.23640415, 0.13599602,
+       0.23976837, 0.34758931, 0.10802277, 0.12708041, 0.21794427,
+       0.06293577, 0.19054646, 0.04222282, 0.30020173, 0.1964877 ,
+       0.35043236, 0.1397589 , 0.22869757, 0.24098499, 0.34057742])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">autovectorReal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.114589128455469
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># hacemos que pertenezca al simplex</span>
+<span class="n">autovectorRealNorm</span> <span class="o">=</span> <span class="n">autovectorReal</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">autovectorReal</span><span class="p">)</span>
+<span class="n">autovectorRealNorm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.05790376, 0.05946503, 0.03062608, 0.05745511, 0.03305215,
+       0.05827274, 0.08447728, 0.0262536 , 0.03088532, 0.05296866,
+       0.01529576, 0.04630996, 0.01026173, 0.07296032, 0.0477539 ,
+       0.08516825, 0.03396667, 0.05558212, 0.05856842, 0.08277313])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ejercicio-4-preguntas">
+<h2>Ejercicio 4. Preguntas.<a class="headerlink" href="#ejercicio-4-preguntas" title="Link to this heading">#</a></h2>
+<p>Observa el código del ejercicio anterior y responde a las siguientes preguntas.</p>
+<ol class="arabic simple">
+<li><p>En la teorı́a hemos visto que la distribución de equilibrio q es la solución del sistema lineal <span class="math notranslate nohighlight">\(\mathbf{q} = \mathbf{q}P\)</span> , siendo <span class="math notranslate nohighlight">\(P\)</span> la matriz de transiciones. ¿Por qué calculamos entonces autovalores y autovectores para hallar q?</p></li>
+<li><p>¿Por qué utilizamos la matriz transpuesta en lugar de <span class="math notranslate nohighlight">\(MT\)</span> directamente?</p></li>
+<li><p>¿Por qué utilizamos la primera columna de la matriz de autovectores y no otra?</p></li>
+<li><p>¿Qué hace la función <code class="docutils literal notranslate"><span class="pre">np.real</span></code> que aparece en el código? ¿Por qué es necesaria?</p></li>
+</ol>
+</section>
+<section id="ejemplo-5-representacion-grafica">
+<h2>Ejemplo 5. Representación gráfica.<a class="headerlink" href="#ejemplo-5-representacion-grafica" title="Link to this heading">#</a></h2>
+<p>Representa gráficamente la distribución anterior mediante un diagrama de barras.
+Ordena las probabilidades de mayor a menor.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">autovectorRealNorm</span><span class="p">,)</span>
+<span class="n">indexDecreasing</span> <span class="o">=</span> <span class="n">index</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># decreasing order</span>
+<span class="n">indexDecreasing</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([15,  6, 19, 13,  1, 18,  5,  0,  3, 17,  9, 14, 11, 16,  4,  8,  2,
+        7, 10, 12], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">alfabeto</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">indexDecreasing</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(20, 20)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alfabetoNP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">alfabeto</span><span class="p">)</span>
+<span class="n">alfabetoNP</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;R&#39;, &#39;K&#39;, &#39;D&#39;, &#39;E&#39;, &#39;Q&#39;, &#39;S&#39;, &#39;C&#39;, &#39;H&#39;, &#39;N&#39;, &#39;T&#39;, &#39;W&#39;, &#39;Y&#39;, &#39;M&#39;,
+       &#39;A&#39;, &#39;I&#39;, &#39;L&#39;, &#39;F&#39;, &#39;V&#39;, &#39;P&#39;, &#39;G&#39;], dtype=&#39;&lt;U1&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ordenar las frecuencias del vector de estado estable</span>
+<span class="n">vectorEstable</span> <span class="o">=</span> <span class="n">autovectorRealNorm</span><span class="p">[</span><span class="n">indexDecreasing</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">alfabetoNP</span><span class="p">[</span><span class="n">indexDecreasing</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vectorEstable</span><span class="p">)),</span><span class="n">vectorEstable</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vectorEstable</span><span class="p">)),</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/15f87f780364b39f694fac801795cdeb017bc2e6c82ea9fa2fc7bd950130a351.png" src="_images/15f87f780364b39f694fac801795cdeb017bc2e6c82ea9fa2fc7bd950130a351.png" />
+</div>
+</div>
+</section>
+<section id="ejercicio-5-distribucion-empirica">
+<h2>Ejercicio 5. Distribución empírica.<a class="headerlink" href="#ejercicio-5-distribucion-empirica" title="Link to this heading">#</a></h2>
+<p>Calcula, contando frecuencias en el conjunto de datos, la distribucion de frecuencias relativas de los aminoácidos. Representa dos diagramas de barras superpuestos con esta distribucion y la obtenida en el Ejemplo anterior. ¿Son comparables?</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alfabeto</span>
+
+
+<span class="n">Pempirica</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">lenAlfab</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">Pempirica</span>
+
+<span class="k">for</span> <span class="n">nseq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">secuencia</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">nseq</span><span class="p">,</span><span class="s1">&#39;seq&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">naa</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">secuencia</span><span class="p">)):</span> <span class="c1"># recorremos hasta el ultimo</span>
+        <span class="n">AA</span> <span class="o">=</span> <span class="n">secuencia</span><span class="p">[</span><span class="n">naa</span><span class="p">]</span>
+        <span class="c1"># qué AA es?</span>
+        <span class="n">indexAA</span> <span class="o">=</span> <span class="n">alfabeto</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">AA</span><span class="p">)</span>
+        <span class="n">Pempirica</span><span class="p">[</span><span class="n">indexAA</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Pempirica</span><span class="p">)</span>
+
+<span class="n">PempiricaFrecuencias</span> <span class="o">=</span> <span class="n">Pempirica</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">Pempirica</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">PempiricaFrecuencias</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[294. 304. 161. 301. 168. 302. 435. 134. 159. 269.  78. 240.  66. 388.
+ 242. 433. 218. 296. 295. 437.]
+[0.05632184 0.05823755 0.03084291 0.05766284 0.03218391 0.05785441
+ 0.08333333 0.0256705  0.03045977 0.05153257 0.01494253 0.04597701
+ 0.01264368 0.0743295  0.04636015 0.08295019 0.04176245 0.05670498
+ 0.05651341 0.08371648]
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">autovectorRealNorm</span> <span class="o">-</span> <span class="n">PempiricaFrecuencias</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">((</span><span class="n">autovectorRealNorm</span> <span class="o">-</span> <span class="n">PempiricaFrecuencias</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.00158192 0.00122748 0.00021683 0.00020773 0.00086824 0.00041833
+ 0.00114395 0.0005831  0.00042555 0.00143609 0.00035323 0.00033295
+ 0.00238194 0.00136918 0.00139375 0.00221806 0.00779578 0.00112287
+ 0.00205501 0.00094335]
+0.002218058754909241
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vectorEstable</span><span class="p">)),</span><span class="n">vectorEstable</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;estable&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vectorEstable</span><span class="p">)),</span><span class="n">PempiricaFrecuencias</span><span class="p">[</span><span class="n">indexDecreasing</span><span class="p">],</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;empírica&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vectorEstable</span><span class="p">)),</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/dadad76bb99f54185ce649b4c8b433fd393f3e41a5c9e7ca475c5a0d4684eef7.png" src="_images/dadad76bb99f54185ce649b4c8b433fd393f3e41a5c9e7ca475c5a0d4684eef7.png" />
+</div>
+</details>
+</div>
+</section>
+<section id="ejercicio-6-verosimilitudes-de-secuencias">
+<h2>Ejercicio 6. Verosimilitudes de secuencias<a class="headerlink" href="#ejercicio-6-verosimilitudes-de-secuencias" title="Link to this heading">#</a></h2>
+<p>Escribe una función, llamada <code class="docutils literal notranslate"><span class="pre">myloglik</span></code>, que calcule la log-verosimilitud de una secuencia según el modelo de Markov. Los argumentos de entrada han de ser:</p>
+<ol class="arabic simple">
+<li><p>el vector de probabilidad inicial <code class="docutils literal notranslate"><span class="pre">vecProbInicial</span></code></p></li>
+<li><p>la matriz de transiciones <code class="docutils literal notranslate"><span class="pre">MT</span></code></p></li>
+<li><p>el alfabeto de 20 aminoácidos definido en el ejemplo 1 <code class="docutils literal notranslate"><span class="pre">alfabeto</span></code></p></li>
+<li><p>la secuencia (como lista de aminoácidos) de la que queremos calcular la verosimilitud <code class="docutils literal notranslate"><span class="pre">secuencia</span></code></p></li>
+</ol>
+<blockquote>
+<div><p>Tanto el vector de probabilidad inicial como la matriz de transiciones han de tener la misma ordenación que el alfabeto dado.</p>
+</div></blockquote>
+<p>Compara las verosimilitudes de las siguientes secuencias:</p>
+<ul class="simple">
+<li><p>SEQWENCIAVERQSMILYES</p></li>
+<li><p>FVCQHLVCQHLVCQHLVCQQ.</p></li>
+</ul>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myloglik</span><span class="p">(</span><span class="n">vecProbInicial</span><span class="p">,</span> <span class="n">matrizTransicion</span><span class="p">,</span> <span class="n">alfa</span><span class="p">,</span> <span class="n">secuencia</span><span class="p">):</span>
+    
+    <span class="n">loglik</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="n">primeraLetra</span> <span class="o">=</span> <span class="n">secuencia</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">primeraPosicionEnAlfabeto</span> <span class="o">=</span> <span class="n">alfa</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">primeraLetra</span><span class="p">)</span>
+    
+    <span class="n">loglik</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vecProbInicial</span><span class="p">[</span><span class="n">primeraPosicionEnAlfabeto</span><span class="p">])</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">secuencia</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        
+        <span class="n">letraEntrada</span> <span class="o">=</span> <span class="n">secuencia</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">letraSalida</span> <span class="o">=</span> <span class="n">secuencia</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="n">posicionLetraEntradaAlfabeto</span> <span class="o">=</span> <span class="n">alfa</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">letraEntrada</span><span class="p">)</span>
+        <span class="n">posicionLetraSalidaAlfabeto</span> <span class="o">=</span> <span class="n">alfa</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">letraSalida</span><span class="p">)</span>
+        <span class="n">probabilidadTransicion</span> <span class="o">=</span> <span class="n">matrizTransicion</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">posicionLetraEntradaAlfabeto</span><span class="p">,</span>
+                                                 <span class="n">posicionLetraSalidaAlfabeto</span><span class="p">]</span>
+        
+        <span class="n">loglik</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probabilidadTransicion</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loglik</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">secuencia1</span> <span class="o">=</span> <span class="s2">&quot;SEQWENCIAVERQSMILYES&quot;</span>
+<span class="n">loglik1</span> <span class="o">=</span> <span class="n">myloglik</span><span class="p">(</span><span class="n">Pini</span><span class="p">,</span> <span class="n">MT</span><span class="p">,</span> <span class="n">alfabeto</span><span class="p">,</span> <span class="n">secuencia1</span><span class="p">)</span>
+<span class="n">lik1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">loglik1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">secuencia1</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Loglikelihood: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Likelihood:: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loglik1</span><span class="p">,</span><span class="n">lik1</span><span class="p">))</span>
+
+<span class="n">secuencia2</span> <span class="o">=</span> <span class="s2">&quot;FVCQHLVCQHLVCQHLVCQQ&quot;</span>
+<span class="n">loglik2</span> <span class="o">=</span> <span class="n">myloglik</span><span class="p">(</span><span class="n">Pini</span><span class="p">,</span> <span class="n">MT</span><span class="p">,</span> <span class="n">alfabeto</span><span class="p">,</span> <span class="n">secuencia2</span><span class="p">)</span>
+<span class="n">lik2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">loglik2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">secuencia2</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Loglikelihood: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Likelihood:: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">loglik2</span><span class="p">,</span><span class="n">lik2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SEQWENCIAVERQSMILYES 
+Loglikelihood: -64.0330953932442
+Likelihood:: 1.5516008595950296e-28
+
+FVCQHLVCQHLVCQHLVCQQ 
+Loglikelihood: -38.54576794984071
+Likelihood:: 1.8188030702995e-17
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04.05_AnalisisHMM.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Análisis de HMM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04.07_CadenasDeMarkovOcultas.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Práctica 2: predicción de estructuras secundarias en proteínas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-1-conjunto-de-datos">Ejemplo 1: Conjunto de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-2-definiciones-previas">Ejemplo 2. Definiciones previas.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-3-vector-de-frecuencias-en-la-primera-posicion">Ejemplo 3. Vector de frecuencias en la primera posición</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-vector-inicial-de-probabilidades">Ejercicio 1. Vector inicial de probabilidades</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-matriz-de-transiciones">Ejercicio 2. Matriz de Transiciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-matriz-de-transiciones">Ejercicio 3. Matriz de transiciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-mapa-de-calor-de-la-matriz">Extra: mapa de calor de la matriz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extra-es-una-matriz-regular">Extra: es una matriz regular?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-4-distribucion-de-equilibrio">Ejemplo 4. Distribución de Equilibrio</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autovalores-y-autovectores">Autovalores y autovectores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-4-preguntas">Ejercicio 4. Preguntas.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-5-representacion-grafica">Ejemplo 5. Representación gráfica.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-5-distribucion-empirica">Ejercicio 5. Distribución empírica.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-6-verosimilitudes-de-secuencias">Ejercicio 6. Verosimilitudes de secuencias</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Departamento de Matemática Aplicada
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
