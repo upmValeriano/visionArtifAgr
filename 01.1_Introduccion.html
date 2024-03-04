@@ -1,0 +1,1662 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Introducción al Aprendizaje Automático &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01.1_Introduccion';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clasificación naive-Bayes" href="02.1_MetodosdeClasificacion-Naive-Bayes.html" />
+    <link rel="prev" title="Clasificación" href="02_ClasificacionIntro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07C_RRNN_Convoluciones_PlantVillage.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/01.1_Introduccion.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F01.1_Introduccion.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/01.1_Introduccion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introducción al Aprendizaje Automático</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-supevisado-vs-no-supevisado-regresion-vs-clasificacion">Aprendizaje supevisado vs no supevisado. Regresión vs Clasificación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#las-matrices-x-e-y">Las matrices <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-conjuntos-de-entrenamiento-y-validacion-train-y-test-en-el-aprendizaje-automatico">Los conjuntos de entrenamiento y validación, train y test, en el aprendizaje automático</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tratamiento-de-los-datos">Tratamiento de los Datos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eliminacion-de-nulos">Eliminación de Nulos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estandarizacion-de-la-matriz-x">Estandarización de la matriz X</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-componentes-principales">Análisis de Componentes Principales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-correlacion-y-grafico-de-dispersion-entre-caracteristicas">Matriz de correlación y gráfico de dispersión entre características</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduccion-al-aprendizaje-automatico">
+<h1>Introducción al Aprendizaje Automático<a class="headerlink" href="#introduccion-al-aprendizaje-automatico" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">#from skimage import io</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">sklearn</span> <span class="k">as</span> <span class="nn">sk</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>La asignatura de <strong>Aprendizaje Automático</strong> es un compendio de nuevas técnicas de análisis de datos avanzados que de la mano de la <strong>estadística</strong> y de los avances de la <strong>programación</strong> han abierto un nuevo horizonte en campos hasta ese momento vedados al análisis.</p>
+<p>Uno de esos campos es sin lugar a duda los campos de la biología, que por la complejidad de sus modelos se encontraba fuera de muchos de los avances que la física matemática había aplicado a otros campos de la ingeniería como la electrotecnia y electrónica, la termodinámica o la mecánica de materiales por ejemplo.</p>
+<p>Pero incluso <strong>los modelos informáticos inspirados en procesos biológicos</strong> se han constituido en <strong>herramientas de propósito general</strong> para construir los esquemas de trabajo, caso de las <strong>redes neuronales</strong>, o resolver problemas generales, caso de la aplicación de los <strong>algoritmos genéticos</strong> a la solución de problemas generales de <strong>optimización</strong>.</p>
+<a class="reference internal image-reference" href="_images/IA_MachineL.png"><img alt="_images/IA_MachineL.png" src="_images/IA_MachineL.png" style="width: 600px;" /></a>
+<section id="aprendizaje-supevisado-vs-no-supevisado-regresion-vs-clasificacion">
+<h2>Aprendizaje supevisado vs no supevisado. Regresión vs Clasificación<a class="headerlink" href="#aprendizaje-supevisado-vs-no-supevisado-regresion-vs-clasificacion" title="Link to this heading">#</a></h2>
+<p>El <strong>Aprendizaje</strong> Automático hace referencia a la preparación de un <strong>modelo entrenado estadisticamente</strong> donde se correlacionan unas <strong>observaciones</strong>, llamadas <span class="math notranslate nohighlight">\(X\)</span> con una <strong>variable objetivo</strong> llamada <span class="math notranslate nohighlight">\(Y\)</span>. Durante el entrenamiento se construye un modelo que relaciona las observaciones recogidas en el conjunto <span class="math notranslate nohighlight">\(X\)</span> con la variable recogida en el conjunto <span class="math notranslate nohighlight">\(Y\)</span>, que son observaciones reales conocidas de antemano.</p>
+<p>Una vez ajustado el modelo servirá para predecir valores <span class="math notranslate nohighlight">\(Y\)</span>, objetivos desconocidos, sobre un conjunto de nuevas observaciones <span class="math notranslate nohighlight">\(X\)</span>. Esto es lo que se denomina <strong>aprendizaje supervisado</strong>, porque en el entrenamiento el disponer de objetivos conocidos <span class="math notranslate nohighlight">\(Y\)</span> de unas observaciones <span class="math notranslate nohighlight">\(X\)</span> permite supervisar el entrenamiento.</p>
+<p>Finalmente hay casos en que ni siquiera conocemos ninguna variable objetivo. Simplemente nos piden que establezcamos una clasificación, (buena, regular, mala) por ejemplo, sobre un conjunto de observaciones de las que no tenemos experiencia previa. En estos casos estaremos hablando de <strong>aprendizaje no supervisado</strong>. Se aplicarán métodos que permiten hacer clasificaciones genéricas no condicionadas por una experiencia previa.</p>
+<p>En el aprendizaje supervisado podemos encontrarnos con que los valores <span class="math notranslate nohighlight">\(Y\)</span> sean continuos, cualquier valor de los números reales. En este caso los métodos supervisados a aplicar son las <strong>Regresiones</strong>. Mientras que si <span class="math notranslate nohighlight">\(Y\)</span> toma sólo un conjunto discreto de valores, supongamos <span class="math notranslate nohighlight">\( \{0, 1, 2, ..., k\} \)</span> hablamos de métodos de <strong>Clasificación</strong>. Resumiendo una primera clasificación del Aprendizaje Automático puede ser:</p>
+<ul class="simple">
+<li><p><strong>Aprendizaje Supervisado</strong>. Cuando el modelo se ajusta a partir de valores conocidos <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span></p>
+<ul>
+<li><p><strong>Regresiones</strong>. Cuando los valores que toman <span class="math notranslate nohighlight">\(Y\)</span> son continuos</p></li>
+<li><p><strong>Clasificaciones</strong>. Cuando los valores que toman <span class="math notranslate nohighlight">\(Y\)</span> son discretos</p></li>
+</ul>
+</li>
+<li><p><strong>Aprendizaje no Supervisado</strong>. Cuando partimos de valores <span class="math notranslate nohighlight">\(X\)</span> para ajustar un modelo.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/ASupervisado.png"><img alt="_images/ASupervisado.png" src="_images/ASupervisado.png" style="width: 600px;" /></a>
+</section>
+<section id="las-matrices-x-e-y">
+<h2>Las matrices <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span><a class="headerlink" href="#las-matrices-x-e-y" title="Link to this heading">#</a></h2>
+<p>Un <strong>conjunto de características</strong> <span class="math notranslate nohighlight">\(X\)</span> se puede definir como una <strong>matriz</strong> de <span class="math notranslate nohighlight">\(N\)</span> filas y <span class="math notranslate nohighlight">\(n\)</span> columnas. Las <span class="math notranslate nohighlight">\(N\)</span> filas hacen referencia al numero de observaciones registradas o número de individuos de la muestra de partida o entrenamiento. Mientras que <span class="math notranslate nohighlight">\(n\)</span> es el número de características observadas y hace referencia a la dimensión de las observaciones. En cada individuo del conjunto recogemos <span class="math notranslate nohighlight">\(n\)</span> caracteristicas distintas. Si estamos haciendo un estudio médico sobre 1.000 individuos, <span class="math notranslate nohighlight">\(N=1.000\)</span> y si a cada individuo le medimos la presión arterial, el nivel de glucosa y el nivel de colesterol, <span class="math notranslate nohighlight">\(n=3\)</span>. Podremos recoger los datos de nuestro conjunto de entrenamiento en una matriz <span class="math notranslate nohighlight">\(1.000 \times 3\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X=\begin{bmatrix}
+  x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1n} \\
+  x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2n} \\
+  \vdots &amp; \vdots &amp; \ddots &amp;  \vdots \\
+  x_{N1} &amp; x_{N2} &amp; \cdots &amp; x_{Nn} \\
+ \end{bmatrix}\end{split}\]</div>
+<p>Si el estudio médico es un modelo <strong>supervisado</strong> las variables objetivo <span class="math notranslate nohighlight">\(Y\)</span> que permiten entrenar el modelo se pueden definir como una matriz columna de <span class="math notranslate nohighlight">\(N\)</span> filas o una matriz <span class="math notranslate nohighlight">\(N \times 1\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Y=\begin{bmatrix}
+  y_1 \\
+  y_2 \\
+  \vdots \\
+  y_N \\
+ \end{bmatrix}\end{split}\]</div>
+</section>
+<section id="los-conjuntos-de-entrenamiento-y-validacion-train-y-test-en-el-aprendizaje-automatico">
+<h2>Los conjuntos de entrenamiento y validación, train y test, en el aprendizaje automático<a class="headerlink" href="#los-conjuntos-de-entrenamiento-y-validacion-train-y-test-en-el-aprendizaje-automatico" title="Link to this heading">#</a></h2>
+<p>El ajuste del modelo estadistico de un método supervisado se realiza sobre una parte de los conjuntos <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> de partida. Se hace una partición tanto de <span class="math notranslate nohighlight">\(X\)</span> como de <span class="math notranslate nohighlight">\(Y\)</span> en dos subconjuntos. El primero, que se denomina de <strong>entranamiento</strong> o <strong>train</strong> se utiliza para hacer realmente el ajuste del modelo. Y este ajuste se valida en el subconjunto que se ha reservado a tal fin y al que se da el nombre de conjunto de <strong>test</strong> o <strong>validación</strong>.</p>
+<p>Esto es así porque los métodos de ajuste pueden conseguir una convergencia sobre el conjunto de entrenamiento que sea ficticia, lo que se llama <strong>sobreajuste</strong>, y luego al validar se comprueba que el ratio de éxito es muchísimo menor. Esto puede ser así porque realmente el modelo no tenga convergencia o correlación real.</p>
+<a class="reference internal image-reference" href="_images/Training.png"><img alt="_images/Training.png" src="_images/Training.png" style="width: 600px;" /></a>
+</section>
+<section id="tratamiento-de-los-datos">
+<h2>Tratamiento de los Datos<a class="headerlink" href="#tratamiento-de-los-datos" title="Link to this heading">#</a></h2>
+<p>Antes de empezar a aplicar ningún método entrenamiento es necesario cargar los datos desde el soporte de archivos o base de datos donde se encuentren. Aquí se cargarán desde archivos que se esperan en la carpeta <strong>data</strong> utilizando la librería <strong>Pandas</strong>.</p>
+<p>Una vez cargado es necesario un proceso de filtrado y depuración para que sea compatible con los procedimientos que se van a aplicar. Así será necesario eliminar valores nulos o convertir valores alfabéticos en númericos.</p>
+<p>Gestionar los datos nulos o datos perdidos se puede realizar con diferentes extrategias:</p>
+<ul class="simple">
+<li><p><strong>Descartar</strong> los registros incompletos.</p></li>
+<li><p><strong>Imputar</strong> un dato por cada valor perdido reemplazando por la <strong>media</strong> o la <em>mediana</em>.</p></li>
+<li><p><strong>Imputar</strong> en base a una <strong>regresión</strong>, donde el dato perdido se sustituye por uno <em>predicho</em>.</p></li>
+</ul>
+<p>Además puede surgir la necesidad de transformar los datos:</p>
+<ul class="simple">
+<li><p><strong>Estandarización</strong> : restando la media <span class="math notranslate nohighlight">\(\mu_i\)</span> y dividiendo por la desviación típica <span class="math notranslate nohighlight">\(\sigma_i\)</span> en cada una de las <span class="math notranslate nohighlight">\(i\)</span> columnas de la matriz <span class="math notranslate nohighlight">\(X\)</span> con <span class="math notranslate nohighlight">\(i=1,...,n\)</span>.</p></li>
+<li><p>Convertir datos <strong>alfabéticos</strong> en <strong>númericos</strong>. Por ejemplo en la matriz <span class="math notranslate nohighlight">\(Y\)</span> se sustituyen los nombres de las etiquetas por enteros <span class="math notranslate nohighlight">\(0, 1, ..., K\)</span>.</p></li>
+</ul>
+<p>Finalmente puede ser de interés hacer un <strong>análisis de componentes principales (PCA)</strong> en la matriz <span class="math notranslate nohighlight">\(X\)</span>.</p>
+<section id="eliminacion-de-nulos">
+<h3>Eliminación de Nulos<a class="headerlink" href="#eliminacion-de-nulos" title="Link to this heading">#</a></h3>
+<p>El archivo <strong>breast_cancer_conNulos.csv</strong> contiene datos con valores nulos en algunas de sus características. La variable objetivo <strong>y</strong> es <strong>diagnose</strong>  con valores 0 (benigno, no canceroso) o  1 (maligno, canceroso), respectivamente. El resto de variables son características que constituyen la matriz <strong>X</strong>.</p>
+<p>Realizar lo siguiente:</p>
+<ul class="simple">
+<li><p>Cargar con Pandas el archivo.</p></li>
+<li><p>Evaluar si existen valores nulos o perdidos</p></li>
+<li><p>Eliminar en Pandas los valores nulos.</p></li>
+<li><p>Cargar las matrices X e y</p></li>
+</ul>
+<p>Primero se comienza cargando desde la librería Pandas los datos del fichero a un objeto <strong>DataFrame</strong>. Ésto lo realiza la función <strong>read_csv</strong> que lee el fichero CSV.</p>
+<p>https://pandas.pydata.org/docs/index.html</p>
+<p>https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html</p>
+<p>Los valores perdidos se pueden detectar y eliminar desde el objeto <em>DataFrame</em> con los métodos <strong>isna()</strong> y <strong>dropnan()</strong> respectivamente.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/breast_cancer_conNulos.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>clump_thickness</th>
+      <th>cell_size_uniformity</th>
+      <th>cell_shape_uniformity</th>
+      <th>marginal_adhesion</th>
+      <th>single_epithelial_cell_size</th>
+      <th>bare_nuclei</th>
+      <th>bland_chromatin</th>
+      <th>normal_nucleoli</th>
+      <th>mitoses</th>
+      <th>diagnose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>7.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Se detectan si existen o no valores perdidos o nulos</strong></p>
+<p>Los registros con nulos aparecen arriba y con True.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>clump_thickness</th>
+      <th>cell_size_uniformity</th>
+      <th>cell_shape_uniformity</th>
+      <th>marginal_adhesion</th>
+      <th>single_epithelial_cell_size</th>
+      <th>bare_nuclei</th>
+      <th>bland_chromatin</th>
+      <th>normal_nucleoli</th>
+      <th>mitoses</th>
+      <th>diagnose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>683</th>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>684</th>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>685</th>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>686</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>687</th>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>688 rows × 10 columns</p>
+</div></div></div>
+</div>
+<p><strong>Se borran los valores nulos</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>clump_thickness</th>
+      <th>cell_size_uniformity</th>
+      <th>cell_shape_uniformity</th>
+      <th>marginal_adhesion</th>
+      <th>single_epithelial_cell_size</th>
+      <th>bare_nuclei</th>
+      <th>bland_chromatin</th>
+      <th>normal_nucleoli</th>
+      <th>mitoses</th>
+      <th>diagnose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>7.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>678</th>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>679</th>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>680</th>
+      <td>5.0</td>
+      <td>10.0</td>
+      <td>10.0</td>
+      <td>3.0</td>
+      <td>7.0</td>
+      <td>3.0</td>
+      <td>8.0</td>
+      <td>10.0</td>
+      <td>2.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>681</th>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>4.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>10.0</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>682</th>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>10.0</td>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>683 rows × 10 columns</p>
+</div></div></div>
+</div>
+<p><strong>Extraer las matrices X e y</strong></p>
+<p>El DataFrame tiene la variable <strong>values</strong> o el método <strong>to_numpy()</strong> para volcar la información a un array de doble dimensión.</p>
+<p>La matriz <strong>X</strong> está formada por las 9 primeras columnas y la <strong>y</strong> es la columna 9. Se pueden extraer por posiciones:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[:,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((683, 9), (683,))
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>También se puede hacer usando los nombres de las columnas</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columnX</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">columnY</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">columnX</span><span class="p">,</span> <span class="n">columnY</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columnX</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="c1">#y = df[columnY].to_numpy()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;diagnose&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;clump_thickness&#39;, &#39;cell_size_uniformity&#39;, &#39;cell_shape_uniformity&#39;,
+       &#39;marginal_adhesion&#39;, &#39;single_epithelial_cell_size&#39;, &#39;bare_nuclei&#39;,
+       &#39;bland_chromatin&#39;, &#39;normal_nucleoli&#39;, &#39;mitoses&#39;],
+      dtype=&#39;object&#39;) diagnose
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((683, 9), (683,))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estandarizacion-de-la-matriz-x">
+<h3>Estandarización de la matriz X<a class="headerlink" href="#estandarizacion-de-la-matriz-x" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_std</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">df_std</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_std</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">columnX</span><span class="p">)</span>
+<span class="n">df_std</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>clump_thickness</th>
+      <th>cell_size_uniformity</th>
+      <th>cell_shape_uniformity</th>
+      <th>marginal_adhesion</th>
+      <th>single_epithelial_cell_size</th>
+      <th>bare_nuclei</th>
+      <th>bland_chromatin</th>
+      <th>normal_nucleoli</th>
+      <th>mitoses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.197905</td>
+      <td>-0.702212</td>
+      <td>-0.741774</td>
+      <td>-0.639366</td>
+      <td>-0.555608</td>
+      <td>-0.698853</td>
+      <td>-0.181827</td>
+      <td>-0.612927</td>
+      <td>-0.3484</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.197905</td>
+      <td>0.277252</td>
+      <td>0.262783</td>
+      <td>0.758032</td>
+      <td>1.695166</td>
+      <td>1.772867</td>
+      <td>-0.181827</td>
+      <td>-0.285105</td>
+      <td>-0.3484</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.511643</td>
+      <td>-0.702212</td>
+      <td>-0.741774</td>
+      <td>-0.639366</td>
+      <td>-0.555608</td>
+      <td>-0.424217</td>
+      <td>-0.181827</td>
+      <td>-0.612927</td>
+      <td>-0.3484</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.552679</td>
+      <td>1.583204</td>
+      <td>1.602192</td>
+      <td>-0.639366</td>
+      <td>-0.105454</td>
+      <td>0.125054</td>
+      <td>-0.181827</td>
+      <td>1.354008</td>
+      <td>-0.3484</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.156869</td>
+      <td>-0.702212</td>
+      <td>-0.741774</td>
+      <td>0.059333</td>
+      <td>-0.555608</td>
+      <td>-0.698853</td>
+      <td>-0.181827</td>
+      <td>-0.612927</td>
+      <td>-0.3484</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="analisis-de-componentes-principales">
+<h2>Análisis de Componentes Principales<a class="headerlink" href="#analisis-de-componentes-principales" title="Link to this heading">#</a></h2>
+<p>Dado un conjunto de <span class="math notranslate nohighlight">\(N\)</span> observaciones con <span class="math notranslate nohighlight">\(n\)</span> características, cuya información está contenida en una matriz <strong>X</strong> es posible proyectar los datos de todas las observaciones sobre una dirección que maximice la varianza. Esta dirección se denomina <strong>componente principal</strong> y al maximizar la varianza es la que mejor explica todo el conjunto en una única dimensión.</p>
+<p>Como se puede ver en el siguiente gráfico, la recta con la componente principal, en color azul, además de maximizar la varianza, <strong>minimiza la distancia a todas las observaciones</strong>. En color amarillo, aparece la segunda componente principal, ortogonal a la anterior.</p>
+<p>Las <strong>direcciones principales</strong> se obtienen a partir de los <strong>autovectores</strong> <span class="math notranslate nohighlight">\(u_i\)</span>, ordenados por autovalor <span class="math notranslate nohighlight">\(\lambda_i\)</span> de la <strong>matriz de covarianza</strong> <span class="math notranslate nohighlight">\(S\)</span> de la matriz de características <span class="math notranslate nohighlight">\(X\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[S=\frac{1}{N}(X - \bar{x})^T(X - \bar{x})\]</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="k">def</span> <span class="nf">getOrdenadaRecta</span><span class="p">(</span><span class="n">vDir</span><span class="p">,</span> <span class="n">Pto</span><span class="p">,</span> <span class="n">lstX</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="n">Pto</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">vDir</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">vDir</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">Pto</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lstX</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">mostrarGrafica</span><span class="p">():</span>
+    <span class="c1">## Se genera un conjunto aleatorio</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>
+    <span class="c1">## Se obtienen las direcciones principales utilizando la clase PCA de sklearn</span>
+    <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">Media</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)]</span>
+    <span class="n">x_c1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">40</span><span class="p">)</span>  <span class="c1">## abscisas de la recta de la dirección principal 1ª</span>
+    <span class="n">y_c1</span> <span class="o">=</span> <span class="n">getOrdenadaRecta</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Media</span><span class="p">,</span> <span class="n">x_c1</span><span class="p">)</span> <span class="c1">## ordenadas de la recta de la dirección principal 1ª</span>
+    <span class="n">x_c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>  <span class="c1">## abscisas de la recta de la dirección principal 2ª</span>
+    <span class="n">y_c2</span> <span class="o">=</span> <span class="n">getOrdenadaRecta</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Media</span><span class="p">,</span> <span class="n">x_c2</span><span class="p">)</span> <span class="c1">## ordenadas de la recta de la dirección principal 2ª</span>
+
+    <span class="c1">## Se dibuja el resultado</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+    <span class="n">marcas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marcas</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_c1</span><span class="p">,</span> <span class="n">y_c1</span><span class="p">,</span> <span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PCA 1&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_c2</span><span class="p">,</span> <span class="n">y_c2</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PCA 2&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mostrarGrafica</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1ad6d8ba171722cea5eadbada2f384d925368195e7b9fc39b1de740d565cfa38.png" src="_images/1ad6d8ba171722cea5eadbada2f384d925368195e7b9fc39b1de740d565cfa38.png" />
+</div>
+</div>
+<p>El análisis de componentes principales (PCA) (<span id="id1">[<a class="reference internal" href="Bibliografia.html#id3" title="IT1011 Jolliffe. Generalizations and adaptations of principal component analysis. In Principal Component Analysis, pages 223–234. Springer, 1986.">Jolliffe, 1986</a>]</span>) es una transformación lineal sobre las <span class="math notranslate nohighlight">\(n\)</span> componentes de la matriz <strong>X</strong>. La matriz <strong>X</strong> está formada por <span class="math notranslate nohighlight">\(N\)</span> observaciones <span class="math notranslate nohighlight">\(\{x^1, ..., x^N\}\)</span> donde cada observación es un vector de <span class="math notranslate nohighlight">\(n\)</span> componentes:
+$<span class="math notranslate nohighlight">\(x^i=(x^i_1, ..., x^i_n)\)</span>$</p>
+<p>Primero se proyecta los datos contenidos en <strong>X</strong> sobre un espacio 1-dimensional de base <span class="math notranslate nohighlight">\(u_1=(u_{11},...,u_{1n})^T\)</span>. Hacemos que el vector sea ortonormal: <span class="math notranslate nohighlight">\(u_1^Tu_1=1\)</span></p>
+<p>La proyección de cada observación vendrá dada por <span class="math notranslate nohighlight">\(u^T_1x^i\)</span> . Y la varianza de los datos proyectados será:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{N} \sum^N_{i=1} (u^T_1x^i - u^T_1 \bar{x})^2 = u^T_1 S u_1\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(\bar{x}=\frac{1}{N} \sum^N_{i=1} x^i\)</span> es el vector media de los datos y <span class="math notranslate nohighlight">\(S\)</span> la matriz de covarianza de dimensión <span class="math notranslate nohighlight">\(n\times n\)</span></p>
+<p><span class="math notranslate nohighlight">\(u_1\)</span> será el primer componente principal si maximiza la varianza:</p>
+<div class="math notranslate nohighlight">
+\[\max\limits_{u_1} u^T_1 S u_1 \; \text{sujeto a} \; u_1^Tu_1=1\]</div>
+<p>Optimización de una función de <span class="math notranslate nohighlight">\(n\)</span> variables con condición que introduciendo el multiplicador de Lagrange <span class="math notranslate nohighlight">\(\lambda_1\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[\max\limits_{u_1} u^T_1 S u_1 + \lambda_1(1 - u_1^Tu_1)\]</div>
+<p>Se resuelve derivando con respecto a <span class="math notranslate nohighlight">\(u_1\)</span> e igualando a cero:</p>
+<div class="math notranslate nohighlight">
+\[ S u_1=\lambda_1 u_1\]</div>
+<p>Esta ecuación indica que <span class="math notranslate nohighlight">\(u_1\)</span> y <span class="math notranslate nohighlight">\(\lambda_1\)</span> son respectivamente el autovector y autovalor de la matriz de covarianza <span class="math notranslate nohighlight">\(S\)</span>. Además si premultiplicamos la anterior ecuación por <span class="math notranslate nohighlight">\(u^T_1\)</span> se ve que <span class="math notranslate nohighlight">\(\lambda_1\)</span> es la varianza:</p>
+<div class="math notranslate nohighlight">
+\[ u^T_1 S u_1=\lambda_1\]</div>
+<p>La segunda componente principal <span class="math notranslate nohighlight">\(u_2\)</span> será una nueva dirección ortonormal a <span class="math notranslate nohighlight">\(u_1\)</span> con la máxima varianza de todas las posibles direcciones ortogonales. Dado que <span class="math notranslate nohighlight">\(S\)</span> es una matriz simétrica <span class="math notranslate nohighlight">\(n \times n\)</span> siempre existirán <span class="math notranslate nohighlight">\(n\)</span> autovectores ortonormales <span class="math notranslate nohighlight">\(u_i\)</span> y como la varianza viene dada por los autovalores <span class="math notranslate nohighlight">\(\lambda_i\)</span>, el procedimiento es:</p>
+<ul class="simple">
+<li><p>Obtener la matriz de covarianza <span class="math notranslate nohighlight">\(S=\frac{1}{N}(X - \bar{x})^T(X - \bar{x})\)</span> a partir de <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+<li><p>Calcular los autovectores <span class="math notranslate nohighlight">\(u_i\)</span> de <span class="math notranslate nohighlight">\(S\)</span> en orden de mayor a menor valor de los autovalores <span class="math notranslate nohighlight">\(\lambda_i\)</span>.</p></li>
+<li><p>Proyectar <span class="math notranslate nohighlight">\(X\)</span> sobre las <span class="math notranslate nohighlight">\(K\)</span> componentes principales deseadas</p></li>
+</ul>
+<p>El hecho de que los <strong>autovalores</strong> contengan la varianza que explica cada dirección permite seleccionar tantas direcciones como se necesiten para <strong>explicar un porcentaje dado de la varianza</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[:,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Varianzas</span><span class="o">=</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+<span class="n">Varianzas</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.92461872, 0.05306648, 0.01710261, 0.00521218])
+</pre></div>
+</div>
+</div>
+</div>
+<p>En el siguiente gráfico se muestra la <strong>varianza que explica cada dirección principal</strong> y la varianza <strong>acumulada</strong> al elegir las primeras <strong>k</strong> direcciones principales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_exp</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+<span class="n">tot</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_exp</span><span class="p">)</span>
+<span class="n">cum_var_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">var_exp</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tot</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">var_exp</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Varianza explicada inidividual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tot</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">cum_var_exp</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Varianza explicada acumulada&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ratio de varianza explicada&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Indice de Característica Principal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a0467e896b3cb526d1a247d67d246d1eb1fdbe809f76fef217cd8209848898b7.png" src="_images/a0467e896b3cb526d1a247d67d246d1eb1fdbe809f76fef217cd8209848898b7.png" />
+</div>
+</div>
+<p><strong>Se eligen 2 componentes y se proyecta y se representa sobre esas 2 componentes</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">]</span>
+<span class="n">markers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">colors</span><span class="p">,</span> <span class="n">markers</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_pca</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_pca</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">l</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PC 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;PC 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1abf4e636f8145934e7104da757a82c948c6a607d19e36551138afe120b96703.png" src="_images/1abf4e636f8145934e7104da757a82c948c6a607d19e36551138afe120b96703.png" />
+</div>
+</div>
+<p><strong>Se revisan los resultados haciendo los cálculos paso a paso</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Calculo de la matriz de covarianza</span>
+<span class="c1">## means = [ np.mean(X[:,i]) for i in range(X.shape[1])] ## Vector de medias</span>
+<span class="c1">## S = np.dot(np.transpose(X-means), X-means)/X.shape[0] ## Matriz de covarianza</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1">## Función de Numpy</span>
+<span class="c1">## Calculo de los autovalores y autovectores</span>
+<span class="n">eigen_vals</span><span class="p">,</span> <span class="n">eigen_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<span class="n">eigen_vals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.22824171, 0.24267075, 0.0782095 , 0.02383509])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_exp</span> <span class="o">=</span> <span class="n">eigen_vals</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">eigen_vals</span><span class="p">)</span>  <span class="c1">## Calculamos en ratio</span>
+<span class="n">tot</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_exp</span><span class="p">)</span>
+<span class="n">cum_var_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">var_exp</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tot</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">var_exp</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Varianza explicada inidividual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tot</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">cum_var_exp</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Varianza explicada acumulada&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Ratio de varianza explicada&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Indice de Característica Principal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e9ba4438dedab1d5bd4ecd149d0c82184af8ae8c32ec710a06d1b87986b81e46.png" src="_images/e9ba4438dedab1d5bd4ecd149d0c82184af8ae8c32ec710a06d1b87986b81e46.png" />
+</div>
+</div>
+<p>El <strong>método de componentes principales no está dirigido a seleccionar las características de la matriz inicial X</strong> con más varianza, sino que permiten proyectar sobre un nuevo espacio K-dimensional eligiendo las dimensiones que garantizan un ratio de la varianza total.</p>
+</section>
+<section id="matriz-de-correlacion-y-grafico-de-dispersion-entre-caracteristicas">
+<h2>Matriz de correlación y gráfico de dispersión entre características<a class="headerlink" href="#matriz-de-correlacion-y-grafico-de-dispersion-entre-caracteristicas" title="Link to this heading">#</a></h2>
+<p>Aunque está más dirigido a los problemas de regresión entre variables continuas, es posible hacer un estudio de que <strong>caracteristicas se correlacionan mejor entre sí</strong> o bien a traves de la <strong>matriz de correlación</strong> o dibujando el <strong>gráfico de dispersión 2 a 2</strong> de todas las características de <strong>X</strong></p>
+<p><em>Por ejemplo en el conjunto Iris la matriz de correlación entre las 4 características de la matriz</em> <strong>X</strong> y el <strong>grafico de dispersión entre las características</strong> es:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cov</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df_cov</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;Correlación&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df_cov</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Correlación</th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>sepal length (cm)</td>
+      <td>1.000000</td>
+      <td>-0.117570</td>
+      <td>0.871754</td>
+      <td>0.817941</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>sepal width (cm)</td>
+      <td>-0.117570</td>
+      <td>1.000000</td>
+      <td>-0.428440</td>
+      <td>-0.366126</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>petal length (cm)</td>
+      <td>0.871754</td>
+      <td>-0.428440</td>
+      <td>1.000000</td>
+      <td>0.962865</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>petal width (cm)</td>
+      <td>0.817941</td>
+      <td>-0.366126</td>
+      <td>0.962865</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><strong>Gráfico de dispersión entre características</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">axes</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8bd198e61d24cd291d1e613406445f4f105b03ebb0606fb43120655b485f676a.png" src="_images/8bd198e61d24cd291d1e613406445f4f105b03ebb0606fb43120655b485f676a.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_ClasificacionIntro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clasificación</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02.1_MetodosdeClasificacion-Naive-Bayes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clasificación naive-Bayes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-supevisado-vs-no-supevisado-regresion-vs-clasificacion">Aprendizaje supevisado vs no supevisado. Regresión vs Clasificación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#las-matrices-x-e-y">Las matrices <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-conjuntos-de-entrenamiento-y-validacion-train-y-test-en-el-aprendizaje-automatico">Los conjuntos de entrenamiento y validación, train y test, en el aprendizaje automático</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tratamiento-de-los-datos">Tratamiento de los Datos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eliminacion-de-nulos">Eliminación de Nulos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estandarizacion-de-la-matriz-x">Estandarización de la matriz X</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-componentes-principales">Análisis de Componentes Principales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-correlacion-y-grafico-de-dispersion-entre-caracteristicas">Matriz de correlación y gráfico de dispersión entre características</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

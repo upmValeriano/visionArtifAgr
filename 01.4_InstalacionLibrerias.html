@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Instalación de Librerías &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01.4_InstalacionLibrerias';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clasificación" href="02_ClasificacionIntro.html" />
+    <link rel="prev" title="Repaso de programación en Python" href="01.3_EjemplosdePythonparaaprenderaprogramar.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07C_RRNN_Convoluciones_PlantVillage.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/01.4_InstalacionLibrerias.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F01.4_InstalacionLibrerias.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/01.4_InstalacionLibrerias.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Instalación de Librerías</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comprobar-la-actual-version-de-python">Comprobar la actual versión de Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotly">Plotly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pydotplus">PyDotPlus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch">Pytorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reinstalacion">Reinstalación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion">Instalación</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-conda-con-cpu">Instalación CONDA con CPU</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-conda-con-cuda">Instalación CONDA con CUDA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-summary">torch-summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opencv">OpenCV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pycocotools">pycocotools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wget">wget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cadenas-de-markov">Cadenas de Markov</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorflow">TensorFlow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#susi-self-organizing-maps-with-python">SuSi – Self-organizing Maps with Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-susi">Instalación de SuSi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygad-algoritmos-geneticos-en-python">PyGAD - Algoritmos genéticos en Python</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="instalacion-de-librerias">
+<h1>Instalación de Librerías<a class="headerlink" href="#instalacion-de-librerias" title="Link to this heading">#</a></h1>
+<section id="comprobar-la-actual-version-de-python">
+<h2>Comprobar la actual versión de Python<a class="headerlink" href="#comprobar-la-actual-version-de-python" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Versión de Python = &#39;</span><span class="p">,</span> <span class="n">python_version</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Versión de Python =  3.11.5
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para instalar o re-instalar Python: https://www.anaconda.com/products/distribution donde está disponible la <strong>última versión</strong></p>
+</section>
+<section id="scikit-learn">
+<h2>scikit-learn<a class="headerlink" href="#scikit-learn" title="Link to this heading">#</a></h2>
+<p>Librería de Machine Learning (<a href="https://scikit-learn.org/stable/install.html">ver aquí</a>)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install -U scikit-learn</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotly">
+<h2>Plotly<a class="headerlink" href="#plotly" title="Link to this heading">#</a></h2>
+<p>Es una biblioteca de gráficos interactiva de código abierto que admite más de 40 tipos de gráficos que cubren una amplia gama de casos de uso estadísticos, financieros, geográficos, científicos y 3-D.</p>
+<ul class="simple">
+<li><p>pip install plotly==5.7.0</p></li>
+<li><p>conda install -c plotly plotly=5.7.0</p></li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-0">
+Pip</label><div class="sd-tab-content docutils">
+<p>pip install plotly==5.7.0</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-1">
+Conda</label><div class="sd-tab-content docutils">
+<p>conda install -c plotly plotly=5.7.0</p>
+</div>
+</div>
+</section>
+<section id="pydotplus">
+<h2>PyDotPlus<a class="headerlink" href="#pydotplus" title="Link to this heading">#</a></h2>
+<p>La librería <strong>PyDotPlus</strong> permite visualizar un árbol de decisión que ha sido entrenado</p>
+<p>Para poder usar esta librería es preciso realizar la siguiente instalación</p>
+<ul class="simple">
+<li><p>pip install pydotplus</p></li>
+</ul>
+<p>O desde Anaconda:</p>
+<ul class="simple">
+<li><p>conda install pydotplus</p></li>
+</ul>
+<p>Para funcionar correctamente necesitamos que en nuestra máquina esté instalado Graphviz, si no es así se puede hacer que conda lo instale al mismo tiempo que el paquete si se usa el comando:</p>
+<ul class="simple">
+<li><p>conda install -c conda-forge pydotplus</p></li>
+</ul>
+<p>La documentación de la librería está disponible en: http://pydotplus.readthedocs.org/</p>
+</section>
+<section id="pytorch">
+<h2>Pytorch<a class="headerlink" href="#pytorch" title="Link to this heading">#</a></h2>
+<p>PyTorch es una biblioteca de aprendizaje automático de código abierto basada en la biblioteca de Torch, utilizado para implementar aplicaciones de visión artificial o procesamiento de lenguajes naturales. Desarrollado por el Laboratorio de Investigación de Inteligencia Artificial4 de Facebook (FAIR).Es un software libre y de código abierto liberado bajo la Licencia Modificada de BSD. A pesar de que la interfaz de Python está más pulida y es el foco principal del desarrollo, PyTorch también tiene una interfaz en C++.</p>
+<p>Varios software de Aprendizaje Profundo están construidas utilizando PyTorch, como Tesla Autopilot, Uber’s Pyro, HuggingFace’s Transformers, PyTorch Lighting, y Catalyst.</p>
+<p>PyTorch proporciona dos características de alto nivel (<a href="https://pytorch.org/">ver aquí</a>):</p>
+<ul class="simple">
+<li><p>Computación de tensores (como NumPy ) con una aceleración fuerte a través de unidades de procesamientos gráficos (GPU).</p></li>
+<li><p>Redes neuronales profundas construidas en un sistema de diferenciación automática de bases de datos.</p></li>
+</ul>
+<section id="reinstalacion">
+<h3>Reinstalación<a class="headerlink" href="#reinstalacion" title="Link to this heading">#</a></h3>
+<p><strong>En caso de tener que reínstalar, primero se desinstala</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#conda uninstall pytorch</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="instalacion">
+<h3>Instalación<a class="headerlink" href="#instalacion" title="Link to this heading">#</a></h3>
+<p>Las diferentes opciones de instalación en local:</p>
+<ul class="simple">
+<li><p>Sistema operativo</p></li>
+<li><p>Paquete (conda, pip, etc.)</p></li>
+<li><p>Lenguaje (Python, C++)</p></li>
+<li><p>Plataforma (CUDA o CPU)</p></li>
+</ul>
+<p><strong>Se pueden encontrar en</strong> : <a href="https://pytorch.org/get-started/locally/">pytorch.org</a>.</p>
+<section id="instalacion-conda-con-cpu">
+<h4>Instalación CONDA con CPU<a class="headerlink" href="#instalacion-conda-con-cpu" title="Link to this heading">#</a></h4>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-2">
+Pip</label><div class="sd-tab-content docutils">
+<p>pip install pytorch torchvision torchaudio cpuonly</p>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-3">
+Conda</label><div class="sd-tab-content docutils">
+<p>conda install pytorch torchvision torchaudio cpuonly -c pytorch</p>
+</div>
+</div>
+</section>
+<section id="instalacion-conda-con-cuda">
+<h4>Instalación CONDA con CUDA<a class="headerlink" href="#instalacion-conda-con-cuda" title="Link to this heading">#</a></h4>
+<p><strong>Sólo si se dispone de una plataforma con aceleración de cálculo basada en targetas gráficas</strong></p>
+</section>
+</section>
+</section>
+<section id="torch-summary">
+<h2>torch-summary<a class="headerlink" href="#torch-summary" title="Link to this heading">#</a></h2>
+<p><strong>Saca un resumen de la red neuronal modelada en Pytorch</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install torch-summary</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="opencv">
+<h2>OpenCV<a class="headerlink" href="#opencv" title="Link to this heading">#</a></h2>
+<p>Los principales métodos de segmentación clásicos están implementados en librerías de Python como OpenCV o Scikit-Image:</p>
+<p>https://pypi.org/project/opencv-python/</p>
+<p>https://pypi.org/project/scikit-image/</p>
+<p>Que se pueden instalar desde los comandos:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install opencv-python</span>
+<span class="c1">#!pip install scikit-image</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pycocotools">
+<h2>pycocotools<a class="headerlink" href="#pycocotools" title="Link to this heading">#</a></h2>
+<p>Libreria de utilidades para obtener el formato COCO</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install pycocotools</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wget">
+<h2>wget<a class="headerlink" href="#wget" title="Link to this heading">#</a></h2>
+<p><strong>Descarga de archivos por get de TCP</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install wget</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cadenas-de-markov">
+<h2>Cadenas de Markov<a class="headerlink" href="#cadenas-de-markov" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install hidden_markov</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tensorflow">
+<h2>TensorFlow<a class="headerlink" href="#tensorflow" title="Link to this heading">#</a></h2>
+<p>Necesario sólo para una rutina que se utiliza en el proceso de AlphaFold</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install tensorflow</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="susi-self-organizing-maps-with-python">
+<h2>SuSi – Self-organizing Maps with Python<a class="headerlink" href="#susi-self-organizing-maps-with-python" title="Link to this heading">#</a></h2>
+<p>SuSi es un paquete de Python para aprendizaje no supervisado, supervisado y semisupervisado. Está construido como un estimador de estilo scikit-learn y funciona con todas las versiones actuales de Python 3.</p>
+<p><a href="https://github.com/felixriese/susi/tree/main/guide">Sitio web de SuSi</a></p>
+<section id="instalacion-de-susi">
+<h3>Instalación de SuSi<a class="headerlink" href="#instalacion-de-susi" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-4">
+Pip</label><div class="sd-tab-content docutils">
+<p>!pip install susi</p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" for="sd-tab-item-5">
+Conda</label><div class="sd-tab-content docutils">
+<p>conda install -c conda-forge susi</p>
+</div>
+</div>
+</section>
+</section>
+<section id="pygad-algoritmos-geneticos-en-python">
+<h2>PyGAD - Algoritmos genéticos en Python<a class="headerlink" href="#pygad-algoritmos-geneticos-en-python" title="Link to this heading">#</a></h2>
+<p><a href="https://pygad.readthedocs.io/en/latest/#">Sitio web de PyGAD</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip3 install pygad</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01.3_EjemplosdePythonparaaprenderaprogramar.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Repaso de programación en Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_ClasificacionIntro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clasificación</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comprobar-la-actual-version-de-python">Comprobar la actual versión de Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">scikit-learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotly">Plotly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pydotplus">PyDotPlus</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch">Pytorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reinstalacion">Reinstalación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion">Instalación</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-conda-con-cpu">Instalación CONDA con CPU</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-conda-con-cuda">Instalación CONDA con CUDA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-summary">torch-summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opencv">OpenCV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pycocotools">pycocotools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wget">wget</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cadenas-de-markov">Cadenas de Markov</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorflow">TensorFlow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#susi-self-organizing-maps-with-python">SuSi – Self-organizing Maps with Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalacion-de-susi">Instalación de SuSi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pygad-algoritmos-geneticos-en-python">PyGAD - Algoritmos genéticos en Python</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

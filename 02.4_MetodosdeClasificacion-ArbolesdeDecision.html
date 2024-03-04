@@ -1,0 +1,1082 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Árboles de Decisión &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02.4_MetodosdeClasificacion-ArbolesdeDecision';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Ejercicio sobre variedades vínicolas" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html" />
+    <link rel="prev" title="Clasificación naive-Bayes" href="02.1_MetodosdeClasificacion-Naive-Bayes.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.1_MetodosdeClasificacion-Naive-Bayes.html">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07C_RRNN_Convoluciones_PlantVillage.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/02.4_MetodosdeClasificacion-ArbolesdeDecision.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F02.4_MetodosdeClasificacion-ArbolesdeDecision.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02.4_MetodosdeClasificacion-ArbolesdeDecision.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Árboles de Decisión</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clasificar-con-sk-learn-el-conjunto-iris-mediante-un-arbol-de-decision">Clasificar con sk-learn el conjunto Iris mediante un árbol de decisión</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilizamos-el-clasificador-decisiontreeclassifier-de-sklearn">Utilizamos el clasificador DecisionTreeClassifier de sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-del-arbol-de-decision">Visualización del árbol de decisión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comprobacion-de-los-calculos-de-entropia">Comprobación de los cálculos de entropía</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rutina-que-detecta-el-punto-de-minima-entropia-en-petal-width">Rutina que detecta el punto de mínima entropia en “<em>petal width</em>”</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-se-programa-una-rutina-que-detecte-la-primera-caracteristica-donde-dividir-el-raiz">Finalmente se programa una rutina que detecte la primera característica donde dividir el raíz</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comprendiendo-como-almacena-decisiontree-el-modelo">Comprendiendo como almacena DecisionTree el modelo</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="arboles-de-decision">
+<h1>Árboles de Decisión<a class="headerlink" href="#arboles-de-decision" title="Link to this heading">#</a></h1>
+<p>Los <strong>árboles de decisión</strong> son modelos predictivos formados por reglas binarias (si/no) con las que se consigue repartir las observaciones en función de sus atributos y predecir así el valor de la variable respuesta.</p>
+<p><strong>Ventajas</strong></p>
+<ul class="simple">
+<li><p>Los árboles son fáciles de interpretar aun cuando las relaciones entre predictores son complejas.</p></li>
+<li><p>Los árboles pueden, en teoría, manejar tanto predictores numéricos como categóricos.</p></li>
+<li><p>No se ven muy influenciados por outliers.</p></li>
+<li><p>Son muy útiles en la exploración de datos, permiten identificar de forma rápida y eficiente las variables (predictores) más importantes.</p></li>
+<li><p>Pueden aplicarse a problemas de regresión y clasificación.</p></li>
+</ul>
+<p><strong>Desventajas</strong></p>
+<ul class="simple">
+<li><p>Su tendencia al overfitting y alta varianza. Sin embargo, existen técnicas más complejas que, haciendo uso de la combinación de múltiples árboles (bagging, random forest, boosting), consiguen mejorar en gran medida este problema.</p></li>
+<li><p>Son sensibles a datos de entrenamiento desbalanceados (una de las clases domina sobre las demás).</p></li>
+<li><p>No son capaces de extrapolar fuera del rango de los predictores observado en los datos de entrenamiento.</p></li>
+</ul>
+<p><strong>Implementados en sk-learn</strong> en las clases <strong>DecissionTreeClassifier</strong> y <strong>DecissionTreeRegressor</strong></p>
+<p><strong>Obtención del árbol de decisión</strong></p>
+<p>La entropía es una forma de cuantificar el desorden de un sistema. En el caso de los nodos, el desorden se corresponde con la impureza. Si un nodo es puro, contiene únicamente observaciones de una clase, su entropía es cero. Por el contrario, si la frecuencia de cada clase es la misma, el valor de la entropía alcanza el valor máximo de 1.</p>
+<div class="math notranslate nohighlight">
+\[D=-\displaystyle\sum_{k=1}^K p_{mk}log_2(p_{mk})\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(p_{mk}\)</span> representa la proporción de observaciones del nodo <span class="math notranslate nohighlight">\(m\)</span> que pertenecen a la clase <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<section id="clasificar-con-sk-learn-el-conjunto-iris-mediante-un-arbol-de-decision">
+<h2>Clasificar con sk-learn el conjunto Iris mediante un árbol de decisión<a class="headerlink" href="#clasificar-con-sk-learn-el-conjunto-iris-mediante-un-arbol-de-decision" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">
+<h3>Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test<a class="headerlink" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="utilizamos-el-clasificador-decisiontreeclassifier-de-sklearn">
+<h3>Utilizamos el clasificador DecisionTreeClassifier de sklearn<a class="headerlink" href="#utilizamos-el-clasificador-decisiontreeclassifier-de-sklearn" title="Link to this heading">#</a></h3>
+<p>Usa como criterio  por defecto <strong>gini</strong>, que es la <strong>Impureza de Gini</strong> y se puede configurar <strong>entropy</strong></p>
+<p>La <strong>Impureza de Gini</strong> (<span class="math notranslate nohighlight">\(I_G\)</span>) viene definida por:</p>
+<div class="math notranslate nohighlight">
+\[I_G=1-\displaystyle\sum_{k=1}^K p^2_{mk}\]</div>
+<p><span class="math notranslate nohighlight">\(I_G\)</span> en aquellos nodos puros, con una única etiqueta, vale cero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;entropy&quot;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud - Accuracy: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud - Accuracy: 0.947
+</pre></div>
+</div>
+</div>
+</div>
+<section id="y-la-correspondiente-matriz-de-confusion">
+<h4>Y la correspondiente matriz de confusión<a class="headerlink" href="#y-la-correspondiente-matriz-de-confusion" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">cm_display</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/81bd37e8a34b43ab7b9f39346efb312f468e36107cf0a6a1a10ed6bfc684036f.png" src="_images/81bd37e8a34b43ab7b9f39346efb312f468e36107cf0a6a1a10ed6bfc684036f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="visualizacion-del-arbol-de-decision">
+<h3>Visualización del árbol de decisión<a class="headerlink" href="#visualizacion-del-arbol-de-decision" title="Link to this heading">#</a></h3>
+<p>Mediante la librería <strong>PyDotPlus</strong> es posible visualizar el árbol de decisión entrenado</p>
+<p>Para poder usar esta librería es preciso realizar la siguiente instalación</p>
+<ul class="simple">
+<li><p>pip install pydotplus</p></li>
+</ul>
+<p>O desde Anaconda:</p>
+<ul class="simple">
+<li><p>conda install pydotplus</p></li>
+</ul>
+<p>Para funcionar correctamente necesitamos que en nuestra máquina esté instalado Graphviz, si no es así se puede hacer que conda lo instale al mismo tiempo que el paquete si se usa el comando:</p>
+<ul class="simple">
+<li><p>conda install -c conda-forge pydotplus</p></li>
+</ul>
+<p>La documentación de la librería está disponible en: http://pydotplus.readthedocs.org/</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">##conda install -c conda-forge pydotplus</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# All requested packages already installed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># All requested packages already installed.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">export_graphviz</span>
+<span class="kn">from</span> <span class="nn">pydotplus</span> <span class="kn">import</span> <span class="n">graph_from_dot_data</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="n">dot_data</span> <span class="o">=</span> <span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span>
+                           <span class="n">feature_names</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graph_from_dot_data</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">write_png</span><span class="p">(</span><span class="s1">&#39;./images/tree_iris.png&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;./images/tree_iris.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;700&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5da58360e6b2137ac21de206cb655515525fd67ef93002de9a5074f00d6817b9.png" src="_images/5da58360e6b2137ac21de206cb655515525fd67ef93002de9a5074f00d6817b9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="comprobacion-de-los-calculos-de-entropia">
+<h2>Comprobación de los cálculos de entropía<a class="headerlink" href="#comprobacion-de-los-calculos-de-entropia" title="Link to this heading">#</a></h2>
+<p>Verificamos la entropia asociada al valor <strong>petal width &lt; 0.8</strong>. Para ello se filtran las etiquetas que cumplen esa condición, se cuentan los diferentes valores y se calcula su logaritmo en cada una de las dos ramas</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">getEntropia</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">entropia</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">et</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+        <span class="n">fr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">et</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">entropia</span> <span class="o">+=</span> <span class="o">-</span> <span class="n">fr</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">entropia</span>
+
+<span class="n">getEntropia</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]),</span> <span class="n">getEntropia</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="n">getEntropia</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2.584962500721156, 1.0, 0.0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">getEntropy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">clasNames</span><span class="p">):</span>
+    <span class="n">etiq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">entropy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">value</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">clases</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">we</span> <span class="ow">in</span> <span class="n">etiq</span><span class="p">:</span> 
+        <span class="n">n_we</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">we</span><span class="p">])</span>  <span class="c1">## Número de valores de esa etiqueta</span>
+        <span class="n">value</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_we</span><span class="p">)</span>
+        <span class="n">clases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clasNames</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">we</span><span class="p">)])</span>
+        <span class="n">fr</span> <span class="o">=</span> <span class="n">n_we</span><span class="o">/</span><span class="n">samples</span>   <span class="c1">## Frecuencia de esta etiqueta</span>
+        <span class="n">entropy</span> <span class="o">+=</span> <span class="o">-</span> <span class="n">fr</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>  <span class="c1">## Aporte de entropia de esta frecuencia</span>
+    <span class="k">return</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">clases</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dat_entr</span> <span class="o">=</span> <span class="n">getEntropy</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Entropia del conjunto raiz=&quot;</span><span class="p">,</span> <span class="n">dat_entr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;samples=&quot;</span><span class="p">,</span> <span class="n">dat_entr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;value=&quot;</span><span class="p">,</span> <span class="n">dat_entr</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;clases=&quot;</span><span class="p">,</span> <span class="n">dat_entr</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">dat_entr2</span> <span class="o">=</span> <span class="n">getEntropy</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">X_train</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.8</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Entropia 1ª hoja izquierda=&quot;</span><span class="p">,</span> <span class="n">dat_entr2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;samples=&quot;</span><span class="p">,</span> <span class="n">dat_entr2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;value=&quot;</span><span class="p">,</span> <span class="n">dat_entr2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;clases=&quot;</span><span class="p">,</span> <span class="n">dat_entr2</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">dat_entr3</span> <span class="o">=</span> <span class="n">getEntropy</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">X_train</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.8</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Entropia 1ª hoja derecha=&quot;</span><span class="p">,</span> <span class="n">dat_entr3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;samples=&quot;</span><span class="p">,</span> <span class="n">dat_entr3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;value=&quot;</span><span class="p">,</span> <span class="n">dat_entr3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;clases=&quot;</span><span class="p">,</span> <span class="n">dat_entr3</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entropia del conjunto raiz= 1.5848478277058313 
+ samples= 112 
+ value= [37, 37, 38] 
+ clases= [&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;] 
+
+Entropia 1ª hoja izquierda= 0.0 
+ samples= 37 
+ value= [37] 
+ clases= [&#39;setosa&#39;] 
+
+Entropia 1ª hoja derecha= 0.999871756640849 
+ samples= 75 
+ value= [37, 38] 
+ clases= [&#39;versicolor&#39;, &#39;virginica&#39;] 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="rutina-que-detecta-el-punto-de-minima-entropia-en-petal-width">
+<h2>Rutina que detecta el punto de mínima entropia en “<em>petal width</em>”<a class="headerlink" href="#rutina-que-detecta-el-punto-de-minima-entropia-en-petal-width" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">minEntropy</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="c1">#primero = True</span>
+    <span class="n">min_entrop</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">9</span>
+    <span class="n">min_x</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">feature</span><span class="p">:</span>
+        <span class="n">entrop</span> <span class="o">=</span> <span class="n">getEntropy</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">feature</span><span class="o">&lt;=</span><span class="n">x</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">getEntropy</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">feature</span><span class="o">&gt;</span><span class="n">x</span><span class="p">],</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1">#print(&quot;entropias---&gt;&quot;, x, entrop)</span>
+        <span class="c1">#if (primero==True or entrop&lt;min_entrop):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">entrop</span><span class="o">&lt;</span><span class="n">min_entrop</span><span class="p">):</span>
+            <span class="n">min_x</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="n">min_entrop</span> <span class="o">=</span> <span class="n">entrop</span>
+            <span class="c1">#primero=False</span>
+    
+    <span class="c1">## Se adopta el valor medio entre min_x y el siguiente valor de x</span>
+    <span class="n">min_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">min_x</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">feature</span><span class="p">[</span><span class="n">feature</span><span class="o">&gt;</span><span class="n">min_x</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Entropia mínima=&quot;</span><span class="p">,</span> <span class="n">min_entrop</span><span class="p">,</span> <span class="s2">&quot;valor de corte=&quot;</span><span class="p">,</span> <span class="n">min_x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">min_x</span><span class="p">,</span> <span class="n">min_entrop</span>  <span class="c1">## Se retorna el valor de x que hace mínima la entropia en  la serie targe    </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minEntropy</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entropia mínima= 0.999871756640849 valor de corte= 0.8
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.8, 0.999871756640849)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="finalmente-se-programa-una-rutina-que-detecte-la-primera-caracteristica-donde-dividir-el-raiz">
+<h3>Finalmente se programa una rutina que detecte la primera característica donde dividir el raíz<a class="headerlink" href="#finalmente-se-programa-una-rutina-que-detecte-la-primera-caracteristica-donde-dividir-el-raiz" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">firstFeatureSplit</span><span class="p">(</span><span class="n">Features</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">Features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## Se toma el número de características</span>
+    <span class="n">min_entrop</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">min_i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="n">entrop</span> <span class="o">=</span> <span class="n">minEntropy</span><span class="p">(</span><span class="n">Features</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="n">target</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;entropias---&gt;&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">entrop</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">min_i</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">entrop</span><span class="o">&lt;</span><span class="n">min_entrop</span><span class="p">:</span>
+            <span class="n">min_i</span><span class="o">=</span><span class="n">i</span>
+            <span class="n">min_entrop</span><span class="o">=</span><span class="n">entrop</span>
+    <span class="k">return</span> <span class="n">min_i</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">firstFeatureSplit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Característica de corte=&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entropia mínima= 1.5611819419397694 valor de corte= 4.85
+entropias---&gt; 0 1.5611819419397694
+Entropia mínima= 1.5793251181375338 valor de corte= 3.8499999999999996
+entropias---&gt; 1 1.5793251181375338
+Entropia mínima= 0.999871756640849 valor de corte= 2.45
+entropias---&gt; 2 0.999871756640849
+Entropia mínima= 0.999871756640849 valor de corte= 0.8
+entropias---&gt; 3 0.999871756640849
+Característica de corte= 2 - petal length (cm)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Observaciones sobre el cálculo de la entropia</strong></p>
+<p>La entropia se calcula únicamente considerando una lista de etiquetas. Si se tiene la lista</p>
+<p>[1, 1, 0, 1, 0, 0, 0]</p>
+<p>La frecuencia de la etiqueta 0 es <span class="math notranslate nohighlight">\(4/7\)</span>, la de la etiqueta 1 es <span class="math notranslate nohighlight">\(3/7\)</span> y por tanto la entropia de la lista resulta:</p>
+<div class="math notranslate nohighlight">
+\[-log_2(4/7) - log_2(3/7) \approx 2,03\]</div>
+<p><span style='color:Red'> <font size="4"> <b>Información Complementaria:</b> Comprender mejor el modelo de datos de DecisionTree </font> </span></p>
+</section>
+</section>
+<section id="comprendiendo-como-almacena-decisiontree-el-modelo">
+<h2>Comprendiendo como almacena DecisionTree el modelo<a class="headerlink" href="#comprendiendo-como-almacena-decisiontree-el-modelo" title="Link to this heading">#</a></h2>
+<p>El objecto que se crea con la clase <strong>DecisionTreeClassifier</strong>, que en este cuaderno se llama <strong>clf</strong> tiene una variable de nombre <b>.tree_</b> en la que se tienen los siguientes atributos:</p>
+<ul class="simple">
+<li><p><strong>node_count</strong> : contador de nodos</p></li>
+<li><p><strong>children_left</strong> : ID con el nodo izquierdo</p></li>
+<li><p><strong>children_right</strong> : ID con el nodo derecho</p></li>
+<li><p><strong>feature</strong> : Posición de la característica en la matriz X</p></li>
+<li><p><strong>threshold</strong> : Valor que adopta la característica feature en la división</p></li>
+</ul>
+<p>Cuando aparece un -1 en children_left y children_right no hay división y nos encontramos ante un nodo hoja. En los nodos hoja, en feature aparece un valor arbitrario sin significado.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_nodes</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">tree_</span><span class="o">.</span><span class="n">node_count</span>
+<span class="n">children_left</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">tree_</span><span class="o">.</span><span class="n">children_left</span>
+<span class="n">children_right</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">tree_</span><span class="o">.</span><span class="n">children_right</span>
+<span class="n">feature</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">tree_</span><span class="o">.</span><span class="n">feature</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">tree_</span><span class="o">.</span><span class="n">threshold</span>
+<span class="n">children_left</span><span class="p">,</span> <span class="n">children_right</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">threshold</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([ 1, -1,  3,  4, -1,  6,  7,  8, -1, 10, -1, -1, -1, -1, 15, 16, -1,
+        -1, -1], dtype=int64),
+ array([ 2, -1, 14,  5, -1, 13, 12,  9, -1, 11, -1, -1, -1, -1, 18, 17, -1,
+        -1, -1], dtype=int64),
+ array([ 3, -2,  3,  3, -2,  1,  3,  2, -2,  3, -2, -2, -2, -2,  2,  1, -2,
+        -2, -2], dtype=int64),
+ array([ 0.80000001, -2.        ,  1.75      ,  1.44999999, -2.        ,
+         2.85000002,  1.65000004,  4.95000005, -2.        ,  1.55000001,
+        -2.        , -2.        , -2.        , -2.        ,  4.85000014,
+         3.10000002, -2.        , -2.        , -2.        ]))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">children_left</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">children_right</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">feature</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">threshold</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-1, -1, -2, -2.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vamos a utilizar <strong>una pila</strong> para almacenar la información del árbol y poder imprimirla posteriormente.</p>
+<p><strong>Cuando construimos una pila sobre una lista, el método pop() suele usarse en conjunto con append() para implementar una funcionalidad básica de apilar en aplicaciones Python</strong></p>
+<p><strong>pop()</strong> extrae el dato de la pila y nos aseguramos que se visita una única vez</p>
+<p><strong>append()</strong> añade elementos a la pila</p>
+<div class="cell tag_hiden-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## 1) CARGAMOS UNA PILA CON ID_NODO Y PROFUNDIDAD</span>
+<span class="n">node_depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">n_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">is_leaves</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">n_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="c1">## En stack apilamos el id del nodo y su profundidad. Empezamos iniciando la pila con el nodo raiz de profundidad 0</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>  <span class="c1"># empezamos con el nodo raíz id (0) y profunidad (0)</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">node_id</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c1"># `pop` asegura que cada nodo sólo se visita una vez</span>
+    <span class="n">node_depth</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">depth</span>
+
+    <span class="c1"># Si el hijo izquierdo y derecho son distintos nos encontramos con un nodo división</span>
+    <span class="n">is_split_node</span> <span class="o">=</span> <span class="n">children_left</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">!=</span> <span class="n">children_right</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span>
+    <span class="c1"># Si es un nodo división se añade a la lista el hijo izquierdo y derecho</span>
+    <span class="k">if</span> <span class="n">is_split_node</span><span class="p">:</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">children_left</span><span class="p">[</span><span class="n">node_id</span><span class="p">],</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">children_right</span><span class="p">[</span><span class="n">node_id</span><span class="p">],</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">is_leaves</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1">#De lo contrario estamos en una hoja</span>
+
+<span class="c1">## 2) SE HACE PRINT A LA ESTRUCTURA DANDO UN SENTIDO A LA MISMA</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;La estructura de árbol binario tiene </span><span class="si">{n}</span><span class="s2"> nodos y tiene la siguiente estructura de árbol:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n_nodes</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_nodes</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_leaves</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{space}</span><span class="s2">nodo=</span><span class="si">{node}</span><span class="s2"> es un nodo hoja.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="n">node_depth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">node</span><span class="o">=</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{space}</span><span class="s2">nodo=</span><span class="si">{node}</span><span class="s2"> es un nodo división: &quot;</span>
+            <span class="s2">&quot;va del nodo </span><span class="si">{left}</span><span class="s2"> if X[:, </span><span class="si">{feature}</span><span class="s2">] &lt;= </span><span class="si">{threshold:.2f}</span><span class="s2"> &quot;</span>
+            <span class="s2">&quot;else al nodo </span><span class="si">{right}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">space</span><span class="o">=</span><span class="n">node_depth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">node</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+                <span class="n">left</span><span class="o">=</span><span class="n">children_left</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">feature</span><span class="o">=</span><span class="n">feature</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">right</span><span class="o">=</span><span class="n">children_right</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>La estructura de árbol binario tiene 19 nodos y tiene la siguiente estructura de árbol:
+
+nodo=0 es un nodo división: va del nodo 1 if X[:, 3] &lt;= 0.80 else al nodo 2.
+	nodo=1 es un nodo hoja.
+	nodo=2 es un nodo división: va del nodo 3 if X[:, 3] &lt;= 1.75 else al nodo 14.
+		nodo=3 es un nodo división: va del nodo 4 if X[:, 3] &lt;= 1.45 else al nodo 5.
+			nodo=4 es un nodo hoja.
+			nodo=5 es un nodo división: va del nodo 6 if X[:, 1] &lt;= 2.85 else al nodo 13.
+				nodo=6 es un nodo división: va del nodo 7 if X[:, 3] &lt;= 1.65 else al nodo 12.
+					nodo=7 es un nodo división: va del nodo 8 if X[:, 2] &lt;= 4.95 else al nodo 9.
+						nodo=8 es un nodo hoja.
+						nodo=9 es un nodo división: va del nodo 10 if X[:, 3] &lt;= 1.55 else al nodo 11.
+							nodo=10 es un nodo hoja.
+							nodo=11 es un nodo hoja.
+					nodo=12 es un nodo hoja.
+				nodo=13 es un nodo hoja.
+		nodo=14 es un nodo división: va del nodo 15 if X[:, 2] &lt;= 4.85 else al nodo 18.
+			nodo=15 es un nodo división: va del nodo 16 if X[:, 1] &lt;= 3.10 else al nodo 17.
+				nodo=16 es un nodo hoja.
+				nodo=17 es un nodo hoja.
+			nodo=18 es un nodo hoja.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02.1_MetodosdeClasificacion-Naive-Bayes.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clasificación naive-Bayes</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ejercicio sobre variedades vínicolas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clasificar-con-sk-learn-el-conjunto-iris-mediante-un-arbol-de-decision">Clasificar con sk-learn el conjunto Iris mediante un árbol de decisión</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilizamos-el-clasificador-decisiontreeclassifier-de-sklearn">Utilizamos el clasificador DecisionTreeClassifier de sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizacion-del-arbol-de-decision">Visualización del árbol de decisión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comprobacion-de-los-calculos-de-entropia">Comprobación de los cálculos de entropía</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rutina-que-detecta-el-punto-de-minima-entropia-en-petal-width">Rutina que detecta el punto de mínima entropia en “<em>petal width</em>”</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-se-programa-una-rutina-que-detecte-la-primera-caracteristica-donde-dividir-el-raiz">Finalmente se programa una rutina que detecte la primera característica donde dividir el raíz</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comprendiendo-como-almacena-decisiontree-el-modelo">Comprendiendo como almacena DecisionTree el modelo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

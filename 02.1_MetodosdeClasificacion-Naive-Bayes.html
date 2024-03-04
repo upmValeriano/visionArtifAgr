@@ -1,0 +1,1385 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Clasificación naive-Bayes &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02.1_MetodosdeClasificacion-Naive-Bayes';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Árboles de Decisión" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html" />
+    <link rel="prev" title="Introducción al Aprendizaje Automático" href="01.1_Introduccion.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/LOGOTIPOcolorPNG.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.2_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.4_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.1_Introduccion.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Clasificación naive-Bayes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html">Árboles de Decisión</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.6_Clasificacion-Ejercicioparaentregarsobrevariedadevinicolas.html">Ejercicio sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="05_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="05.0_Redes_Neuronales_Utilidades.html">Redes Neuronales Utilidades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.1_RedesNeuronalesIntroduccion.html">Redes Neuronales Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.2_RedesNeuronales-ModeloBicapa.html">Redes Neuronales - Modelo Bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.3_RedesNeuronales-ModeloMultiCapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07A_RRNN_Convoluciones_CIFAR_10.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07B_RRNN_Convoluciones_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05.07C_RRNN_Convoluciones_PlantVillage.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/02.1_MetodosdeClasificacion-Naive-Bayes.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F02.1_MetodosdeClasificacion-Naive-Bayes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02.1_MetodosdeClasificacion-Naive-Bayes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clasificación naive-Bayes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos-del-empleo-de-los-clasificadores">Ejemplos del empleo de los clasificadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-metodo-naive-bayes">Resumen del método Naïve Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detalle-del-metodo-naive-bayes">Detalle del método Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-probabilidad-condicionada">Definición de probabilidad condicionada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilidad-en-una-particion">Probabilidad en una partición</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enunciado-y-demostracion-del-teorema-de-bayes">Enunciado y demostración del teorema de Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilidad-de-clasificar-un-vector-de-atributos-en-una-clase">Probabilidad de clasificar un vector de atributos en una clase</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#suposicion-naif">Suposición Naïf</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-de-probabilidades">Estimación de probabilidades</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-de-la-clasificacion-naive-bayes">Características de la clasificación Naïve-Bayes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">Aplicar el método Naïve-Bayes para clasificar el conjunto Iris</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-directa-de-la-formula-naive-bayes">Implementación directa de la fórmula Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-las-medias-por-clase-y-caracteristica">Cálculo de las Medias por clase y característica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-las-desviaciones-tipicas-por-clase-y-caracteristica">Cálculo de las Desviaciones Típicas por clase y característica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-las-probabilidades-por-clase">Cálculo de las probabilidades por clase</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementamos-una-funcion-para-calcular-la-probabilidad-de-un-observacion-por-naive-bayes">Implementamos una función para calcular la probabilidad de un observación por Naive-Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-presentamos-la-matriz-de-confusion-de-la-clasificacion-anterior">Finalmente presentamos la matriz de confusión de la clasificación anterior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-muestra-en-detalle-la-funcion-de-distribucion-de-cada-clase">Se muestra en detalle la función de distribución de cada clase</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clasificacion-naive-bayes">
+<h1>Clasificación naive-Bayes<a class="headerlink" href="#clasificacion-naive-bayes" title="Link to this heading">#</a></h1>
+<section id="ejemplos-del-empleo-de-los-clasificadores">
+<h2>Ejemplos del empleo de los clasificadores<a class="headerlink" href="#ejemplos-del-empleo-de-los-clasificadores" title="Link to this heading">#</a></h2>
+<p>Un <strong>clasificador es un método supervisado</strong> que permite entrenar un modelo para que determine <strong>la clase más probable</strong> que debemos asignar a un registro dado de características. Para ello el conjunto de entrenamiento tendrá una serie de <span class="math notranslate nohighlight">\(N\)</span> registros clasificados, que permiten al ordenador aprender a clasificar registros sin clase. Por ejemplo:</p>
+<ul class="simple">
+<li><p><strong>Detección de SPAM</strong>. En base a un conjunto de características de los correos se entrena con supervisión al ordenador para que determine si son o no SPAM.</p></li>
+<li><p><strong>Datos de microarrays</strong>. A partir de un subconjunto de genes óptimos para diagnosticar cancer.</p></li>
+</ul>
+</section>
+<section id="resumen-del-metodo-naive-bayes">
+<h2>Resumen del método Naïve Bayes<a class="headerlink" href="#resumen-del-metodo-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Si la matriz <span class="math notranslate nohighlight">\(X\)</span> está compuesta por <span class="math notranslate nohighlight">\(N\)</span> observaciones (filas) con <span class="math notranslate nohighlight">\(n\)</span> características <span class="math notranslate nohighlight">\(X_1, ..., X_i, ..., X_n\)</span> que forman las columnas de la matriz.</p>
+<p>Si la matriz de objetivos <span class="math notranslate nohighlight">\(Y\)</span> tiene <span class="math notranslate nohighlight">\(m\)</span> clases dadas por <span class="math notranslate nohighlight">\(1, ..., k, ..., m\)</span>.</p>
+<p>Una observación <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, \cdots, x_n)\)</span>, no etiquetada, de acuerdo al <strong>Teorema de Bayes</strong> se etiqueta en aquella clase <span class="math notranslate nohighlight">\(k\)</span> que cumple:</p>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} P(k)P(\bar{x}|k)\]</div>
+<p>Si hacemos la <strong>suposición Naïve</strong> de que los valores de las características <span class="math notranslate nohighlight">\(X_i\)</span> son <strong>independientes</strong> entre si y tienen una <strong>distribución normal</strong> gaussiana (para los valores <span class="math notranslate nohighlight">\(X_i\)</span> asociados a una clase <span class="math notranslate nohighlight">\(k\)</span> (columna <strong>i</strong> de la matriz <span class="math notranslate nohighlight">\(X\)</span> filtrada por la clase <strong>k</strong>) se conoce su media <span class="math notranslate nohighlight">\(\mu_{i,k}\)</span> y varianza <span class="math notranslate nohighlight">\(\sigma_{i,k}^{2}\)</span>)</p>
+<p>Una observación <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, \cdots, x_n)\)</span>, no etiquetada, pertenece a la clase <span class="math notranslate nohighlight">\(k\)</span> si tiene máximo el valor:</p>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} \frac{n_k}{N}\prod\limits_{i=1}^{n} N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2)\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2)\)</span> : es la función de densidad normal gaussiana del valor <span class="math notranslate nohighlight">\(x_i\)</span> observado en la columna <span class="math notranslate nohighlight">\(X_i\)</span> para la clase <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{n_k}{N}\)</span> : es la frecuencia de la clase <span class="math notranslate nohighlight">\(k\)</span> en la matriz <span class="math notranslate nohighlight">\(X\)</span> se obtiene a partir del número de observaciones etiquetadas como clase <span class="math notranslate nohighlight">\(k\)</span> sobre el total.</p></li>
+</ul>
+<p>Observe que para definir el modelo son necesarias <span class="math notranslate nohighlight">\(n \times m\)</span> distribuciones normales distintas.</p>
+<p>Con la <strong>suposición Naïve</strong> de que los valores de las características <span class="math notranslate nohighlight">\(X_i\)</span> son <strong>independientes</strong> entre si y si todos los <span class="math notranslate nohighlight">\(X_i\)</span> son valores discretos en el intervalo por ejemplo <span class="math notranslate nohighlight">\((1,...,p, ...)\)</span> se pueden calcular sus <strong>frecuencias</strong> y resolver:</p>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} \frac{n_k}{N}\prod\limits_{i=1}^{n} f_{k,i}(p)\]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(f_{k,i}(p)\)</span> la frecuencia de aparición del valor <span class="math notranslate nohighlight">\(p\)</span> en la columna <span class="math notranslate nohighlight">\(i\)</span> en aquellas observaciones del conjunto de entrenamiento clasificadas como <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[f_{k,i}(p)=\frac{n_{k,i,p}}{n_k}\]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(n_{k,i,p}\)</span> el número de elementos del conjunto de entrenamiento que cumple <span class="math notranslate nohighlight">\(x_i=p\)</span> además de <span class="math notranslate nohighlight">\(y=k\)</span></p>
+<p>Siendo <span class="math notranslate nohighlight">\(n_k\)</span> el número de elementos del conjunto de entrenamiento que cumple <span class="math notranslate nohighlight">\(y=k\)</span></p>
+</section>
+<section id="detalle-del-metodo-naive-bayes">
+<h2>Detalle del método Naïve Bayes<a class="headerlink" href="#detalle-del-metodo-naive-bayes" title="Link to this heading">#</a></h2>
+<section id="definicion-de-probabilidad-condicionada">
+<h3>Definición de probabilidad condicionada<a class="headerlink" href="#definicion-de-probabilidad-condicionada" title="Link to this heading">#</a></h3>
+<p>La probabilidad del suceso <span class="math notranslate nohighlight">\(A\)</span> condicionada a que ocurra el suceso <span class="math notranslate nohighlight">\(B\)</span> viene dado por la probabilidad de la intersección <span class="math notranslate nohighlight">\(A \cap B\)</span> divido por la probabilidad de <span class="math notranslate nohighlight">\(B\)</span> (casos probables entre casos posibles en este contexto):</p>
+<div class="math notranslate nohighlight">
+\[P(A|B)=\frac{P(A \cap B)}{P(B)}\]</div>
+<a class="reference internal image-reference" href="_images/Bayes_1.png"><img alt="_images/Bayes_1.png" src="_images/Bayes_1.png" style="width: 300px;" /></a>
+<p>De la anterior ecuación se pueden deducir las siguientes dos ecuaciones:</p>
+<div class="math notranslate nohighlight">
+\[P(A \cap B)=P(B)P(A|B)\]</div>
+<div class="math notranslate nohighlight">
+\[P(A \cap B)=P(A)P(B|A)\]</div>
+</section>
+<section id="probabilidad-en-una-particion">
+<h3>Probabilidad en una partición<a class="headerlink" href="#probabilidad-en-una-particion" title="Link to this heading">#</a></h3>
+<p>Si en un espacio muestral <span class="math notranslate nohighlight">\(S\)</span> se consideran <span class="math notranslate nohighlight">\(k\)</span> sucesos disjuntos <span class="math notranslate nohighlight">\(A_1, A_2, ..., A_k\)</span> de forma que <span class="math notranslate nohighlight">\(\cup^k_{i=1} A_i=S\)</span>, se dice que estos sucesos constituyen una partición de <span class="math notranslate nohighlight">\(S\)</span> y se cumple</p>
+<div class="math notranslate nohighlight">
+\[B = (A_1\cap B)\cup (A_2\cap B)\cup ... \cup (A_k\cap B)\]</div>
+<p>Y como los sucesos de la derecha son disjuntos se cumplirá que
+$<span class="math notranslate nohighlight">\(P(B) = \sum ^k _{j=1} P(A_j \cap B) = \sum ^k _{j=1} P(A_j) P(B|A_j) \)</span>$</p>
+<a class="reference internal image-reference" href="_images/Bayes_2.png"><img alt="_images/Bayes_2.png" src="_images/Bayes_2.png" style="width: 400px;" /></a>
+</section>
+<section id="enunciado-y-demostracion-del-teorema-de-bayes">
+<h3>Enunciado y demostración del teorema de Bayes<a class="headerlink" href="#enunciado-y-demostracion-del-teorema-de-bayes" title="Link to this heading">#</a></h3>
+<p><strong>Teorema de Bayes.</strong> Dada la partición <span class="math notranslate nohighlight">\(A_1, A_2, ..., A_k\)</span> del espacio <span class="math notranslate nohighlight">\(S\)</span> tal que <span class="math notranslate nohighlight">\(P(A_j)\gt 0\)</span> para <span class="math notranslate nohighlight">\(j=1,...,k\)</span> y sea <span class="math notranslate nohighlight">\(B\)</span> cualquier suceso tal que <span class="math notranslate nohighlight">\(P(B) \gt 0\)</span>. Entonces para <span class="math notranslate nohighlight">\(i=1,...,k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[P(A_i|B)=\frac{P(A_i)P(B|A_i)}{\sum ^k _{j=1} P(A_j) P(B|A_j)} \hspace{1em} (1)\]</div>
+<p><strong>La demostración</strong> viene dada por la definición de probabilidad condicionada:</p>
+<div class="math notranslate nohighlight">
+\[P(A_i|B)=\frac{P(A_i \cap B)}{P(B)}\]</div>
+<p>El numerador de la parte derecha de la ecuación <span class="math notranslate nohighlight">\((1)\)</span> es igual a <span class="math notranslate nohighlight">\(P(A_i \cap B)\)</span> y el denominador es igual a <span class="math notranslate nohighlight">\(P(B)\)</span></p>
+</section>
+<section id="probabilidad-de-clasificar-un-vector-de-atributos-en-una-clase">
+<h3>Probabilidad de clasificar un vector de atributos en una clase<a class="headerlink" href="#probabilidad-de-clasificar-un-vector-de-atributos-en-una-clase" title="Link to this heading">#</a></h3>
+<p>Sabiendo que un registro de nuestro conjunto tiene <strong><span class="math notranslate nohighlight">\(\bar{x}\)</span> como vector de atributos</strong>, ¿<strong>cuál es la probabilidad de clasificarla en la clase <span class="math notranslate nohighlight">\(y=k\)</span></strong>? Aplicando el teorema de Bayes:</p>
+<div class="math notranslate nohighlight">
+\[P(k|\bar{x})=\frac{P(k)P(\bar{x}|k)}{P(\bar{x})}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P(\bar{x}|k)\)</span> se denomina <strong>verosimilitud</strong> (likelihood).</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(k|\bar{x})\)</span> se llama <strong>probabilidad a posteriori</strong> de la clase (posterior).</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(k)\)</span> se llama <strong>probabilidad a priori</strong> de la clase.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(\bar{x})\)</span> se llama <strong>verosimilitud marginal</strong> (o probabilidad a priori del vector de atributos).</p></li>
+</ul>
+<p><strong>Se tomará aquella clase cuya probabilidad a posteriori es mayor</strong></p>
+<ul class="simple">
+<li><p>Es decir, aquella clase <span class="math notranslate nohighlight">\(y=k\)</span> cuya <span class="math notranslate nohighlight">\(P(k|\bar{x})\)</span> sea máxima:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} P(k|\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} \frac{P(k)P(\bar{x}|k)}{P(\bar{x})} \]</div>
+<ul class="simple">
+<li><p>Y como <span class="math notranslate nohighlight">\(P(\bar{x})\)</span> no depende de <span class="math notranslate nohighlight">\(k\)</span> <strong>bastará con tomar el valor máximo de</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} P(k)P(\bar{x}|k)\]</div>
+</section>
+<section id="suposicion-naif">
+<h3>Suposición Naïf<a class="headerlink" href="#suposicion-naif" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Los atributos observados en cualquier instancia son <strong>independientes</strong> una vez que sabemos que la instancia pertenece a la clase <span class="math notranslate nohighlight">\(k\)</span>. Esto es si el vector <span class="math notranslate nohighlight">\(\bar{x}\)</span> está formado por <span class="math notranslate nohighlight">\(n\)</span> atributos (<span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, ..., x_n)\)</span>). La probabilidad <span class="math notranslate nohighlight">\(P(\bar{x}|k)\)</span> es:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[P(\bar{x}|k) = P(x_1|k)P(x_2|k) \cdots P(x_n|k)=\prod\limits_{i=1}^{n}P(x_i|k)\]</div>
+</section>
+<section id="estimacion-de-probabilidades">
+<h3>Estimación de probabilidades<a class="headerlink" href="#estimacion-de-probabilidades" title="Link to this heading">#</a></h3>
+<p><strong>Estimar <span class="math notranslate nohighlight">\(P(k)\)</span> es tan sencillo como calcular la frecuencia de la clase en el conjunto de entrenamiento</strong>:</p>
+<div class="math notranslate nohighlight">
+\[P(k)=\frac{n_{k}}{N}\]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(n_{k}\)</span> el número de registros de clase <span class="math notranslate nohighlight">\(k\)</span> en el conjunto de entrenamiento. Y <span class="math notranslate nohighlight">\(N\)</span> el total de elementos en el conjunto de entrenamiento.</p>
+<p><strong>Estimar la verosimilitud <span class="math notranslate nohighlight">\(P(x_i|k)\)</span> depende de</strong>:</p>
+<ul class="simple">
+<li><p>Si los <strong>atributos <span class="math notranslate nohighlight">\(x_i\)</span> son discretos</strong> (caso DNA splicing) se cuentan las frecuencias.</p></li>
+<li><p>Si los <strong>atributos <span class="math notranslate nohighlight">\(x_i\)</span> son continuos</strong> (caso conjunto Iris) se supone que <em>cada atributo</em> se distribuye de acuerdo a una distribución normal:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+P(x_i|k)\sim N(\mu_{i,k} \thinspace , \sigma_{i,k}^2)
+\]</div>
+<p>y se utiliza la función de densidad gaussiana:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x_i|k)=\phi(x_i,\mu_{i,k}\thinspace,\sigma_{i,k}^2)=\frac{1}{\sqrt{2\pi}\sigma_{i,k}}exp\left(-\frac{x_i-\mu_{i,k}^2}{2\sigma_{i,k}^2}\right)
+\]</div>
+</section>
+<section id="caracteristicas-de-la-clasificacion-naive-bayes">
+<h3>Características de la clasificación Naïve-Bayes<a class="headerlink" href="#caracteristicas-de-la-clasificacion-naive-bayes" title="Link to this heading">#</a></h3>
+<p><strong>Ventajas</strong>:</p>
+<ul class="simple">
+<li><p><strong>Simple</strong>, rápido y efectivo.</p></li>
+<li><p>Da buenos resultados con <strong>datos con ruido</strong>.</p></li>
+<li><p>Requiere <strong>relativamente pocos registros</strong> para entrenar, y también funciona bien con grandes conjuntos de datos.</p></li>
+<li><p>Proporciona fácilmente la probabilidad estimada para cada <strong>predicción</strong>.</p></li>
+</ul>
+<p><strong>Inconvenientes</strong>:</p>
+<ul class="simple">
+<li><p>Supone independencia entre atributos, lo cual normalmente es <strong>falso</strong>.</p></li>
+<li><p>En general no funciona bien con <strong>atributos numéricos</strong>, sobre todos si hay muchos.</p></li>
+<li><p>La clasicación predicha es <strong>más creíble</strong> que las probabilidades estimadas. Esto es debemos confiar más en el resultado <span class="math notranslate nohighlight">\(c\)</span> obtenido en que en el valor numérico <span class="math notranslate nohighlight">\(P(c|x)\)</span> como probabalidad.</p></li>
+</ul>
+</section>
+</section>
+<section id="aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">
+<h2>Aplicar el método Naïve-Bayes para clasificar el conjunto Iris<a class="headerlink" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris" title="Link to this heading">#</a></h2>
+<p><strong>El conjunto de datos de Iris se encuentra en la librería sk-learn</strong>, por lo que se importa de ahí</p>
+<ul class="simple">
+<li><p>Primero se vuelca a un DataFrame, con 4 columnas con sus caracteristicas y una columna con la clasificación objetivo</p></li>
+<li><p>Se muestra la descripción de cada uno de los valores (0, 1, 2) objetivo.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">
+<h3>Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test<a class="headerlink" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Para hacer esta división del conjunto se utiliza una función de la librería sk-learn: <strong>train_test_split</strong></p></li>
+<li><p>Los parámetro <strong>train_test</strong> o <strong>test_size</strong> : indica el ratio que tiene el conjunto de entrenamiento o validación respecto al total.</p></li>
+<li><p>El parámetro <strong>shuffle</strong> : indica si los datos se barajan antes de dividirse</p></li>
+<li><p>El parámetro <strong>random_state</strong> : se indica que la división aleatoria ha de ser reproducible</p></li>
+<li><p>El parámetro <strong>stratity</strong> : indica que la división se realiza proporcional a los valores de las etiquetas</p></li>
+</ul>
+<p>Mas detalles : https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., 0., 1., 1., 1., 0., 1., 2., 2., 2., 1., 2., 1., 0., 0.,
+       2., 0., 1., 2., 1., 1., 0., 2., 0., 0., 1., 2., 1., 0., 1., 2., 2.,
+       0., 1., 2., 2.])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="implementacion-directa-de-la-formula-naive-bayes">
+<h2>Implementación directa de la fórmula Naive Bayes<a class="headerlink" href="#implementacion-directa-de-la-formula-naive-bayes" title="Link to this heading">#</a></h2>
+<section id="calculo-de-las-medias-por-clase-y-caracteristica">
+<h3>Cálculo de las Medias por clase y característica<a class="headerlink" href="#calculo-de-las-medias-por-clase-y-caracteristica" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Vector de Medias</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">numClases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]))</span>
+<span class="n">mean_vectors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+    <span class="n">mean_vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">cl</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vector Media clase </span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">mean_vectors</span><span class="p">[</span><span class="n">cl</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vector Media clase 0: [5.00540541 3.42432432 1.44324324 0.24864865]
+
+Vector Media clase 1: [5.8972973  2.72702703 4.23513514 1.32432432]
+
+Vector Media clase 2: [6.67368421 2.96842105 5.58421053 2.03421053]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width (cm)&#39;</span><span class="p">]</span>
+<span class="n">w_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_vectors</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">w_df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Variedad&#39;</span><span class="p">,</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span>
+<span class="n">w_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variedad</th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>setosa</td>
+      <td>5.005405</td>
+      <td>3.424324</td>
+      <td>1.443243</td>
+      <td>0.248649</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>versicolor</td>
+      <td>5.897297</td>
+      <td>2.727027</td>
+      <td>4.235135</td>
+      <td>1.324324</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>virginica</td>
+      <td>6.673684</td>
+      <td>2.968421</td>
+      <td>5.584211</td>
+      <td>2.034211</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="calculo-de-las-desviaciones-tipicas-por-clase-y-caracteristica">
+<h3>Cálculo de las Desviaciones Típicas por clase y característica<a class="headerlink" href="#calculo-de-las-desviaciones-tipicas-por-clase-y-caracteristica" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Vector de Desviaciones Estándar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">numClases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]))</span>
+<span class="n">sds_vectors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+    <span class="n">sds_vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">cl</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Desviación estándar clase </span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">sds_vectors</span><span class="p">[</span><span class="n">cl</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Desviación estándar clase 0: [0.37772144 0.40895741 0.17636041 0.1029868 ]
+
+Desviación estándar clase 1: [0.50268817 0.30637254 0.51001654 0.20189026]
+
+Desviación estándar clase 2: [0.63523067 0.32126826 0.58558397 0.25160152]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Nota:</strong></p>
+<p>La expresión <strong>y_train==cl</strong> devuelve una lista de true/false dependiendo de si se cumple la comparación.</p>
+<p>El array/arreglo <strong>X_train[y_train==cl]</strong> es una copia de los datos de <strong>X_train</strong> cuando la condición es <strong>true</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span><span class="o">==</span><span class="n">cl</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False, False, False,  True,  True, False, False, False,
+       False, False, False, False,  True, False, False, False, False,
+       False,  True,  True, False, False,  True,  True,  True,  True,
+       False, False,  True,  True,  True, False, False, False,  True,
+        True, False, False,  True,  True, False, False, False, False,
+       False,  True, False, False,  True, False,  True, False, False,
+       False, False, False,  True, False, False, False, False,  True,
+       False, False, False, False, False,  True, False,  True, False,
+       False,  True,  True, False,  True, False, False, False, False,
+        True, False,  True, False, False, False, False, False, False,
+        True,  True,  True, False,  True, False,  True, False, False,
+       False, False, False, False,  True,  True, False, False, False,
+       False,  True,  True,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width (cm)&#39;</span><span class="p">]</span>
+<span class="n">w_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sds_vectors</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">w_df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Variedad&#39;</span><span class="p">,</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span>
+<span class="n">w_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variedad</th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>setosa</td>
+      <td>0.377721</td>
+      <td>0.408957</td>
+      <td>0.176360</td>
+      <td>0.102987</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>versicolor</td>
+      <td>0.502688</td>
+      <td>0.306373</td>
+      <td>0.510017</td>
+      <td>0.201890</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>virginica</td>
+      <td>0.635231</td>
+      <td>0.321268</td>
+      <td>0.585584</td>
+      <td>0.251602</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="calculo-de-las-probabilidades-por-clase">
+<h3>Cálculo de las probabilidades por clase<a class="headerlink" href="#calculo-de-las-probabilidades-por-clase" title="Link to this heading">#</a></h3>
+<p>¡Es el porcentaje que tiene cada clase <span class="math notranslate nohighlight">\((0, 1, ..., k-1)\)</span> en el conjunto <strong>y_train</strong>, matriz columna con las clasificaciones del conjunto de entrenamiento!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Vector de Probabilidades</span>
+<span class="n">numClases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]))</span>
+<span class="n">probab</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+    <span class="n">probab</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y_train</span><span class="p">[</span><span class="n">y_train</span><span class="o">==</span><span class="n">cl</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Probabilidad clase </span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">probab</span><span class="p">[</span><span class="n">cl</span><span class="p">]))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probab</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probabilidad clase 0: 0.33035714285714285
+
+Probabilidad clase 1: 0.33035714285714285
+
+Probabilidad clase 2: 0.3392857142857143
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">]</span>
+<span class="n">w_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">probab</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">w_df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Variedad&#39;</span><span class="p">,</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span>
+<span class="n">w_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variedad</th>
+      <th>Probabilidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>setosa</td>
+      <td>0.330357</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>versicolor</td>
+      <td>0.330357</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>virginica</td>
+      <td>0.339286</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="implementamos-una-funcion-para-calcular-la-probabilidad-de-un-observacion-por-naive-bayes">
+<h3>Implementamos una función para calcular la probabilidad de un observación por Naive-Bayes<a class="headerlink" href="#implementamos-una-funcion-para-calcular-la-probabilidad-de-un-observacion-por-naive-bayes" title="Link to this heading">#</a></h3>
+<p><strong>norm.pdf</strong> implementa la función de densidad de una distribución normal de media <span class="math notranslate nohighlight">\(\mu\)</span> y desviación típica <span class="math notranslate nohighlight">\(\sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f(x)=\frac{1}{\sigma\sqrt{2\pi}} \cdot e^\frac{(x-\mu)^2}{2\sigma^2}\]</div>
+<p>Se calcula la probabilidad <span class="math notranslate nohighlight">\(P(X_1|C) \cdot P(X_2|C)...P(X_p|C) \cdot P(C)\)</span> de los <strong>p</strong> tipos observados <span class="math notranslate nohighlight">\(x\)</span> siendo <strong>C</strong>  cada clase <span class="math notranslate nohighlight">\((0, 1, ..., k-1)\)</span>. El cálculo se almacena en una estructura <strong>p</strong> de tipo <strong>dictionary</strong>. En lugar de un dictionary se podría haber optado por una lista o array también.</p>
+<p><strong>p</strong> va a contener <strong>k</strong> valores con la probabilidad de pertener a cada clase según los valores de sus caracteristicas observadas <strong>x</strong>.</p>
+<p>En el proceso, primero se inicializa <strong>p</strong> con la probabilidad marginal de cada clase <span class="math notranslate nohighlight">\(P(C)\)</span>, finalmente se le multiplica por la función de densidad de la normal de los <strong>p</strong> valores observados <strong><span class="math notranslate nohighlight">\(X_1\)</span> … <span class="math notranslate nohighlight">\(X_p\)</span></strong>.</p>
+<p>El resultado de la función es la clase de máxima probabilidad que coincide con la posición del mayor valor, pues <strong>pd.Series(p).values</strong> convierte el dictionary en un arreglo o vector donde la posiciones coinciden en este caso con las clases <span class="math notranslate nohighlight">\((0, 1, ..., k-1)\)</span>. La posición de máximo valor lo da el método <strong>argmax()</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="k">def</span> <span class="nf">NaiveBayes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean_vectors</span><span class="p">,</span> <span class="n">sds_vectors</span><span class="p">,</span> <span class="n">probab</span><span class="p">,</span> <span class="n">numClases</span><span class="p">):</span>
+    <span class="n">p</span><span class="o">=</span><span class="p">{}</span> <span class="c1">##Lista tipo dictionary con la probabilidad de pertener a cada clase de cada observacion x</span>
+    <span class="k">for</span> <span class="n">cl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClases</span><span class="p">):</span>
+        <span class="n">p</span><span class="p">[</span><span class="n">cl</span><span class="p">]</span><span class="o">=</span><span class="n">probab</span><span class="p">[</span><span class="n">cl</span><span class="p">]</span>
+        <span class="c1">## Para cada columna de datos</span>
+        <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">cl</span><span class="p">]</span> <span class="o">*=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span> <span class="n">mean_vectors</span><span class="p">[</span><span class="n">cl</span><span class="p">][</span><span class="n">ix</span><span class="p">],</span> <span class="n">sds_vectors</span><span class="p">[</span><span class="n">cl</span><span class="p">][</span><span class="n">ix</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">argmax</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Se llama a <strong>NaiveBayes</strong> y por cada observación <span class="math notranslate nohighlight">\(x\)</span> del conjunto de entrenamiento se calcula el valor estimado. La calidad del clasificador vendrá dada por la exactitud o porcentaje de aciertos entre estimados y reales.</p>
+<p><em>Nota:</em> <strong>zip</strong> es una función de Python que nos permite recorrer con <strong>for</strong> simultaneamente dos listas <strong>X_test</strong> e <strong>y_test</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numClases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]))</span>
+<span class="n">tot_Test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="n">tot_aciertos</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="n">y_est</span> <span class="o">=</span> <span class="n">NaiveBayes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean_vectors</span><span class="p">,</span> <span class="n">sds_vectors</span><span class="p">,</span> <span class="n">probab</span><span class="p">,</span> <span class="n">numClases</span><span class="p">)</span>
+    <span class="n">y_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_est</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="n">y_est</span><span class="p">):</span> <span class="n">tot_aciertos</span> <span class="o">+=</span><span class="mi">1</span>
+    <span class="c1">#print(&#39;Instancia %s Clase real %s - Clase estimada %s \n&#39; %(x, y, y_est))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud del clasificador (porcentaje de aciertos)= </span><span class="si">%s</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">tot_aciertos</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">tot_Test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5.1 3.4 1.5 0.2] [2.45053081e+00 1.40834091e-15 4.24516083e-25] 0
+[4.8 3.  1.4 0.1] [5.14231359e-01 6.59754490e-17 4.41419094e-27] 0
+[5.3 3.7 1.5 0.2] [1.48897676e+00 1.76221893e-16 1.62544089e-25] 0
+[5.1 3.3 1.7 0.5] [4.86620446e-02 2.69964773e-11 1.83666064e-20] 0
+[5.5 2.4 3.7 1. ] [4.22091386e-49 3.46640936e-02 1.31176675e-08] 1
+[5.7 2.8 4.5 1.3] [2.34482501e-89 4.11993004e-01 1.96205104e-04] 1
+[5.7 2.8 4.1 1.3] [2.11734622e-73 4.55207624e-01 4.38660082e-05] 1
+[4.9 3.1 1.5 0.1] [7.01828920e-01 2.06514800e-16 2.13993825e-26] 0
+[6.  3.4 4.5 1.6] [2.22155073e-104 1.59272776e-002 2.68454733e-003] 1
+[7.2 3.  5.8 1.6] [1.00870839e-177 4.39076609e-005 4.25316843e-002] 2
+[6.3 3.3 6.  2.5] [1.46923280e-251 7.23724703e-012 1.97671020e-002] 2
+[5.6 2.8 4.9 2. ] [1.62120692e-147 6.80577785e-004 2.98949661e-002] 2
+[5.8 2.7 4.1 1. ] [9.91518524e-63 1.37064865e-01 6.75755009e-07] 1
+[6.3 2.9 5.6 1.8] [4.59079436e-173 5.66551107e-004 1.52330264e-001] 2
+[5.5 2.5 4.  1.3] [5.30158203e-70 2.61933882e-01 6.52762843e-06] 1
+[5.1 3.7 1.5 0.4] [7.42711731e-01 1.54601530e-14 1.87618653e-23] 0
+[4.6 3.1 1.5 0.2] [1.03975908e+00 9.43308914e-16 1.00449689e-25] 0
+[6.5 3.  5.2 2. ] [3.25040154e-165 1.06773481e-004 2.18916674e-001] 2
+[5.1 3.8 1.5 0.3] [1.58947359e+00 4.76165116e-16 6.15106145e-25] 0
+[6.4 3.2 4.5 1.5] [1.43282835e-100 5.81720409e-002 3.79875469e-003] 1
+[5.9 3.  5.1 1.8] [2.47205624e-144 5.24951581e-003 6.24090377e-002] 2
+[5.6 3.  4.1 1.3] [6.22746692e-73 2.85524982e-01 3.88625760e-05] 1
+[6.7 3.1 4.7 1.5] [7.22470363e-111 3.17724489e-002 8.81619453e-003] 1
+[5.1 3.5 1.4 0.2] [2.46619493e+00 2.23454911e-16 7.97369617e-26] 0
+[6.1 2.6 5.6 1.4] [9.93809704e-151 1.15905672e-002 4.10714560e-003] 1
+[5.5 3.5 1.3 0.2] [8.00083749e-01 1.89714964e-16 9.05270240e-26] 0
+[4.8 3.4 1.9 0.2] [8.02814901e-02 2.25613080e-14 1.09419202e-23] 0
+[5.5 2.6 4.4 1.2] [4.51348444e-81 2.78209223e-01 1.42576570e-05] 1
+[5.8 2.7 5.1 1.9] [4.42283516e-151 2.10172494e-003 4.82491420e-002] 2
+[6.7 3.1 4.4 1.4] [6.19408126e-93 6.21826012e-02 1.41753140e-03] 1
+[5.1 3.8 1.6 0.2] [1.14214454e+00 9.58028320e-17 1.19074941e-25] 0
+[6.5 2.8 4.6 1.5] [8.66406112e-106 1.32542449e-001 6.13548757e-003] 1
+[6.9 3.1 5.4 2.1] [2.50829324e-185 1.57911395e-006 2.26872382e-001] 2
+[5.7 2.5 5.  2. ] [3.26503513e-153 4.45766225e-004 1.83716171e-002] 2
+[4.6 3.4 1.4 0.3] [1.43428769e+00 8.48053216e-16 2.22315713e-25] 0
+[7.  3.2 4.7 1.4] [1.46132813e-107 8.89297426e-003 2.57720499e-003] 1
+[6.3 3.4 5.6 2.4] [3.41814743e-218 6.54378179e-010 3.38810942e-002] 2
+[7.2 3.6 6.1 2.5] [8.61336276e-263 1.71431432e-014 3.59021543e-003] 2
+Exactitud del clasificador (porcentaje de aciertos)= 97.36842105263158 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="finalmente-presentamos-la-matriz-de-confusion-de-la-clasificacion-anterior">
+<h3>Finalmente presentamos la matriz de confusión de la clasificación anterior<a class="headerlink" href="#finalmente-presentamos-la-matriz-de-confusion-de-la-clasificacion-anterior" title="Link to this heading">#</a></h3>
+<p>La matriz de confusión tiene tantas filas y columnas como clases. <strong>Las filas representan las clases correctas</strong> del conjunto de validación y <strong>las columnas las estimaciones</strong> realizadas. Si la <strong>precisión es 100% sale una matriz diagonal</strong>.</p>
+<p>En este primer caso utilizamos un procedimiento poco encapsulado para obtener la matriz de confusión, dado que la clasificación se ha realizado con una rutina propia. A continuación, al usar un clasificador de sk-learn, será posible utilizar una función más encapsulada y con mejor salida gráfica para representar la matriz de confusión.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">cm</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">classNames</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+<span class="n">numClass</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">classNames</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Wistia</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClass</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numClass</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bbb58834bd4c57dab89114682ece4632e1d1951f2d6526211697a39aa618ffe8.png" src="_images/bbb58834bd4c57dab89114682ece4632e1d1951f2d6526211697a39aa618ffe8.png" />
+</div>
+</div>
+</section>
+<section id="se-muestra-en-detalle-la-funcion-de-distribucion-de-cada-clase">
+<h3>Se muestra en detalle la función de distribución de cada clase<a class="headerlink" href="#se-muestra-en-detalle-la-funcion-de-distribucion-de-cada-clase" title="Link to this heading">#</a></h3>
+<p>Como se distribuyen en cada clase de Iris las distintos caracteristicas analizadas según sus valores.</p>
+<p>Se emplea <strong>subplots(Filas, Columnas,[…])</strong> que permite realizar dibujos multiples en filas, columnas o cuadriculas.</p>
+<p>En cada dibujo se vuelca el histograma con el método <strong>hist</strong> sobre los valores de cada característica y clase considerada. Para más detalle:</p>
+<p>https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html</p>
+<p>https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width (cm)&#39;</span><span class="p">]</span>
+<span class="n">className</span> <span class="o">=</span> <span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">cols</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">className</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;row&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Funciones de Distribución&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span> <span class="s2">&quot;navajowhite&quot;</span><span class="p">,</span> <span class="s2">&quot;coral&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">cols</span><span class="p">)):</span>
+    <span class="n">_x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">className</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">_x</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="n">j</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">className</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s1">&#39;large&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function matplotlib.pyplot.show(close=None, block=None)&gt;
+</pre></div>
+</div>
+<img alt="_images/6567589654ee409b0f9ee1518520a3d18ba3baaf8afe433731265da93999d14d.png" src="_images/6567589654ee409b0f9ee1518520a3d18ba3baaf8afe433731265da93999d14d.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">
+<h2>Se Resuelve utilizando el clasificador Naive Bayes de sklearn<a class="headerlink" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn" title="Link to this heading">#</a></h2>
+<p>Se utiliza el constructor <strong>GaussianNB()</strong> de la clase <strong>GaussianNB</strong> para crear el objeto <strong>clf_NB</strong></p>
+<p>Llamando al método <strong>fit</strong> del objeto <strong>clf_NB</strong> se ajusta el modelo contra el conjunto de entrenamiento.</p>
+<p>Para validar el modelo se predicen las observaciones <strong>X_test</strong> del conjunto de validación se comparan las clases obtenidas contra los valores correctos de <strong>y_test</strong>. El porcentaje de aciertos es la precisión del clasificador</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="n">clf_NB</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">tot_Test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="n">tot_aciertos</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="n">y_est</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x</span><span class="p">])</span>
+    <span class="n">y_pred</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_est</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="n">y_est</span><span class="p">):</span> <span class="n">tot_aciertos</span> <span class="o">+=</span><span class="mi">1</span>
+    <span class="c1">#print(&#39;Instancia %s Clase real %s - Clase estimada %s \n&#39; %(x, y, y_est))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud del clasificador (porcentaje de aciertos) = </span><span class="si">%s</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">tot_aciertos</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">tot_Test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del clasificador (porcentaje de aciertos) = 97.36842105263158 
+</pre></div>
+</div>
+</div>
+</div>
+<section id="y-la-correspondiente-matriz-de-confusion">
+<h3>Y la correspondiente matriz de confusión<a class="headerlink" href="#y-la-correspondiente-matriz-de-confusion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">cm</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[13  0  0]
+ [ 0 13  0]
+ [ 0  1 11]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">cm_display</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b37f6ff4257af41aff859c31069b0cf82b533db7d4bd666d646f3d805946a33a.png" src="_images/b37f6ff4257af41aff859c31069b0cf82b533db7d4bd666d646f3d805946a33a.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01.1_Introduccion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción al Aprendizaje Automático</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02.4_MetodosdeClasificacion-ArbolesdeDecision.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Árboles de Decisión</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos-del-empleo-de-los-clasificadores">Ejemplos del empleo de los clasificadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-metodo-naive-bayes">Resumen del método Naïve Bayes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detalle-del-metodo-naive-bayes">Detalle del método Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-probabilidad-condicionada">Definición de probabilidad condicionada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilidad-en-una-particion">Probabilidad en una partición</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enunciado-y-demostracion-del-teorema-de-bayes">Enunciado y demostración del teorema de Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilidad-de-clasificar-un-vector-de-atributos-en-una-clase">Probabilidad de clasificar un vector de atributos en una clase</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#suposicion-naif">Suposición Naïf</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimacion-de-probabilidades">Estimación de probabilidades</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caracteristicas-de-la-clasificacion-naive-bayes">Características de la clasificación Naïve-Bayes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">Aplicar el método Naïve-Bayes para clasificar el conjunto Iris</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-directa-de-la-formula-naive-bayes">Implementación directa de la fórmula Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-las-medias-por-clase-y-caracteristica">Cálculo de las Medias por clase y característica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-las-desviaciones-tipicas-por-clase-y-caracteristica">Cálculo de las Desviaciones Típicas por clase y característica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-de-las-probabilidades-por-clase">Cálculo de las probabilidades por clase</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementamos-una-funcion-para-calcular-la-probabilidad-de-un-observacion-por-naive-bayes">Implementamos una función para calcular la probabilidad de un observación por Naive-Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finalmente-presentamos-la-matriz-de-confusion-de-la-clasificacion-anterior">Finalmente presentamos la matriz de confusión de la clasificación anterior</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-muestra-en-detalle-la-funcion-de-distribucion-de-cada-clase">Se muestra en detalle la función de distribución de cada clase</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
