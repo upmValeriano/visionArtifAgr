@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -426,8 +426,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamento-matematico-del-perceptron-simple-bicapa">Fundamento matemático del perceptrón simple bicapa</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red">Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicacion-del-entrenamiento-que-produce-en-la-red-una-observacion-bar-x">Explicación del entrenamiento que produce en la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-formulas-de-entrenamiento-de-una-red-bicapa-por-el-efecto-de-una-observacion-bar-x">Conclusión. Fórmulas de entrenamiento de una red bicapa por el efecto de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resolucion-matricial-proceso-en-bloque">Resolución matricial, proceso en bloque</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observaciones">Observaciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comentarios">Comentarios</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-con-codigo-propio-del-modelo-bicapa">Implementación con código propio del modelo Bicapa</a></li>
@@ -466,7 +469,9 @@ document.write(`
 </div>
 <section id="fundamento-matematico-del-perceptron-simple-bicapa">
 <h2>Fundamento matemático del perceptrón simple bicapa<a class="headerlink" href="#fundamento-matematico-del-perceptron-simple-bicapa" title="Link to this heading">#</a></h2>
-<p><span id="id1">[<a class="reference internal" href="Bibliografia.html#id12" title="Frank Rosenblatt. The perceptron: a probabilistic model for information storage and organization in the brain. Psychological review, 65(6):386, 1958.">Rosenblatt, 1958</a>]</span> introdujo el <strong>perceptrón simple</strong> formado por dos capas, una de <strong>entrada con n neuronas</strong> y una de <strong>salida con m neuronas</strong>. <span id="id2">[<a class="reference internal" href="Bibliografia.html#id13" title="Bernard Widrow and Marcian E Hoff. Adaptive switching circuits. Technical Report, Stanford Univ Ca Stanford Electronics Labs, 1960.">Widrow and Hoff, 1960</a>]</span> introdujeron el modelo <strong>ADAptative LInear Neuron (Adaline)</strong> tambien bicapa. Los modelos bicapa tienen la siguiente forma</p>
+<p><span id="id1">[<a class="reference internal" href="Bibliografia.html#id12" title="Frank Rosenblatt. The perceptron: a probabilistic model for information storage and organization in the brain. Psychological review, 65(6):386, 1958.">Rosenblatt, 1958</a>]</span> introdujo el <strong>perceptrón simple</strong> formado por dos capas, una de <strong>entrada con n neuronas</strong> y una de <strong>salida con m neuronas</strong>. <span id="id2">[<a class="reference internal" href="Bibliografia.html#id13" title="Bernard Widrow and Marcian E Hoff. Adaptive switching circuits. Technical Report, Stanford Univ Ca Stanford Electronics Labs, 1960.">Widrow and Hoff, 1960</a>]</span> introdujeron el modelo <strong>ADAptative LInear Neuron (Adaline)</strong> tambien bicapa.</p>
+<section id="activacion-de-una-observacion-bar-x-por-efecto-de-la-red">
+<h3>Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red<a class="headerlink" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red" title="Link to this heading">#</a></h3>
 <p>Dada <strong>1 observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1,...,x_j, ..., x_n)\)</span> de la que se conoce su <strong>clase</strong> en formato <em>one-hote</em> <span class="math notranslate nohighlight">\(\bar{y}=(y_1,...,y_i, ...y_m)\)</span></p>
 <p>Primero se efectua una <strong>ponderación lineal</strong> <span class="math notranslate nohighlight">\(\bar{z}=(z_1,...,z_i, ..., z_m)\)</span> de la que se obtiene la <strong>salida</strong> <span class="math notranslate nohighlight">\(\bar{a}\)</span> aplicando una <strong>función de activación</strong>:</p>
 <div class="math notranslate nohighlight">
@@ -479,51 +484,71 @@ document.write(`
 \[\begin{split} W = \begin{bmatrix}{w_{11}}&amp;{w_{12}}&amp;{...}&amp;{w_{1n}}\\{w_{21}}&amp;{w_{22}}&amp;{...}&amp;{w_{2n}}\\{...}&amp;{...}&amp;{...}&amp;{...}\\{w_{m1}}&amp;{w_{m2}}&amp;{...}&amp;{w_{mn}}\end{bmatrix}  \quad B = \begin{bmatrix}{b_{1}}\\{b_{2}}\\{...}\\{b_{m}}\end{bmatrix} \end{split}\]</div>
 <hr class="docutils" />
 <a class="reference internal image-reference" href="_images/Neurona-2Capas.png"><img alt="_images/Neurona-2Capas.png" src="_images/Neurona-2Capas.png" style="width: 800px;" /></a>
+</section>
 <hr class="docutils" />
-<p>La configuración de la red (<span class="math notranslate nohighlight">\(W\)</span> y <span class="math notranslate nohighlight">\(B\)</span>) minimizará una <strong>función de coste</strong> <span class="math notranslate nohighlight">\(C\)</span> para que la activación <span class="math notranslate nohighlight">\(\bar{a}\)</span> se ajuste a la clase real <span class="math notranslate nohighlight">\(\bar{y}\)</span> del conjunto de entrenamiento. Una de las funciones de coste que se utiliza es el <strong>error cuadrático</strong>, que para <strong>1 observación</strong> se calcula:</p>
+<section id="explicacion-del-entrenamiento-que-produce-en-la-red-una-observacion-bar-x">
+<h3>Explicación del entrenamiento que produce en la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span><a class="headerlink" href="#explicacion-del-entrenamiento-que-produce-en-la-red-una-observacion-bar-x" title="Link to this heading">#</a></h3>
+<p>Se supone el siguiente <strong>ejemplo sencillo</strong> de red bicapa</p>
+<a class="reference internal image-reference" href="_images/RedBiCapa.png"><img alt="_images/RedBiCapa.png" src="_images/RedBiCapa.png" style="width: 400px;" /></a>
+<p>La red se puede configurar con las <strong>matrices de pesos y bias</strong> siguientes:</p>
 <div class="math notranslate nohighlight">
-\[ C = \frac{1}{2} \displaystyle\sum_{i=1}^m  (a_i - y_i )^2\]</div>
-<p>Y como se cumple que</p>
+\[\begin{split}W = \begin{bmatrix} w_{11} &amp; w_{12} &amp; w_{13} \\ w_{21} &amp; w_{22} &amp; w_{23} \end{bmatrix}  \phantom{abc}  B = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} \end{split}\]</div>
+<p>Se conoce <strong>una observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, x_3)\)</span> de la que se sabe su <strong>clase en formato one-hot</strong> <span class="math notranslate nohighlight">\(\bar{y}=(y_1, y_2)\)</span>. Una vez <strong>activada</strong> la red se obtiene <span class="math notranslate nohighlight">\(\bar{a}=(a_1, a_2)\)</span>. Usando el error al cuadrado, la <strong>pérdida</strong> de esta observación será:</p>
 <div class="math notranslate nohighlight">
-\[ a_i = f(z_i) = f\begin{pmatrix} b_i + \displaystyle\sum_{j=1}^n w_{ij}x_j \end{pmatrix} \]</div>
+\[C = \frac{1}{2} \begin{bmatrix} (a_1-y_1)^2 + (a_2-y_2)^2 \end{bmatrix}\]</div>
+<p>Se sabe que:</p>
 <div class="math notranslate nohighlight">
-\[ C = \frac{1}{2} \displaystyle\sum_{i=1}^m \begin{bmatrix} f\begin{pmatrix} b_i + \displaystyle\sum_{j=1}^n w_{ij}x_j \end{pmatrix} - y_i\end{bmatrix}^2 \]</div>
-<p>De acuerdo al <strong>gradiente descenso</strong>, conocidos unos valores de las componentes <span class="math notranslate nohighlight">\(w_{ij}\)</span> y <span class="math notranslate nohighlight">\(b_i\)</span> de la configuración de la red, su valores tienden a un mínimo local restando sus gradientes:</p>
+\[\begin{split}\begin{cases} z_1 = w_{11} x_1 + w_{12} x_2 + w_{13} x_3 + b_1  \\ z_2  = w_{21} x_1 + w_{22} x_2 + w_{23} x_3 + b_2 \end{cases} 
+\rightarrow \begin{cases} a_1 = f(z_1) \\ a_2 = f(z_2) \end{cases}  \end{split}\]</div>
+<p>La <strong>tasa de variación de la función de pérdida</strong> con respecto al peso <span class="math notranslate nohighlight">\(w_{11}\)</span> afecta a la <strong>primera neurona de salida</strong>, por lo tanto se calcula aplicando la regla de la cadena así:</p>
 <div class="math notranslate nohighlight">
-\[ w_{ij}[t+1] = w_{ij}[t] - \eta \frac{\partial C}{\partial w_{ij}}\]</div>
+\[\frac{\partial{C}}{\partial{w_{11}}} = \frac{\partial{C}}{\partial{a_1}} \frac{\partial{a_1}}{\partial{z_1}}  \frac{\partial{z_1}}{\partial{w_{11}}} \]</div>
+<p>Por tanto</p>
 <div class="math notranslate nohighlight">
-\[ b_i[t+1] = b_i[t] - \eta \frac{\partial C}{\partial b_{i}}\]</div>
-<p>Los <strong>gradientes</strong> respecto <span class="math notranslate nohighlight">\(w_{ij}\)</span> se obtienen <strong>derivando</strong> <span class="math notranslate nohighlight">\(C\)</span> y aplicando sucesivamente la <strong>regla de la cadena</strong>:</p>
+\[\frac{\partial{C}}{\partial{w_{11}}} = (a_1 - y_1) f'(z_1) x_1\]</div>
+<p>Llamando <span class="math notranslate nohighlight">\(\delta_1 = (a_1 - y_1) f'(z_1)\)</span> <strong>las tasas de variación</strong> respecto a la configuración que aplica sobre <span class="math notranslate nohighlight">\(z_1\)</span> es:</p>
 <div class="math notranslate nohighlight">
-\[\frac{\partial C}{\partial w_{ij}} = \displaystyle\sum_{i=1}^m \begin{pmatrix} a_i - y_i \end{pmatrix} \frac{\partial a_i}{\partial w_{ij}} = \displaystyle\sum_{i=1}^m \begin{pmatrix} a_i - y_i \end{pmatrix} f'(z_i) \frac{\partial z_i}{\partial w_{ij}} = \displaystyle\sum_{i=1}^m \begin{pmatrix} a_i - y_i \end{pmatrix} f'(z_i) x_j\]</div>
-<p>De igual forma con respecto a <span class="math notranslate nohighlight">\(b_i\)</span></p>
+\[ \frac{\partial{C}}{\partial{w_{11}}} = \delta_1 x_1; \phantom{abc} \frac{\partial{C}}{\partial{w_{12}}} = \delta_1 x_2; 
+      \phantom{abc} \frac{\partial{C}}{\partial{w_{13}}} = \delta_1 x_3; \phantom{abc} \frac{\partial{C}}{\partial{b_1}} = \delta_1\]</div>
+<p><strong>Repitiendo el proceso</strong> con respecto al peso <span class="math notranslate nohighlight">\(w_{21}\)</span> afecta a la <strong>segunda neurona de salida</strong> (término <span class="math notranslate nohighlight">\(a_2\)</span>):</p>
 <div class="math notranslate nohighlight">
-\[\frac{\partial C}{\partial b_i} = \displaystyle\sum_{i=1}^m \begin{pmatrix} a_i - y_i \end{pmatrix} f'(z_i)\]</div>
-<p>Se denomina <strong>tasa de variación del error cuadrático por unidad de activación</strong> al valor:</p>
+\[\frac{\partial{C}}{\partial{w_{21}}} = \frac{\partial{C}}{\partial{a_2}} \frac{\partial{a_2}}{\partial{z_2}}  \frac{\partial{z_2}}{\partial{w_{21}}} \]</div>
 <div class="math notranslate nohighlight">
-\[\delta_i = \begin{pmatrix} a_i - y_i \end{pmatrix} f'(z_i)\]</div>
-<p>Con lo que se tiene:</p>
+\[\frac{\partial{C}}{\partial{w_{21}}} = (a_2 - y_2) f'(z_2) x_1\]</div>
+<p>Llamando <span class="math notranslate nohighlight">\(\delta_2 = (a_2 - y_2) f'(z_2)\)</span> <strong>las tasas de variación</strong> respecto a la configuración que aplica sobre <span class="math notranslate nohighlight">\(z_2\)</span> es:</p>
 <div class="math notranslate nohighlight">
-\[\frac{\partial C}{\partial  w_{ij}} = \displaystyle\sum_{i=1}^m \delta_i x_j\]</div>
+\[ \frac{\partial{C}}{\partial{w_{21}}} = \delta_2 x_1; \phantom{abc} \frac{\partial{C}}{\partial{w_{22}}} = \delta_2 x_2; 
+      \phantom{abc} \frac{\partial{C}}{\partial{w_{23}}} = \delta_2 x_3; \phantom{abc} \frac{\partial{C}}{\partial{b_2}} = \delta_2\]</div>
+<p><strong>El gradiente</strong> que optimiza la configuración de la red por el impacto de la observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> será:</p>
 <div class="math notranslate nohighlight">
-\[\frac{\partial C}{\partial b_i} = \displaystyle\sum_{i=1}^m \delta_i\]</div>
-<p>Se puede repetir <strong>vectorialmente el impacto que tiene en el entrenamiento de la red 1 observación</strong> <span class="math notranslate nohighlight">\(\bar{x}\)</span>.</p>
-<p>Así, el resultado de la <strong>ponderación lineal</strong> y su posterior <strong>activación</strong> es:</p>
+\[\begin{split} \frac{\partial{C}}{\partial{W}}  = 
+    \begin{bmatrix}  \frac{\partial{C}}{\partial{w_{11}}} &amp; \frac{\partial{C}}{\partial{w_{12}}} &amp; \frac{\partial{C}}{\partial{w_{13}}} \\
+    \frac{\partial{C}}{\partial{w_{21}}} &amp; \frac{\partial{C}}{\partial{w_{22}}} &amp; \frac{\partial{C}}{\partial{w_{23}}}
+    \end{bmatrix} =
+    \begin{bmatrix} \delta_1 x_1 &amp; \delta_1 x_2 &amp; \delta_1 x_3 \\
+                     \delta_2 x_1 &amp; \delta_2 x_2 &amp; \delta_2 x_3  \end{bmatrix} = 
+    \begin{bmatrix} \delta_1 \\ \delta_2  \end{bmatrix} \begin{bmatrix} x_1 &amp; x_2 &amp; x_3  \end{bmatrix}   
+    = \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \cdot \bar{x}
+\end{split}\]</div>
+<p>Y <strong>también</strong></p>
 <div class="math notranslate nohighlight">
-\[ \bar{z} = (z_i,..., z_i, ..., z_m) \]</div>
+\[\begin{split} \frac{\partial{C}}{\partial{B}} = \begin{bmatrix}  \frac{\partial{C}}{\partial{b_1}}  \\  \frac{\partial{C}}{\partial{b_2}}   \end{bmatrix} = 
+\begin{bmatrix} \delta_1 \\ \delta_2 \end{bmatrix} = \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T\end{split}\]</div>
+<p><strong>Además</strong> <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> se puede poner vectorialmente:</p>
 <div class="math notranslate nohighlight">
-\[ \bar{a} = f(\bar{z}) = (z_i,..., z_i, ..., z_m) \]</div>
-<p>Que permite obtener el vector <span class="math notranslate nohighlight">\(\bar{\delta}\)</span></p>
+\[\bar{\delta} = (\delta_1, \delta_2) = \begin{pmatrix} (a_1 - y_1)f'(z_1), (a_2 - y_2)f'(z_2) \end{pmatrix}\]</div>
+<p>De la que se obtiene la <strong>expresión final</strong>:</p>
 <div class="math notranslate nohighlight">
-\[\bar{\delta} = (\delta_1,..., \delta_i,..., \delta_m) = ((a_1-y_1)f'(z_1) ,...,(a_i-y_i)f'(z_i),...)) = (\bar{a}-\bar{y}) \odot f'(\bar{z}) \]</div>
-<p>Donde <span class="math notranslate nohighlight">\(\odot\)</span> es el <strong>producto Hadamard</strong> o producto componente a componente entre dos vectores.</p>
-<p>Por tanto se puede decir que:</p>
+\[\bar{\delta} = (\bar{a} - \bar{y}) \odot f'(\bar{z})\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(\bar{a} - \bar{y}\)</span> es el <strong>error neto</strong> y <span class="math notranslate nohighlight">\(\odot\)</span> es el <strong>producto de hadamard</strong> que obtiene a partir de 2 vectores un nuevo vector donde sus compenentes son el producto componente a componente.</p>
+<p><strong>Indicar como comentario final</strong> que además los gradientes <span class="math notranslate nohighlight">\( \frac{\partial{C}}{\partial{W}}\)</span> y <span class="math notranslate nohighlight">\( \frac{\partial{C}}{\partial{B}}\)</span> que optimizan la configuración de la red, se tiene que <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> es un gradiente intermedio de <span class="math notranslate nohighlight">\(C\)</span> con respecto a <span class="math notranslate nohighlight">\(\bar{z}\)</span>. Efectivamente:</p>
 <div class="math notranslate nohighlight">
-\[\bar{\delta} = \frac{\partial C}{\partial \bar{z}}\]</div>
-<p>Usando el valor calcualdo de <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> y el valor de la observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> <strong>se actualiza la matriz</strong> <span class="math notranslate nohighlight">\(W\)</span> <strong>de pesos</strong> de la siguiente forma:</p>
+\[\bar{\delta}=(\delta_1, \delta_2) = (\frac{\partial{C}}{\partial{z_1}}, \frac{\partial{C}}{\partial{z_2}}) = \frac{\partial{C}}{\partial{\bar{z}}} \]</div>
+</section>
+<section id="conclusion-formulas-de-entrenamiento-de-una-red-bicapa-por-el-efecto-de-una-observacion-bar-x">
+<h3>Conclusión. Fórmulas de entrenamiento de una red bicapa por el efecto de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span><a class="headerlink" href="#conclusion-formulas-de-entrenamiento-de-una-red-bicapa-por-el-efecto-de-una-observacion-bar-x" title="Link to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
-\[\begin{split}  W[t+1] = W[t] - \eta \begin{pmatrix} \delta_1 \\  ... \\ \delta_i \\ ... \\ \delta_m \end{pmatrix}  \begin{pmatrix} x_1 &amp;  ... &amp; x_j &amp; ... &amp; x_m \end{pmatrix}  = W[t] - \eta (\bar{\delta})^T\bar{x} \end{split}\]</div>
-<p>De igual forma se obtiene:</p>
+\[  W[t+1] = W[t] - \eta (\bar{\delta})^T\bar{x} \]</div>
 <div class="math notranslate nohighlight">
 \[  B[t+1] = B[t] - \eta (\bar{\delta})^T \]</div>
 <p>Siendo el gradiente de <strong>C</strong> respecto de <strong>W</strong> y <strong>B</strong>:</p>
@@ -531,6 +556,7 @@ document.write(`
 \[\frac{\partial C}{\partial W}=(\bar{\delta})^T\bar{x} \]</div>
 <div class="math notranslate nohighlight">
 \[\frac{\partial C}{\partial B}=(\bar{\delta})^T \]</div>
+</section>
 <section id="resolucion-matricial-proceso-en-bloque">
 <h3>Resolución matricial, proceso en bloque<a class="headerlink" href="#resolucion-matricial-proceso-en-bloque" title="Link to this heading">#</a></h3>
 <p><strong>Proceso hacia adelante o Forward</strong>: dada una matriz <span class="math notranslate nohighlight">\({\large X}\)</span> de <strong>N</strong> registros que entran a la neurona y dados unos pesos y bias definidos en las matrices <span class="math notranslate nohighlight">\({\large W}\)</span> y <span class="math notranslate nohighlight">\({\large B}\)</span>, se tendrá la siguiente salida de forma matricial:</p>
@@ -568,8 +594,8 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\frac{\partial C}{\partial B}=\Delta ^T \cdot {\large 1} \]</div>
 </section>
-<section id="observaciones">
-<h3>Observaciones<a class="headerlink" href="#observaciones" title="Link to this heading">#</a></h3>
+<section id="comentarios">
+<h3>Comentarios<a class="headerlink" href="#comentarios" title="Link to this heading">#</a></h3>
 <p>La matriz <span class="math notranslate nohighlight">\({\large X}\)</span> tiene dimensiones <strong>(N,n)</strong>: <span class="math notranslate nohighlight">\(N\)</span> filas (observaciones) de <span class="math notranslate nohighlight">\(n\)</span> características cada una.</p>
 <p>Las matrices <span class="math notranslate nohighlight">\({\large Z, A, \Delta}\)</span> tiene dimensiones <strong>(N,m)</strong>, tantas filas como las observaciones del conjunto de entrenamiento y tantas columnas como neuronas de salida <span class="math notranslate nohighlight">\(m\)</span>. El número de <strong>neuronas de salida</strong> coincide con el <strong>número de clases</strong>.</p>
 <p>Una de las funciones de activación primeras que se usaron fuero la sigmoidea o lógistica</p>
@@ -804,10 +830,13 @@ document.write(`
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++++++
-********************
+*********
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.BilayerANN at 0x284593a13d0&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>***********
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.BilayerANN at 0x1793b72f510&gt;
 </pre></div>
 </div>
 </div>
@@ -1196,10 +1225,13 @@ La matriz <strong>B</strong> tiene tantas <strong>filas</strong> como <strong>ne
 </summary>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>++++++++++++++++++++
-********************
+***********
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.BilayerANN at 0x2845a05af90&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>*********
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.BilayerANN at 0x1793b819150&gt;
 </pre></div>
 </div>
 </div>
@@ -1458,8 +1490,11 @@ La matriz <strong>B</strong> tiene tantas <strong>filas</strong> como <strong>ne
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fundamento-matematico-del-perceptron-simple-bicapa">Fundamento matemático del perceptrón simple bicapa</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red">Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicacion-del-entrenamiento-que-produce-en-la-red-una-observacion-bar-x">Explicación del entrenamiento que produce en la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-formulas-de-entrenamiento-de-una-red-bicapa-por-el-efecto-de-una-observacion-bar-x">Conclusión. Fórmulas de entrenamiento de una red bicapa por el efecto de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resolucion-matricial-proceso-en-bloque">Resolución matricial, proceso en bloque</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observaciones">Observaciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comentarios">Comentarios</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion-con-codigo-propio-del-modelo-bicapa">Implementación con código propio del modelo Bicapa</a></li>
