@@ -1,3 +1,0 @@
-# Redes Neuronales
-
-

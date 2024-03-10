@@ -1,0 +1,2070 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Repaso de programación en Python &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01.2_EjemplosdePythonparaaprenderaprogramar';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Instalación de Librerías" href="01.3_InstalacionLibrerias.html" />
+    <link rel="prev" title="Instalación de Python y Cuadernos Jupyter" href="01.1_InstalacionJupyter.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logoETSIAAB.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/logoETSIAAB.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01.1_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion_Ordinarios.html">Métodos de clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Clasificadores. Entrega sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas-Bicapa.html">Redes Neuronales Densas. Introducción y modelo bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas-Multicapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas-EjercicioEntregaWINES.html">Redes neuronales densas. Entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurConvolucional.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurConvolucional_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurConv_PlantVillage.html">PlantVillage. Identificar especies de cultivos con patologías</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/01.2_EjemplosdePythonparaaprenderaprogramar.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F01.2_EjemplosdePythonparaaprenderaprogramar.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/01.2_EjemplosdePythonparaaprenderaprogramar.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Repaso de programación en Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numeros-complejos">Números complejos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-lambda">Función <code class="docutils literal notranslate"><span class="pre">lambda</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listas">Listas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuplas">Tuplas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-format">Print format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-i-o">Ficheros I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion">Recursión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-numerico">Cálculo numérico</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integracion-numerica">Integración numérica</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="repaso-de-programacion-en-python">
+<span id="content-repasopython"></span><h1>Repaso de programación en Python<a class="headerlink" href="#repaso-de-programacion-en-python" title="Link to this heading">#</a></h1>
+<section id="funciones">
+<h2>Funciones<a class="headerlink" href="#funciones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;January&quot;</span>
+<span class="k">def</span> <span class="nf">two</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;February&quot;</span>
+<span class="k">def</span> <span class="nf">three</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;March&quot;</span>
+<span class="k">def</span> <span class="nf">four</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;April&quot;</span>
+<span class="k">def</span> <span class="nf">five</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;May&quot;</span>
+<span class="k">def</span> <span class="nf">six</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;June&quot;</span>
+<span class="k">def</span> <span class="nf">seven</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;July&quot;</span>
+<span class="k">def</span> <span class="nf">eight</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;August&quot;</span>
+<span class="k">def</span> <span class="nf">nine</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;September&quot;</span>
+<span class="k">def</span> <span class="nf">ten</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;October&quot;</span>
+<span class="k">def</span> <span class="nf">eleven</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;November&quot;</span>
+<span class="k">def</span> <span class="nf">twelve</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;December&quot;</span>
+<span class="k">def</span> <span class="nf">numbers_to_months</span><span class="p">(</span><span class="n">argument</span><span class="p">):</span>
+    <span class="n">switcher</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="n">one</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="n">two</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="n">three</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="n">four</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">:</span> <span class="n">five</span><span class="p">,</span>
+        <span class="mi">6</span><span class="p">:</span> <span class="n">six</span><span class="p">,</span>
+        <span class="mi">7</span><span class="p">:</span> <span class="n">seven</span><span class="p">,</span>
+        <span class="mi">8</span><span class="p">:</span> <span class="n">eight</span><span class="p">,</span>
+        <span class="mi">9</span><span class="p">:</span> <span class="n">nine</span><span class="p">,</span>
+        <span class="mi">10</span><span class="p">:</span> <span class="n">ten</span><span class="p">,</span>
+        <span class="mi">11</span><span class="p">:</span> <span class="n">eleven</span><span class="p">,</span>
+        <span class="mi">12</span><span class="p">:</span> <span class="n">twelve</span>
+    <span class="p">}</span>
+    <span class="c1"># Get the function from switcher dictionary</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="n">switcher</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="s2">&quot;Invalid month&quot;</span><span class="p">)</span>
+    <span class="c1"># Execute the function</span>
+    <span class="k">return</span> <span class="n">func</span><span class="p">()</span>
+<span class="n">numbers_to_months</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Invalid month&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numbers_to_months</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;February&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">zero</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;zero&quot;</span>
+<span class="k">def</span> <span class="nf">one</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;one&quot;</span>
+<span class="k">def</span> <span class="nf">two</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;two&quot;</span>
+<span class="n">switcher</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="n">zero</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="n">one</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="n">two</span>
+    <span class="p">}</span>
+<span class="k">def</span> <span class="nf">numbers_to_strings</span><span class="p">(</span><span class="n">argument</span><span class="p">):</span>
+    <span class="c1"># Get the function from switcher dictionary</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="n">switcher</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="s2">&quot;nothing&quot;</span><span class="p">)</span>
+    <span class="c1"># Execute the function</span>
+    <span class="k">return</span> <span class="n">func</span><span class="p">()</span>
+<span class="n">numbers_to_strings</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;nothing&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="numeros-complejos">
+<h2>Números complejos<a class="headerlink" href="#numeros-complejos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span><span class="o">=</span><span class="nb">complex</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Z</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3+0j)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Z</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3.0, 0.0, (3-0j))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="funcion-lambda">
+<h2>Función <code class="docutils literal notranslate"><span class="pre">lambda</span></code><a class="headerlink" href="#funcion-lambda" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">scint</span>
+<span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">scint</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.33333333333333337, 3.700743415417189e-15)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Función filtro: aplica una función a los elementos de una lista y devuelve solamente los que devuelvan TRUE</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span> <span class="o">%</span> <span class="mf">2.0</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;filter at 0x24c4c7247f0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span> <span class="o">%</span> <span class="mf">2.0</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2, 8, 10]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">creature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sammy&#39;</span><span class="p">,</span> <span class="s1">&#39;Ashley&#39;</span><span class="p">,</span> <span class="s1">&#39;Jo&#39;</span><span class="p">,</span> <span class="s1">&#39;Olly&#39;</span><span class="p">,</span> <span class="s1">&#39;Jackie&#39;</span><span class="p">,</span> <span class="s1">&#39;Charlie&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="s1">&#39;aeiou&#39;</span><span class="p">,</span> <span class="n">creature_names</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Ashley&#39;, &#39;Olly&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Función reduce: aplicar función a todos los elementos de una lista</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>24
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The maximum element of the list is : &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The maximum element of the list is : 4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="listas">
+<h2>Listas<a class="headerlink" href="#listas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mf">2.0</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2, 4]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="o">*</span> <span class="n">v</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;a&#39;, &#39;aa&#39;, &#39;aaa&#39;, &#39;b&#39;, &#39;bb&#39;, &#39;bbb&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="n">s</span> <span class="o">*</span> <span class="n">v</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">A</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">B</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5, 6, 7, 10, 12, 14, 15, 18, 21]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="p">[</span><span class="n">s</span> <span class="o">*</span> <span class="n">v</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">A</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">B</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 0, 0, 5, 6, 7, 10, 12, 14, 15, 18, 21]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tuplas">
+<h2>Tuplas<a class="headerlink" href="#tuplas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">l2</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">l</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">ele</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+4
+9
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="print-format">
+<h2>Print format<a class="headerlink" href="#print-format" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Valeriano&quot;</span>
+<span class="n">dinero</span> <span class="o">=</span> <span class="mf">70.55555555555</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;El nombre es </span><span class="si">%.5f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="n">dinero</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>El nombre es 70.55556
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El nombre es </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dinero</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>El nombre es 70.556
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># linux</span>
+<span class="c1">#!pwd</span>
+<span class="c1"># windows</span>
+<span class="o">!</span>dir<span class="w">  </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> El volumen de la unidad C es Windows 
+ El n£mero de serie del volumen es: 4675-FAD7
+
+ Directorio de C:\Users\valer_z\ownCloud - VALERIANO MENDEZ FUENTES@drive.upm.es\AA\jupyterbook\visionArtifAgr
+
+10/03/2024  16:12    &lt;DIR&gt;          .
+05/03/2024  16:56    &lt;DIR&gt;          ..
+10/03/2024  16:06    &lt;DIR&gt;          .ipynb_checkpoints
+22/01/2023  20:23            17.742 01.1_InstalacionJupyter.md
+10/03/2024  15:56            58.555 01.2_EjemplosdePythonparaaprenderaprogramar.ipynb
+06/03/2024  12:55             6.485 01.3_InstalacionLibrerias.ipynb
+08/03/2024  20:09             2.605 01_IntroduccionIntro.md
+08/03/2024  17:47           310.855 02.1_Introduccion_AA.ipynb
+10/03/2024  16:06           142.306 02.2_MetodosdeClasificacion_Ordinarios.ipynb
+09/03/2024  21:37            10.900 02.3_Clasificacion-EjercicioEntregaWINES.ipynb
+06/03/2024  12:32               163 02_ClasificacionIntro.md
+10/03/2024  10:07           155.901 03.1_RedesNeurDensas-Bicapa.ipynb
+10/03/2024  10:08           118.130 03.2_RedesNeurDensas-Multicapa.ipynb
+09/03/2024  21:37            36.475 03.3_RedesNeurDensas-EjercicioEntregaWINES.ipynb
+08/03/2024  17:34           298.555 03.4_RedesNeurConvolucional.ipynb
+08/03/2024  17:35            75.696 03.5_RedesNeurConvolucional_Maqueta.ipynb
+10/03/2024  16:12         1.112.506 03.6_RedesNeurConv_PlantVillage.ipynb
+09/03/2024  22:03               894 03_rnnIntro.md
+31/01/2022  09:57                60 Bibliografia.md
+10/03/2024  16:05    &lt;DIR&gt;          data
+10/03/2024  10:06    &lt;DIR&gt;          images
+10/03/2024  09:17               399 introAA.md
+09/03/2024  10:15             4.237 references.bib
+10/03/2024  09:18             1.498 ymas.md
+09/03/2024  21:39    &lt;DIR&gt;          _build
+08/03/2024  12:35             2.181 _config.yml
+09/03/2024  21:39               808 _toc.yml
+              21 archivos      2.356.951 bytes
+               6 dirs  125.208.465.408 bytes libres
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ficheros-i-o">
+<h2>Ficheros I/O<a class="headerlink" href="#ficheros-i-o" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fich</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./data/Prueba.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> 
+<span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">fich</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">linea</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Â¡Ay mÃ­sero de mÃ­, y ay, infelice!
+
+Apurar, cielos, pretendo,
+ya que me tratÃ¡is asÃ­
+quÃ© delito cometÃ­
+contra vosotros naciendo;
+aunque si nacÃ­, ya entiendo
+quÃ© delito he cometido.
+Bastante causa ha tenido
+vuestra justicia y rigor;
+pues el delito mayor
+del hombre es haber nacido.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fich</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./data/Prueba.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">fich</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Â¡Ay mÃ\xadsero de mÃ\xad, y ay, infelice!\n&#39;, &#39;\n&#39;, &#39;Apurar, cielos, pretendo,\n&#39;, &#39;ya que me tratÃ¡is asÃ\xad\n&#39;, &#39;quÃ© delito cometÃ\xad\n&#39;, &#39;contra vosotros naciendo;\n&#39;, &#39;aunque si nacÃ\xad, ya entiendo\n&#39;, &#39;quÃ© delito he cometido.\n&#39;, &#39;Bastante causa ha tenido\n&#39;, &#39;vuestra justicia y rigor;\n&#39;, &#39;pues el delito mayor\n&#39;, &#39;del hombre es haber nacido.\n&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fich</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./data/Prueba2.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">fich</span><span class="o">.</span><span class="n">writelines</span><span class="p">([</span><span class="s2">&quot;Prueba de escritura 1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;Prueba de escritura 2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">])</span>
+<span class="n">fich</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pandas">
+<h2>Pandas<a class="headerlink" href="#pandas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/Prueba.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1, 11, 41],
+       [ 2, 12, 42],
+       [ 3, 13, 43],
+       [ 4, 14, 44],
+       [ 5, 15, 45]], dtype=int64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Columna1</th>
+      <th>Columna2</th>
+      <th>Columna3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>11</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>12</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>13</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>14</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>15</td>
+      <td>45</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id1">
+<h2>Funciones<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">elevado</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">productorio</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">productorio</span> <span class="o">*=</span> <span class="n">a</span>
+    <span class="k">return</span> <span class="n">productorio</span>
+
+<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">productorio</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">productorio</span> <span class="o">*=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">productorio</span>
+
+<span class="k">def</span> <span class="nf">exponencial</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">sumatorio</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">sumatorio</span> <span class="o">+=</span> <span class="n">elevado</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="c1">##print(sumatorio, k, elevado(a, k), factorial(k))</span>
+    <span class="k">return</span> <span class="n">sumatorio</span>
+
+<span class="n">exponencial</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">17</span><span class="p">),</span> <span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7.389056098516415, 7.38905609893065)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">biseccion</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="c1">#print(a, b, c, f(a), f(b), f(c))</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+
+<span class="n">biseccion</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 1.0000000000232832)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">biseccion</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="c1">#print(a, b, c, f(a), f(b), f(c))</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+
+<span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="o">-</span><span class="mi">1</span>
+
+<span class="n">biseccion</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 1.0000000000232832)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">regulafalsa</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">a</span>
+    <span class="n">c_ant</span><span class="o">=</span><span class="n">a</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">((</span><span class="n">c</span><span class="o">-</span><span class="n">c_ant</span><span class="p">)</span><span class="o">/</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="c1">#print(a, b, c, f(a), f(b), f(c))</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">c_ant</span><span class="o">=</span><span class="n">c</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+<span class="k">def</span> <span class="nf">regulafalsaMod</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">a</span>
+    <span class="n">c_ant</span><span class="o">=</span><span class="n">a</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="n">iter_a</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">iter_b</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">c_ant</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="c1">#print(a, b, c, f(a), f(b), f(c))</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">c</span>
+            <span class="n">iter_b</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">iter_a</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">iter_a</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">):</span> <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">/</span><span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">c</span>
+            <span class="n">iter_a</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">iter_b</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">iter_b</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">):</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">c_ant</span><span class="o">=</span><span class="n">c</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+
+<span class="n">regulafalsaMod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 0.1817588725191044)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recursion">
+<h2>Recursión<a class="headerlink" href="#recursion" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">regulafalsa</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="n">c_ant</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="c1">##print(a, b, c, f(a), f(b), f(c))</span>
+    <span class="k">if</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">((</span><span class="n">c</span><span class="o">-</span><span class="n">c_ant</span><span class="p">)</span><span class="o">/</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">regulafalsa</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">regulafalsa</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+
+<span class="n">regulafalsa</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 0.9999999968380443)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">biseccion</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="c1"># criterio de parada, para evitar entrar en buble infinito</span>
+    <span class="k">if</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">))</span><span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">c</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+    <span class="c1"># si no paramos, nueva llamada</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="n">biseccion</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">epsilon</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="o">-</span><span class="mi">1</span>
+
+<span class="n">biseccion</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 1.3 0.65 -1 12.785849184900005 -0.9865372566553711
+0.65 1.3 0.9750000000000001 -0.9865372566553711 12.785849184900005 -0.22367037914356147
+0.9750000000000001 1.3 1.1375000000000002 -0.22367037914356147 12.785849184900005 2.626720217225217
+0.9750000000000001 1.1375000000000002 1.0562500000000001 -0.22367037914356147 2.626720217225217 0.7284913860640538
+0.9750000000000001 1.0562500000000001 1.015625 -0.22367037914356147 0.7284913860640538 0.167706846548914
+0.9750000000000001 1.015625 0.9953125 -0.22367037914356147 0.167706846548914 -0.04589848926847229
+0.9953125 1.015625 1.00546875 -0.04589848926847229 0.167706846548914 0.05605314088389357
+0.9953125 1.00546875 1.000390625 -0.04589848926847229 0.05605314088389357 0.003913123612528047
+0.9953125 1.000390625 0.9978515625000001 -0.04589848926847229 0.003913123612528047 -0.0212778502779869
+0.9978515625000001 1.000390625 0.9991210937500001 -0.0212778502779869 0.003913123612528047 -0.00875438241808546
+0.9991210937500001 1.000390625 0.9997558593750001 -0.00875438241808546 0.003913123612528047 -0.0024387257864679768
+0.9997558593750001 1.000390625 1.0000732421875 -0.0024387257864679768 0.003913123612528047 0.0007326633209661093
+0.9997558593750001 1.0000732421875 0.9999145507812501 -0.0024387257864679768 0.0007326633209661093 -0.0008541636917527295
+0.9999145507812501 1.0000732421875 0.9999938964843751 -0.0008541636917527295 0.0007326633209661093 -6.103347989572239e-05
+0.9999938964843751 1.0000732421875 1.0000335693359377 -6.103347989572239e-05 0.0007326633209661093 0.0003357440744307105
+0.9999938964843751 1.0000335693359377 1.0000137329101564 -6.103347989572239e-05 0.0003357440744307105 0.0001373375885516115
+0.9999938964843751 1.0000137329101564 1.0000038146972656 -6.103347989572239e-05 0.0001373375885516115 3.8147627499096615e-05
+0.9999938964843751 1.0000038146972656 0.9999988555908204 -6.103347989572239e-05 3.8147627499096615e-05 -1.1444032861351872e-05
+0.9999988555908204 1.0000038146972656 1.0000013351440429 -1.1444032861351872e-05 3.8147627499096615e-05 1.3351520646409654e-05
+0.9999988555908204 1.0000013351440429 1.0000000953674317 -1.1444032861351872e-05 1.3351520646409654e-05 9.536747265226353e-07
+0.9999988555908204 1.0000000953674317 0.999999475479126 -1.1444032861351872e-05 9.536747265226353e-07 -5.245196359138227e-06
+0.999999475479126 1.0000000953674317 0.9999997854232789 -5.245196359138227e-06 9.536747265226353e-07 -2.1457651386835863e-06
+0.9999997854232789 1.0000000953674317 0.9999999403953553 -2.1457651386835863e-06 9.536747265226353e-07 -5.960462867715677e-07
+0.9999999403953553 1.0000000953674317 1.0000000178813935 -5.960462867715677e-07 9.536747265226353e-07 1.788139492031604e-07
+0.9999999403953553 1.0000000178813935 0.9999999791383745 -5.960462867715677e-07 1.788139492031604e-07 -2.0861623584167432e-07
+0.9999999791383745 1.0000000178813935 0.999999998509884 -2.0861623584167432e-07 1.788139492031604e-07 -1.4901160194646934e-08
+0.999999998509884 1.0000000178813935 1.0000000081956388 -1.4901160194646934e-08 1.788139492031604e-07 8.195639145114342e-08
+0.999999998509884 1.0000000081956388 1.0000000033527614 -1.4901160194646934e-08 8.195639145114342e-08 3.3527614462514066e-08
+0.999999998509884 1.0000000033527614 1.0000000009313226 -1.4901160194646934e-08 3.3527614462514066e-08 9.313225746154785e-09
+0.999999998509884 1.0000000009313226 0.9999999997206033 -1.4901160194646934e-08 9.313225746154785e-09 -2.7939672797572257e-09
+0.9999999997206033 1.0000000009313226 1.0000000003259628 -2.7939672797572257e-09 9.313225746154785e-09 3.259628122975755e-09
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 1.0000000000232832)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculo-numerico">
+<h2>Cálculo numérico<a class="headerlink" href="#calculo-numerico" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>raíces de ecuaciones</p></li>
+<li><p>derivación numérica</p></li>
+<li><p>integración numérica</p></li>
+<li><p>métodos numéricos para EDOs</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">iteraPuntoFijo</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">):</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">((</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">&gt;</span> <span class="n">epsilon</span> <span class="ow">and</span> <span class="n">iter_t</span><span class="o">&lt;</span><span class="n">max_iter</span><span class="p">:</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">iteraPuntoFijo</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5671432901223239
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">newtonRaphson</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">epsilon</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x_ant</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">fd</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">fd</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span>
+
+<span class="n">newtonRaphson</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 0.567143290409784)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">secante</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x_ant</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x_ant</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_ant</span><span class="p">)</span><span class="o">==</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span> <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x</span>
+        <span class="n">x_new</span><span class="o">=</span><span class="n">x</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x_ant</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x_ant</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x_ant</span><span class="o">=</span><span class="n">x</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x_new</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span>
+
+<span class="n">secante</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+0.6126998367802821
+0.5638383891610742
+0.5671703584197446
+0.5671433066049633
+0.5671432904097046
+6
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 0.5671432904097838)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">secanteMod</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">epsilon</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x_ant</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">epsilon</span><span class="p">)</span><span class="o">==</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">epsilon</span><span class="o">/</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">epsilon</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span>
+
+<span class="n">secanteMod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 0.5671432904097838)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">newtonRaphsonMod</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">iter_max</span><span class="p">):</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">eps</span>
+    <span class="n">diferen</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">eps</span>
+    <span class="n">difSegunda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">eps</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">eps</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x_ant</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">eps</span> <span class="ow">and</span> <span class="n">iter_t</span><span class="o">&lt;</span><span class="n">iter_max</span><span class="p">:</span>
+        <span class="c1">#print(iter_t, x)</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">iter_t</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;dif2&quot;</span><span class="p">,</span> <span class="n">difSegunda</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">),</span> <span class="s2">&quot;dif&quot;</span><span class="p">,</span> <span class="n">diferen</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">),</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">diferen</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">==</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">difSegunda</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">):</span> <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">diferen</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">diferen</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">difSegunda</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">eps</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span>
+
+<span class="n">newtonRaphsonMod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i 1 x 0 dif2 -9.99955673819386 dif 6.999995000089854 f -3
+i 2 x 1.105189089355384 dif2 -3.368867684816479 dif -0.3875638082649624 f -0.020965598638882667
+i 3 x 1.0030782671025074 dif2 -3.9815303933324593 dif -0.012286631988153052 f -1.8922287885892526e-05
+i 4 x 1.0000038677348835 dif2 -3.999976792932577 dif -1.7470882050986708e-05 f -2.9918688398857965e-11
+i 5 x 1.0000010507890613 dif2 -3.9999936946075003 dif -6.203148779759915e-06 f -2.2083141425373897e-12
+5
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 1.0000005887170116)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="integracion-numerica">
+<h3>Integración numérica<a class="headerlink" href="#integracion-numerica" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">trapecio</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">eps</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">difSegunda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">eps</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">eps</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+    <span class="n">integral</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="nb">sum</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">([</span><span class="n">difSegunda</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">error</span><span class="p">,</span> <span class="n">integral</span>
+<span class="n">trapecio</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-1.6666675447159682e-07, 2.337333499999998)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.integrate</span> <span class="k">as</span> <span class="nn">scint</span>
+<span class="n">scint</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2.3333333333333335, 2.590520390792032e-14)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simpson</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">eps</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">dif_4</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span><span class="o">+</span><span class="mi">6</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">eps</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">=</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+    <span class="n">integral</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">h</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">dif_4</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">([</span><span class="n">dif_4</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span><span class="o">/</span><span class="p">(</span><span class="mi">90</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">error</span><span class="p">,</span> <span class="n">integral</span>
+<span class="n">simpson</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0, 2.220446049250313e+24, -2.220446049250313e+24, 0.0, 0.0, 4.440892098500626e+24]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-4.934324553889584e+17, 2.3333333333333335)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">riemann</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>  
+    <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">izq</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">h</span> 
+        <span class="n">der</span> <span class="o">=</span> <span class="n">izq</span> <span class="o">+</span> <span class="n">h</span>
+        <span class="n">medio</span> <span class="o">=</span> <span class="p">(</span><span class="n">izq</span> <span class="o">+</span> <span class="n">der</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">suma</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="n">medio</span><span class="p">)</span><span class="o">*</span><span class="n">h</span>
+    <span class="k">return</span> <span class="n">suma</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">riemann</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3332
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">riemann2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>  
+    <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+    <span class="nb">print</span> <span class="p">(</span>  <span class="nb">sum</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">h</span><span class="p">)</span><span class="o">*</span><span class="n">h</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">izq</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">h</span> 
+        <span class="n">der</span> <span class="o">=</span> <span class="n">izq</span> <span class="o">+</span> <span class="n">h</span>
+        <span class="n">medio</span> <span class="o">=</span> <span class="p">(</span><span class="n">izq</span> <span class="o">+</span> <span class="n">der</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">suma</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="n">medio</span><span class="p">)</span><span class="o">*</span><span class="n">h</span>
+    <span class="k">return</span> <span class="n">suma</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">riemann2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.31360000000000005
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3332
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">euler</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="n">h</span><span class="p">):</span>
+    <span class="n">n</span><span class="o">=</span><span class="nb">int</span><span class="p">((</span><span class="n">xn</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x0</span><span class="p">];</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y_eul</span> <span class="o">=</span> <span class="n">euler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="mi">12</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">20</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">8.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">heun</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="n">h</span><span class="p">):</span>
+    <span class="n">n</span><span class="o">=</span><span class="nb">int</span><span class="p">((</span><span class="n">xn</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x0</span><span class="p">];</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">wy</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">h</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">h</span><span class="p">,</span><span class="n">wy</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">m</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y_heu</span> <span class="o">=</span> <span class="n">heun</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">4</span><span class="o">*</span><span class="n">mt</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.8</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">runge2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="n">h</span><span class="p">):</span>
+    <span class="n">n</span><span class="o">=</span><span class="nb">int</span><span class="p">((</span><span class="n">xn</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x0</span><span class="p">];</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">y0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">k1</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">k2</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">k1</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">k1</span><span class="o">/</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">k2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="n">runge2</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="mi">12</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">20</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">8.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+ [1,
+  3.27734375,
+  3.1015625,
+  2.34765625,
+  2.140625,
+  2.85546875,
+  4.1171875,
+  4.80078125,
+  3.03125])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">runge2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="n">h</span><span class="p">):</span>
+    <span class="n">n</span><span class="o">=</span><span class="nb">int</span><span class="p">((</span><span class="n">xn</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">x0</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">h</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="n">ix</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x0</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">h</span> <span class="k">if</span> <span class="n">ix</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="n">y0</span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="n">runge2</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="mi">12</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">20</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">8.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+ [1,
+  1.4166666666666667,
+  0.7083333333333334,
+  0.75,
+  1.2916666666666667,
+  2.0833333333333335,
+  2.875,
+  3.4166666666666665,
+  3.4583333333333335])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#A = [&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;,&#39;G&#39;,&#39;H&#39;,&#39;I&#39;,&#39;J&#39;]</span>
+<span class="c1"># [(x, A[i+1] if (i+1) &lt; len(A) else None) for i,x in enumerate(A)]</span>
+<span class="c1"># return sum([x if x!=13 and nums[idx-1 if idx &gt;0 else 0] !=13 else 0 for idx,x in enumerate(nums)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">maxSeccionAurea</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">maxIter</span><span class="p">):</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="n">mt</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">err</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">eps</span>
+    <span class="n">opti</span><span class="o">=</span><span class="n">a</span>
+    <span class="k">while</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">maxIter</span> <span class="ow">and</span> <span class="n">err</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">:</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">R</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x1</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">d</span>
+        <span class="n">x2</span><span class="o">=</span><span class="n">b</span><span class="o">-</span><span class="n">d</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">err</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">):</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">x2</span>
+            <span class="n">opti</span><span class="o">=</span><span class="n">x1</span>
+        <span class="k">elif</span> <span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">):</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">x1</span>
+            <span class="n">opti</span><span class="o">=</span><span class="n">x2</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">R</span><span class="p">)</span><span class="o">*</span><span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">((</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">opti</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">opti</span>
+<span class="n">maxSeccionAurea</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">mt</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="mi">2000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 0 0.0 1.5279 1.7647 2.4721 0.63 4 -3.1136 2.4721 2e-06
+2 0 0.0 0.9443 1.531 1.5279 1.7647 2.4721 0.63 1.5279 0.6180339887498949
+3 0.9443 1.531 1.5279 1.7647 1.8885 1.5432 2.4721 0.63 0.9443 0.3819660112501051
+4 0.9443 1.531 1.305 1.7595 1.5279 1.7647 1.8885 1.5432 0.5836 0.23606797749978972
+5 1.305 1.7595 1.5279 1.7647 1.6656 1.7136 1.8885 1.5432 0.3607 0.1458980337503155
+6 1.305 1.7595 1.4427 1.7755 1.5279 1.7647 1.6656 1.7136 0.2229 0.09016994374947428
+7 1.305 1.7595 1.3901 1.7742 1.4427 1.7755 1.5279 1.7647 0.1378 0.059016994374947486
+8 1.3901 1.7742 1.4427 1.7755 1.4752 1.7732 1.5279 1.7647 0.0851 0.03647450843757889
+9 1.3901 1.7742 1.4226 1.7757 1.4427 1.7755 1.4752 1.7732 0.0526 0.02254248593736858
+10 1.3901 1.7742 1.4102 1.7754 1.4226 1.7757 1.4427 1.7755 0.0325 0.014128866181757014
+11 1.4102 1.7754 1.4226 1.7757 1.4303 1.7757 1.4427 1.7755 0.0201 0.008732119522824787
+12 1.4226 1.7757 1.4303 1.7757 1.435 1.7757 1.4427 1.7755 0.0124 0.005367778120295635
+13 1.4226 1.7757 1.4274 1.7757 1.4303 1.7757 1.435 1.7757 0.0077 0.0033174693224107257
+14 1.4226 1.7757 1.4256 1.7757 1.4274 1.7757 1.4303 1.7757 0.0047 0.0020545212007783056
+15 1.4256 1.7757 1.4274 1.7757 1.4285 1.7757 1.4303 1.7757 0.0029 0.0012697639326882445
+16 1.4256 1.7757 1.4267 1.7757 1.4274 1.7757 1.4285 1.7757 0.0018 0.0007847572680900612
+17 1.4267 1.7757 1.4274 1.7757 1.4278 1.7757 1.4285 1.7757 0.0011 0.0004850066645981833
+18 1.4267 1.7757 1.4271 1.7757 1.4274 1.7757 1.4278 1.7757 0.0007 0.0002997506034918779
+19 1.4271 1.7757 1.4274 1.7757 1.4275 1.7757 1.4278 1.7757 0.0004 0.00018525606110624606
+20 1.4274 1.7757 1.4275 1.7757 1.4276 1.7757 1.4278 1.7757 0.0003 0.0001144814348860735
+21 1.4274 1.7757 1.4275 1.7757 1.4275 1.7757 1.4276 1.7757 0.0002 7.075341784047577e-05
+22 1.4275 1.7757 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 0.0001 4.372801704565714e-05
+23 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 1.4276 1.7757 0.0001 2.702467044232797e-05
+24 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 1.4276 1.7757 0.0 1.670216486813883e-05
+25 1.4275 1.7757 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 0.0 1.0322612129410393e-05
+26 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 1.4276 1.7757 0.0 6.379725148638679e-06
+27 1.4275 1.7757 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 0.0 3.942886980712303e-06
+28 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 1.4276 1.7757 0.0 2.4368381678669634e-06
+29 1.4275 1.7757 1.4276 1.7757 1.4276 1.7757 1.4276 1.7757 0.0 1.50604881284534e-06
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.427551339027571
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">optimoSeccionAurea</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">maxIter</span><span class="p">,</span> <span class="n">Tipo</span><span class="o">=</span><span class="s2">&quot;Max&quot;</span><span class="p">):</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">R</span><span class="o">=</span><span class="p">(</span><span class="n">mt</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">opti</span><span class="o">=</span><span class="n">a</span>
+    <span class="k">while</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">maxIter</span> <span class="ow">and</span> <span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">:</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">R</span><span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">x1</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">d</span>
+        <span class="n">x2</span><span class="o">=</span><span class="n">b</span><span class="o">-</span><span class="n">d</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="c1">#print(i, round(a,4), round(f(a),4), round(x2,4), round(f(x2),4), round(x1,4), round(f(x1),4), round(b,4), round(f(b),4), round(d,4), err)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Max&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">&lt;</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Min&quot;</span><span class="p">):</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">x2</span>
+            <span class="n">opti</span><span class="o">=</span><span class="n">x1</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="ow">and</span>  <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Max&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">&lt;</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="ow">and</span>  <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Min&quot;</span><span class="p">):</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">x1</span>
+            <span class="n">opti</span><span class="o">=</span><span class="n">x2</span>
+    <span class="k">return</span> <span class="n">opti</span>
+<span class="n">optimoSeccionAurea</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">mt</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="mi">2000</span><span class="p">,</span> <span class="s2">&quot;Max&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4275518465647516
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimoSeccionAurea</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="mi">2000</span><span class="p">,</span> <span class="s2">&quot;Min&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-2.0530310232392276e-07
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">optimoInterpolaParbola</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">maxIter</span><span class="p">,</span> <span class="n">Tipo</span><span class="o">=</span><span class="s2">&quot;Max&quot;</span><span class="p">):</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">maxIter</span> <span class="ow">and</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">&gt;</span><span class="n">eps</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x3N</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">x0</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x0</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">x3D</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">x2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x0</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">x3</span><span class="o">=</span><span class="n">x3N</span><span class="o">/</span><span class="n">x3D</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x0</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x3</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Max&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="o">&lt;</span><span class="n">f</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Min&quot;</span><span class="p">):</span>
+            <span class="n">opti</span><span class="o">=</span><span class="n">x1</span>
+            <span class="k">if</span> <span class="n">x3</span><span class="o">&gt;</span><span class="n">x1</span><span class="p">:</span>
+                <span class="n">x2</span><span class="o">=</span><span class="n">x3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x0</span><span class="o">=</span><span class="n">x3</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span><span class="o">&gt;</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="ow">and</span>  <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Max&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x3</span><span class="p">)</span><span class="o">&lt;</span><span class="n">f</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="ow">and</span>  <span class="n">Tipo</span><span class="o">==</span><span class="s2">&quot;Min&quot;</span><span class="p">):</span>
+            <span class="n">opti</span><span class="o">=</span><span class="n">x3</span>
+            <span class="k">if</span> <span class="n">x3</span><span class="o">&gt;</span><span class="n">x1</span><span class="p">:</span>
+                <span class="n">x0</span><span class="o">=</span><span class="n">x1</span>
+                <span class="n">x1</span><span class="o">=</span><span class="n">x3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">x2</span><span class="o">=</span><span class="n">x1</span>
+                <span class="n">x1</span><span class="o">=</span><span class="n">x3</span>
+    <span class="k">return</span> <span class="n">opti</span>
+<span class="n">optimoInterpolaParbola</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">mt</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Max&quot;</span><span class="p">)</span>
+<span class="c1">#optimoInterpolaParbola(lambda x: x**2, -1, 1, 2, 10**(-6), 10, &quot;Min&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 0 0.0 1 1.5829 4 -3.1136 1.5055 1.7691 4.0
+2 1 1.5829 1.5055 1.7691 4 -3.1136 1.4903 1.7714 3.0
+3 1 1.5829 1.4903 1.7714 1.5055 1.7691 1.4256 1.7757 0.5055348739896623
+4 1 1.5829 1.4256 1.7757 1.4903 1.7714 1.4266 1.7757 0.4902527508500858
+5 1.4256 1.7757 1.4266 1.7757 1.4903 1.7714 1.4275 1.7757 0.06461679656582486
+6 1.4266 1.7757 1.4275 1.7757 1.4903 1.7714 1.4276 1.7757 0.06365122826564096
+7 1.4275 1.7757 1.4276 1.7757 1.4903 1.7714 1.4276 1.7757 0.06270443996075814
+8 1.4276 1.7757 1.4276 1.7757 1.4903 1.7714 1.4276 1.7757 0.06270213484155795
+9 1.4276 1.7757 1.4276 1.7757 1.4903 1.7714 1.4276 1.7757 0.06270213484155795
+10 1.4276 1.7757 1.4276 1.7757 1.4903 1.7714 1.4276 1.7757 0.06270213484155795
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4275517730931442
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="k">def</span> <span class="nf">newtonOptimo</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">):</span>
+    <span class="n">iter_t</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">eps</span>
+    <span class="n">dif_1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">eps</span>
+    <span class="n">dif_2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">eps</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">eps</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">mt</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">x_ant</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">eps</span><span class="p">:</span>
+        <span class="n">iter_t</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">x_ant</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dif_1</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">),</span> <span class="n">dif_2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">dif_2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">x</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">-</span><span class="n">dif_1</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span><span class="o">/</span><span class="n">dif_2</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iter_t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">x</span>
+
+<span class="n">newtonOptimo</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">mt</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5 1.6551593294944487 -1.1588507931037382
+1.9282764781663155 -1.085495261521352 -2.0735635430924044
+1.4047838342406314 0.04953434635801556 -2.172504398600949
+1.4275844078044477 -8.201330725654543e-05 -2.1795254490086786
+1.427546778830079 -1.5543122344752192e-10 -2.1795165672244816
+5
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(True, 1.4275467787587646)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">gradiente</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">eps</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">grad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">xw</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">xw</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+=</span><span class="n">eps</span>
+        <span class="n">grad</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">f</span><span class="p">(</span><span class="n">xw</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">eps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grad</span>
+<span class="k">def</span> <span class="nf">gradienteDescenso</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epocas</span><span class="p">,</span> <span class="n">eta</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epocas</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">eta</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradiente</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="n">gradienteDescenso</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.00044686, -0.00044686])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">mt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">gradiente</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">eps</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">ele</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+    <span class="n">grad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="c1"># return sum([x if x!=13 and nums[idx-1 if idx &gt;0 else 0] !=13 else 0 for idx,x in enumerate(nums)])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">xw</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">xw</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+=</span><span class="n">eps</span>
+        <span class="n">grad</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">f</span><span class="p">(</span><span class="n">xw</span><span class="p">)</span><span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">eps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grad</span>
+<span class="k">def</span> <span class="nf">gradienteDescenso</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epocas</span><span class="p">,</span> <span class="n">eta</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epocas</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">eta</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradiente</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x</span>
+<span class="n">gradienteDescenso</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[8.0, 8.0]
+[6.479640005000428, 6.479640005000428]
+[5.248184418050559, 5.248184418050559]
+[4.250737800720911, 4.250737800720911]
+[3.4428352079740168, 3.4428352079740168]
+[2.788460358410025, 2.788460358410025]
+[2.2584403557680557, 2.2584403557680557]
+[1.829145416582518, 1.829145416582518]
+[1.481435652501132, 1.481435652501132]
+[1.1998079665882768, 1.1998079665882768]
+[0.971705041692622, 0.971705041692622]
+[0.7869556231515297, 0.7869556231515297]
+[0.6373211496951956, 0.6373211496951956]
+[0.5161285262013137, 0.5161285262013137]
+[0.41797267117645287, 0.41797267117645287]
+[0.33847558161097585, 0.33847558161097585]
+[0.27409117676713207, 0.27409117676713207]
+[0.22194722277739778, 0.22194722277739778]
+[0.1797172925861089, 0.1797172925861089]
+[0.14551705441752283, 0.14551705441752283]
+[0.11782026625869117, 0.11782026625869117]
+[0.09539073213198837, 0.09539073213198837]
+[0.07722718734311419, 0.07722718734311419]
+[0.06251865613250536, 0.06251865613250536]
+[0.05060829191345405, 0.05060829191345405]
+[0.04096408835141017, 0.04096408835141017]
+[0.03315515577600351, 0.03315515577600351]
+[0.026832505468787817, 0.026832505468787817]
+[0.021713485290920723, 0.021713485290920723]
+[0.017569172860728097, 0.017569172860728097]
+[0.014214164314763833, 0.014214164314763833]
+[0.011498303462775358, 0.011498303462775358]
+[0.009299982635883053, 0.009299982635883053]
+[0.007520716582996786, 0.007520716582996786]
+[0.006080747515365755, 0.006080747515365755]
+[0.0049154853622707766, 0.0049154853622707766]
+[0.0039726245307814025, 0.0039726245307814025]
+[0.0032098086185407943, 0.0032098086185407943]
+[0.0025927389547651175, 0.0025927389547651175]
+[0.0020936426297321117, 0.0020936426297321117]
+[0.0016900316988181408, 0.0016900316988181408]
+[0.001363698227904312, 0.001363698227904312]
+[0.0010999003612779485, 0.0010999003612779485]
+[0.0008867031096430483, 0.0008867031096430483]
+[0.000714444454117989, 0.000714444454117989]
+[0.0005753029496119791, 0.0005753029496119791]
+[0.00046294753678447013, 0.00046294753678447013]
+[0.000372253937634311, 0.000372253937634311]
+[0.0002990749790387932, 0.0002990749790387932]
+[0.0002400545936209236, 0.0002400545936209236]
+[0.0001924771953724991, 0.0001924771953724991]
+[0.00015414570533732024, 0.00015414570533732024]
+[0.00012328278070026575, 0.00012328278070026575]
+[9.845083580654792e-05, 9.845083580654792e-05]
+[7.848728209870327e-05, 7.848728209870327e-05]
+[6.245209308580913e-05, 6.245209308580913e-05]
+[4.958535052677894e-05, 4.958535052677894e-05]
+[3.9272873541237134e-05, 3.9272873541237134e-05]
+[3.101839322149364e-05, 3.101839322149364e-05]
+[2.442102759719226e-05, 2.442102759719226e-05]
+[1.9157048532729904e-05, 1.9157048532729904e-05]
+[1.4965123872614978e-05, 1.4965123872614978e-05]
+[1.163437344181151e-05, 1.163437344181151e-05]
+[8.994703282361364e-06, 8.994703282361364e-06]
+[6.908984373757339e-06, 6.908984373757339e-06]
+[5.266724586283616e-06, 5.266724586283616e-06]
+[3.9789494340758845e-06, 3.9789494340758845e-06]
+[2.9740613088690057e-06, 2.9740613088690057e-06]
+[2.1944907007246795e-06, 2.1944907007246795e-06]
+[1.5939884040736973e-06, 1.5939884040736973e-06]
+[1.135436450137731e-06, 1.135436450137731e-06]
+[7.890787831657946e-07, 7.890787831657946e-07]
+[5.310915470631029e-07, 5.310915470631029e-07]
+[3.4242811255004187e-07, 3.4242811255004187e-07]
+[2.0788633465156954e-07, 2.0788633465156954e-07]
+[1.1535553820520338e-07, 1.1535553820520338e-07]
+[5.520883236990358e-08, 5.520883236990358e-08]
+[1.9812916000941867e-08, 1.9812916000941867e-08]
+[3.13284756395089e-09, 3.13284756395089e-09]
+[4.1355356966939934e-10, 4.1355356966939934e-10]
+[7.923330730014474e-09, 7.923330730014474e-09]
+[2.274741499603576e-08, 2.274741499603576e-08]
+[4.2621971541040604e-08, 4.2621971541040604e-08]
+[6.580070580306937e-08, 6.580070580306937e-08]
+[9.094778966983e-08, 9.094778966983e-08]
+[1.1705200580497174e-07, 1.1705200580497174e-07]
+[1.4335799125719562e-07, 1.4335799125719562e-07]
+[1.693112528179801e-07, 1.693112528179801e-07]
+[1.9451426669225036e-07, 1.9451426669225036e-07]
+[2.1869149273944062e-07, 2.1869149273944062e-07]
+[2.416615521657929e-07, 2.416615521657929e-07]
+[2.633151559964537e-07, 2.633151559964537e-07]
+[2.835976452250728e-07, 2.835976452250728e-07]
+[3.0249522461345975e-07, 3.0249522461345975e-07]
+[3.200241507199381e-07, 3.200241507199381e-07]
+[3.36222278987882e-07, 3.36222278987882e-07]
+[3.5114249119444334e-07, 3.5114249119444334e-07]
+[3.648476185603322e-07, 3.648476185603322e-07]
+[3.774065516574188e-07, 3.774065516574188e-07]
+[3.8889128940370395e-07, 3.8889128940370395e-07]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.00044686, -0.00044686])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01.1_InstalacionJupyter.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Instalación de Python y Cuadernos Jupyter</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01.3_InstalacionLibrerias.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Instalación de Librerías</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funciones">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numeros-complejos">Números complejos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-lambda">Función <code class="docutils literal notranslate"><span class="pre">lambda</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#listas">Listas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuplas">Tuplas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#print-format">Print format</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficheros-i-o">Ficheros I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas">Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recursion">Recursión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculo-numerico">Cálculo numérico</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integracion-numerica">Integración numérica</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

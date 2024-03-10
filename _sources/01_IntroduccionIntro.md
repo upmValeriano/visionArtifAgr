@@ -1,14 +1,18 @@
 # Presentación
 
-Entre los objetivos de la asignatura se encuentra, primero, hacer una introducción al aprendizaje automático (machine learning en inglés) mostrando de una manera sencilla el fundamento de algunos clasificadores y como usarlos en la librería de Python sk-learn.
+Objetivos
+---------
+1. Breve __introducción al aprendizaje automático__ (_machine learning en inglés_), comentado algún __clasificador__ y su uso en Python con la librería sk-learn.
+2. Presentar las __redes neuronales densas__ de forma precisa pero sintética. También como usar el Perceptron en sk-learn.
+3. Presentación conceptual de la __red convolucional__: __activación__ y __retropropagación__ de los gradientes. Estructuración de los datos en __tensores__. __Funciones de pérdida__ y optimizadores. Arquitectura __Pytorch__. 
 
-Segundo hacer una presentación suficientemente precisa de las redes neuronales densas y como usar un el Perceptron multicapa en sk-learn. La exposición teórica será una conferencia donde transmitir los conceptos de activación de la red y optimización de sus parametros a partir de sus gradientes.
+Entregas
+--------
+El alumno tendrá que realizar algunos trabajos para demostrar un conocimiento básico del manejo de las librerías:
 
-Se hará un ejercicio práctico con el Perceptron muy sencillo para el alumno. 
-
-La tercera parte de la asignatura incluye una conferencia sobre la configuración de una red convolucional. Se explicaran los nuevos tipos de activación que se manejan y cómo se generaliza la gestión de los gradientes para optimizar su configuración. 
-
-Antes de pasar a la práctica, se explicará cómo entrenar una red convolucional con Pytorch y como usar la configuración entrenada de forma predictiva. A partir de un cuaderno jupyter ya programado para entrenar un conjunto de fotografías de hojas de diversas variedades y patologías, el alumno tendrá que obtener su configuración y mostrar los resultados.
+1. Usar un __clasificador__ estándar (_árbol de decisión_, _naïve bayes_ o _k vecinos cercanos_) sobre el archivo de variedades vinícolas __WINES__.
+2. __Clasificar__ con el __Perceptron Multicapa__ de sk-learn el archivo de variedades vinícolas.
+3. Ejecutar alguna época de entrenamiento con una __red residual__ de 18 capas de profundidad sobre el conjunto de plantas __PlantVillage__.
 
 Uno de los lenguajes más usados para el aprendizaje automático es `Python`. Es _open source_ y tienen una gran comunidad de gente detrás manteniéndolo y mejorándolo.
 
@@ -17,7 +21,15 @@ Uno de los lenguajes más usados para el aprendizaje automático es `Python`. Es
 Usaremos python!
 ```
 
-El alumno podrá optar por instalar en su ordenador Python y las librerías necesarias o ejecutar los cuadernos jupyter en el entorno web de Google Colab. 
+El alumno podrá optar por __instalar en su ordenador Python y las librerías necesarias__ o ejecutar los cuadernos jupyter en el entorno web de __Google Colab__. 
+
+
+```{note}
+El __icono__ _en forma de nave espacial_ abre el cuaderno en el entorno __Google Colab__.
+```
+
+<img src="images/irAColab.png" alt="icono ir a Colab" width="500px" align="center">
+
 
 En [esta página](content:manualinstalacionpython) podéis encontrar un manual para instalar python y los cuadernos de jupyter.
 
@@ -27,9 +39,9 @@ En [esta página](content:manualinstalacionpython) podéis encontrar un manual p
 
 ## Ficheros
 
-* Datos: <a href="./files/data.zip">aquí</a> podéis bajar un archivo comprimido `zip` con los datos que usaremos en la asignatura (atención: >5Gb).
+* Datos: <a href="https://github.com/upmValeriano/visionArtifAgr/tree/main/docs/data.zip">aquí</a> podéis bajar un archivo comprimido `zip` con los ficheros que se usan en los cuadernos.
 
-* Imágenes: <a href="./files/images.zip">aquí</a> podéis descargar un `zip` con las imágenes que aparecen en los cuadernos.
+* Imágenes: <a href="https://github.com/upmValeriano/visionArtifAgr/tree/main/docs/images.zip">aquí</a> podéis descargar un `zip` con las imágenes que aparecen en los cuadernos.
 
 ----
 
@@ -51,8 +63,6 @@ Usaremos los siguientes paquetes de python:
 + [os](https://docs.python.org/3/library/os.html)
 
 + [Pandas](https://pandas.pydata.org/)
-
-+ [PIL](https://pypi.org/project/Pillow/)
 
 + [Random](https://docs.python.org/3/library/random.html)
 

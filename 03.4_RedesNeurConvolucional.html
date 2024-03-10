@@ -1,0 +1,1437 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Redes Neuronales Convoluciones con arquitectura Pytorch &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03.4_RedesNeurConvolucional';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Maqueta de red neuronal convolucional" href="03.5_RedesNeurConvolucional_Maqueta.html" />
+    <link rel="prev" title="Redes neuronales densas. Entrega sobre variedades vínicolas" href="03.3_RedesNeurDensas-EjercicioEntregaWINES.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logoETSIAAB.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/logoETSIAAB.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion_Ordinarios.html">Métodos de clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Clasificadores. Entrega sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas-Bicapa.html">Redes Neuronales Densas. Introducción y modelo bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas-Multicapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas-EjercicioEntregaWINES.html">Redes neuronales densas. Entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurConvolucional_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurConv_PlantVillage.html">PlantVillage. Identificar especies de cultivos con patologías</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/03.4_RedesNeurConvolucional.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F03.4_RedesNeurConvolucional.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03.4_RedesNeurConvolucional.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Redes Neuronales Convoluciones con arquitectura Pytorch</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reglas-generales-para-modelar-una-red-convolucional">Reglas generales para modelar una red convolucional</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algunas-arquitecturas-convolucionales-destacadas">Algunas arquitecturas convolucionales destacadas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-la-arquitectura-vggnet">Esquema de la arquitectura VGGNet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redes-residuales-profundas">Redes Residuales Profundas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-de-una-red-convolucional">Entrenamiento de una red convolucional</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-aplanado">Capa de aplanado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-agrupacion">Capa de Agrupación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-convolucion">Capa de convolución</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-consideraciones">Otras consideraciones</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-practico-de-entrenamiento-de-un-conjunto-de-imagenes-usando-convoluciones">Ejercicio práctico de entrenamiento de un conjunto de imagenes usando convoluciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modos-de-ejecucion-del-cuaderno">Modos de ejecución del cuaderno</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carga-de-datos">Carga de Datos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clases-con-la-definicion-de-la-red">Clases con la definición de la Red</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-la-red-residual-resnet">Definición de la red residual (ResNet)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#especificar-la-funcion-de-perdida-y-el-optimizador">Especificar la Función de Pérdida y el Optimizador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-de-la-red">Entrenamiento de la red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-hace-un-back-up-del-modelo-generado">Se hace un  back-up del modelo generado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recuperacion-del-modelo-desde-el-archivo-de-back-up">Recuperación del modelo desde el archivo de back-up</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-evalua-el-modelo-contra-el-conjunto-de-validacion">Se evalua el modelo contra el conjunto de validación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-visualiza-el-aspecto-de-los-mapas-de-las-convoluciones">Se visualiza el aspecto de los mapas de las convoluciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-visualiza-la-prediccion">Se visualiza la predicción</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="redes-neuronales-convoluciones-con-arquitectura-pytorch">
+<h1>Redes Neuronales Convoluciones con arquitectura Pytorch<a class="headerlink" href="#redes-neuronales-convoluciones-con-arquitectura-pytorch" title="Link to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">#</a></h2>
+<p>Las <strong>redes convolucionales</strong> (<span id="id1">[<a class="reference internal" href="Bibliografia.html#id4" title="Yann LeCun, Bernhard Boser, John S Denker, Donnie Henderson, Richard E Howard, Wayne Hubbard, and Lawrence D Jackel. Backpropagation applied to handwritten zip code recognition. Neural computation, 1(4):541–551, 1989.">LeCun <em>et al.</em>, 1989</a>]</span>), también conocidas como redes neuronales convolucionales, (o convolutional neural networks CNN o <strong>ConvNet</strong>) , son un tipo especializado de red neuronal utilizadas para procesar datos con una topología en cuadrícula.</p>
+<p>Las <strong>ConvNet</strong> se diseñaron para procesar imágenes y tratan de simular el funcionamiento de la visión humana. Restringen la arquitectura para usar un conjunto de pesos más reducido. En particular, a diferencia de una red neuronal densa, las capas ConvNet tienen neuronas dispuestas en 3 dimensiones: ancho, alto, profundidad (se adoptan las iniciales en inglés <span class="math notranslate nohighlight">\(w,h,d\)</span>). En las redes neuronales densas se tiene una matriz de pesos <span class="math notranslate nohighlight">\((m,n)\)</span> para conectar una capa anterior de <span class="math notranslate nohighlight">\(n\)</span> neuronas con una de <span class="math notranslate nohighlight">\(m\)</span>. Aquí se conectarán las <span class="math notranslate nohighlight">\(n\)</span> neuronas con <span class="math notranslate nohighlight">\(d\)</span> capas convolucionales usando un bloque de <span class="math notranslate nohighlight">\((w,h,d)\)</span> pesos. La reducción de complejidad viene dado porque la dimensión de <span class="math notranslate nohighlight">\((w,h)\)</span> es muy inferior a <span class="math notranslate nohighlight">\((m,n)\)</span></p>
+<p>Una <strong>operación de convolución</strong> básica se aplica a una imagen bidimensional <strong>I</strong>, usando un kernel o filtro <strong>K</strong> bidimensional y que da como resultado una nueva imagen <strong>S</strong>:</p>
+<div class="math notranslate nohighlight">
+\[S(i,j)=(K*I)(i,j)=\displaystyle\sum_{m}\displaystyle\sum_{n}=I(m,n)K(i-m,j-n)\]</div>
+<p>Un ejemplo gráfico del proceso de convolución para una entrada con 3 canales y dimensión <strong>5x5</strong> <span class="math notranslate nohighlight">\((W_1=5, H_1=5, D_1=3)\)</span> al que se le aplica un filtro <strong>3x3</strong> con un salto de <strong>2</strong> y un relleno a cero de <strong>1</strong>  obteniendo <strong>2</strong> canales de salida <span class="math notranslate nohighlight">\((K=2, F=3, S=2, P=1)\)</span> es</p>
+<a class="reference internal image-reference" href="_images/ExampleFilterConv.png"><img alt="_images/ExampleFilterConv.png" class="align-center" src="_images/ExampleFilterConv.png" style="width: 900px;" /></a>
+<p>Como se puede comprobar el elemento <span class="math notranslate nohighlight">\(-3\)</span> del primer mapa de salida se obtiene multiplicando uno a uno los elementos de cada filtro por los canales de entrada y sumando todos los productos más el valor del bias. Idem para el siguiente elemento <span class="math notranslate nohighlight">\(-1\)</span> una vez ejecutado el salto hacia la derecha en columnas. Una vez llegado hasta la última columna se ejecuta un salto en filas. El <strong>relleno a ceros</strong> (<em>padding</em>) permite al filtro barrer todo el mapa de entrada y obtener en salida un mapa de igual dimensión. El <strong>salto</strong> (strike) en el desplazamiento provoca una reducción en la dimensión del mapa de salida.</p>
+<p>Una <strong>Arquitectura Convolucional</strong> tipo estará compuesta por las capas: [INPUT - CONV - RELU - POOL - FC]. Cuyo detalle es:</p>
+<ul class="simple">
+<li><p><strong>INPUT</strong> contendrá los valores en píxeles de la imagen, en este caso una imagen de ancho b, altura h, y con tres canales de color R, G, B. El vector de datos de entrada va a ser un tensor o matriz de 4 dimensiones <strong>(n, c, b, h)</strong>, donde <strong>n</strong> representará el número de observaciones en el lote tratado, <strong>c</strong> el número de canales, <strong>b</strong> es el ancho de la imagen y <strong>h</strong> es la altura de la imagen.</p></li>
+<li><p>Los <strong>filtros</strong> que conectan los pixels localmente son compartidos y son <strong>aprendibles</strong>. Los parámetros entrenables del filtro de una capa <span class="math notranslate nohighlight">\(l\)</span> (<span class="math notranslate nohighlight">\(W_l\)</span>) tiene dimensiones <strong>(co, ci, f, f)</strong>, donde <strong>co</strong> es el número de canales de salida (los canales del tensor <span class="math notranslate nohighlight">\(Z_l\)</span>), <strong>ci</strong> es el número de canales de entrada (los canales del tensor <span class="math notranslate nohighlight">\(A_{l-1}\)</span>) y <strong>f</strong> es el tamaño del filtro. Además se incluye un parámetro de bias <span class="math notranslate nohighlight">\(B_l\)</span>, que es un vector de dimensiones <strong>(co)</strong>.</p></li>
+<li><p>La capa <strong>RELU</strong> aplicará una función de activación por elementos, como el umbral <span class="math notranslate nohighlight">\((max(0,x))\)</span> en cero. Esto deja el tamaño del tensor de esta capa sin cambios <strong>(n, c, b, h)</strong>.</p></li>
+<li><p>La capa <strong>POOL</strong> realizará una operación de <strong>downsampling</strong> a lo largo de las dimensiones espaciales (ancho, alto), lo que dará como resultado un volumen <strong>(n, c, b*, h*)</strong>, siendo <strong>(b*,h*)</strong> inferiores a <strong>(b,h)</strong>. Esta capa no utiliza pesos aprendibles.</p></li>
+<li><p>La capa <strong>FC o densa</strong>  (es decir, totalmente conectada) calculará los puntajes de clase. Las capas densas tienen una matriz entrenable <span class="math notranslate nohighlight">\(W_l\)</span> de dos dimensiones <strong>(m,p)</strong>, siendo <strong>m</strong> el nº de carácteristicas de la salida de la capa (el vector <span class="math notranslate nohighlight">\(X_l\)</span>) y <strong>p</strong> el número de características de la entrada a la capa (el vector <span class="math notranslate nohighlight">\(A_{l-1}\)</span>)</p></li>
+</ul>
+<section id="reglas-generales-para-modelar-una-red-convolucional">
+<h3>Reglas generales para modelar una red convolucional<a class="headerlink" href="#reglas-generales-para-modelar-una-red-convolucional" title="Link to this heading">#</a></h3>
+<p>La <strong>capa de entrada</strong> (que contiene la imagen) debe ser divisible por <span class="math notranslate nohighlight">\(2^n\)</span>. Los números comunes incluyen 32 (por ejemplo, CIFAR-10), 64, 96 (por ejemplo, STL-10) o 224 (por ejemplo, ImageNet), 384 y 512.</p>
+<p>Las <strong>capas conv</strong> deben usar filtros pequeños (por ejemplo, 3x3 o como máximo 5x5), usar un salto de <span class="math notranslate nohighlight">\(S = 1\)</span> y, lo que es más importante, rellenar el volumen de entrada con ceros (padding) de tal manera que la capa conv no altere las dimensiones espaciales de la entrada (si F = 3, P = 1; si F = 5, P=2; en general <span class="math notranslate nohighlight">\(P = (F - 1)/2\)</span>).</p>
+<p>Las <strong>capas de pool</strong> se encargan de reducir el muestreo de las dimensiones espaciales de la entrada. La configuración más común es usar max-pooling con campos receptivos 2x2 (es decir, F = 2), y un salto de 2 (S = 2); esto es, se descarta exactamente el 75%. Más infrecuente, por la dificultad de encajarlo en la dimensión de la entrada es el uso de F = 3 y S = 2. Dimensiones de maxpooling superiores son muy infrecuentes ya que es muy agresiva y deficitaria y conduce a peores rendimentos.</p>
+</section>
+<section id="algunas-arquitecturas-convolucionales-destacadas">
+<h3>Algunas arquitecturas convolucionales destacadas<a class="headerlink" href="#algunas-arquitecturas-convolucionales-destacadas" title="Link to this heading">#</a></h3>
+<p>Hay varias arquitecturas en el campo de las Redes Convolucionales que tienen un nombre. Los más comunes son:</p>
+<ul class="simple">
+<li><p><strong>LeNet</strong>. Las primeras aplicaciones exitosas de redes convolucionales fueron desarrolladas por <span id="id2">[<a class="reference internal" href="Bibliografia.html#id5" title="Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.">LeCun <em>et al.</em>, 1998</a>]</span> en la década de 1990. De estos, el más conocido es la arquitectura LeNet que se utilizaba para leer códigos postales, dígitos, etc.</p></li>
+<li><p><strong>AlexNet</strong>. El primer trabajo que popularizó las redes convolucionales en visión artificial fue el AlexNet, desarrollado por <span id="id3">[<a class="reference internal" href="Bibliografia.html#id6" title="Alex Krizhevsky, Ilya Sutskever, and Geoffrey E Hinton. Imagenet classification with deep convolutional neural networks (alexnet). Advances in Neural Information Processing Systems 25 (NIPS 2012), 2012.">Krizhevsky <em>et al.</em>, 2012</a>]</span> (2012). AlexNet se presentó al desafío ImageNet ILSVRC en 2012 y superó significativamente al segundo finalista (error top 5 del 16% en comparación con el subcampeón con un error del 26%). La red tenía una arquitectura muy similar a LeNet, pero era más profunda, más grande y presentaba capas convolucionales apiladas una encima de la otra (anteriormente era común tener una sola capa CONV siempre seguida inmediatamente por una capa POOL).</p></li>
+<li><p><strong>ZF Neto</strong>. El ganador de ILSVRC 2013 fue una Red Convolucional de Matthew Zeiler y Rob Fergus. Se hizo conocido como ZFNet (abreviatura de Zeiler &amp; Fergus Net). Fue una mejora en AlexNet al ajustar los hiperparámetros de la arquitectura, en particular al expandir el tamaño de las capas convolucionales medias y hacer que el paso y el tamaño del filtro en la primera capa sean más pequeños.</p></li>
+<li><p><strong>GoogLeNet</strong>. El ganador de ILSVRC 2014 fue una red convolucional de <span id="id4">[<a class="reference internal" href="Bibliografia.html#id7" title="C Szegedy, W Liu, Y Jia, P Sermanet, S Reed, D Anguelov, D Erhan, V Vanhoucke, and A Rabinovich. Googlenet. In Proc. IEEE Comput. Soc. Conf. Comput. Vis. Pattern Recognit. 2014.">Szegedy <em>et al.</em>, 2014</a>]</span> de Google. Su principal contribución fue el desarrollo de un Módulo de Inicio que redujo drásticamente el número de parámetros en la red (4M, en comparación con AlexNet con 60M). Además, este documento utiliza Average Pooling en lugar de capas totalmente conectadas en la parte superior de ConvNet, eliminando una gran cantidad de parámetros que no parecen importar mucho. También hay varias versiones de seguimiento de GoogLeNet, la más reciente <strong>Inception-v4</strong>.</p></li>
+<li><p><strong>VGGNet</strong>. El subcampeón en ILSVRC 2014 fue la red de Karen Simonyan y Andrew Zisserman que se conoció como VGGNet. Su principal contribución fue mostrar que la profundidad de la red es un componente crítico para un buen rendimiento. Su mejor red final contiene 16 capas CONV / FC y, atractivamente, presenta una arquitectura extremadamente homogénea que solo realiza circunvoluciones 3x3 y agrupación 2x2 desde el principio hasta el final. Su modelo preentrenado está disponible para uso plug and play en Caffe. Una desventaja de VGGNet es que es más caro de evaluar y utiliza mucha más memoria y parámetros (140M). La mayoría de estos parámetros se encuentran en la primera capa totalmente conectada, y desde entonces se descubrió que estas capas FC se pueden eliminar sin degradar el rendimiento, lo que reduce significativamente el número de parámetros necesarios.</p></li>
+<li><p><strong>ResNet</strong>. Residual Network desarrollado por <span id="id5">[<a class="reference internal" href="Bibliografia.html#id8" title="H Kaiming, Z Xiangyu, R Shaoqing, and others. Deep residual learning for image recognition. resnet model. arXiv preprint arXiv:1512.03385, 2015.">Kaiming <em>et al.</em>, 2015</a>]</span> fue el ganador de ILSVRC 2015. Cuenta con conexiones de salto especiales y un uso intensivo de la normalización por lotes. A la arquitectura también le faltan capas totalmente conectadas al final de la red. ResNets son actualmente modelos de red neuronal convolucional de última generación y son la opción predeterminada para usar ConvNets en la práctica (a partir del 10 de mayo de 2016).</p></li>
+</ul>
+</section>
+<section id="esquema-de-la-arquitectura-vggnet">
+<h3>Esquema de la arquitectura VGGNet<a class="headerlink" href="#esquema-de-la-arquitectura-vggnet" title="Link to this heading">#</a></h3>
+<p>El modelo logra una precisión de prueba del 92,7 % entre los cinco primeros en ImageNet, que es un conjunto de datos de más de 14 millones de imágenes pertenecientes a 1000 clases. Dentro del modelo VGGNet se implementa la arquitectura VGG16:</p>
+<a class="reference internal image-reference" href="_images/arquConv_VGG16.png"><img alt="_images/arquConv_VGG16.png" class="align-center" src="_images/arquConv_VGG16.png" style="width: 500px;" /></a>
+</section>
+<section id="redes-residuales-profundas">
+<h3>Redes Residuales Profundas<a class="headerlink" href="#redes-residuales-profundas" title="Link to this heading">#</a></h3>
+<p>Las Redes Residuales Profundas (<strong>ResNets</strong>) consisten en muchas “Unidades Residuales” apiladas. Cada unidad (ver la siguiente figura) puede expresarse de forma general:</p>
+<div class="math notranslate nohighlight">
+\[y_l = h(x_l) + F(w_l, W_l)\]</div>
+<div class="math notranslate nohighlight">
+\[x_{l+1}=f(y_l)\]</div>
+<a class="reference internal image-reference" href="_images/ResNetUnit.png"><img alt="_images/ResNetUnit.png" class="align-center" src="_images/ResNetUnit.png" style="width: 100px;" /></a>
+<p>Dónde <span class="math notranslate nohighlight">\(x_l\)</span>  y   <span class="math notranslate nohighlight">\(x_{l+1}\)</span>  son entradas y salidas de la unidad <span class="math notranslate nohighlight">\(l\)</span>-ésima, <span class="math notranslate nohighlight">\(F\)</span>  es una función residual, <span class="math notranslate nohighlight">\(h(x_l)=x_l\)</span>  es un mapeo de identidad y <span class="math notranslate nohighlight">\(f\)</span> es la función ReLU.</p>
+<p>Para un mayor detalle y por ejemplo profundizar en la retropropagación de las ResNets consultar el capitulo de Kaiming:</p>
+<p>https://link.springer.com/chapter/10.1007/978-3-319-46493-0_38</p>
+<p>Ver también: https://pytorch.org/hub/pytorch_vision_resnet/</p>
+</section>
+</section>
+<section id="entrenamiento-de-una-red-convolucional">
+<h2>Entrenamiento de una red convolucional<a class="headerlink" href="#entrenamiento-de-una-red-convolucional" title="Link to this heading">#</a></h2>
+<p>En cada capa de la red convolucional tendrá lugar, según tipología, un proceso de filtro convolucional, agrupación o ponderación lineal seguido de una activación. Todo ello constituye el paso adelante o proceso <strong>forward</strong> de la red. Para una red ya entrenada, el proceso forward permite obtener las <strong>predicciones</strong>.</p>
+<p>El entrenamiento de la red requiere un proceso de <strong>retropropagación</strong> o <strong>backpropagation</strong>. Las capas finales que tienen que clasificar los patrones que han extraido las capas convolucionales son <strong>capas densas</strong>, como el perceptron o completamente conectadas (“full connected”). Puede haber 2 o 3 capas densas y en ellas el cálculo de los <strong>gradientes delta</strong> y el ajuste de las matrices <strong>W</strong> por su gradiente se realiza tal cual se ha comentado en el perceptron.</p>
+<p>El bloque de capas densas, acabará propagando una matriz <span class="math notranslate nohighlight">\(\Delta\)</span> que se usará para obtener el gradiente y entrenar sus Filtros y Bias y propagar un <span class="math notranslate nohighlight">\(\Delta\)</span> a su vez a la capa anterior. Dependiendo del tipo de capa el proceso de forma esquemática será así:</p>
+<section id="capa-de-aplanado">
+<h3>Capa de aplanado<a class="headerlink" href="#capa-de-aplanado" title="Link to this heading">#</a></h3>
+<p>La capa de aplanado se situa al final del proceso de convolución y tiene por objeto cambiar la dimensión de los tensores para que los procesen las capas densas. La función <strong>forward</strong> tiene que convertir un tensor de dimensión <strong>(n, c, b, h)</strong> en bidimensional <strong>(n, c*b*h) = (n, m)</strong> para cederle al bloque de capas densas. Por tanto la <strong>retropropagación</strong> recibirá una matriz <span class="math notranslate nohighlight">\(\Delta_{n,m}^l\)</span> bidimensional y tiene que recolocarla a tamaño  <span class="math notranslate nohighlight">\(\Delta_{n,c,b,h}^{l-1}\)</span>. Estás capas no tienen configuración dinámica y no tiene que ajustar ninguna matriz <strong>W</strong>.</p>
+</section>
+<section id="capa-de-agrupacion">
+<h3>Capa de Agrupación<a class="headerlink" href="#capa-de-agrupacion" title="Link to this heading">#</a></h3>
+<p>Las capas de agrupación (<strong>maxpooling</strong>) tienen también una configuración estática, el parámetro <strong>p</strong> de reducción de escala y la regla de agrupación, no hay matriz <strong>W</strong> entrenable. En la <strong>retropropagación</strong> sólo hay que progragar la matriz <span class="math notranslate nohighlight">\(\Delta^l\)</span> recibida para obtener la matriz  <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span>. El tamaño de <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span> se incrementará según la inversa de la escala <strong>p</strong> y la obtención de los <span class="math notranslate nohighlight">\(\delta_{ij}^{l-1}\)</span> a partir de <span class="math notranslate nohighlight">\(\delta_{ij}^l\)</span> seguirá una regla inversa. Por ejemplo si <strong>p=2</strong> y se tiene agrupación por máximo, se repetirá cada valor <span class="math notranslate nohighlight">\(\delta_{ij}^l\)</span> en una región <strong>2x2</strong> de  <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span>.</p>
+</section>
+<section id="capa-de-convolucion">
+<h3>Capa de convolución<a class="headerlink" href="#capa-de-convolucion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Entrenamiento:</strong> conocidas las matrices <span class="math notranslate nohighlight">\(A^{l-1}\)</span> y <span class="math notranslate nohighlight">\(\Delta^l\)</span> y considerando las dimensiones del filtro convolucional <span class="math notranslate nohighlight">\(W^l\)</span> hay que moverse por <span class="math notranslate nohighlight">\(A^{l-1}\)</span> multiplicando sus regiones por cada uno de los escalares <span class="math notranslate nohighlight">\(\delta^l_{ij}\)</span>. El resultado es una matriz (<span class="math notranslate nohighlight">\(\frac{\partial{C}}{\partial{W^l}}\)</span>), de la misma dimensión que <span class="math notranslate nohighlight">\(W^l\)</span> a la que se acumula para optimizarla:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[W^l \leftarrow -\eta \frac{\partial{C}}{\partial{W^l}}\]</div>
+<p>La <strong>obtención</strong> de <span class="math notranslate nohighlight">\(\frac{\partial{C}}{\partial{W^l}}\)</span> es como se muestra en el <strong>siguiente gráfico</strong> (donde se supone <span class="math notranslate nohighlight">\(W^l\)</span> un filtro <span class="math notranslate nohighlight">\(3\times 3\)</span>,  <span class="math notranslate nohighlight">\(A^{l-1} = [x_{ij}]\)</span> con dimensión <span class="math notranslate nohighlight">\(4\times 4\)</span> y <span class="math notranslate nohighlight">\(\Delta^l\)</span> es dimensión <span class="math notranslate nohighlight">\(2\times 2\)</span>):</p>
+<a class="reference internal image-reference" href="_images/conv_gradW3.png"><img alt="_images/conv_gradW3.png" class="align-center" src="_images/conv_gradW3.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li><p><strong>Nueva propagación:</strong> para obtener <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span> desde <span class="math notranslate nohighlight">\(W^l\)</span> y <span class="math notranslate nohighlight">\(\Delta^l\)</span>, aplicando lo que se denomina una <strong>convolución traspuesta</strong>. El filtro <span class="math notranslate nohighlight">\(W^l\)</span> se combina sobre cada <span class="math notranslate nohighlight">\(\delta^l_{ij}\)</span> para obtener la matriz <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span> de la forma en que se explica en el siguiente gráfico:</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/conv_gradA.png"><img alt="_images/conv_gradA.png" class="align-center" src="_images/conv_gradA.png" style="width: 800px;" /></a>
+<p>Y continuaría así:</p>
+<a class="reference internal image-reference" href="_images/conv_gradA2.png"><img alt="_images/conv_gradA2.png" class="align-center" src="_images/conv_gradA2.png" style="width: 800px;" /></a>
+<p>La <strong>convolución traspuesta</strong> existe como método en la arquitectura pytorch y además de ejecutarse internamente en el proceso de entrenamiento, se usa para modelos más avanzados como forma de trasladar tensores de una escala inferior a una superior dentro del proceso forward.</p>
+<p><a href="https://pytorch.org/docs/stable/generated/torch.nn.ConvTranspose2d.html">https://pytorch.org/docs/stable/generated/torch.nn.ConvTranspose2d.html</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>El gradiente delta se propaga en una capa convolucional usando un filtro convolucional transpuesto.</p>
+</div>
+<p><strong>Observaciones:</strong> En el cuaderno <em>“Maqueta de red neuronal convolucional”</em> se realiza una justificación de las anteriores operaciones convolucionales en un caso particular; sin padding ni strike, pero que resulta suficientemente general.</p>
+</section>
+<section id="otras-consideraciones">
+<h3>Otras consideraciones<a class="headerlink" href="#otras-consideraciones" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Función de pérdida (Loss Function)</strong> o de Coste: La función de pérdida más habitual es la <strong>entropia cruzada</strong> que va asociada con el uso de la función de activación <strong>softmax</strong> en la última capa.</p></li>
+</ul>
+<p>La función <strong>softmax</strong> a partir del vector ponderación lineal <span class="math notranslate nohighlight">\(\bar{z}\)</span> obtiene una activación a un <strong>vector probabilidad</strong> <span class="math notranslate nohighlight">\(\bar{p}\)</span>, donde cada elemento toma el valor:</p>
+<div class="math notranslate nohighlight">
+\[p_i = \frac{e^{z_i}}{\sum_j e^{z_j}}\]</div>
+<p>Y la función de pérdida <strong>cross_entropy</strong> entre <span class="math notranslate nohighlight">\(\bar{p}\)</span> y el valor real de entrenamiento <span class="math notranslate nohighlight">\(\bar{y}\)</span></p>
+<div class="math notranslate nohighlight">
+\[p_i = -\sum_j y_j \cdot ln(p_j)\]</div>
+<p>Tiene la ventaja que en combinación con <strong>softmax</strong> da un valor del gradiente <strong>delta</strong> muy simple para la última capa (<strong>L</strong>):</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial \bar{z^L}}=\bar{\delta^L} = \bar{p} - \bar{y}\]</div>
+<p><a href="https://pytorch.org/docs/stable/nn.html#loss-functions">https://pytorch.org/docs/stable/nn.html#loss-functions</a></p>
+<ul class="simple">
+<li><p><strong>Optmizador</strong> que hace referencia en la manera en que se ajustan los pesos y bias para optimizar la red.</p></li>
+</ul>
+<p>En el <strong>gradiente descenso</strong> se aplican los gradientes usando un <strong>ratio de entrenamiento</strong> <span class="math notranslate nohighlight">\(\eta\)</span>.</p>
+<p>El <strong>gradiente descenso estocástico</strong> muestrea observaciones en un conjunto de entrenamiento de gran dimensión.</p>
+<p>El optimizador <strong>Adam</strong> aplica una tasa de entrenamiento variable que se adapta automáticamente en las distintas capas de la arquitectura.</p>
+</section>
+</section>
+<section id="ejercicio-practico-de-entrenamiento-de-un-conjunto-de-imagenes-usando-convoluciones">
+<h2>Ejercicio práctico de entrenamiento de un conjunto de imagenes usando convoluciones<a class="headerlink" href="#ejercicio-practico-de-entrenamiento-de-un-conjunto-de-imagenes-usando-convoluciones" title="Link to this heading">#</a></h2>
+<p>El manejo de mapas implica pasar de usar matrices como modelo de datos a tensores que son matrices de varias dimensiones. Los costes computacionales del entrenamiento de una red convolucional profunda con un conjunto de entrenamiento con valores <span class="math notranslate nohighlight">\(N\)</span> alto es muy elevado. Todo ello lleva a ser más práctico usar una arquitectura de desarrollo como <strong>Pytorch</strong> en lugar de <strong>sk-learn</strong> y usar una arquitectura de ejecución <strong>GPU</strong> en lugar de <strong>CPU</strong>. Este cuaderno está preparado para usarse en Google Colaboratory, donde se puede realizar un ejecución gratuita en <strong>GPU</strong>.</p>
+<p>PyTorch es una biblioteca de aprendizaje automático de código abierto basada en la biblioteca de Torch, utilizado para implementar aplicaciones de visión artificial o procesamiento de lenguajes naturales. Desarrollado por el Laboratorio de Investigación de Inteligencia Artificial4 de Facebook (FAIR).Es un software libre y de código abierto liberado bajo la Licencia Modificada de BSD. A pesar de que la interfaz de Python está más pulida y es el foco principal del desarrollo, PyTorch también tiene una interfaz en C++.</p>
+<p>Varios software de Aprendizaje Profundo están construidas utilizando PyTorch, como Tesla Autopilot, Uber’s Pyro, HuggingFace’s Transformers, PyTorch Lighting, y Catalyst.</p>
+<p>PyTorch proporciona dos características de alto nivel:</p>
+<ul class="simple">
+<li><p>Computación de tensores (como NumPy ) con una aceleración fuerte a través de unidades de procesamientos gráficos (GPU).</p></li>
+<li><p>Redes neuronales profundas construidas en un sistema de diferenciación automática de bases de datos.</p></li>
+</ul>
+<p>https://pytorch.org/</p>
+<p>Comprendido el funcionamiento de <strong>sk-learn</strong>, el diseño de una red neuronal en <strong>Pytorch</strong> requiere los siguientes pasos básicos:</p>
+<ul class="simple">
+<li><p>Los datos se estructuran en tensores de 4 dimensiones (<span class="math notranslate nohighlight">\(N, C, B, H\)</span>) para manejar imagenes bidimensionales (<span class="math notranslate nohighlight">\(B, H\)</span>). Siendo <span class="math notranslate nohighlight">\(N\)</span> el número de ejemplos del lote o de un conjunto completo de entrenamiento, <span class="math notranslate nohighlight">\(C\)</span> es el número de canales de entrada (3 para RGB) o la profundidad de mapas de cada capa.</p></li>
+<li><p>Hay que definir una clase con la estructura de las capas de la red. La clase tendrá un constructor (<strong>Init</strong>) y un método <strong>forward</strong>. Crearemos un objeto llamando al constructor. Por ejemplo: <strong>model = CNN_long()</strong>.</p></li>
+<li><p>Hay que especificar la función de pérdida y el método de optimización.</p></li>
+<li><p>El <strong>entrenamiento</strong> requerirá hacer un bucle por época donde se extraigan 1 a 1 los lotes del conjunto de entrenamiento y se vayan calculando las pérdidas y entrenando la red. Es un proceso estándar aunque algo más abierto que en <strong>sk-learn</strong>.</p></li>
+<li><p>El <strong>modelo entrenado</strong> se puede <strong>guardar en fichero</strong>. Y una vez guardado es posible su recuperación para no tener que repetir el entrenamiento.</p></li>
+</ul>
+<section id="modos-de-ejecucion-del-cuaderno">
+<h3>Modos de ejecución del cuaderno<a class="headerlink" href="#modos-de-ejecucion-del-cuaderno" title="Link to this heading">#</a></h3>
+<p>El cuaderno tiene una serie de variables booleanas que le permite ejecutarlo de diferentes maneras:</p>
+<ul class="simple">
+<li><p><strong>googleColaboratory</strong> : estando a True activará las opciones de <strong>acceso a Drive de Google</strong> y a la ejecución <strong>CUDA de Google Colaboratory</strong>.</p></li>
+<li><p><strong>entrenamiento</strong> : estando a True ejecuta el entrenamiento y guarda los datos a fichero en la carpeta <strong>data</strong> ya sea en Drive o local. Si está a False recupera la configuración de fichero existente en <strong>data</strong>.</p></li>
+<li><p><strong>resNet</strong> : estando a True se ejecuta sobre el modelo definido en <strong>class ResNet(nn.Module)</strong> que implementa una red residual. Si está a False carga un modelo en función del valor de la variable <em>convolucionProfunda</em>.</p></li>
+<li><p><strong>convolucionProfunda</strong> : Si <em>resNet</em> está a False y aquí aparece True implementa <strong>class CNN_long(nn.Module)</strong> con 3 bloques y hasta 6 convoluciones. En ella se presenta un estilo muy simple de programación de Pytorch basado en el uso de <em>nn.Sequential</em>. Si está a False se implementa <strong>class CNN_short(nn.Module)</strong> con sólo 2 convoluciones.</p></li>
+</ul>
+<p>El <strong>entrenamiento</strong> de un modelo CNN_short es viable en una máquina CPU como Windows. Para el resto de modelos lo recomendable es una ejecución en una máquina con capacidad GPU. Google Colaboratory tiene un entorno libre que permite hacerlo manteniendo la sesión activa de forma manual. Con una cuenta de pago sería posible hacer esta ejecución en un segundo plano.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">transforms</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Se definen los parámetros de ejecución</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">googleColaboratory</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">entrenamiento</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">convolucionProfunda</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">resNet</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google</span> <span class="k">as</span> <span class="nn">goo</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="carga-de-datos">
+<h3>Carga de Datos<a class="headerlink" href="#carga-de-datos" title="Link to this heading">#</a></h3>
+<p>PyTorch tiene dos primitivas para trabajar con bases de datos conocidas para hacer pruebas: <strong>torch.utils.data.DataLoader</strong> y <strong>torch.utils.data.Dataset</strong>.</p>
+<p><strong>Dataset</strong> almacena los ejemplos y sus correspondientes etiquetas, y <strong>DataLoader</strong> genera un iterable sobre el conjunto de datos.</p>
+<p>Se utiliza la base de datos en línea <strong>CIFAR10</strong> con 50.000 imagenes de entrenamiento de 10 clases distintas y 10.000 imagenes para prueba:</p>
+<p>https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html</p>
+<p>Las imágenes en CIFAR-10 tienen un tamaño de 3x32x32, es decir, imágenes en color de 3 canales de 32x32 píxeles de tamaño.</p>
+<p>La base de datos es accesible desde <strong>torchvision.datasets</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+    <span class="n">goo</span><span class="o">.</span><span class="n">colab</span><span class="o">.</span><span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+
+
+<span class="n">lote_size</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">lote_size</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1"># Download and load the training data</span>
+<span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+  <span class="n">trainset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/Colab Notebooks/data/&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">trainset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s1">&#39;data/&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">())</span>
+<span class="n">trainloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">trainset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">lote_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Download and load the test data</span>
+<span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+  <span class="n">testset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/Colab Notebooks/data/&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">testset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">CIFAR10</span><span class="p">(</span><span class="s1">&#39;data/&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">())</span>
+<span class="n">testloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">testset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">lote_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tensor Entrenamiento=&quot;</span><span class="p">,</span> <span class="n">trainset</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;Tensor Validación=&quot;</span><span class="p">,</span> <span class="n">testset</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">clases</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;avion&#39;</span><span class="p">,</span> <span class="s1">&#39;coche&#39;</span><span class="p">,</span><span class="s1">&#39;pajaro&#39;</span><span class="p">,</span> <span class="s1">&#39;gato&#39;</span><span class="p">,</span> <span class="s1">&#39;ciervo&#39;</span><span class="p">,</span><span class="s1">&#39;perro&#39;</span><span class="p">,</span><span class="s1">&#39;rana&#39;</span><span class="p">,</span><span class="s1">&#39;caballo&#39;</span><span class="p">,</span><span class="s1">&#39;barco&#39;</span><span class="p">,</span> <span class="s1">&#39;camión&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Files already downloaded and verified
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Files already downloaded and verified
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tensor Entrenamiento= (50000, 32, 32, 3) Tensor Validación= (10000, 32, 32, 3)
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<p><strong>Se visualizan algunas de las imagenes cargadas</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torchvision.utils</span> <span class="kn">import</span> <span class="n">make_grid</span>
+<span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">trainloader</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">make_grid</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/be789042649911629893c30a8b8928d4256293e2682878711d8dd87f358d6617.png" src="_images/be789042649911629893c30a8b8928d4256293e2682878711d8dd87f358d6617.png" />
+<img alt="_images/7d2ee2b78d3dd8ea3c8549f57d9a723cc349daed4321a08ee59eab1e5973d5f5.png" src="_images/7d2ee2b78d3dd8ea3c8549f57d9a723cc349daed4321a08ee59eab1e5973d5f5.png" />
+<img alt="_images/7fcd0df5e960e9b78e788980eb178f43ec96c32ca96d80dec3b7d28e1d3fd847.png" src="_images/7fcd0df5e960e9b78e788980eb178f43ec96c32ca96d80dec3b7d28e1d3fd847.png" />
+</div>
+</div>
+</section>
+<section id="clases-con-la-definicion-de-la-red">
+<h3>Clases con la definición de la Red<a class="headerlink" href="#clases-con-la-definicion-de-la-red" title="Link to this heading">#</a></h3>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CNN_short</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CNN_short</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>  <span class="c1">## Llamada al constructor de la clase padre nn.Module</span>
+        <span class="c1"># capa convolucional (ve tensores Nx3x32x32 y devuelve tensores Nx6x28x28)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                             
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># Devuelve tensores  Nx6x14x14</span>
+       
+        <span class="c1"># capa convolucional (ve tensores Nx6x14x14  y devuelve tensores Nx16x10x10)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>     
+        <span class="c1"># Capa oculta totalmente conectada. Salida a 10 clases</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># Entran tensores Nx3x32x32 y salen Nx6x14x14</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span> <span class="c1"># Entran tensores Nx6x14x14 y salen Nx16x5x5</span>
+        <span class="c1"># Se aplana la salida de conv2 a (batch_size, 16 * 5 * 5)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="o">*</span><span class="mi">5</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># Se aplana a un vector 16x5x5 = 400</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># Capa densa de 400 -&gt; 120</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># Capa densa de 120 -&gt; 84</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Capa densa de 84 -&gt; 10 con la puntuación por clase</span>
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CNN_long</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span> <span class="c1">## Llamada al constructor de la clase padre nn.Module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="c1"># salida: N x 16 x 16 x 64</span>
+
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="c1"># salida: N x 8 x 8 x 128</span>
+
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="c1"># salida: N x 4 x 4 x 256</span>
+
+            <span class="n">nn</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span> <span class="c1"># Se aplana a un vector 4 x 4 x 256 = 4096</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span> <span class="c1"># Red densa FC : De 4096 -&gt; 1024</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>  <span class="c1"># Red densa FC : De 1024 -&gt; 512</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># Red densa FC : De 512 -&gt; 10 con la puntuación por clase</span>
+        
+  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xb</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="definicion-de-la-red-residual-resnet">
+<h4>Definición de la red residual (ResNet)<a class="headerlink" href="#definicion-de-la-red-residual-resnet" title="Link to this heading">#</a></h4>
+<p>La red está formada por la repetición de un bloque similar (<strong>ResidualBlock</strong>). El bloque está formado por una secuencia:</p>
+<div class="math notranslate nohighlight">
+\[[CONV][BN][ReLU][CONV][BN]\]</div>
+<p>Las convoluciones empleadas son todas de tamaño de filtro 3, salto 1 (en el primer bloque o layer y 2 en el resto) y padding o relleno a ceros 1. Los bloques residuales se integran en 3 capas o <strong>layers</strong>. La estructura de la red de convolución completa usando los bloques es:</p>
+<div class="math notranslate nohighlight">
+\[[CONV][BN][ReLU][LAYER1][LAYER2][LAYER3][POOL][FC]\]</div>
+<p>La estructura aparece explicitamente en el cuaderno trás hacer <strong>print(model)</strong>.</p>
+<p>El paso <span class="math notranslate nohighlight">\([BN]\)</span> es una Normalización (restando la media <span class="math notranslate nohighlight">\(\mu\)</span> y dividiendo por la desviación típica <span class="math notranslate nohighlight">\(\sigma\)</span>)</p>
+<p>Se utiliza una única capa conectada entre el vector aplanado el número de etiquetas del modelo.</p>
+<p>La acumulación del valor residual se hace en cada bloque en la instrucción <strong>out += residual</strong>, copiandose el valor <strong>x</strong> existente al principio.</p>
+<p>Pytorch incluye en línea unas definiciones de ResNet:</p>
+<p>https://pytorch.org/hub/pytorch_vision_resnet/</p>
+<p>Se puede descargar el modelo entrenado o no. El no entrenado puede utilizarse para un entrenamiento propio. Lo único tener en cuenta que el modelo devuelve hasta 1000 clases en salida. Si se usan 10 como en CIFAR10, el puntuaje máximo estará en los 10 primeros valores de esos 1000</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3x3 convolution</span>
+<span class="k">def</span> <span class="nf">conv3x3</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+                     <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Residual block</span>
+<span class="k">class</span> <span class="nc">ResidualBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">downsample</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ResidualBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">conv3x3</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">conv3x3</span><span class="p">(</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bn2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">downsample</span> <span class="o">=</span> <span class="n">downsample</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">residual</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bn2</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample</span><span class="p">:</span>
+            <span class="n">residual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">+=</span> <span class="n">residual</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+<span class="c1"># ResNet</span>
+<span class="k">class</span> <span class="nc">ResNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ResNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv</span> <span class="o">=</span> <span class="n">conv3x3</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_layer</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_layer</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_layer</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">layers</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avg_pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool2d</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">downsample</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">!=</span> <span class="n">out_channels</span><span class="p">):</span>
+            <span class="n">downsample</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+                <span class="n">conv3x3</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">),</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_channels</span><span class="p">))</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">downsample</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span> <span class="o">=</span> <span class="n">out_channels</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block</span><span class="p">(</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bn</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer1</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer2</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer3</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_pool</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se crea un modelo CNN</span>
+<span class="c1">#if googleColaboratory:</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span> <span class="c1">#training with either cpu or cuda</span>
+
+    
+<span class="k">if</span> <span class="n">resNet</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+      <span class="n">model</span> <span class="o">=</span> <span class="n">ResNet</span><span class="p">(</span><span class="n">ResidualBlock</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>  
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ResNet</span><span class="p">(</span><span class="n">ResidualBlock</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">elif</span> <span class="n">convolucionProfunda</span><span class="p">:</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">CNN_long</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">CNN_short</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span> <span class="c1">#to send the model for training on either cuda or cpu</span>
+  
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CNN_short(
+  (conv1): Conv2d(3, 6, kernel_size=(5, 5), stride=(1, 1))
+  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=400, out_features=120, bias=True)
+  (fc2): Linear(in_features=120, out_features=84, bias=True)
+  (fc3): Linear(in_features=84, out_features=10, bias=True)
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="especificar-la-funcion-de-perdida-y-el-optimizador">
+<h3>Especificar la Función de Pérdida y el Optimizador<a class="headerlink" href="#especificar-la-funcion-de-perdida-y-el-optimizador" title="Link to this heading">#</a></h3>
+<p>http://pytorch.org/docs/stable/nn.html#loss-functions</p>
+<p>http://pytorch.org/docs/stable/optim.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+
+<span class="c1"># Se especifica la función pérdida</span>
+<span class="n">loss_func</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+<span class="c1"># Se especifica el optimizador</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="c1">#optimizer = optim.Adam(model.parameters(), lr=0.001)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="entrenamiento-de-la-red">
+<h3>Entrenamiento de la red<a class="headerlink" href="#entrenamiento-de-la-red" title="Link to this heading">#</a></h3>
+<p>Hay que observar como la pérdida en entrenamiento y validación disminuye con el tiempo; si la pérdida de validación aumenta alguna vez, indica un posible sobreajuste.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from torch.autograd import Variable</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+<span class="n">lineasTraza</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trainloader</span><span class="p">)</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">numlineas</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1">#pbar = tqdm(range(num_epochs))</span>
+<span class="c1"># Train the model</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+<span class="c1">#for epoch in pbar:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">entrenamiento</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No habilitada la opción de entrenamiento&quot;</span><span class="p">)</span>
+      <span class="k">break</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">trainloader</span><span class="p">:</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+            
+        <span class="c1"># gives batch data, normalize x when iterate train_loader</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="n">pred_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pred_y</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">total</span> <span class="o">+=</span><span class="nb">float</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="c1"># clear gradients for this training step   </span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>           
+            
+        <span class="c1"># backpropagation, compute gradients </span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>    
+        <span class="c1"># apply gradients             </span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>  
+        <span class="n">numlineas</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">numlineas</span> <span class="o">==</span> <span class="n">lineasTraza</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">numlineas</span><span class="o">=</span><span class="mi">0</span>
+            
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Época [</span><span class="si">{}</span><span class="s1">], Accuracy-Entrenamiento </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">correct</span><span class="o">/</span><span class="n">total</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No habilitada la opción de entrenamiento
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="se-hace-un-back-up-del-modelo-generado">
+<h3>Se hace un  back-up del modelo generado<a class="headerlink" href="#se-hace-un-back-up-del-modelo-generado" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;cifar10_profunda.pt&quot;</span> <span class="k">if</span> <span class="n">convolucionProfunda</span> <span class="k">else</span> <span class="s2">&quot;cifar10_short.pt&quot;</span>
+<span class="k">if</span> <span class="n">resNet</span><span class="p">:</span> <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;cifar10_resnet.pt&quot;</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/My Drive/Colab Notebooks/data/&quot;</span> <span class="o">+</span> <span class="n">filename</span> <span class="k">if</span> <span class="n">googleColaboratory</span> <span class="k">else</span> <span class="s2">&quot;data/&quot;</span> <span class="o">+</span> <span class="n">filename</span>
+<span class="k">if</span> <span class="n">entrenamiento</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Backup al fichero=&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+      <span class="n">goo</span><span class="o">.</span><span class="n">colab</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No habilitado Backup del fichero&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No habilitado Backup del fichero
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recuperacion-del-modelo-desde-el-archivo-de-back-up">
+<h3>Recuperación del modelo desde el archivo de back-up<a class="headerlink" href="#recuperacion-del-modelo-desde-el-archivo-de-back-up" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">entrenamiento</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No activada la recuperación en modo entrenamiento&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span> <span class="c1">#training with either cpu or cuda</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CNN_long</span><span class="p">()</span> <span class="k">if</span> <span class="n">convolucionProfunda</span> <span class="k">else</span> <span class="n">CNN_short</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">resNet</span><span class="p">:</span> <span class="n">model</span> <span class="o">=</span> <span class="n">ResNet</span><span class="p">(</span><span class="n">ResidualBlock</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> 
+    <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;cifar10_profunda.pt&quot;</span> <span class="k">if</span> <span class="n">convolucionProfunda</span> <span class="k">else</span> <span class="s2">&quot;cifar10_short.pt&quot;</span>
+    <span class="k">if</span> <span class="n">resNet</span><span class="p">:</span> <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;cifar10_resnet.pt&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/My Drive/Colab Notebooks/data/&quot;</span> <span class="o">+</span> <span class="n">filename</span> <span class="k">if</span> <span class="n">googleColaboratory</span> <span class="k">else</span> <span class="s2">&quot;./data/&quot;</span> <span class="o">+</span> <span class="n">filename</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fichero cargado=&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">googleColaboratory</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)))</span> <span class="c1">#recovery trained model</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)))</span> <span class="c1">#recovery trained model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fichero cargado= ./data/cifar10_short.pt
+CNN_short(
+  (conv1): Conv2d(3, 6, kernel_size=(5, 5), stride=(1, 1))
+  (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv2): Conv2d(6, 16, kernel_size=(5, 5), stride=(1, 1))
+  (fc1): Linear(in_features=400, out_features=120, bias=True)
+  (fc2): Linear(in_features=120, out_features=84, bias=True)
+  (fc3): Linear(in_features=84, out_features=10, bias=True)
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="se-evalua-el-modelo-contra-el-conjunto-de-validacion">
+<h3>Se evalua el modelo contra el conjunto de validación<a class="headerlink" href="#se-evalua-el-modelo-contra-el-conjunto-de-validacion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">testloader</span><span class="p">:</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">test_output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">images</span><span class="p">))</span>
+        <span class="n">pred_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">test_output</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="c1">#accuracy = (pred_y == labels).sum().item() / float(labels.size(0))</span>
+        <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pred_y</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">total</span> <span class="o">+=</span><span class="nb">float</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">accuracy</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="n">correct</span><span class="o">/</span><span class="n">total</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;El Acierto en los 10.000 ejemplos de prueba es : </span><span class="si">%.2f</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>El Acierto en los 10.000 ejemplos de prueba es : 58.66 %
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="se-visualiza-el-aspecto-de-los-mapas-de-las-convoluciones">
+<h3>Se visualiza el aspecto de los mapas de las convoluciones<a class="headerlink" href="#se-visualiza-el-aspecto-de-los-mapas-de-las-convoluciones" title="Link to this heading">#</a></h3>
+<p>El dibujo sólo está preparado para modo CPU. Una vez entrenado en GPU y volcado a fichero, recuperar en CPU y dibujar los mapas.</p>
+<p>Sólo tiene un sentido el color de las imagenes. El color de los mapas no es significativo, pues no son dibujos RGB en si mismo, sino extracciones de características</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">lote_image</span><span class="p">,</span> <span class="n">lote_label</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">testloader</span><span class="p">))</span>
+<span class="n">lote_mapa1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">lote_image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([6, 3, 5, 5])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="o">.</span><span class="n">weight</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[-0.1175, -0.1575, -0.0339,  0.0565,  0.0824],
+        [-0.1093, -0.2938, -0.1184, -0.1067, -0.1209],
+        [-0.3021, -0.3066, -0.3274, -0.1769, -0.1177],
+        [-0.3013, -0.4303, -0.1758, -0.1064, -0.2395],
+        [-0.4223, -0.4339, -0.3206, -0.1417, -0.2228]],
+       grad_fn=&lt;SelectBackward0&gt;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">lote_image</span><span class="p">,</span> <span class="n">lote_label</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">testloader</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">resNet</span><span class="p">:</span> 
+  <span class="n">lote_mapa1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conv</span><span class="p">(</span><span class="n">lote_image</span><span class="p">)</span>
+  <span class="n">lote_mapa2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">bn</span><span class="p">(</span><span class="n">lote_mapa1</span><span class="p">)</span>
+  <span class="n">lote_mapa3</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa2</span><span class="p">)</span>
+  <span class="n">lote_mapa4</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">lote_mapa3</span><span class="p">)</span>
+  <span class="n">lote_mapa5</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="n">lote_mapa4</span><span class="p">)</span>
+  <span class="n">lote_mapa6</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa5</span><span class="p">)</span>
+  <span class="n">lote_mapa7</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">lote_mapa6</span><span class="p">)</span>
+  <span class="n">lote_mapa8</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bn2</span><span class="p">(</span><span class="n">lote_mapa7</span><span class="p">)</span>
+  <span class="n">lote_mapa9</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">lote_mapa8</span><span class="p">)</span>
+  <span class="n">lote_mapa10</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="n">lote_mapa9</span><span class="p">)</span>
+  <span class="n">lote_mapa11</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa10</span><span class="p">)</span>
+  <span class="n">lote_mapa12</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">lote_mapa11</span><span class="p">)</span>
+  <span class="n">lote_mapa13</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bn2</span><span class="p">(</span><span class="n">lote_mapa12</span><span class="p">)</span>
+  <span class="n">lote_mapa14</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">lote_mapa13</span><span class="p">)</span>
+  <span class="n">lote_mapa15</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layer2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="n">lote_mapa14</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">convolucionProfunda</span><span class="p">:</span>
+  <span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">lote_mapa1</span> <span class="o">=</span> <span class="n">conv1</span><span class="p">(</span><span class="n">lote_image</span><span class="p">)</span>
+  <span class="n">lote_mapa2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa1</span><span class="p">)</span>
+  <span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">lote_mapa3</span> <span class="o">=</span> <span class="n">conv2</span><span class="p">(</span><span class="n">lote_mapa2</span><span class="p">)</span>
+  <span class="n">lote_mapa4</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa3</span><span class="p">)</span>
+  <span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">lote_mapa5</span> <span class="o">=</span> <span class="n">pool</span><span class="p">(</span><span class="n">lote_mapa4</span><span class="p">)</span>
+  <span class="n">conv3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">lote_mapa6</span> <span class="o">=</span> <span class="n">conv3</span><span class="p">(</span><span class="n">lote_mapa5</span><span class="p">)</span>
+  <span class="n">lote_mapa7</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa6</span><span class="p">)</span>
+  <span class="n">conv4</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">lote_mapa8</span> <span class="o">=</span> <span class="n">conv4</span><span class="p">(</span><span class="n">lote_mapa7</span><span class="p">)</span>
+  <span class="n">lote_mapa9</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa8</span><span class="p">)</span>
+  <span class="n">lote_mapa10</span> <span class="o">=</span> <span class="n">pool</span><span class="p">(</span><span class="n">lote_mapa9</span><span class="p">)</span>
+  <span class="n">conv5</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">lote_mapa11</span> <span class="o">=</span> <span class="n">conv5</span><span class="p">(</span><span class="n">lote_mapa10</span><span class="p">)</span>
+  <span class="n">lote_mapa12</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa11</span><span class="p">)</span>
+  <span class="n">conv6</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">lote_mapa13</span> <span class="o">=</span> <span class="n">conv6</span><span class="p">(</span><span class="n">lote_mapa12</span><span class="p">)</span>
+  <span class="n">lote_mapa14</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa13</span><span class="p">)</span>
+  <span class="n">lote_mapa15</span> <span class="o">=</span> <span class="n">pool</span><span class="p">(</span><span class="n">lote_mapa14</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">lote_mapa1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">lote_image</span><span class="p">)</span>
+  <span class="n">lote_mapa2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa1</span><span class="p">)</span>
+  <span class="n">lote_mapa3</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">lote_mapa2</span><span class="p">)</span>
+  <span class="n">lote_mapa4</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">lote_mapa3</span><span class="p">)</span>
+  <span class="n">lote_mapa5</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">lote_mapa4</span><span class="p">)</span>
+  <span class="n">lote_mapa6</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">lote_mapa5</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">lote_image</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">## Se coge la primera imagen del lote</span>
+<span class="n">mapa1</span> <span class="o">=</span> <span class="n">lote_mapa1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mapa2</span> <span class="o">=</span> <span class="n">lote_mapa2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mapa3</span> <span class="o">=</span> <span class="n">lote_mapa3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mapa4</span> <span class="o">=</span> <span class="n">lote_mapa4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mapa5</span> <span class="o">=</span> <span class="n">lote_mapa5</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mapa6</span> <span class="o">=</span> <span class="n">lote_mapa6</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">convolucionProfunda</span> <span class="ow">or</span> <span class="n">resNet</span><span class="p">:</span>
+  <span class="n">mapa7</span> <span class="o">=</span> <span class="n">lote_mapa7</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa8</span> <span class="o">=</span> <span class="n">lote_mapa8</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa9</span> <span class="o">=</span> <span class="n">lote_mapa9</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa10</span> <span class="o">=</span> <span class="n">lote_mapa10</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa11</span> <span class="o">=</span> <span class="n">lote_mapa11</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa12</span> <span class="o">=</span> <span class="n">lote_mapa12</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa13</span> <span class="o">=</span> <span class="n">lote_mapa13</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa14</span> <span class="o">=</span> <span class="n">lote_mapa14</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">mapa15</span> <span class="o">=</span> <span class="n">lote_mapa15</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">label</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lote_label</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">numCols</span> <span class="o">=</span> <span class="mi">16</span> <span class="k">if</span> <span class="n">convolucionProfunda</span> <span class="ow">or</span> <span class="n">resNet</span> <span class="k">else</span> <span class="mi">7</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="n">numCols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+<span class="c1">#ax = ax.flatten()</span>
+<span class="k">if</span> <span class="n">resNet</span><span class="p">:</span>
+  <span class="n">literales</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">convolucionProfunda</span><span class="p">:</span>
+  <span class="n">literales</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv1&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv2&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Pool&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv3&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv4&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Pool&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv5&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv6&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Pool&#39;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">literales</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Imagen&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv1&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Pool&#39;</span><span class="p">,</span> <span class="s1">&#39;Conv2&#39;</span><span class="p">,</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">,</span> <span class="s1">&#39;Pool&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mapa1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa5</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa6</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">convolucionProfunda</span> <span class="ow">or</span> <span class="n">resNet</span><span class="p">:</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa7</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa8</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa9</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa11</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">12</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa12</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">13</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa13</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa14</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+      <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapa15</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numCols</span><span class="p">):</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">literales</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+<span class="c1">#fig.suptitle(&#39;Imagen tipo &#39; + str(clases[label]), fontsize=16)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<img alt="_images/8291d10bc3c75f79e5dc429c187cdcbb5a72280280c7521b9c86283a4020e181.png" src="_images/8291d10bc3c75f79e5dc429c187cdcbb5a72280280c7521b9c86283a4020e181.png" />
+</div>
+</div>
+</section>
+<section id="se-visualiza-la-prediccion">
+<h3>Se visualiza la predicción<a class="headerlink" href="#se-visualiza-la-prediccion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#b_x = Variable(lote_image)   # batch x</span>
+<span class="c1">#output = model(b_x)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">lote_image</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">clases</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fc78ba730dc7e51106d7be9e414901e3b1db0252c38fd6a93b010c8b3b7f44cb.png" src="_images/fc78ba730dc7e51106d7be9e414901e3b1db0252c38fd6a93b010c8b3b7f44cb.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03.3_RedesNeurDensas-EjercicioEntregaWINES.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Redes neuronales densas. Entrega sobre variedades vínicolas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03.5_RedesNeurConvolucional_Maqueta.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Maqueta de red neuronal convolucional</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reglas-generales-para-modelar-una-red-convolucional">Reglas generales para modelar una red convolucional</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algunas-arquitecturas-convolucionales-destacadas">Algunas arquitecturas convolucionales destacadas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-la-arquitectura-vggnet">Esquema de la arquitectura VGGNet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redes-residuales-profundas">Redes Residuales Profundas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-de-una-red-convolucional">Entrenamiento de una red convolucional</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-aplanado">Capa de aplanado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-agrupacion">Capa de Agrupación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-convolucion">Capa de convolución</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#otras-consideraciones">Otras consideraciones</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-practico-de-entrenamiento-de-un-conjunto-de-imagenes-usando-convoluciones">Ejercicio práctico de entrenamiento de un conjunto de imagenes usando convoluciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modos-de-ejecucion-del-cuaderno">Modos de ejecución del cuaderno</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carga-de-datos">Carga de Datos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clases-con-la-definicion-de-la-red">Clases con la definición de la Red</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-la-red-residual-resnet">Definición de la red residual (ResNet)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#especificar-la-funcion-de-perdida-y-el-optimizador">Especificar la Función de Pérdida y el Optimizador</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-de-la-red">Entrenamiento de la red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-hace-un-back-up-del-modelo-generado">Se hace un  back-up del modelo generado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recuperacion-del-modelo-desde-el-archivo-de-back-up">Recuperación del modelo desde el archivo de back-up</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-evalua-el-modelo-contra-el-conjunto-de-validacion">Se evalua el modelo contra el conjunto de validación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-visualiza-el-aspecto-de-los-mapas-de-las-convoluciones">Se visualiza el aspecto de los mapas de las convoluciones</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#se-visualiza-la-prediccion">Se visualiza la predicción</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

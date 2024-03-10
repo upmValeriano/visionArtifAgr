@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Métodos de clasificación &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02.2_MetodosdeClasificacion_Ordinarios';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clasificadores. Entrega sobre variedades vínicolas" href="02.3_Clasificacion-EjercicioEntregaWINES.html" />
+    <link rel="prev" title="Introducción al Aprendizaje Automático" href="02.1_Introduccion_AA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logoETSIAAB.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/logoETSIAAB.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Métodos de clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Clasificadores. Entrega sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas-Bicapa.html">Redes Neuronales Densas. Introducción y modelo bicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas-Multicapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas-EjercicioEntregaWINES.html">Redes neuronales densas. Entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurConvolucional.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurConvolucional_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurConv_PlantVillage.html">PlantVillage. Identificar especies de cultivos con patologías</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/upmValeriano/visionArtifAgr/blob/main/docs/02.2_MetodosdeClasificacion_Ordinarios.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F02.2_MetodosdeClasificacion_Ordinarios.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02.2_MetodosdeClasificacion_Ordinarios.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Métodos de clasificación</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos-del-empleo-de-los-clasificadores">Ejemplos del empleo de los clasificadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-de-naive-bayes">Método de Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-naive-bayes">Entrenamiento con Naïve BAyes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">Aplicar el método Naïve-Bayes para clasificar el conjunto Iris</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arboles-de-decision-y-bosques-aleatorios">Arboles de decisión y  bosques aleatorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clasificacion-por-k-vecinos-kneighborsclassifier">Clasificación por K Vecinos (KNeighborsClassifier)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="metodos-de-clasificacion">
+<h1>Métodos de clasificación<a class="headerlink" href="#metodos-de-clasificacion" title="Link to this heading">#</a></h1>
+<section id="ejemplos-del-empleo-de-los-clasificadores">
+<h2>Ejemplos del empleo de los clasificadores<a class="headerlink" href="#ejemplos-del-empleo-de-los-clasificadores" title="Link to this heading">#</a></h2>
+<p>Un <strong>clasificador es un método supervisado</strong> que permite entrenar un modelo para que determine <strong>la clase más probable</strong> que debemos asignar a un registro dado de características. Para ello el conjunto de entrenamiento tendrá una serie de <span class="math notranslate nohighlight">\(N\)</span> registros clasificados, que permiten al ordenador aprender a clasificar registros sin clase. Por ejemplo:</p>
+<ul class="simple">
+<li><p><strong>Detección de SPAM</strong>. En base a un conjunto de características de los correos se entrena con supervisión al ordenador para que determine si son o no SPAM.</p></li>
+<li><p><strong>Datos de microarrays</strong>. A partir de un subconjunto de genes óptimos para diagnosticar cancer.</p></li>
+</ul>
+</section>
+<section id="metodo-de-naive-bayes">
+<h2>Método de Naïve Bayes<a class="headerlink" href="#metodo-de-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Si la matriz <span class="math notranslate nohighlight">\(X\)</span> está compuesta por <span class="math notranslate nohighlight">\(N\)</span> observaciones (filas) con <span class="math notranslate nohighlight">\(n\)</span> características <span class="math notranslate nohighlight">\(X_1, ..., X_i, ..., X_n\)</span> que forman las columnas de la matriz.</p>
+<p>Si la matriz de objetivos <span class="math notranslate nohighlight">\(Y\)</span> tiene <span class="math notranslate nohighlight">\(m\)</span> clases dadas por <span class="math notranslate nohighlight">\(1, ..., k, ..., m\)</span>.</p>
+<p>Una observación <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, \cdots, x_n)\)</span>, no etiquetada, de acuerdo al <strong>Teorema de Bayes</strong> se etiqueta en aquella clase <span class="math notranslate nohighlight">\(k\)</span> que cumple:</p>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} P(k)P(\bar{x}|k)\]</div>
+<p>Si hacemos la <strong>suposición Naïve</strong> de que los valores de las características <span class="math notranslate nohighlight">\(X_i\)</span> son <strong>independientes</strong> entre si y tienen una <strong>distribución normal</strong> gaussiana (para los valores <span class="math notranslate nohighlight">\(X_i\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} \begin{bmatrix} f_k\prod\limits_{i=1}^{n} N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2) \end{bmatrix}\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2)\)</span> : es la función de densidad normal gaussiana del valor <span class="math notranslate nohighlight">\(x_i\)</span> observado en la columna <span class="math notranslate nohighlight">\(X_i\)</span> para la clase <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_k\)</span> : es la frecuencia de la clase <span class="math notranslate nohighlight">\(k\)</span> en la matriz <span class="math notranslate nohighlight">\(X\)</span> se obtiene a partir del número de observaciones etiquetadas como clase <span class="math notranslate nohighlight">\(k\)</span> sobre el total.</p></li>
+</ul>
+<p>Observe que para definir el modelo son necesarias <span class="math notranslate nohighlight">\(n \times m\)</span> distribuciones normales distintas.</p>
+<section id="entrenamiento-con-naive-bayes">
+<h3>Entrenamiento con Naïve BAyes<a class="headerlink" href="#entrenamiento-con-naive-bayes" title="Link to this heading">#</a></h3>
+<p>Un ejemplo de los datos que hay que calcular para entrenar el conjunto IRIS con el método Naïve Bayes se muestra en el siguiente gráfico:</p>
+<a class="reference internal image-reference" href="_images/bayes_iris.png"><img alt="_images/bayes_iris.png" class="align-center" src="_images/bayes_iris.png" style="width: 700px;" /></a>
+<p>La <strong>verosimilitud</strong> que tiene, <em>por ejemplo, la observación</em> <span class="math notranslate nohighlight">\(\bar{x} = (4.6, 3.6, 1.1, 0.2)\)</span> de pertenecer a cada tipo de flor es:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>  <span class="c1"># Importa el submodulo asociado a la distribución normal</span>
+<span class="n">vero_Setosa</span> <span class="o">=</span> <span class="mf">0.33</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">5.01</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span> <span class="mf">3.43</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.46</span><span class="p">,</span> <span class="mf">1.74</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">)</span>
+<span class="n">vero_Versic</span> <span class="o">=</span> <span class="mf">0.33</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">5.94</span><span class="p">,</span> <span class="mf">0.52</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span> <span class="mf">2.77</span><span class="p">,</span> <span class="mf">0.31</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">4.26</span><span class="p">,</span> <span class="mf">0.47</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.33</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">vero_Virgin</span> <span class="o">=</span> <span class="mf">0.33</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">4.6</span><span class="p">,</span> <span class="mf">6.59</span><span class="p">,</span> <span class="mf">0.64</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span> <span class="mf">2.97</span><span class="p">,</span> <span class="mf">0.32</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">5.55</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">)</span><span class="o">*</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.03</span><span class="p">,</span> <span class="mf">0.27</span><span class="p">)</span>
+<span class="n">vero_Setosa</span><span class="p">,</span> <span class="n">vero_Versic</span><span class="p">,</span> <span class="n">vero_Virgin</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.13205703262668808, 9.890298012720692e-21, 2.0303781679609043e-28)
+</pre></div>
+</div>
+</div>
+</div>
+<p>En este caso, <strong>la predicción</strong> será <strong>Setosa</strong> por tener el <strong>mayor valor de verosimilitud</strong>.</p>
+</section>
+<section id="aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">
+<h3>Aplicar el método Naïve-Bayes para clasificar el conjunto Iris<a class="headerlink" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris" title="Link to this heading">#</a></h3>
+<p><strong>El conjunto de datos de Iris se encuentra en la librería sk-learn</strong>, por lo que se importa de ahí</p>
+<ul class="simple">
+<li><p>Primero se vuelca a un DataFrame, con 4 columnas con sus caracteristicas y una columna con la clasificación objetivo</p></li>
+<li><p>Se muestra la descripción de cada uno de los valores (0, 1, 2) objetivo.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+      <th>target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">
+<h4>Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test<a class="headerlink" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Para hacer esta división del conjunto se utiliza una función de la librería sk-learn: <strong>train_test_split</strong></p></li>
+<li><p>Los parámetro <strong>train_test</strong> o <strong>test_size</strong> : indica el ratio que tiene el conjunto de entrenamiento o validación respecto al total.</p></li>
+<li><p>El parámetro <strong>shuffle</strong> : indica si los datos se barajan antes de dividirse</p></li>
+<li><p>El parámetro <strong>random_state</strong> : se indica que la división aleatoria ha de ser reproducible</p></li>
+<li><p>El parámetro <strong>stratity</strong> : indica que la división se realiza proporcional a los valores de las etiquetas</p></li>
+</ul>
+<p>Mas detalles : https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., 0., 1., 1., 1., 0., 1., 2., 2., 2., 1., 2., 1., 0., 0.,
+       2., 0., 1., 2., 1., 1., 0., 2., 0., 0., 1., 2., 1., 0., 1., 2., 2.,
+       0., 1., 2., 2.])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">
+<h4>Se Resuelve utilizando el clasificador Naive Bayes de sklearn<a class="headerlink" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn" title="Link to this heading">#</a></h4>
+<p>Se utiliza la clase <strong>GaussianNB</strong> de la librería <strong>naive_bayes</strong>. Lo primero es crear un objeto, por ejemplo <strong>clf_NB</strong>, llamandoa al <strong>constructor</strong>.</p>
+<p>Llamando al método <strong>fit</strong> desde el objeto <strong>clf_NB</strong> se ajusta el modelo contra el conjunto de entrenamiento.</p>
+<p>Para validar el modelo se predicen las observaciones <strong>X_test</strong> del conjunto de validación se comparan las clases obtenidas contra los valores correctos de <strong>y_test</strong>. El porcentaje de aciertos es la precisión del clasificador</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">clf_NB</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">clf_NB</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">clf_NB</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud del clasificador (porcentaje de aciertos) = </span><span class="si">%.2f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">accuracy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del clasificador (porcentaje de aciertos) = 97.37 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="y-la-correspondiente-matriz-de-confusion">
+<h3>Y la correspondiente matriz de confusión<a class="headerlink" href="#y-la-correspondiente-matriz-de-confusion" title="Link to this heading">#</a></h3>
+<p>La <strong>matriz de confusión</strong> de una forma gráfica nos da los <strong>aciertos</strong> en la clasificación (<em>diagonal principal</em>) y dónde se encuentran los <strong>fallos</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">cm</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[13  0  0]
+ [ 0 13  0]
+ [ 0  1 11]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">cm_display</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b37f6ff4257af41aff859c31069b0cf82b533db7d4bd666d646f3d805946a33a.png" src="_images/b37f6ff4257af41aff859c31069b0cf82b533db7d4bd666d646f3d805946a33a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="arboles-de-decision-y-bosques-aleatorios">
+<h2>Arboles de decisión y  bosques aleatorios<a class="headerlink" href="#arboles-de-decision-y-bosques-aleatorios" title="Link to this heading">#</a></h2>
+<p>Los <strong>árboles de decisión</strong> son modelos predictivos formados por reglas binarias (si/no) con las que se consigue repartir las observaciones en función de sus atributos y predecir así el valor de la variable respuesta.</p>
+<p><strong>Ventajas</strong></p>
+<ul class="simple">
+<li><p>Los árboles son fáciles de interpretar aun cuando las relaciones entre predictores son complejas.</p></li>
+<li><p>Los árboles pueden, en teoría, manejar tanto predictores numéricos como categóricos.</p></li>
+<li><p>No se ven muy influenciados por outliers.</p></li>
+<li><p>Son muy útiles en la exploración de datos, permiten identificar de forma rápida y eficiente las variables (predictores) más importantes.</p></li>
+<li><p>Pueden aplicarse a problemas de regresión y clasificación.</p></li>
+</ul>
+<p><strong>Desventajas</strong></p>
+<ul class="simple">
+<li><p>Su tendencia al overfitting y alta varianza. Sin embargo, existen técnicas más complejas que, haciendo uso de la combinación de múltiples árboles (bagging, random forest, boosting), consiguen mejorar en gran medida este problema.</p></li>
+<li><p>Son sensibles a datos de entrenamiento desbalanceados (una de las clases domina sobre las demás).</p></li>
+<li><p>No son capaces de extrapolar fuera del rango de los predictores observado en los datos de entrenamiento.</p></li>
+</ul>
+<p><strong>Implementados en sk-learn</strong> en las clases <strong>DecissionTreeClassifier</strong> y <strong>DecissionTreeRegressor</strong></p>
+<p><strong>Obtención del árbol de decisión</strong></p>
+<p>La <strong>entropía</strong> es una forma de cuantificar el <strong>desorden</strong> de un sistema. En el caso de los nodos, el desorden se corresponde con la impureza. Si un nodo es <strong>puro</strong>, contiene únicamente observaciones de <strong>una clase</strong>, su <strong>entropía es cero</strong>.</p>
+<div class="math notranslate nohighlight">
+\[D=-\displaystyle\sum_{k=1}^K f_k \cdot log_2(f_k)\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(f_k\)</span> representa la frecuencia o proporción de observaciones de la clase <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p><strong>El algoritmo</strong> busca en el conjunto <strong>X</strong> aquella condición <span class="math notranslate nohighlight">\(x_i \ge a\)</span> que de lugar a una minimización de la entropia. La entropia se calcula directamente sobre <strong>y</strong>.</p>
+<p>En el siguiente ejemplo inicialmente la entropia vale 1.585 y la condición <strong>ancho de pétalo <span class="math notranslate nohighlight">\(\ge\)</span> 0.8</strong> se consigue partir en 2 hojas con la entropia mínima posible. El cálculo de la entropia inicial, atendiendo al recuento de cada clase sería:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="p">(</span><span class="mi">37</span><span class="o">/</span><span class="mi">112</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">37</span><span class="o">/</span><span class="mi">112</span><span class="p">)</span> <span class="o">-</span><span class="p">(</span><span class="mi">37</span><span class="o">/</span><span class="mi">112</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">37</span><span class="o">/</span><span class="mi">112</span><span class="p">)</span> <span class="o">-</span><span class="p">(</span><span class="mi">38</span><span class="o">/</span><span class="mi">112</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">38</span><span class="o">/</span><span class="mi">112</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.5848478277058313
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">export_graphviz</span>
+<span class="kn">from</span> <span class="nn">pydotplus</span> <span class="kn">import</span> <span class="n">graph_from_dot_data</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;entropy&quot;</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">dot_data</span> <span class="o">=</span> <span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span>
+                           <span class="n">feature_names</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">graph_from_dot_data</span><span class="p">(</span><span class="n">dot_data</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">write_png</span><span class="p">(</span><span class="s1">&#39;./images/tree_iris.png&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;./images/tree_iris.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;500&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5da58360e6b2137ac21de206cb655515525fd67ef93002de9a5074f00d6817b9.png" src="_images/5da58360e6b2137ac21de206cb655515525fd67ef93002de9a5074f00d6817b9.png" />
+</div>
+</div>
+<p><b style="color:rgb(0,100,250);">Existe la posibilidad</b> de entrenar un conjunto de arboles de decisión, por ejemplo 100, y que la clasificación se obtenga por voto mayoritario de todos ellos. Es lo que se llama <strong>Bosque Aleatorio</strong> o <strong>Random Forest</strong>. Está disponible en sk-learn:</p>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">RandomForestClassifier de sk-learn</a></p>
+</section>
+<section id="clasificacion-por-k-vecinos-kneighborsclassifier">
+<h2>Clasificación por K Vecinos (KNeighborsClassifier)<a class="headerlink" href="#clasificacion-por-k-vecinos-kneighborsclassifier" title="Link to this heading">#</a></h2>
+<p>El algoritmo de <strong>K Vecinos</strong> (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifierhttps://www.yourhomepage.com"> KNeighborsClassifier</a> ) implementa la selección de la clase más probable a partir del <strong>voto mayoritario</strong> de las <strong>K</strong> observaciones más cercanas del conjunto <strong>X</strong>.</p>
+<p>El cuello de botella computacional de este algoritmo es la búsqueda de los vecinos cercanos de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> en <strong>X</strong>, que se presenta si el número de elementos de <strong>X</strong>  es elevado y se usa un método de fuerza bruta. Por ello se suele estructurar el conjunto <strong>X</strong> de forma que sea más ágil el encontrar los vecinos. Esto se consigue con <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree">BallTree</a> o <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree">KDTree</a>, por ejemplo. El tipo de algoritmo de búsqueda se pasa en el parámetro <strong>algorithm</strong>, aunque por defecto lleva el valor <em>‘auto’</em> en el que se decide que estrategia tomar en función del conjunto <strong>X</strong> que se pase en el método <strong>fit()</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="n">clf_KV</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+<span class="n">clf_KV</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf_KV</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">clf_KV</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Exactitud del clasificador (porcentaje de aciertos) = </span><span class="si">%.2f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">accuracy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exactitud del clasificador (porcentaje de aciertos) = 100.00 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02.1_Introduccion_AA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introducción al Aprendizaje Automático</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02.3_Clasificacion-EjercicioEntregaWINES.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clasificadores. Entrega sobre variedades vínicolas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos-del-empleo-de-los-clasificadores">Ejemplos del empleo de los clasificadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-de-naive-bayes">Método de Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-naive-bayes">Entrenamiento con Naïve BAyes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">Aplicar el método Naïve-Bayes para clasificar el conjunto Iris</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arboles-de-decision-y-bosques-aleatorios">Arboles de decisión y  bosques aleatorios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clasificacion-por-k-vecinos-kneighborsclassifier">Clasificación por K Vecinos (KNeighborsClassifier)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
