@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Red densa simple &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03.1_RedesNeurDensas_Bicapa';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Red densa simple. Perceptron de sk-learn" href="03.2_RedesNeurDensas_Bicapa_sklearn.html" />
+    <link rel="prev" title="Redes Neuronales" href="03_rnnIntro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logoETSIAAB.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/logoETSIAAB.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">El Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion_Ordinarios.html">Métodos de clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Red densa simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas_Bicapa_sklearn.html">Red densa simple. Perceptron de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas_Multicapa.html">Red densa multicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurDensas_Lote.html">Red densa. Procesamiento en lote</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurDensas_Multicapa_sklearn.html">Red densa multicapa. MLPClassifier de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurDensas_EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.7_RedesNeurConvolucional.html">Redes convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.8_RedesNeurConvolucional_pytorch.html">Redes convoluciones con Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.9_RedesNeurConvolucional_Maqueta.html">Maqueta de red convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F03.1_RedesNeurDensas_Bicapa.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03.1_RedesNeurDensas_Bicapa.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Red densa simple</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neurona-de-mcculloch-y-pitts">Neurona de McCulloch y Pitts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-perceptron-simple">El perceptrón simple</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red">Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-que-produce-en-la-red-una-observacion-bar-x">Entrenamiento que produce en la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-modelo">Resumen del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comentarios-finales">Comentarios Finales</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="red-densa-simple">
+<h1>Red densa simple<a class="headerlink" href="#red-densa-simple" title="Link to this heading">#</a></h1>
+<section id="neurona-de-mcculloch-y-pitts">
+<h2>Neurona de McCulloch y Pitts<a class="headerlink" href="#neurona-de-mcculloch-y-pitts" title="Link to this heading">#</a></h2>
+<p><span id="id1">[<a class="reference internal" href="Bibliografia.html#id10" title="Warren S McCulloch and Walter Pitts. A logical calculus of the ideas immanent in nervous activity. The bulletin of mathematical biophysics, 5(4):115–133, 1943.">McCulloch and Pitts, 1943</a>]</span> propusieron el primer modelo de neurona artificial denominado <strong>TLU</strong> (Threshold Logic Unit) o LTU (Linear Threshold Unit), unidad de umbral lineal. A esta neurona artificial también se le denomina <strong>Perceptrón</strong>.</p>
+<p>El modelo parte de <span class="math notranslate nohighlight">\(n\)</span> entradas <span class="math notranslate nohighlight">\((x_1, x_2, ..., x_j, ..., x_n)\)</span> a la que se aplica una ponderación lineal más un umbral (que suele denominarse sesgo o bias, <span class="math notranslate nohighlight">\(b\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[z=b+\displaystyle\sum_{i=1}^n w_{i}x_i\]</div>
+<p>A la que se aplica una función de activación no lineal, que en el modelo de McCulloch y Pitts es una función escalonada del tipo</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}a=f(z) \left \{ \begin{array}{c} 1 &amp;  z \ge 0 \\ 0 &amp; z &lt;0 \end{array} \right .  \end{split}\]</div>
+<p>Resultando un modelo con salida digital o binaria. Las entradas <span class="math notranslate nohighlight">\((x_1, x_2, ..., x_j, ..., x_n)\)</span>  equivalen a las dendritas, el parámetro <span class="math notranslate nohighlight">\(b\)</span> se denomina umbral o bias y la salida  <span class="math notranslate nohighlight">\(a\)</span> es el axón. Durante el entrenamiento se compara <span class="math notranslate nohighlight">\(a\)</span> con los valores reales que se encuentran en <span class="math notranslate nohighlight">\(y\)</span></p>
+<a class="reference internal image-reference" href="_images/McCulloch-Pitts.png"><img alt="_images/McCulloch-Pitts.png" class="align-center" src="_images/McCulloch-Pitts.png" style="width: 600px;" /></a>
+</section>
+<hr class="docutils" />
+<section id="el-perceptron-simple">
+<h2>El perceptrón simple<a class="headerlink" href="#el-perceptron-simple" title="Link to this heading">#</a></h2>
+<p><span id="id2">[<a class="reference internal" href="Bibliografia.html#id12" title="Frank Rosenblatt. The perceptron: a probabilistic model for information storage and organization in the brain. Psychological review, 65(6):386, 1958.">Rosenblatt, 1958</a>]</span> introdujo el <strong>perceptrón simple</strong> formado por dos capas, una de <strong>entrada con n neuronas</strong> y una de <strong>salida con m neuronas</strong>. <span id="id3">[<a class="reference internal" href="Bibliografia.html#id13" title="Bernard Widrow and Marcian E Hoff. Adaptive switching circuits. Technical Report, Stanford Univ Ca Stanford Electronics Labs, 1960.">Widrow and Hoff, 1960</a>]</span> introdujeron el modelo <strong>ADAptative LInear Neuron (Adaline)</strong> tambien bicapa.</p>
+<section id="activacion-de-una-observacion-bar-x-por-efecto-de-la-red">
+<h3>Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red<a class="headerlink" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red" title="Link to this heading">#</a></h3>
+<p>Dada <strong>1 observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1,...,x_j, ..., x_n)\)</span> de la que se conoce su <strong>clase</strong> en formato <em>one-hote</em> <span class="math notranslate nohighlight">\(\bar{y}=(y_1,...,y_i, ...y_m)\)</span></p>
+<p>Primero se efectua una <strong>ponderación lineal</strong> <span class="math notranslate nohighlight">\(\bar{z}=(z_1,...,z_i, ..., z_m)\)</span> de la que se obtiene la <strong>salida</strong> <span class="math notranslate nohighlight">\(\bar{a}\)</span> aplicando una <strong>función de activación</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\bar{a}=f(\bar{z})=(a_1,...,a_i, ..., a_m)\]</div>
+<p>Se puede decir que existen <span class="math notranslate nohighlight">\(n\)</span> <strong>neuronas de entrada</strong> y <span class="math notranslate nohighlight">\(m\)</span> <strong>neuronas de salida</strong>. La ponderación lineal en las neuronas de salida a partir de los pesos se calcula:</p>
+<div class="math notranslate nohighlight">
+\[z_i = b_i + \displaystyle\sum_{j=1}^n w_{ij}x_j \quad (i=1...m)\]</div>
+<p>Hacen falta <span class="math notranslate nohighlight">\(n \times m\)</span> pesos y <span class="math notranslate nohighlight">\(m\)</span> bias para definir la red, que puesto en forma matricial:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} W = \begin{bmatrix}{w_{11}}&amp;{w_{12}}&amp;{...}&amp;{w_{1m}}\\{w_{21}}&amp;{w_{22}}&amp;{...}&amp;{w_{2m}}\\{...}&amp;{...}&amp;{...}&amp;{...}\\{w_{n1}}&amp;{w_{n2}}&amp;{...}&amp;{w_{nm}}\end{bmatrix}  \quad B = \begin{bmatrix}{b_{1}}&amp;{b_{2}}&amp;{...}&amp;{b_{m}}\end{bmatrix} \end{split}\]</div>
+<p><strong>Siendo</strong></p>
+<div class="math notranslate nohighlight">
+\[ \bar{z} = \bar{x} \cdot W + B \]</div>
+<hr class="docutils" />
+<a class="reference internal image-reference" href="_images/Neurona-2Capas.png"><img alt="_images/Neurona-2Capas.png" class="align-center" src="_images/Neurona-2Capas.png" style="width: 800px;" /></a>
+</section>
+<hr class="docutils" />
+<section id="entrenamiento-que-produce-en-la-red-una-observacion-bar-x">
+<h3>Entrenamiento que produce en la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span><a class="headerlink" href="#entrenamiento-que-produce-en-la-red-una-observacion-bar-x" title="Link to this heading">#</a></h3>
+<p>Se supone el siguiente <strong>ejemplo sencillo</strong> de red bicapa</p>
+<a class="reference internal image-reference" href="_images/RedBiCapa.png"><img alt="_images/RedBiCapa.png" class="align-center" src="_images/RedBiCapa.png" style="width: 400px;" /></a>
+<p>La red se puede configurar con las <strong>matrices de pesos y bias</strong> siguientes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W = \begin{bmatrix} w_{11} &amp; w_{12} \\ w_{21} &amp; w_{22}  \\ w_{31} &amp; w_{32} \end{bmatrix}  \phantom{abc}  B = \begin{bmatrix} b_1 &amp; b_2 \end{bmatrix} \end{split}\]</div>
+<p>Se conoce <strong>una observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, x_3)\)</span> de la que se sabe su <strong>clase en formato one-hot</strong> <span class="math notranslate nohighlight">\(\bar{y}=(y_1, y_2)\)</span>. Una vez <strong>activada</strong> la red se obtiene <span class="math notranslate nohighlight">\(\bar{a}=(a_1, a_2)\)</span>. Usando el error al cuadrado, la <strong>pérdida</strong> de esta observación será:</p>
+<div class="math notranslate nohighlight">
+\[C = \frac{1}{2} \begin{bmatrix} (a_1-y_1)^2 + (a_2-y_2)^2 \end{bmatrix}\]</div>
+<p>Se sabe que:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases} z_1 = w_{11} x_1 + w_{12} x_2 + w_{13} x_3 + b_1  \\ z_2  = w_{21} x_1 + w_{22} x_2 + w_{23} x_3 + b_2 \end{cases} 
+\rightarrow \begin{cases} a_1 = f(z_1) \\ a_2 = f(z_2) \end{cases}  \end{split}\]</div>
+<p>La <strong>tasa de variación de la función de pérdida</strong> con respecto al peso <span class="math notranslate nohighlight">\(w_{11}\)</span> afecta a la <strong>primera neurona de salida</strong>, por lo tanto se calcula aplicando la regla de la cadena así:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{C}}{\partial{w_{11}}} = \frac{\partial{C}}{\partial{a_1}} \frac{\partial{a_1}}{\partial{z_1}}  \frac{\partial{z_1}}{\partial{w_{11}}} \]</div>
+<p>Por tanto</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{C}}{\partial{w_{11}}} = (a_1 - y_1) f'(z_1) x_1\]</div>
+<p>Llamando <span class="math notranslate nohighlight">\(\delta_1 = (a_1 - y_1) f'(z_1)\)</span> <strong>las tasas de variación</strong> respecto a la configuración que aplica sobre <span class="math notranslate nohighlight">\(z_1\)</span> es:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial{C}}{\partial{w_{11}}} = \delta_1 x_1; \phantom{abc} \frac{\partial{C}}{\partial{w_{12}}} = \delta_1 x_2; 
+      \phantom{abc} \frac{\partial{C}}{\partial{w_{13}}} = \delta_1 x_3; \phantom{abc} \frac{\partial{C}}{\partial{b_1}} = \delta_1\]</div>
+<p><strong>Repitiendo el proceso</strong> con respecto al peso <span class="math notranslate nohighlight">\(w_{21}\)</span> afecta a la <strong>segunda neurona de salida</strong> (término <span class="math notranslate nohighlight">\(a_2\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{C}}{\partial{w_{21}}} = \frac{\partial{C}}{\partial{a_2}} \frac{\partial{a_2}}{\partial{z_2}}  \frac{\partial{z_2}}{\partial{w_{21}}} \]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{C}}{\partial{w_{21}}} = (a_2 - y_2) f'(z_2) x_1\]</div>
+<p>Llamando <span class="math notranslate nohighlight">\(\delta_2 = (a_2 - y_2) f'(z_2)\)</span> <strong>las tasas de variación</strong> respecto a la configuración que aplica sobre <span class="math notranslate nohighlight">\(z_2\)</span> es:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial{C}}{\partial{w_{21}}} = \delta_2 x_1; \phantom{abc} \frac{\partial{C}}{\partial{w_{22}}} = \delta_2 x_2; 
+      \phantom{abc} \frac{\partial{C}}{\partial{w_{23}}} = \delta_2 x_3; \phantom{abc} \frac{\partial{C}}{\partial{b_2}} = \delta_2\]</div>
+<p><strong>El gradiente</strong> que optimiza la configuración de la red por el impacto de la observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> será:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frac{\partial{C}}{\partial{W}}  = 
+    \begin{bmatrix}  
+    \frac{\partial{C}}{\partial{w_{11}}} &amp; \frac{\partial{C}}{\partial{w_{12}}} \\
+    \frac{\partial{C}}{\partial{w_{21}}} &amp; \frac{\partial{C}}{\partial{w_{22}}} \\
+    \frac{\partial{C}}{\partial{w_{31}}} &amp; \frac{\partial{C}}{\partial{w_{32}}} 
+    \end{bmatrix} =
+    \begin{bmatrix} \delta_1 x_1 &amp; \delta_2 x_1  \\
+                    \delta_1 x_2 &amp; \delta_2 x_2 \\
+                    \delta_1 x_3 &amp; \delta_2 x_3  \end{bmatrix} = 
+    \begin{bmatrix} \delta_1 &amp; \delta_2  \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3  \end{bmatrix}   
+    =  \bar{\delta}  \cdot \begin{pmatrix}\bar{x} \end{pmatrix} ^T
+\end{split}\]</div>
+<p>Y <strong>también</strong></p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial{C}}{\partial{B}} = \begin{bmatrix}  \frac{\partial{C}}{\partial{b_1}}  &amp;  \frac{\partial{C}}{\partial{b_2}}   \end{bmatrix} = 
+\begin{bmatrix} \delta_1 &amp; \delta_2 \end{bmatrix} = \bar{\delta} \]</div>
+<p><strong>Además</strong> <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> se puede poner vectorialmente:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\delta} = (\delta_1, \delta_2) = \begin{pmatrix} (a_1 - y_1)f'(z_1), (a_2 - y_2)f'(z_2) \end{pmatrix}\]</div>
+<p>De la que se obtiene la <strong>expresión final</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\delta} = (\bar{a} - \bar{y}) \odot f'(\bar{z})\]</div>
+<p>Donde <span class="math notranslate nohighlight">\(\bar{a} - \bar{y}\)</span> es el <strong>error neto</strong> y <span class="math notranslate nohighlight">\(\odot\)</span> es el <strong>producto de hadamard</strong> que obtiene a partir de 2 vectores un nuevo vector donde sus compenentes son el producto componente a componente.</p>
+<p><strong>Indicar como comentario final</strong> que además los gradientes <span class="math notranslate nohighlight">\( \frac{\partial{C}}{\partial{W}}\)</span> y <span class="math notranslate nohighlight">\( \frac{\partial{C}}{\partial{B}}\)</span> que optimizan la configuración de la red, se tiene que <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> es un gradiente intermedio de <span class="math notranslate nohighlight">\(C\)</span> con respecto a <span class="math notranslate nohighlight">\(\bar{z}\)</span>. Efectivamente:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\delta}=(\delta_1, \delta_2) = (\frac{\partial{C}}{\partial{z_1}}, \frac{\partial{C}}{\partial{z_2}}) = \frac{\partial{C}}{\partial{\bar{z}}} \]</div>
+</section>
+</section>
+<section id="resumen-del-modelo">
+<h2>Resumen del modelo<a class="headerlink" href="#resumen-del-modelo" title="Link to this heading">#</a></h2>
+<h3 style="color:blue;">Resumen del entrenamiento de 1 observación</h3>
+<div class="math notranslate nohighlight">
+\[  W[t+1] = W[t] - \eta \cdot    \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \cdot \bar{x} \]</div>
+<div class="math notranslate nohighlight">
+\[  B[t+1] = B[t] - \eta  \cdot \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T  \]</div>
+<h4 style="color:green;">Gradientes asociados</h4>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial W}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \cdot \bar{x};   \phantom{abc}  \frac{\partial C}{\partial B}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T ;  \phantom{abc} \frac{\partial C}{\partial Z}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T  \]</div>
+</section>
+<section id="comentarios-finales">
+<h2>Comentarios Finales<a class="headerlink" href="#comentarios-finales" title="Link to this heading">#</a></h2>
+<p>Una de las funciones de activación primeras que se usaron fuero la sigmoidea o lógistica</p>
+<div class="math notranslate nohighlight">
+\[f(z)=\sigma(z)=\frac{1}{1+e^{-z}}\]</div>
+<p>El <strong>gradiente descenso</strong> se basa en que el <strong>vector gradiente</strong> define en el dominio de una función de varias variables <span class="math notranslate nohighlight">\(f(\bar{x})\)</span> la dirección de máximo incremento de la pendiente. De forma que se toma <strong>signo negativo</strong> para ir hacia un mínimo local y un valor de magnitud reducida <span class="math notranslate nohighlight">\(\eta\)</span> que evite saltar el mínimo por un avance excesivo.</p>
+<p>Así partiendo de un valor aleatorio <span class="math notranslate nohighlight">\(\bar{x} = \bar{x}_0\)</span> se busca el mínimo local a través de sucesivas iteraciones:</p>
+<div class="math notranslate nohighlight">
+\[\bar{x}_{k+1} = \bar{x}_{k} - \eta \nabla f(\bar{x}_{k})\]</div>
+<a class="reference internal image-reference" href="_images/gradiente-descenso.png"><img alt="_images/gradiente-descenso.png" class="align-center" src="_images/gradiente-descenso.png" style="width: 400px;" /></a>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_rnnIntro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Redes Neuronales</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03.2_RedesNeurDensas_Bicapa_sklearn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Red densa simple. Perceptron de sk-learn</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neurona-de-mcculloch-y-pitts">Neurona de McCulloch y Pitts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-perceptron-simple">El perceptrón simple</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red">Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-que-produce-en-la-red-una-observacion-bar-x">Entrenamiento que produce en la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-del-modelo">Resumen del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comentarios-finales">Comentarios Finales</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

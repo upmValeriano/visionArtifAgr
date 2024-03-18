@@ -64,8 +64,8 @@
     <link rel="icon" href="_static/EscUpm.jpg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Clasificadores. Entrega sobre variedades vínicolas" href="02.3_Clasificacion-EjercicioEntregaWINES.html" />
-    <link rel="prev" title="Introducción al Aprendizaje Automático" href="02.1_Introduccion_AA.html" />
+    <link rel="next" title="Ejercicio con entrega sobre variedades vínicolas" href="02.3_Clasificacion-EjercicioEntregaWINES.html" />
+    <link rel="prev" title="El Aprendizaje Automático" href="02.1_Introduccion_AA.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,18 +184,22 @@
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">Introducción al Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">El Aprendizaje Automático</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Métodos de clasificación</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Clasificadores. Entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas-Bicapa.html">Redes Neuronales Densas. Introducción y modelo bicapa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas-Multicapa.html">Redes Neuronales - Modelo MultiCapa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas-EjercicioEntregaWINES.html">Redes neuronales densas. Entrega sobre variedades vínicolas</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurConvolucional.html">Redes Neuronales Convoluciones con arquitectura Pytorch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurConvolucional_Maqueta.html">Maqueta de red neuronal convolucional</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurConv_PlantVillage.html">PlantVillage. Identificar especies de cultivos con patologías</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas_Bicapa.html">Red densa simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas_Bicapa_sklearn.html">Red densa simple. Perceptron de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas_Multicapa.html">Red densa multicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurDensas_Lote.html">Red densa. Procesamiento en lote</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurDensas_Multicapa_sklearn.html">Red densa multicapa. MLPClassifier de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurDensas_EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.7_RedesNeurConvolucional.html">Redes convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.8_RedesNeurConvolucional_pytorch.html">Redes convoluciones con Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.9_RedesNeurConvolucional_Maqueta.html">Maqueta de red convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
@@ -424,9 +428,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos-del-empleo-de-los-clasificadores">Ejemplos del empleo de los clasificadores</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-de-naive-bayes">Método de Naïve Bayes</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-naive-bayes">Entrenamiento con Naïve BAyes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos">Ejemplos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-naive-bayes">Método Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-naive-bayes">Entrenamiento con Naïve Bayes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">Aplicar el método Naïve-Bayes para clasificar el conjunto Iris</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a></li>
@@ -435,8 +439,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arboles-de-decision-y-bosques-aleatorios">Arboles de decisión y  bosques aleatorios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clasificacion-por-k-vecinos-kneighborsclassifier">Clasificación por K Vecinos (KNeighborsClassifier)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arboles-de-decision">Arboles de decisión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-vecinos-cercanos">K vecinos cercanos</a></li>
 </ul>
             </nav>
         </div>
@@ -450,16 +454,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="metodos-de-clasificacion">
 <h1>Métodos de clasificación<a class="headerlink" href="#metodos-de-clasificacion" title="Link to this heading">#</a></h1>
-<section id="ejemplos-del-empleo-de-los-clasificadores">
-<h2>Ejemplos del empleo de los clasificadores<a class="headerlink" href="#ejemplos-del-empleo-de-los-clasificadores" title="Link to this heading">#</a></h2>
+<section id="ejemplos">
+<h2>Ejemplos<a class="headerlink" href="#ejemplos" title="Link to this heading">#</a></h2>
 <p>Un <strong>clasificador es un método supervisado</strong> que permite entrenar un modelo para que determine <strong>la clase más probable</strong> que debemos asignar a un registro dado de características. Para ello el conjunto de entrenamiento tendrá una serie de <span class="math notranslate nohighlight">\(N\)</span> registros clasificados, que permiten al ordenador aprender a clasificar registros sin clase. Por ejemplo:</p>
 <ul class="simple">
 <li><p><strong>Detección de SPAM</strong>. En base a un conjunto de características de los correos se entrena con supervisión al ordenador para que determine si son o no SPAM.</p></li>
 <li><p><strong>Datos de microarrays</strong>. A partir de un subconjunto de genes óptimos para diagnosticar cancer.</p></li>
 </ul>
 </section>
-<section id="metodo-de-naive-bayes">
-<h2>Método de Naïve Bayes<a class="headerlink" href="#metodo-de-naive-bayes" title="Link to this heading">#</a></h2>
+<section id="metodo-naive-bayes">
+<h2>Método Naïve Bayes<a class="headerlink" href="#metodo-naive-bayes" title="Link to this heading">#</a></h2>
 <p>Si la matriz <span class="math notranslate nohighlight">\(X\)</span> está compuesta por <span class="math notranslate nohighlight">\(N\)</span> observaciones (filas) con <span class="math notranslate nohighlight">\(n\)</span> características <span class="math notranslate nohighlight">\(X_1, ..., X_i, ..., X_n\)</span> que forman las columnas de la matriz.</p>
 <p>Si la matriz de objetivos <span class="math notranslate nohighlight">\(Y\)</span> tiene <span class="math notranslate nohighlight">\(m\)</span> clases dadas por <span class="math notranslate nohighlight">\(1, ..., k, ..., m\)</span>.</p>
 <p>Una observación <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, \cdots, x_n)\)</span>, no etiquetada, de acuerdo al <strong>Teorema de Bayes</strong> se etiqueta en aquella clase <span class="math notranslate nohighlight">\(k\)</span> que cumple:</p>
@@ -475,7 +479,7 @@ document.write(`
 </ul>
 <p>Observe que para definir el modelo son necesarias <span class="math notranslate nohighlight">\(n \times m\)</span> distribuciones normales distintas.</p>
 <section id="entrenamiento-con-naive-bayes">
-<h3>Entrenamiento con Naïve BAyes<a class="headerlink" href="#entrenamiento-con-naive-bayes" title="Link to this heading">#</a></h3>
+<h3>Entrenamiento con Naïve Bayes<a class="headerlink" href="#entrenamiento-con-naive-bayes" title="Link to this heading">#</a></h3>
 <p>Un ejemplo de los datos que hay que calcular para entrenar el conjunto IRIS con el método Naïve Bayes se muestra en el siguiente gráfico:</p>
 <a class="reference internal image-reference" href="_images/bayes_iris.png"><img alt="_images/bayes_iris.png" class="align-center" src="_images/bayes_iris.png" style="width: 700px;" /></a>
 <p>La <strong>verosimilitud</strong> que tiene, <em>por ejemplo, la observación</em> <span class="math notranslate nohighlight">\(\bar{x} = (4.6, 3.6, 1.1, 0.2)\)</span> de pertenecer a cada tipo de flor es:</p>
@@ -692,8 +696,8 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="arboles-de-decision-y-bosques-aleatorios">
-<h2>Arboles de decisión y  bosques aleatorios<a class="headerlink" href="#arboles-de-decision-y-bosques-aleatorios" title="Link to this heading">#</a></h2>
+<section id="arboles-de-decision">
+<h2>Arboles de decisión<a class="headerlink" href="#arboles-de-decision" title="Link to this heading">#</a></h2>
 <p>Los <strong>árboles de decisión</strong> son modelos predictivos formados por reglas binarias (si/no) con las que se consigue repartir las observaciones en función de sus atributos y predecir así el valor de la variable respuesta.</p>
 <p><strong>Ventajas</strong></p>
 <ul class="simple">
@@ -759,8 +763,8 @@ document.write(`
 <p><b style="color:rgb(0,100,250);">Existe la posibilidad</b> de entrenar un conjunto de arboles de decisión, por ejemplo 100, y que la clasificación se obtenga por voto mayoritario de todos ellos. Es lo que se llama <strong>Bosque Aleatorio</strong> o <strong>Random Forest</strong>. Está disponible en sk-learn:</p>
 <p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">RandomForestClassifier de sk-learn</a></p>
 </section>
-<section id="clasificacion-por-k-vecinos-kneighborsclassifier">
-<h2>Clasificación por K Vecinos (KNeighborsClassifier)<a class="headerlink" href="#clasificacion-por-k-vecinos-kneighborsclassifier" title="Link to this heading">#</a></h2>
+<section id="k-vecinos-cercanos">
+<h2>K vecinos cercanos<a class="headerlink" href="#k-vecinos-cercanos" title="Link to this heading">#</a></h2>
 <p>El algoritmo de <strong>K Vecinos</strong> (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifierhttps://www.yourhomepage.com"> KNeighborsClassifier</a> ) implementa la selección de la clase más probable a partir del <strong>voto mayoritario</strong> de las <strong>K</strong> observaciones más cercanas del conjunto <strong>X</strong>.</p>
 <p>El cuello de botella computacional de este algoritmo es la búsqueda de los vecinos cercanos de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> en <strong>X</strong>, que se presenta si el número de elementos de <strong>X</strong>  es elevado y se usa un método de fuerza bruta. Por ello se suele estructurar el conjunto <strong>X</strong> de forma que sea más ágil el encontrar los vecinos. Esto se consigue con <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree">BallTree</a> o <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree">KDTree</a>, por ejemplo. El tipo de algoritmo de búsqueda se pasa en el parámetro <strong>algorithm</strong>, aunque por defecto lleva el valor <em>‘auto’</em> en el que se decide que estrategia tomar en función del conjunto <strong>X</strong> que se pase en el método <strong>fit()</strong>.</p>
 <div class="cell docutils container">
@@ -820,7 +824,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introducción al Aprendizaje Automático</p>
+        <p class="prev-next-title">El Aprendizaje Automático</p>
       </div>
     </a>
     <a class="right-next"
@@ -828,7 +832,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Clasificadores. Entrega sobre variedades vínicolas</p>
+        <p class="prev-next-title">Ejercicio con entrega sobre variedades vínicolas</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -847,9 +851,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos-del-empleo-de-los-clasificadores">Ejemplos del empleo de los clasificadores</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-de-naive-bayes">Método de Naïve Bayes</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-naive-bayes">Entrenamiento con Naïve BAyes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplos">Ejemplos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-naive-bayes">Método Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-con-naive-bayes">Entrenamiento con Naïve Bayes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-el-metodo-naive-bayes-para-clasificar-el-conjunto-iris">Aplicar el método Naïve-Bayes para clasificar el conjunto Iris</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#inicialmente-se-divide-el-conjunto-de-datos-de-entrada-en-entrenamiento-75-y-validacion-25-conjuntos-train-y-test">Inicialmente se divide el conjunto de datos de entrada en Entrenamiento (75%) y Validación (25%). Conjuntos Train y Test</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">Se Resuelve utilizando el clasificador Naive Bayes de sklearn</a></li>
@@ -858,8 +862,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y-la-correspondiente-matriz-de-confusion">Y la correspondiente matriz de confusión</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arboles-de-decision-y-bosques-aleatorios">Arboles de decisión y  bosques aleatorios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clasificacion-por-k-vecinos-kneighborsclassifier">Clasificación por K Vecinos (KNeighborsClassifier)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arboles-de-decision">Arboles de decisión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-vecinos-cercanos">K vecinos cercanos</a></li>
 </ul>
   </nav></div>
 

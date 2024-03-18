@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Redes convolucionales &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03.7_RedesNeurConvolucional';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Redes convoluciones con Pytorch" href="03.8_RedesNeurConvolucional_pytorch.html" />
+    <link rel="prev" title="Ejercicio con entrega sobre variedades vínicolas" href="03.6_RedesNeurDensas_EjercicioEntregaWINES.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logoETSIAAB.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/logoETSIAAB.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">El Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion_Ordinarios.html">Métodos de clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas_Bicapa.html">Red densa simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas_Bicapa_sklearn.html">Red densa simple. Perceptron de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.3_RedesNeurDensas_Multicapa.html">Red densa multicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurDensas_Lote.html">Red densa. Procesamiento en lote</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurDensas_Multicapa_sklearn.html">Red densa multicapa. MLPClassifier de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurDensas_EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Redes convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.8_RedesNeurConvolucional_pytorch.html">Redes convoluciones con Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.9_RedesNeurConvolucional_Maqueta.html">Maqueta de red convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F03.7_RedesNeurConvolucional.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03.7_RedesNeurConvolucional.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Redes convolucionales</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-capa">Tipos de Capa</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reglas-generales-para-modelar-una-red-convolucional">Reglas generales para modelar una red convolucional</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitecturas-destacadas">Arquitecturas destacadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-la-arquitectura-vggnet">Esquema de la arquitectura VGGNet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redes-residuales-profundas">Redes Residuales Profundas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento">Entrenamiento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-aplanado">Capa de aplanado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-agrupacion">Capa de Agrupación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-convolucion">Capa de convolución</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida-y-optimizador">Función de pérdida y optimizador</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida-o-coste">Función de pérdida o coste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizador">Optimizador</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo">Ejemplo</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="redes-convolucionales">
+<h1>Redes convolucionales<a class="headerlink" href="#redes-convolucionales" title="Link to this heading">#</a></h1>
+<section id="contenidos">
+<h2>Contenidos<a class="headerlink" href="#contenidos" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#introduccion">Introducción</a></p></li>
+<li><p><a class="reference internal" href="#tiposcapa"><span class="std std-ref">Tipos de capa</span></a></p></li>
+<li><p><a class="reference internal" href="#arquitecturas">Arquitecturas destacadas</a></p></li>
+<li><p><a class="reference internal" href="#entrenamiento">Entrenamiento</a></p></li>
+<li><p><a class="reference internal" href="#lossfunction">Función de pérdida y optimizador</a></p></li>
+<li><p><a class="reference internal" href="#ejemplo">Ejemplo</a></p></li>
+</ol>
+</section>
+<section id="introduccion">
+<span id="id1"></span><h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">#</a></h2>
+<p>Las <strong>redes convolucionales</strong> (<span id="id2">[<a class="reference internal" href="Bibliografia.html#id4" title="Yann LeCun, Bernhard Boser, John S Denker, Donnie Henderson, Richard E Howard, Wayne Hubbard, and Lawrence D Jackel. Backpropagation applied to handwritten zip code recognition. Neural computation, 1(4):541–551, 1989.">LeCun <em>et al.</em>, 1989</a>]</span>), también conocidas como redes neuronales convolucionales, (o convolutional neural networks <strong>CNN</strong> o <strong>ConvNet</strong>) , son un tipo especializado de red neuronal utilizadas para procesar datos con una topología en cuadrícula.</p>
+<p>Las <strong>ConvNet</strong> se diseñaron para procesar imágenes y tratan de simular el funcionamiento de la visión humana. Restringen la arquitectura para usar un conjunto de pesos más reducido. Los datos de 1 imagen se estructuran en las ConvNet en 3 dimensiones: <strong>canal</strong>, <strong>ancho</strong> (<span class="math notranslate nohighlight">\(\textbf{b}\)</span>) y <strong>alto</strong> (<span class="math notranslate nohighlight">\(\textbf{h}\)</span>) de la imagen. Si a ellos se añaden un <strong>lote</strong> de varias imagenes se tiene una matriz de 4 dimensiones o <strong>tensor</strong>. En la entrada a la red una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> puede estar formada por 1 único canal en imagenes en gris, en 3 canales para los colores básicos RGB o incluso más si se incluye más información del espectro electromagnético. Pero en a fin de extraer patrones de la información, la red convoluciona hacia un mayor número de canales. En lugar de imágenes se hablará de <strong>mapas</strong>. Existirán tantos filtros como el producto <span class="math notranslate nohighlight">\(c_i \cdot c_o\)</span>, siendo <span class="math notranslate nohighlight">\(c_i\)</span> y <span class="math notranslate nohighlight">\(c_o\)</span> los canales de entrada y salida a una capa convolucional respectivamente. La reducción de la complejidad viene dada por que la dimensión de cada filtro (<span class="math notranslate nohighlight">\(f^2\)</span>) es muy inferior a la conexión completa entre dos mapas: <span class="math notranslate nohighlight">\((w \cdot h)^2\)</span>.</p>
+<p>Una <strong>operación de convolución</strong> básica se aplica a una imagen bidimensional <strong>I</strong>, usando un kernel o filtro <strong>K</strong> bidimensional y que da como resultado una nueva imagen <strong>S</strong>:</p>
+<div class="math notranslate nohighlight">
+\[S(i,j)=(K*I)(i,j)=\displaystyle\sum_{m}\displaystyle\sum_{n}=I(m,n)K(i-m,j-n)\]</div>
+<p>Un ejemplo gráfico del proceso de convolución para una entrada con 3 canales y dimensión <strong>5x5</strong> <span class="math notranslate nohighlight">\((W_1=5, H_1=5, D_1=3)\)</span> al que se le aplica un filtro <strong>3x3</strong> con un salto de <strong>2</strong> y un relleno a cero de <strong>1</strong>  obteniendo <strong>2</strong> canales de salida <span class="math notranslate nohighlight">\((K=2, F=3, S=2, P=1)\)</span> es</p>
+<a class="reference internal image-reference" href="_images/ExampleFilterConv.png"><img alt="_images/ExampleFilterConv.png" class="align-center" src="_images/ExampleFilterConv.png" style="width: 900px;" /></a>
+<p>Como se puede comprobar el elemento <span class="math notranslate nohighlight">\(-3\)</span> del primer mapa de salida se obtiene multiplicando uno a uno los elementos de cada filtro por los canales de entrada y sumando todos los productos más el valor del bias. Idem para el siguiente elemento <span class="math notranslate nohighlight">\(-1\)</span> una vez ejecutado el salto hacia la derecha en columnas. Una vez llegado hasta la última columna se ejecuta un salto en filas. El <strong>relleno a ceros</strong> (<em>padding</em>) permite al filtro barrer todo el mapa de entrada y obtener en salida un mapa de igual dimensión. El <strong>salto</strong> (strike) en el desplazamiento provoca una reducción en la dimensión del mapa de salida.</p>
+</section>
+<section id="tipos-de-capa">
+<span id="tiposcapa"></span><h2>Tipos de Capa<a class="headerlink" href="#tipos-de-capa" title="Link to this heading">#</a></h2>
+<p>Una <strong>Arquitectura Convolucional</strong> tipo se compone de las capas: <strong>INPUT</strong> - <strong>CONV</strong> - <strong>RELU</strong> - <strong>POOL</strong> - <strong>FC</strong>.</p>
+<ul class="simple">
+<li><p><strong>INPUT</strong> contendrá los valores en píxeles de la imagen, en este caso una imagen de ancho <span class="math notranslate nohighlight">\(\textbf{b}\)</span>, altura <span class="math notranslate nohighlight">\(\textbf{h}\)</span>, y con tres canales de color <strong>R</strong>, <strong>G</strong>, <strong>B</strong>. El vector de datos de entrada va a ser un tensor o matriz de 4 dimensiones <span class="math notranslate nohighlight">\(\textbf{(n, c, b, h)}\)</span>, donde <span class="math notranslate nohighlight">\(\textbf{n}\)</span> representará el número de observaciones en el lote tratado, <span class="math notranslate nohighlight">\(\textbf{c}\)</span> el número de canales, <span class="math notranslate nohighlight">\(\textbf{b}\)</span> es el ancho de la imagen y <span class="math notranslate nohighlight">\(\textbf{h}\)</span> es la altura de la imagen.</p></li>
+<li><p>Los <strong>filtros</strong> que conectan los pixels localmente son compartidos y son <strong>aprendibles</strong>. Los parámetros entrenables del filtro de una capa <span class="math notranslate nohighlight">\(\textbf{l}\)</span> (<span class="math notranslate nohighlight">\(W_l\)</span>) tiene dimensiones <span class="math notranslate nohighlight">\(\textbf{(co, ci, f, f)}\)</span>, donde <span class="math notranslate nohighlight">\(\textbf{co}\)</span> es el número de canales de salida (los canales del tensor <span class="math notranslate nohighlight">\(Z_l\)</span>), <span class="math notranslate nohighlight">\(\textbf{ci}\)</span> es el número de canales de entrada (los canales del tensor <span class="math notranslate nohighlight">\(A_{l-1}\)</span>) y <span class="math notranslate nohighlight">\(\textbf{f}\)</span> es el tamaño del filtro. Además se incluye un parámetro de bias <span class="math notranslate nohighlight">\(B_l\)</span>, que es un vector de dimensiones <span class="math notranslate nohighlight">\(\textbf{co}\)</span>.</p></li>
+<li><p>La capa <strong>RELU</strong> aplicará una función de activación por elementos, como el umbral <span class="math notranslate nohighlight">\((max(0,x))\)</span> en cero. Esto deja el tamaño del tensor de esta capa sin cambios <span class="math notranslate nohighlight">\(\textbf{(n, c, b, h)}\)</span>.</p></li>
+<li><p>La capa <strong>POOL</strong> realizará una operación de <strong>downsampling</strong> a lo largo de las dimensiones espaciales <span class="math notranslate nohighlight">\(\textbf{(b,h)}\)</span>, lo que dará como resultado un volumen <span class="math notranslate nohighlight">\(\textbf{(n, c, b*, h*)}\)</span>, siendo <span class="math notranslate nohighlight">\(\textbf{(b*, h*)}\)</span> inferiores a <span class="math notranslate nohighlight">\(\textbf{(b, h)}\)</span>. Esta capa no utiliza pesos aprendibles.</p></li>
+<li><p>La capa <strong>FC o densa</strong>  (es decir, totalmente conectada) calculará los puntajes de clase. Las capas densas tienen una matriz entrenable <span class="math notranslate nohighlight">\(W_l\)</span> de dos dimensiones <span class="math notranslate nohighlight">\(\textbf{(p,m)}\)</span>, siendo <span class="math notranslate nohighlight">\(\textbf{m}\)</span> el nº de carácteristicas de la salida de la capa (el vector <span class="math notranslate nohighlight">\(X_l\)</span>) y <span class="math notranslate nohighlight">\(\textbf{p}\)</span> el número de características de la entrada a la capa (el vector <span class="math notranslate nohighlight">\(A_{l-1}\)</span>)</p></li>
+</ul>
+<section id="reglas-generales-para-modelar-una-red-convolucional">
+<h3>Reglas generales para modelar una red convolucional<a class="headerlink" href="#reglas-generales-para-modelar-una-red-convolucional" title="Link to this heading">#</a></h3>
+<p>La <strong>capa de entrada</strong> (que contiene la imagen) debe ser divisible por <span class="math notranslate nohighlight">\(2^n\)</span>. Los números comunes incluyen <span class="math notranslate nohighlight">\(32\)</span> (por ejemplo, CIFAR-10), <span class="math notranslate nohighlight">\(64\)</span>, <span class="math notranslate nohighlight">\(96\)</span> (por ejemplo, STL-10) o <span class="math notranslate nohighlight">\(224\)</span> (por ejemplo, ImageNet), <span class="math notranslate nohighlight">\(384\)</span> y <span class="math notranslate nohighlight">\(512\)</span>.</p>
+<p>Las <strong>capas conv</strong> deben usar filtros pequeños (por ejemplo, <span class="math notranslate nohighlight">\(3\times3\)</span> o como máximo <span class="math notranslate nohighlight">\(5\times5\)</span>), usar un salto de <span class="math notranslate nohighlight">\(S = 1\)</span> y, lo que es más importante, rellenar el volumen de entrada con ceros (padding) de tal manera que la capa conv no altere las dimensiones espaciales de la entrada (si <span class="math notranslate nohighlight">\(F = 3\)</span>, <span class="math notranslate nohighlight">\(P = 1\)</span>; si <span class="math notranslate nohighlight">\(F = 5\)</span>, <span class="math notranslate nohighlight">\(P=2\)</span>; en general <span class="math notranslate nohighlight">\(P = (F - 1)/2\)</span>).</p>
+<p>Las <strong>capas de pool</strong> se encargan de reducir el muestreo de las dimensiones espaciales de la entrada. La configuración más común es usar max-pooling con campos receptivos <span class="math notranslate nohighlight">\(2\times2\)</span> (es decir, <span class="math notranslate nohighlight">\(F = 2\)</span>), y un salto de <span class="math notranslate nohighlight">\(2\)</span> (<span class="math notranslate nohighlight">\(S = 2\)</span>); esto es, se descarta exactamente el <span class="math notranslate nohighlight">\(75%\)</span>. Más infrecuente, por la dificultad de encajarlo en la dimensión de la entrada es el uso de <span class="math notranslate nohighlight">\(F = 3\)</span> y <span class="math notranslate nohighlight">\(S = 2\)</span>. Dimensiones de maxpooling superiores son muy infrecuentes ya que es muy agresiva y deficitaria y conduce a peores rendimentos.</p>
+</section>
+</section>
+<section id="arquitecturas-destacadas">
+<span id="arquitecturas"></span><h2>Arquitecturas destacadas<a class="headerlink" href="#arquitecturas-destacadas" title="Link to this heading">#</a></h2>
+<p>Hay varias arquitecturas en el campo de las Redes Convolucionales que tienen un nombre. Los más comunes son:</p>
+<ul class="simple">
+<li><p><strong>LeNet</strong>. Las primeras aplicaciones exitosas de redes convolucionales fueron desarrolladas por <span id="id3">[<a class="reference internal" href="Bibliografia.html#id5" title="Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998.">LeCun <em>et al.</em>, 1998</a>]</span> en la década de 1990. De estos, el más conocido es la arquitectura LeNet que se utilizaba para leer códigos postales, dígitos, etc.</p></li>
+<li><p><strong>AlexNet</strong>. El primer trabajo que popularizó las redes convolucionales en visión artificial fue el AlexNet, desarrollado por <span id="id4">[<a class="reference internal" href="Bibliografia.html#id6" title="Alex Krizhevsky, Ilya Sutskever, and Geoffrey E Hinton. Imagenet classification with deep convolutional neural networks (alexnet). Advances in Neural Information Processing Systems 25 (NIPS 2012), 2012.">Krizhevsky <em>et al.</em>, 2012</a>]</span> (2012). AlexNet se presentó al desafío ImageNet ILSVRC en 2012 y superó significativamente al segundo finalista (error top 5 del 16% en comparación con el subcampeón con un error del 26%). La red tenía una arquitectura muy similar a LeNet, pero era más profunda, más grande y presentaba capas convolucionales apiladas una encima de la otra (anteriormente era común tener una sola capa CONV siempre seguida inmediatamente por una capa POOL).</p></li>
+<li><p><strong>ZF Neto</strong>. El ganador de ILSVRC 2013 fue una Red Convolucional de Matthew Zeiler y Rob Fergus. Se hizo conocido como ZFNet (abreviatura de Zeiler &amp; Fergus Net). Fue una mejora en AlexNet al ajustar los hiperparámetros de la arquitectura, en particular al expandir el tamaño de las capas convolucionales medias y hacer que el paso y el tamaño del filtro en la primera capa sean más pequeños.</p></li>
+<li><p><strong>GoogLeNet</strong>. El ganador de ILSVRC 2014 fue una red convolucional de <span id="id5">[<a class="reference internal" href="Bibliografia.html#id7" title="C Szegedy, W Liu, Y Jia, P Sermanet, S Reed, D Anguelov, D Erhan, V Vanhoucke, and A Rabinovich. Googlenet. In Proc. IEEE Comput. Soc. Conf. Comput. Vis. Pattern Recognit. 2014.">Szegedy <em>et al.</em>, 2014</a>]</span> de Google. Su principal contribución fue el desarrollo de un Módulo de Inicio que redujo drásticamente el número de parámetros en la red (4M, en comparación con AlexNet con 60M). Además, este documento utiliza Average Pooling en lugar de capas totalmente conectadas en la parte superior de ConvNet, eliminando una gran cantidad de parámetros que no parecen importar mucho. También hay varias versiones de seguimiento de GoogLeNet, la más reciente <strong>Inception-v4</strong>.</p></li>
+<li><p><strong>VGGNet</strong>. El subcampeón en ILSVRC 2014 fue la red de Karen Simonyan y Andrew Zisserman que se conoció como VGGNet. Su principal contribución fue mostrar que la profundidad de la red es un componente crítico para un buen rendimiento. Su mejor red final contiene 16 capas CONV / FC y, atractivamente, presenta una arquitectura extremadamente homogénea que solo realiza circunvoluciones 3x3 y agrupación 2x2 desde el principio hasta el final. Su modelo preentrenado está disponible para uso plug and play en Caffe. Una desventaja de VGGNet es que es más caro de evaluar y utiliza mucha más memoria y parámetros (140M). La mayoría de estos parámetros se encuentran en la primera capa totalmente conectada, y desde entonces se descubrió que estas capas FC se pueden eliminar sin degradar el rendimiento, lo que reduce significativamente el número de parámetros necesarios.</p></li>
+<li><p><strong>ResNet</strong>. Residual Network desarrollado por <span id="id6">[<a class="reference internal" href="Bibliografia.html#id8" title="H Kaiming, Z Xiangyu, R Shaoqing, and others. Deep residual learning for image recognition. resnet model. arXiv preprint arXiv:1512.03385, 2015.">Kaiming <em>et al.</em>, 2015</a>]</span> fue el ganador de ILSVRC 2015. Cuenta con conexiones de salto especiales y un uso intensivo de la normalización por lotes. A la arquitectura también le faltan capas totalmente conectadas al final de la red. ResNets son actualmente modelos de red neuronal convolucional de última generación y son la opción predeterminada para usar ConvNets en la práctica (a partir del 10 de mayo de 2016).</p></li>
+</ul>
+<section id="esquema-de-la-arquitectura-vggnet">
+<h3>Esquema de la arquitectura VGGNet<a class="headerlink" href="#esquema-de-la-arquitectura-vggnet" title="Link to this heading">#</a></h3>
+<p>El modelo logra una precisión de prueba del 92,7 % entre los cinco primeros en ImageNet, que es un conjunto de datos de más de 14 millones de imágenes pertenecientes a 1000 clases. Dentro del modelo VGGNet se implementa la arquitectura VGG16:</p>
+<a class="reference internal image-reference" href="_images/arquConv_VGG16.png"><img alt="_images/arquConv_VGG16.png" class="align-center" src="_images/arquConv_VGG16.png" style="width: 500px;" /></a>
+</section>
+<section id="redes-residuales-profundas">
+<h3>Redes Residuales Profundas<a class="headerlink" href="#redes-residuales-profundas" title="Link to this heading">#</a></h3>
+<p>Las Redes Residuales Profundas (<strong>ResNets</strong>) consisten en muchas “Unidades Residuales” apiladas. Cada unidad (ver la siguiente figura) puede expresarse de forma general:</p>
+<div class="math notranslate nohighlight">
+\[y_l = h(x_l) + F(w_l, W_l)\]</div>
+<div class="math notranslate nohighlight">
+\[x_{l+1}=f(y_l)\]</div>
+<a class="reference internal image-reference" href="_images/ResNetUnit.png"><img alt="_images/ResNetUnit.png" class="align-center" src="_images/ResNetUnit.png" style="width: 100px;" /></a>
+<p>Dónde <span class="math notranslate nohighlight">\(x_l\)</span>  y   <span class="math notranslate nohighlight">\(x_{l+1}\)</span>  son entradas y salidas de la unidad <span class="math notranslate nohighlight">\(l\)</span>-ésima, <span class="math notranslate nohighlight">\(F\)</span>  es una función residual, <span class="math notranslate nohighlight">\(h(x_l)=x_l\)</span>  es un mapeo de identidad y <span class="math notranslate nohighlight">\(f\)</span> es la función ReLU.</p>
+<p>Para un mayor detalle y por ejemplo profundizar en la retropropagación de las ResNets consultar el capitulo de Kaiming:</p>
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-319-46493-0_38">https://link.springer.com/chapter/10.1007/978-3-319-46493-0_38</a></p>
+<p>Ver también: <a href="https://pytorch.org/hub/pytorch_vision_resnet/">https://pytorch.org/hub/pytorch_vision_resnet/</a></p>
+</section>
+</section>
+<section id="entrenamiento">
+<span id="id7"></span><h2>Entrenamiento<a class="headerlink" href="#entrenamiento" title="Link to this heading">#</a></h2>
+<p>En cada capa de la red convolucional tendrá lugar, según tipología, un proceso de filtro convolucional, agrupación o ponderación lineal seguido de una activación. Todo ello constituye el paso adelante o proceso <strong>forward</strong> de la red. Para una red ya entrenada, el proceso forward permite obtener las <strong>predicciones</strong>.</p>
+<p>El entrenamiento de la red requiere un proceso de <strong>retropropagación</strong>  (<strong>backpropagation</strong>). Las capas finales que tienen que clasificar los patrones que han extraido las capas convolucionales son <strong>capas densas</strong>, como el perceptron o completamente conectadas (“full connected”). Puede haber 2 o 3 capas densas y en ellas el cálculo de los <strong>gradientes delta</strong> y el ajuste de las matrices <strong>W</strong> se realiza tal cual se ha comentado en el perceptron.</p>
+<p>El bloque de capas densas, acabará propagando una matriz <span class="math notranslate nohighlight">\(\Delta\)</span> que permitirá entrenar las capas previas. Dependiendo del tipo de capa el proceso de forma esquemática será así:</p>
+<section id="capa-de-aplanado">
+<h3>Capa de aplanado<a class="headerlink" href="#capa-de-aplanado" title="Link to this heading">#</a></h3>
+<p>La capa de aplanado se situa al final del proceso de convolución y tiene por objeto cambiar la dimensión de los tensores para que los procesen las capas densas. La función <strong>forward</strong> tiene que convertir un tensor de dimensión <span class="math notranslate nohighlight">\(\textbf{(n, c, b, h)}\)</span> en bidimensional <span class="math notranslate nohighlight">\(\textbf{(n, c . b . h)=(n, m)}\)</span> para conectar con el bloque de capas densas. Por tanto la <strong>retropropagación</strong> recibirá una matriz <span class="math notranslate nohighlight">\(\Delta_{n,m}^l\)</span> bidimensional y tiene que recolocarla a tamaño  <span class="math notranslate nohighlight">\(\Delta_{n,c,b,h}^{l-1}\)</span>. Estás capas no tienen configuración dinámica y no tiene que ajustar ninguna matriz <span class="math notranslate nohighlight">\(\textbf{W}\)</span>.</p>
+</section>
+<section id="capa-de-agrupacion">
+<h3>Capa de Agrupación<a class="headerlink" href="#capa-de-agrupacion" title="Link to this heading">#</a></h3>
+<p>Las capas de agrupación (<strong>maxpooling</strong>) tienen también una configuración estática, el parámetro <span class="math notranslate nohighlight">\(\textbf{p}\)</span> de reducción de escala y la regla de agrupación, no hay matriz <span class="math notranslate nohighlight">\(W\)</span> entrenable. En la <strong>retropropagación</strong> sólo hay que progragar la matriz <span class="math notranslate nohighlight">\(\Delta^l\)</span> recibida para obtener la matriz  <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span>. El tamaño de <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span> se incrementará según la inversa de la escala <span class="math notranslate nohighlight">\(\textbf{p}\)</span> y la obtención de los <span class="math notranslate nohighlight">\(\delta_{ij}^{l-1}\)</span> a partir de <span class="math notranslate nohighlight">\(\delta_{ij}^l\)</span> seguirá una regla inversa. Por ejemplo si <span class="math notranslate nohighlight">\(p=2\)</span> y se tiene agrupación por máximo, se repetirá cada valor <span class="math notranslate nohighlight">\(\delta_{ij}^l\)</span> en una región <span class="math notranslate nohighlight">\(2\times2\)</span> de  <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span>.</p>
+</section>
+<section id="capa-de-convolucion">
+<h3>Capa de convolución<a class="headerlink" href="#capa-de-convolucion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Entrenamiento:</strong> conocidas las matrices <span class="math notranslate nohighlight">\(A^{l-1}\)</span> y <span class="math notranslate nohighlight">\(\Delta^l\)</span> y considerando las dimensiones del filtro convolucional <span class="math notranslate nohighlight">\(W^l\)</span> hay que moverse por <span class="math notranslate nohighlight">\(A^{l-1}\)</span> multiplicando sus regiones por cada uno de los escalares <span class="math notranslate nohighlight">\(\delta^l_{ij}\)</span>. El resultado es una matriz (<span class="math notranslate nohighlight">\(\frac{\partial{C}}{\partial{W^l}}\)</span>), de la misma dimensión que <span class="math notranslate nohighlight">\(W^l\)</span> a la que se acumula para optimizarla:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[W^l \leftarrow -\eta \frac{\partial{C}}{\partial{W^l}}\]</div>
+<p>La <strong>obtención</strong> de <span class="math notranslate nohighlight">\(\frac{\partial{C}}{\partial{W^l}}\)</span> es como se muestra en el <strong>siguiente gráfico</strong> (donde se supone <span class="math notranslate nohighlight">\(W^l\)</span> un filtro <span class="math notranslate nohighlight">\(3\times 3\)</span>,  <span class="math notranslate nohighlight">\(A^{l-1} = [x_{ij}]\)</span> con dimensión <span class="math notranslate nohighlight">\(4\times 4\)</span> y <span class="math notranslate nohighlight">\(\Delta^l\)</span> es dimensión <span class="math notranslate nohighlight">\(2\times 2\)</span>):</p>
+<a class="reference internal image-reference" href="_images/conv_gradW3.png"><img alt="_images/conv_gradW3.png" class="align-center" src="_images/conv_gradW3.png" style="width: 800px;" /></a>
+<ul class="simple">
+<li><p><strong>Nueva propagación:</strong> para obtener <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span> desde <span class="math notranslate nohighlight">\(W^l\)</span> y <span class="math notranslate nohighlight">\(\Delta^l\)</span>, aplicando lo que se denomina una <strong>convolución traspuesta</strong>. El filtro <span class="math notranslate nohighlight">\(W^l\)</span> se combina sobre cada <span class="math notranslate nohighlight">\(\delta^l_{ij}\)</span> para obtener la matriz <span class="math notranslate nohighlight">\(\Delta^{l-1}\)</span> de la forma en que se explica en el siguiente gráfico:</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/conv_gradA.png"><img alt="_images/conv_gradA.png" class="align-center" src="_images/conv_gradA.png" style="width: 800px;" /></a>
+<p>Y continuaría así:</p>
+<a class="reference internal image-reference" href="_images/conv_gradA2.png"><img alt="_images/conv_gradA2.png" class="align-center" src="_images/conv_gradA2.png" style="width: 800px;" /></a>
+<p>La <strong>convolución traspuesta</strong> existe como método en la arquitectura pytorch y además de ejecutarse internamente en el proceso de entrenamiento, se usa para modelos más avanzados como forma de trasladar tensores de una escala inferior a una superior dentro del proceso forward.</p>
+<p><a href="https://pytorch.org/docs/stable/generated/torch.nn.ConvTranspose2d.html">https://pytorch.org/docs/stable/generated/torch.nn.ConvTranspose2d.html</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>El gradiente delta se propaga en una capa convolucional usando un filtro convolucional transpuesto.</p>
+</div>
+<p><strong>Observaciones:</strong> En el cuaderno <a class="reference internal" href="03.9_RedesNeurConvolucional_Maqueta.html"><span class="std std-doc">Maqueta de red neuronal convolucional</span></a> se realiza una justificación de las anteriores operaciones convolucionales en un caso particular; sin padding ni strike, pero que resulta suficientemente general.</p>
+</section>
+</section>
+<section id="funcion-de-perdida-y-optimizador">
+<span id="lossfunction"></span><h2>Función de pérdida y optimizador<a class="headerlink" href="#funcion-de-perdida-y-optimizador" title="Link to this heading">#</a></h2>
+<section id="funcion-de-perdida-o-coste">
+<h3>Función de pérdida o coste<a class="headerlink" href="#funcion-de-perdida-o-coste" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>La <strong>función de pérdida</strong> más habitual es la <strong>entropia cruzada</strong> que va asociada con el uso de la función de activación <strong>softmax</strong> en la última capa.</p></li>
+</ul>
+<p>La función <strong>softmax</strong> a partir del vector ponderación lineal <span class="math notranslate nohighlight">\(\bar{z}\)</span> obtiene una activación a un <strong>vector probabilidad</strong> <span class="math notranslate nohighlight">\(\bar{p}\)</span> con:</p>
+<div class="math notranslate nohighlight">
+\[p_i = \frac{e^{z_i}}{\sum_j e^{z_j}}\]</div>
+<p>Y la función de pérdida <strong>cross_entropy</strong> entre <span class="math notranslate nohighlight">\(\bar{p}\)</span> y el valor real de entrenamiento <span class="math notranslate nohighlight">\(\bar{y}\)</span></p>
+<div class="math notranslate nohighlight">
+\[p_i = -\sum_j y_j \cdot ln(p_j)\]</div>
+<p>Tiene la ventaja que en combinación con <strong>softmax</strong> da un valor del gradiente <strong>delta</strong> muy simple para la última capa (<span class="math notranslate nohighlight">\(L\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial \bar{z^L}}=\bar{\delta^L} = \bar{p} - \bar{y}\]</div>
+<p><a href="https://pytorch.org/docs/stable/nn.html#loss-functions">https://pytorch.org/docs/stable/nn.html#loss-functions</a></p>
+</section>
+<section id="optimizador">
+<h3>Optimizador<a class="headerlink" href="#optimizador" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>El <strong>Optimizador</strong> hace referencia en la manera en que se ajusta la configuración (pesos, filtros, bias) para minimizar la función de pérdida de la red.</p></li>
+</ul>
+<p>En el <strong>gradiente descenso</strong> se aplican los gradientes usando un <strong>ratio de entrenamiento</strong> <span class="math notranslate nohighlight">\(\eta\)</span>.</p>
+<p>El <strong>gradiente descenso estocástico</strong> muestrea observaciones en un conjunto de entrenamiento de gran dimensión.</p>
+<p>El optimizador <strong>Adam</strong> aplica una tasa de entrenamiento variable que se adapta automáticamente en las distintas capas de la arquitectura.</p>
+</section>
+</section>
+<section id="ejemplo">
+<span id="id8"></span><h2>Ejemplo<a class="headerlink" href="#ejemplo" title="Link to this heading">#</a></h2>
+<p>Se supone una red convolucional mínima que procesa una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> que es una imagen con un sólo canal <span class="math notranslate nohighlight">\(8 \times 8\)</span>. Tiene una capa de convolución con un filtro <span class="math notranslate nohighlight">\(F^1\)</span> de dimensión <span class="math notranslate nohighlight">\(3\times3\)</span> sin padding y con stride <span class="math notranslate nohighlight">\(1\)</span>, por tanto la salida  <span class="math notranslate nohighlight">\(\bar{a}^1\)</span> es <span class="math notranslate nohighlight">\(6 \times 6\)</span>. Le sigue una capa de agrupación que obtiene <span class="math notranslate nohighlight">\(\bar{a}^2\)</span> con una dimensión <span class="math notranslate nohighlight">\(3 \times 3\)</span>. La salida de la agrupación se aplana en <span class="math notranslate nohighlight">\(\bar{a}^3\)</span>, resultando un vector de dimensión <span class="math notranslate nohighlight">\(9\)</span>. La última capa es densa acabando en una capa de salida de dimensión <span class="math notranslate nohighlight">\(3\)</span>, obteniendose <span class="math notranslate nohighlight">\(\bar{a}^4\)</span>.
+Se usa activación <strong>ReLU</strong> en todas las capas, excepto en la capa final donde se usa <strong>softMax</strong> y como función de pérdida la <strong>entropia cruzada</strong>.</p>
+<p>Un esquema con un ejemplo de la activación de una observación es:</p>
+<a class="reference internal image-reference" href="_images/Ejemplo_forward.png"><img alt="_images/Ejemplo_forward.png" class="align-center" src="_images/Ejemplo_forward.png" style="width: 800px;" /></a>
+<p>Y un esquema de la retropagación y entrenamiento de la red para una época de la observación es:</p>
+<a class="reference internal image-reference" href="_images/Ejemplo_Backward.png"><img alt="_images/Ejemplo_Backward.png" class="align-center" src="_images/Ejemplo_Backward.png" style="width: 800px;" /></a>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03.6_RedesNeurDensas_EjercicioEntregaWINES.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Ejercicio con entrega sobre variedades vínicolas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03.8_RedesNeurConvolucional_pytorch.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Redes convoluciones con Pytorch</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-capa">Tipos de Capa</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reglas-generales-para-modelar-una-red-convolucional">Reglas generales para modelar una red convolucional</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitecturas-destacadas">Arquitecturas destacadas</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-la-arquitectura-vggnet">Esquema de la arquitectura VGGNet</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#redes-residuales-profundas">Redes Residuales Profundas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento">Entrenamiento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-aplanado">Capa de aplanado</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-agrupacion">Capa de Agrupación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capa-de-convolucion">Capa de convolución</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida-y-optimizador">Función de pérdida y optimizador</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida-o-coste">Función de pérdida o coste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizador">Optimizador</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo">Ejemplo</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

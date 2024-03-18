@@ -41,8 +41,6 @@ En [esta página](content:manualinstalacionpython) podéis encontrar un manual p
 
 * Datos: <a href="https://github.com/upmValeriano/visionArtifAgr/tree/main/docs/data.zip">aquí</a> podéis bajar un archivo comprimido `zip` con los ficheros que se usan en los cuadernos.
 
-* Imágenes: <a href="https://github.com/upmValeriano/visionArtifAgr/tree/main/docs/images.zip">aquí</a> podéis descargar un `zip` con las imágenes que aparecen en los cuadernos.
-
 ----
 
 ## Paquetes necesarios

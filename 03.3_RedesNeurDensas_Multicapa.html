@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Red densa multicapa &#8212; visionArtifAgr</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03.3_RedesNeurDensas_Multicapa';</script>
+    <link rel="icon" href="_static/EscUpm.jpg"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Red densa. Procesamiento en lote" href="03.4_RedesNeurDensas_Lote.html" />
+    <link rel="prev" title="Red densa simple. Perceptron de sk-learn" href="03.2_RedesNeurDensas_Bicapa_sklearn.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="introAA.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logoETSIAAB.png" class="logo__image only-light" alt="visionArtifAgr - Home"/>
+    <script>document.write(`<img src="_static/logoETSIAAB.png" class="logo__image only-dark" alt="visionArtifAgr - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="introAA.html">
+                    Bienvenida
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_IntroduccionIntro.html">Presentación</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="01.1_InstalacionJupyter.html">Instalación de Python y Cuadernos Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.2_EjemplosdePythonparaaprenderaprogramar.html">Repaso de programación en Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01.3_InstalacionLibrerias.html">Instalación de Librerías</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_ClasificacionIntro.html">Clasificación</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02.1_Introduccion_AA.html">El Aprendizaje Automático</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.2_MetodosdeClasificacion_Ordinarios.html">Métodos de clasificación</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02.3_Clasificacion-EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="03_rnnIntro.html">Redes Neuronales</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="03.1_RedesNeurDensas_Bicapa.html">Red densa simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.2_RedesNeurDensas_Bicapa_sklearn.html">Red densa simple. Perceptron de sk-learn</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Red densa multicapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.4_RedesNeurDensas_Lote.html">Red densa. Procesamiento en lote</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.5_RedesNeurDensas_Multicapa_sklearn.html">Red densa multicapa. MLPClassifier de sk-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.6_RedesNeurDensas_EjercicioEntregaWINES.html">Ejercicio con entrega sobre variedades vínicolas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.7_RedesNeurConvolucional.html">Redes convolucionales</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.8_RedesNeurConvolucional_pytorch.html">Redes convoluciones con Pytorch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.9_RedesNeurConvolucional_Maqueta.html">Maqueta de red convolucional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/upmValeriano/visionArtifAgr/issues/new?title=Issue%20on%20page%20%2F03.3_RedesNeurDensas_Multicapa.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/03.3_RedesNeurDensas_Multicapa.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Red densa multicapa</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-un-perceptron-multicapa-o-red-densa">Definición de un perceptrón multicapa o red densa</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activacion-forward">Activación (forward)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento">Entrenamiento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-en-la-capa-2">Entrenamiento en la capa 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-de-la-capa-1">Entrenamiento de la capa 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retropropagacion">Retropropagación</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="red-densa-multicapa">
+<h1>Red densa multicapa<a class="headerlink" href="#red-densa-multicapa" title="Link to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">#</a></h2>
+<p>El <strong>algoritmo de retropropagación que permite entrenar una red multicapa</strong> se introduce en 1970, pero no es hasta 1986 con el artículo de <span id="id1">[<a class="reference internal" href="Bibliografia.html#id14" title="David E Rumelhart, Geoffrey E Hinton, and Ronald J Williams. Learning representations by back-propagating errors. nature, 323(6088):533–536, 1986.">Rumelhart <em>et al.</em>, 1986</a>]</span> cuando se aprecia su potencial. Permitiendo, por ejemplo, clasificar conjuntos donde las clases no están linealmente separadas.</p>
+<section id="definicion-de-un-perceptron-multicapa-o-red-densa">
+<h3>Definición de un perceptrón multicapa o red densa<a class="headerlink" href="#definicion-de-un-perceptron-multicapa-o-red-densa" title="Link to this heading">#</a></h3>
+<p>Se dispone de un conjunto de capas <span class="math notranslate nohighlight">\(\{0,..., l, ..., L\}\)</span> donde <strong>0</strong> es la capa de entrada, <strong>L</strong> la de salida y el resto de capas <span class="math notranslate nohighlight">\(0&lt;l&lt;L\)</span> son las capas intermedias u ocultas. Una capa <span class="math notranslate nohighlight">\(l-1\)</span> tiene conectadas todas sus neuronas con cada una de las neuronas de la capa siguiente <span class="math notranslate nohighlight">\(l\)</span>, por tanto harán falta <strong>L</strong> matrices de Pesos y Bias para configurar la red:</p>
+<div class="math notranslate nohighlight">
+\[\{W^1, ..., W^l,...,W^L\}; \{B^1, ..., B^l,...,B^L\}\]</div>
+<p><em>En general bastarán con 1 o 2 capas ocultas para definir un perceptrón</em>.</p>
+<a class="reference internal image-reference" href="_images/RedMultiCapa.png"><img alt="_images/RedMultiCapa.png" class="align-center" src="_images/RedMultiCapa.png" style="width: 800px;" /></a>
+</section>
+</section>
+<section id="activacion-forward">
+<h2>Activación (forward)<a class="headerlink" href="#activacion-forward" title="Link to this heading">#</a></h2>
+<p>El proceso de activación transforma una observación <span class="math notranslate nohighlight">\(\vec{x}\)</span> en la probabilidad final de la red. Implica concatenar procesos de ponderación lineal y activación aplicados a la salida de la capa anterior:</p>
+<div class="math notranslate nohighlight">
+\[\bar{z}^l = \bar{a}^{(l-1)} W^l + B^l\]</div>
+<div class="math notranslate nohighlight">
+\[\bar{a}^l = f \begin{pmatrix} \bar{z}^l \end{pmatrix} \]</div>
+<p>Siendo <span class="math notranslate nohighlight">\(\bar{a}^{(l-1)} = \bar{x}\)</span> en la primera capa si <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
+</section>
+<section id="entrenamiento">
+<h2>Entrenamiento<a class="headerlink" href="#entrenamiento" title="Link to this heading">#</a></h2>
+<p>El entrenamiento de un perceptrón multicapa requiere ajustar la configuración de cada capa por el gradiente de la función de pérdida o coste con respecto a los pesos y bias.</p>
+<p><strong>Para justificar</strong> de una manera sencilla este proceso de <strong>retropropagación</strong> se parte de un ejemplo lo más sencillo posible de red multicapa:</p>
+<a class="reference internal image-reference" href="_images/RedTriCapa.png"><img alt="_images/RedTriCapa.png" class="align-center" src="_images/RedTriCapa.png" style="width: 700px;" /></a>
+<p><strong>Cuya configuración es</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}  W^1 = \begin{pmatrix} w^1_{11} &amp; w^1_{21} \\  w^1_{12} &amp; w^1_{22} \end{pmatrix}    \phantom{abc} 
+    B^1 = \begin{pmatrix} b^1_1 &amp; b^1_2 \end{pmatrix}    \phantom{abc} 
+    W^2 = \begin{pmatrix} w^2_{11} &amp; w^2_{21} \\  w^2_{12} &amp; w^2_{22} \end{pmatrix}    \phantom{abc} 
+    B^2 = \begin{pmatrix} b^2_1 &amp; b^2_2 \end{pmatrix} \end{split}\]</div>
+<p>El <strong>superindice</strong> se utiliza aquí en la notación para identificar la capa del número, vector o matriz. Para no confudir donde se emple un cuadrado aparecerá en negrita y con tamaño mayor.</p>
+<section id="entrenamiento-en-la-capa-2">
+<h3>Entrenamiento en la capa 2<a class="headerlink" href="#entrenamiento-en-la-capa-2" title="Link to this heading">#</a></h3>
+<p>El entrenamiento que produce una observación <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2)\)</span> en los pesos de la segunda capa conduce a resultados similares a los obtenidos en el modelo bicapa. Para seguir la aplicación de la regla de la cadena las derivadas de la <strong>función de pérdida</strong></p>
+<div class="math notranslate nohighlight">
+\[C = \frac{1}{2} \begin{bmatrix} (a^2_1 - y_1)^ {\Large \textbf 2} + (a^2_2 - y_2)^ {\Large \textbf 2} \end{bmatrix}\]</div>
+<p>se puede seguir hacia atrás el grafo de la red hasta las variables que se está derivando.</p>
+<a class="reference internal image-reference" href="_images/RedTriCapa2.png"><img alt="_images/RedTriCapa2.png" class="align-center" src="_images/RedTriCapa2.png" style="width: 500px;" /></a>
+<p>Para obtener <span class="math notranslate nohighlight">\(\frac{\partial C}{\partial w^2_{11}}\)</span> se sigue el camino amarillo:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^2_{11}} = \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial z^2_1}\frac{\partial z^2_1}{\partial w^2_{11}} =  (a^2_1 - y_1) f'(z^2_1) a^1_1 = \delta^2_1 a^1_1 \]</div>
+<p>De igual forma se obtendría</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^2_{12}} = \delta^2_1 a^1_2 \phantom{abc} \frac{\partial C}{\partial b^2_1} = \delta^2_1\]</div>
+<p>Y para obtener <span class="math notranslate nohighlight">\(\frac{\partial C}{\partial w^2_{21}}\)</span> se sigue el camino verde:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^2_{21}} = \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial z^2_2}\frac{\partial z^2_2}{\partial w^2_{21}} =  (a^2_2 - y_2) f'(z^2_2) a^1_1 = \delta^2_2 a^1_1 \]</div>
+<p>De igual forma se obtendría</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^2_{22}} = \delta^2_2 a^1_2 \phantom{abc} \frac{\partial C}{\partial b^2_2} = \delta^2_2\]</div>
+<p><strong>Lo que permite obtener los gradientes de la capa 2</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial \bar{z}^2} = \bar{\delta}^2 = (\delta^2_1,\delta^2_2) = (\bar{a}^2 - \bar{y}) \odot f'(\bar{z}^2)\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial W^2} = (\bar{\delta}^2)^T \cdot \bar{a}_1\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial B^2} = (\bar{\delta}^2)^T \]</div>
+</section>
+<section id="entrenamiento-de-la-capa-1">
+<h3>Entrenamiento de la capa 1<a class="headerlink" href="#entrenamiento-de-la-capa-1" title="Link to this heading">#</a></h3>
+<p><strong>El entrenamiento de la capa 1</strong>, por ejemplo para optimizar el peso <span class="math notranslate nohighlight">\(w^1_{11}\)</span> requiere dos caminos simultáneos (verde y amarillo) como se puede comprobar en el siguiente gráfico:</p>
+<a class="reference internal image-reference" href="_images/RedTriCapa3.png"><img alt="_images/RedTriCapa3.png" class="align-center" src="_images/RedTriCapa3.png" style="width: 700px;" /></a>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{11}} = \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial w^1_{11}} +  \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial w^1_{11}} \]</div>
+<p>Desarrollando cada uno de los sumandos:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial w^1_{11}} = 
+ \frac{\partial C}{\partial a^2_1} 
+ \frac{\partial a^2_1}{\partial z^2_1}
+ \frac{\partial z^2_1}{\partial a^1_1}
+ \frac{\partial a^1_1}{\partial z^1_1}
+ \frac{\partial z^1_1}{\partial  w^1_{11}} \]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial w^1_{11}} = 
+ \frac{\partial C}{\partial a^2_2} 
+ \frac{\partial a^2_2}{\partial z^2_2}
+ \frac{\partial z^2_2}{\partial a^1_1}
+ \frac{\partial a^1_1}{\partial z^1_1}
+ \frac{\partial z^1_1}{\partial  w^1_{11}} \]</div>
+<p>Permite poner:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{11}} = \delta^2_1 w^2_{11} f'(z^1_1) x_1 + \delta^2_2 w^2_{21} f'(z^1_1) x_1 = 
+(\delta^2_1 w^2_{11} + \delta^2_2 w^2_{21}) f'(z^1_1)  x_1 = \delta^1_1 x_1\]</div>
+<p>De igual forma se tiene:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{12}} = \delta^1_1 x_2 \phantom{abc}  \frac{\partial C}{\partial b^1_1} = \delta^1_1\]</div>
+<p><strong>Para optimizar el peso</strong> <span class="math notranslate nohighlight">\(w^1_{21}\)</span> requiere también dos caminos simultáneos (verde y amarillo) como se puede comprobar en el siguiente gráfico:</p>
+<a class="reference internal image-reference" href="_images/RedTriCapa4.png"><img alt="_images/RedTriCapa4.png" class="align-center" src="_images/RedTriCapa4.png" style="width: 700px;" /></a>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{21}} = \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial w^1_{21}} +  \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial w^1_{21}} \]</div>
+<p>Desarrollando cada uno de los sumandos:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial w^1_{21}} = 
+ \frac{\partial C}{\partial a^2_1} 
+ \frac{\partial a^2_1}{\partial z^2_1}
+ \frac{\partial z^2_1}{\partial a^1_2}
+ \frac{\partial a^1_2}{\partial z^1_2}
+ \frac{\partial z^1_2}{\partial  w^1_{21}} \]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial w^1_{21}} = 
+ \frac{\partial C}{\partial a^2_2} 
+ \frac{\partial a^2_2}{\partial z^2_2}
+ \frac{\partial z^2_2}{\partial a^1_2}
+ \frac{\partial a^1_2}{\partial z^1_2}
+ \frac{\partial z^1_2}{\partial  w^1_{21}} \]</div>
+<p>Permite poner:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{21}} = \delta^2_1 w^2_{12} f'(z^1_2) x_1 + \delta^2_2 w^2_{22} f'(z^1_2) x_1 = 
+(\delta^2_1 w^2_{12} + \delta^2_2 w^2_{22}) f'(z^1_2)  x_1 = \delta^1_2 x_1\]</div>
+<p>De igual forma se tiene:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{22}} = \delta^1_2 x_2 \phantom{abc}  \frac{\partial C}{\partial b^1_2} = \delta^1_2\]</div>
+</section>
+</section>
+<section id="retropropagacion">
+<h2>Retropropagación<a class="headerlink" href="#retropropagacion" title="Link to this heading">#</a></h2>
+<p><strong>Resumiendo, el gradiente <span class="math notranslate nohighlight">\(\bar{\delta}^1\)</span> se puede poner</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\delta}^1 = (\delta^1_1, \delta^1_2) = (\delta^2_1 w^2_{11} + \delta^2_2 w^2_{21},  \delta^2_1 w^2_{12} + \delta^2_2 w^2_{22}) \odot f'(z^1_1, z^1_2)
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \bar{\delta}^1 = \begin{bmatrix} (\delta^2_1, \delta^2_2) \begin{pmatrix} w^2_{11} &amp; w^2_{12} \\  w^2_{21} &amp; w^2_{22} \end{pmatrix} \end{bmatrix}  \odot f'\begin{pmatrix}\bar{z}^1\end{pmatrix} = 
+\begin{bmatrix} \bar{\delta}^2 \cdot  (W^2)^T  \end{bmatrix} \odot f'\begin{pmatrix}\bar{z}^1\end{pmatrix}\end{split}\]</div>
+<p><strong>Graficamente</strong> se puede observar que el gradiente <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> se transmite desde la última capa hasta la capa 1 <strong>funcionando la red densa de forma inversa</strong>. Está transformación lineal para pasar de <span class="math notranslate nohighlight">\(\bar{\delta}^2\)</span> a <span class="math notranslate nohighlight">\(\bar{\delta}^1\)</span> tiene lugar con una matriz <span class="math notranslate nohighlight">\(W^2\)</span> <strong>traspuesta</strong> con respecto al proceso de activación.</p>
+<a class="reference internal image-reference" href="_images/RedTriCapa5.png"><img alt="_images/RedTriCapa5.png" class="align-center" src="_images/RedTriCapa5.png" style="width: 600px;" /></a>
+<p><strong>Finalmente</strong> las formulas que permiten obtener los <strong>gradientes</strong> <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> en una capa <span class="math notranslate nohighlight">\(l &lt; L\)</span> para una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> o para un bloque de observaciones <span class="math notranslate nohighlight">\(X\)</span> es:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\delta}^l = \bar{\delta}^{l+1} \cdot (W^{l+1})^T \odot f'(z^l) \]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Los gradientes delta se transmiten desde la capa superior a partir de la matriz de pesos transpuesta. La transposición hace que el sentido de transmisión en la red sea el opuesto.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03.2_RedesNeurDensas_Bicapa_sklearn.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Red densa simple. Perceptron de sk-learn</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03.4_RedesNeurDensas_Lote.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Red densa. Procesamiento en lote</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-un-perceptron-multicapa-o-red-densa">Definición de un perceptrón multicapa o red densa</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activacion-forward">Activación (forward)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento">Entrenamiento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-en-la-capa-2">Entrenamiento en la capa 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entrenamiento-de-la-capa-1">Entrenamiento de la capa 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retropropagacion">Retropropagación</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Valeriano Germán Méndez Fuentes
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
