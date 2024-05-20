@@ -202,6 +202,7 @@
 <li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cuestionario.html">Cuestionario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
 </ul>
@@ -436,19 +437,19 @@ document.write(`
 <p><span id="id2">[<a class="reference internal" href="Bibliografia.html#id12" title="Frank Rosenblatt. The perceptron: a probabilistic model for information storage and organization in the brain. Psychological review, 65(6):386, 1958.">Rosenblatt, 1958</a>]</span> introdujo el <strong>perceptrón simple</strong> formado por dos capas, una de <strong>entrada con n neuronas</strong> y una de <strong>salida con m neuronas</strong>. <span id="id3">[<a class="reference internal" href="Bibliografia.html#id13" title="Bernard Widrow and Marcian E Hoff. Adaptive switching circuits. Technical Report, Stanford Univ Ca Stanford Electronics Labs, 1960.">Widrow and Hoff, 1960</a>]</span> introdujeron el modelo <strong>ADAptative LInear Neuron (Adaline)</strong> tambien bicapa.</p>
 <section id="activacion-de-una-observacion-bar-x-por-efecto-de-la-red">
 <h3>Activación de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> por efecto de la red<a class="headerlink" href="#activacion-de-una-observacion-bar-x-por-efecto-de-la-red" title="Link to this heading">#</a></h3>
-<p>Dada <strong>1 observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1,...,x_j, ..., x_n)\)</span> de la que se conoce su <strong>clase</strong> en formato <em>one-hote</em> <span class="math notranslate nohighlight">\(\bar{y}=(y_1,...,y_i, ...y_m)\)</span></p>
+<p>Dada <strong>1 observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1,...,x_j, ..., x_n)\)</span> de la que se conoce su <strong>clase</strong> en formato <a href="https://es.wikipedia.org/wiki/One-hot">one-hot</a> <span class="math notranslate nohighlight">\(\bar{y}=(y_1,...,y_i, ...y_m)\)</span></p>
 <p>Primero se efectua una <strong>ponderación lineal</strong> <span class="math notranslate nohighlight">\(\bar{z}=(z_1,...,z_i, ..., z_m)\)</span> de la que se obtiene la <strong>salida</strong> <span class="math notranslate nohighlight">\(\bar{a}\)</span> aplicando una <strong>función de activación</strong>:</p>
 <div class="math notranslate nohighlight">
 \[\bar{a}=f(\bar{z})=(a_1,...,a_i, ..., a_m)\]</div>
 <p>Se puede decir que existen <span class="math notranslate nohighlight">\(n\)</span> <strong>neuronas de entrada</strong> y <span class="math notranslate nohighlight">\(m\)</span> <strong>neuronas de salida</strong>. La ponderación lineal en las neuronas de salida a partir de los pesos se calcula:</p>
 <div class="math notranslate nohighlight">
 \[z_i = b_i + \displaystyle\sum_{j=1}^n w_{ij}x_j \quad (i=1...m)\]</div>
-<p>Hacen falta <span class="math notranslate nohighlight">\(n \times m\)</span> pesos y <span class="math notranslate nohighlight">\(m\)</span> bias para definir la red, que puesto en forma matricial:</p>
+<p>Hacen falta <span class="math notranslate nohighlight">\(m \times n\)</span> pesos y <span class="math notranslate nohighlight">\(m\)</span> bias para definir la red, que puesto en forma matricial:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} W = \begin{bmatrix}{w_{11}}&amp;{w_{12}}&amp;{...}&amp;{w_{1m}}\\{w_{21}}&amp;{w_{22}}&amp;{...}&amp;{w_{2m}}\\{...}&amp;{...}&amp;{...}&amp;{...}\\{w_{n1}}&amp;{w_{n2}}&amp;{...}&amp;{w_{nm}}\end{bmatrix}  \quad B = \begin{bmatrix}{b_{1}}&amp;{b_{2}}&amp;{...}&amp;{b_{m}}\end{bmatrix} \end{split}\]</div>
+\[\begin{split} W = \begin{bmatrix}{w_{11}}&amp;{w_{12}}&amp;{...}&amp;{w_{1n}}\\{w_{21}}&amp;{w_{22}}&amp;{...}&amp;{w_{2n}}\\{...}&amp;{...}&amp;{...}&amp;{...}\\{w_{m1}}&amp;{w_{m2}}&amp;{...}&amp;{w_{mn}}\end{bmatrix}  \quad B = \begin{bmatrix}{b_{1}}\\{b_{2}}\\{...}\\{b_{m}}\end{bmatrix} \end{split}\]</div>
 <p><strong>Siendo</strong></p>
 <div class="math notranslate nohighlight">
-\[ \bar{z} = \bar{x} \cdot W + B \]</div>
+\[ \bar{z}^T =   W \cdot \bar{x} ^T + B \]</div>
 <hr class="docutils" />
 <a class="reference internal image-reference" href="_images/Neurona-2Capas.png"><img alt="_images/Neurona-2Capas.png" class="align-center" src="_images/Neurona-2Capas.png" style="width: 800px;" /></a>
 </section>
@@ -459,7 +460,7 @@ document.write(`
 <a class="reference internal image-reference" href="_images/RedBiCapa.png"><img alt="_images/RedBiCapa.png" class="align-center" src="_images/RedBiCapa.png" style="width: 400px;" /></a>
 <p>La red se puede configurar con las <strong>matrices de pesos y bias</strong> siguientes:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}W = \begin{bmatrix} w_{11} &amp; w_{12} \\ w_{21} &amp; w_{22}  \\ w_{31} &amp; w_{32} \end{bmatrix}  \phantom{abc}  B = \begin{bmatrix} b_1 &amp; b_2 \end{bmatrix} \end{split}\]</div>
+\[\begin{split}W = \begin{bmatrix} w_{11} &amp; w_{12} &amp; w_{13} \\ w_{21} &amp; w_{22} &amp; w_{23} \end{bmatrix}  \phantom{abc}  B = \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} \end{split}\]</div>
 <p>Se conoce <strong>una observación</strong> <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2, x_3)\)</span> de la que se sabe su <strong>clase en formato one-hot</strong> <span class="math notranslate nohighlight">\(\bar{y}=(y_1, y_2)\)</span>. Una vez <strong>activada</strong> la red se obtiene <span class="math notranslate nohighlight">\(\bar{a}=(a_1, a_2)\)</span>. Usando el error al cuadrado, la <strong>pérdida</strong> de esta observación será:</p>
 <div class="math notranslate nohighlight">
 \[C = \frac{1}{2} \begin{bmatrix} (a_1-y_1)^2 + (a_2-y_2)^2 \end{bmatrix}\]</div>
@@ -490,20 +491,19 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split} \frac{\partial{C}}{\partial{W}}  = 
     \begin{bmatrix}  
-    \frac{\partial{C}}{\partial{w_{11}}} &amp; \frac{\partial{C}}{\partial{w_{12}}} \\
-    \frac{\partial{C}}{\partial{w_{21}}} &amp; \frac{\partial{C}}{\partial{w_{22}}} \\
-    \frac{\partial{C}}{\partial{w_{31}}} &amp; \frac{\partial{C}}{\partial{w_{32}}} 
+    \frac{\partial{C}}{\partial{w_{11}}} &amp; \frac{\partial{C}}{\partial{w_{12}}} &amp; \frac{\partial{C}}{\partial{w_{13}}} \\
+    \frac{\partial{C}}{\partial{w_{21}}} &amp; \frac{\partial{C}}{\partial{w_{22}}} &amp; \frac{\partial{C}}{\partial{w_{23}}} 
     \end{bmatrix} =
-    \begin{bmatrix} \delta_1 x_1 &amp; \delta_2 x_1  \\
-                    \delta_1 x_2 &amp; \delta_2 x_2 \\
-                    \delta_1 x_3 &amp; \delta_2 x_3  \end{bmatrix} = 
-    \begin{bmatrix} \delta_1 &amp; \delta_2  \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3  \end{bmatrix}   
-    =  \bar{\delta}  \cdot \begin{pmatrix}\bar{x} \end{pmatrix} ^T
+    \begin{bmatrix} \delta_1 x_1 &amp; \delta_1 x_2 &amp; \delta_1 x_3  \\
+                    \delta_2 x_1 &amp; \delta_2 x_2 &amp; \delta_2 x_3
+                     \end{bmatrix} = 
+    \begin{bmatrix} \delta_1 \\ \delta_2  \end{bmatrix} \begin{bmatrix} x_1 &amp; x_2 &amp; x_3  \end{bmatrix}   
+    = \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \cdot \bar{x}   
 \end{split}\]</div>
 <p>Y <strong>también</strong></p>
 <div class="math notranslate nohighlight">
-\[ \frac{\partial{C}}{\partial{B}} = \begin{bmatrix}  \frac{\partial{C}}{\partial{b_1}}  &amp;  \frac{\partial{C}}{\partial{b_2}}   \end{bmatrix} = 
-\begin{bmatrix} \delta_1 &amp; \delta_2 \end{bmatrix} = \bar{\delta} \]</div>
+\[\begin{split} \frac{\partial{C}}{\partial{B}} = \begin{bmatrix}  \frac{\partial{C}}{\partial{b_1}}  \\  \frac{\partial{C}}{\partial{b_2}}   \end{bmatrix} = 
+\begin{bmatrix} \delta_1 \\ \delta_2 \end{bmatrix} = \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \end{split}\]</div>
 <p><strong>Además</strong> <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> se puede poner vectorialmente:</p>
 <div class="math notranslate nohighlight">
 \[\bar{\delta} = (\delta_1, \delta_2) = \begin{pmatrix} (a_1 - y_1)f'(z_1), (a_2 - y_2)f'(z_2) \end{pmatrix}\]</div>
@@ -525,7 +525,7 @@ document.write(`
 \[  B[t+1] = B[t] - \eta  \cdot \begin{pmatrix} \bar{\delta} \end{pmatrix} ^T  \]</div>
 <h4 style="color:green;">Gradientes asociados</h4>
 <div class="math notranslate nohighlight">
-\[\frac{\partial C}{\partial W}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \cdot \bar{x};   \phantom{abc}  \frac{\partial C}{\partial B}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T ;  \phantom{abc} \frac{\partial C}{\partial Z}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T  \]</div>
+\[\frac{\partial C}{\partial W}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T \cdot \bar{x};   \phantom{abc}  \frac{\partial C}{\partial B}=\begin{pmatrix} \bar{\delta} \end{pmatrix} ^T ;  \phantom{abc} \frac{\partial C}{\partial Z}=\bar{\delta}  \]</div>
 </section>
 <section id="comentarios-finales">
 <h2>Comentarios Finales<a class="headerlink" href="#comentarios-finales" title="Link to this heading">#</a></h2>

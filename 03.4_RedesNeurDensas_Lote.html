@@ -202,6 +202,7 @@
 <li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cuestionario.html">Cuestionario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
 </ul>
@@ -418,21 +419,24 @@ document.write(`
 <h2>Activación<a class="headerlink" href="#activacion" title="Link to this heading">#</a></h2>
 <p><strong>Si la entrada a la red</strong> está constituida por un bloque de <span class="math notranslate nohighlight">\(N\)</span> observaciones almacenadas en la matriz <span class="math notranslate nohighlight">\(X\)</span> la activación en una capa <span class="math notranslate nohighlight">\(l\)</span> es:</p>
 <div class="math notranslate nohighlight">
-\[ Z^l =   A^{l-1} \cdot W^l  \oplus B^l \]</div>
+\[ \begin{bmatrix} Z^l \end{bmatrix}^T =  W^l \cdot \begin{bmatrix} A^{l-1} \end{bmatrix}^T \oplus B^l \]</div>
 <div class="math notranslate nohighlight">
 \[A^l= f(Z^l) \]</div>
 <p>Sabiendo que si <span class="math notranslate nohighlight">\(l=1\)</span> entonces <span class="math notranslate nohighlight">\(A^{l-1} = X\)</span></p>
 </section>
 <section id="retro-propagacion">
 <h2>Retro-propagación<a class="headerlink" href="#retro-propagacion" title="Link to this heading">#</a></h2>
-<p>El <em>gradiente delta</em>_ en la <strong>capa de salida</strong> <span class="math notranslate nohighlight">\(L\)</span> se calcula para un lote de observaciones de la que se conoce su clasificación real <span class="math notranslate nohighlight">\(Y\)</span> por:</p>
+<p>El <strong>gradiente delta</strong> en la <strong>capa de salida</strong> <span class="math notranslate nohighlight">\(L\)</span> se calcula, para un lote de observaciones de la que se conoce su clasificación real <span class="math notranslate nohighlight">\(Y\)</span>, por:</p>
 <p><strong>Matriz <span class="math notranslate nohighlight">\({\large \Delta}\)</span></strong>: La tasa de variación de la función de pérdida o coste con respecto a la ponderación lineal de la capa de salida:</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial{C}}{\partial{Z^L}}=\Delta = (A-Y) \odot f ' (Z)\]</div>
 <p>En la obtención de la matriz <span class="math notranslate nohighlight">\({\large \Delta}\)</span> se utiliza el producto de Hadamard (<span class="math notranslate nohighlight">\(\odot\)</span>).</p>
 <p>El <strong>gradiente delta</strong> se <strong>propaga</strong> hacia las <strong>capas inferiores</strong> de acuerdo a:</p>
 <div class="math notranslate nohighlight">
-\[\Delta^l = \Delta^{l+1} \cdot (W^{l+1})^T  \odot f'(Z^l) \]</div>
+\[\begin {bmatrix} \Delta^l \end {bmatrix}^T = \begin {bmatrix} W^{l+1} \end {bmatrix}^T \cdot \begin {bmatrix} \Delta^{l+1} \end {bmatrix}^T    \odot f'\begin {pmatrix} \begin {bmatrix} Z^l \end {bmatrix}^T \end {pmatrix} \]</div>
+<p>O puesto de otra forma:</p>
+<div class="math notranslate nohighlight">
+\[\Delta^l = \Delta^{l+1} \cdot W^{l+1} \odot f'(Z^l) \]</div>
 </section>
 <section id="entrenamiento">
 <h2>Entrenamiento<a class="headerlink" href="#entrenamiento" title="Link to this heading">#</a></h2>

@@ -202,6 +202,7 @@
 <li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cuestionario.html">Cuestionario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
 </ul>
@@ -473,7 +474,7 @@ document.write(`
 <section id="introduccion">
 <h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">#</a></h2>
 <p>La asignatura de <strong>Aprendizaje Automático</strong> es un compendio de nuevas técnicas de análisis de datos avanzados que de la mano de la <strong>estadística</strong> y de los avances de la <strong>programación</strong> han abierto un nuevo horizonte en campos hasta ese momento vedados al análisis.</p>
-<p>Uno de esos campos es sin lugar a duda los campos de la biología, que por la complejidad de sus modelos se encontraba fuera de muchos de los avances que la física matemática había aplicado a otros campos de la ingeniería como la electrotecnia y electrónica, la termodinámica o la mecánica de materiales por ejemplo.</p>
+<p>Uno de esos campos es sin lugar el de la biología, que por la complejidad de sus modelos se encontraba fuera de muchos de los avances que la física matemática había aplicado a otros campos de la ingeniería como la electrotecnia y electrónica, la termodinámica o la mecánica de materiales por ejemplo.</p>
 <p>Pero incluso <strong>los modelos informáticos inspirados en procesos biológicos</strong> se han constituido en <strong>herramientas de propósito general</strong> para construir los esquemas de trabajo, caso de las <strong>redes neuronales</strong>, o resolver problemas generales, caso de la aplicación de los <strong>algoritmos genéticos</strong> a la solución de problemas generales de <strong>optimización</strong>.</p>
 <a class="reference internal image-reference" href="_images/IA_MachineL.png"><img alt="_images/IA_MachineL.png" src="_images/IA_MachineL.png" style="width: 600px;" /></a>
 <section id="aprendizaje-supervisado-vs-no-supervisado-regresion-vs-clasificacion">
@@ -515,8 +516,8 @@ document.write(`
 </section>
 <section id="entrenamiento-y-validacion">
 <h2>Entrenamiento y validación<a class="headerlink" href="#entrenamiento-y-validacion" title="Link to this heading">#</a></h2>
-<p>El ajuste del modelo estadistico de un método supervisado se realiza sobre una parte de los conjuntos <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> de partida. Se hace una partición tanto de <span class="math notranslate nohighlight">\(X\)</span> como de <span class="math notranslate nohighlight">\(Y\)</span> en dos subconjuntos. El primero, que se denomina de <strong>entranamiento</strong> o <strong>train</strong> se utiliza para hacer realmente el ajuste del modelo. Y este ajuste se valida en el subconjunto que se ha reservado a tal fin y al que se da el nombre de conjunto de <strong>test</strong> o <strong>validación</strong>.</p>
-<p>Esto es así porque los métodos de ajuste pueden conseguir una convergencia sobre el conjunto de entrenamiento que sea ficticia, lo que se llama <strong>sobreajuste</strong>, y luego al validar se comprueba que el ratio de éxito es muchísimo menor. Esto puede ser así porque realmente el modelo no tenga convergencia o correlación real.</p>
+<p>El ajuste del modelo estadistico de un método supervisado se realiza sobre una parte de los conjuntos <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> de partida. Se hace una partición tanto de <span class="math notranslate nohighlight">\(X\)</span> como de <span class="math notranslate nohighlight">\(Y\)</span> en dos subconjuntos. El primero, que se denomina de <strong>entranamiento</strong> o <strong>train</strong>, se utiliza para hacer realmente el ajuste del modelo. Y este ajuste se valida en el subconjunto que se ha reservado a tal fin y al que se da el nombre de conjunto de <strong>test</strong> o <strong>validación</strong>.</p>
+<p>Esto es así porque los métodos de ajuste pueden conseguir una convergencia sobre el conjunto de entrenamiento que sea ficticia, lo que se llama <strong>sobreajuste</strong>, y luego al validar se comprueba que el ratio de éxito es muchísimo menor. Que puede deberse a que el modelo no tenga convergencia o correlación real.</p>
 <a class="reference internal image-reference" href="_images/Training.png"><img alt="_images/Training.png" class="align-center" src="_images/Training.png" style="width: 600px;" /></a>
 </section>
 <section id="preparacion-de-datos">
@@ -548,7 +549,7 @@ document.write(`
 <p>Primero se comienza cargando desde la librería Pandas los datos del fichero a un objeto <strong>DataFrame</strong>. Ésto lo realiza la función <strong>read_csv</strong> que lee el fichero CSV.</p>
 <p>https://pandas.pydata.org/docs/index.html</p>
 <p>https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html</p>
-<p>Los valores perdidos se pueden detectar y eliminar desde el objeto <em>DataFrame</em> con los métodos <strong>isna()</strong> y <strong>dropnan()</strong> respectivamente.</p>
+<p>Los valores perdidos se pueden detectar y eliminar desde el objeto <em>DataFrame</em> con los métodos <strong>isna()</strong> y <strong>dropna()</strong> respectivamente.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1187,7 +1188,7 @@ document.write(`
 </section>
 <section id="analisis-de-componentes-principales">
 <h3>Análisis de Componentes Principales<a class="headerlink" href="#analisis-de-componentes-principales" title="Link to this heading">#</a></h3>
-<p>Dado un conjunto de <span class="math notranslate nohighlight">\(N\)</span> observaciones con <span class="math notranslate nohighlight">\(n\)</span> características, cuya información está contenida en una matriz <strong>X</strong> es posible proyectar los datos de todas las observaciones sobre una dirección que maximice la varianza. Esta dirección se denomina <strong>componente principal</strong> y al maximizar la varianza es la que mejor explica todo el conjunto en una única dimensión.</p>
+<p>Dado un conjunto de <span class="math notranslate nohighlight">\(N\)</span> observaciones con <span class="math notranslate nohighlight">\(n\)</span> características, cuya información está contenida en una matriz <strong>X</strong> es posible proyectar los datos de todas las observaciones sobre una dirección que maximice la varianza. Esta dirección se denomina <strong>componente principal</strong> y, al maximizar la varianza, es la que mejor explica todo el conjunto en una única dimensión.</p>
 <p>Como se puede ver en el siguiente gráfico, la recta con la componente principal, en color azul, además de maximizar la varianza, <strong>minimiza la distancia a todas las observaciones</strong>. En color amarillo, aparece la segunda componente principal, ortogonal a la anterior.</p>
 <p>Las <strong>direcciones principales</strong> se obtienen a partir de los <strong>autovectores</strong> <span class="math notranslate nohighlight">\(u_i\)</span>, ordenados por autovalor <span class="math notranslate nohighlight">\(\lambda_i\)</span> de la <strong>matriz de covarianza</strong> <span class="math notranslate nohighlight">\(S\)</span> de la matriz de características <span class="math notranslate nohighlight">\(X\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -1240,7 +1241,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f603102d7ac345a299937ee304ff45b81398fbf312e590cb6277acd228472e55.png" src="_images/f603102d7ac345a299937ee304ff45b81398fbf312e590cb6277acd228472e55.png" />
+<img alt="_images/f3244e63920929b1ae4a128f64ab6abb5d6efc0b52202f443868d19517ab79c5.png" src="_images/f3244e63920929b1ae4a128f64ab6abb5d6efc0b52202f443868d19517ab79c5.png" />
 </div>
 </div>
 <section id="utilidad-del-metodo-de-componentes-principales">

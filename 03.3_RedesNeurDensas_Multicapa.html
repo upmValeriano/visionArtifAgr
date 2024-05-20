@@ -202,6 +202,7 @@
 <li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cuestionario.html">Cuestionario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
 </ul>
@@ -437,7 +438,7 @@ document.write(`
 <h2>Activación (forward)<a class="headerlink" href="#activacion-forward" title="Link to this heading">#</a></h2>
 <p>El proceso de activación transforma una observación <span class="math notranslate nohighlight">\(\vec{x}\)</span> en la probabilidad final de la red. Implica concatenar procesos de ponderación lineal y activación aplicados a la salida de la capa anterior:</p>
 <div class="math notranslate nohighlight">
-\[\bar{z}^l = \bar{a}^{(l-1)} W^l + B^l\]</div>
+\[\begin{pmatrix} \bar{z}^l \end{pmatrix}^T = W^l \cdot \begin{pmatrix} \bar{a}^{(l-1)} \end{pmatrix}^T + B^l\]</div>
 <div class="math notranslate nohighlight">
 \[\bar{a}^l = f \begin{pmatrix} \bar{z}^l \end{pmatrix} \]</div>
 <p>Siendo <span class="math notranslate nohighlight">\(\bar{a}^{(l-1)} = \bar{x}\)</span> en la primera capa si <span class="math notranslate nohighlight">\(l=1\)</span>.</p>
@@ -449,11 +450,13 @@ document.write(`
 <a class="reference internal image-reference" href="_images/RedTriCapa.png"><img alt="_images/RedTriCapa.png" class="align-center" src="_images/RedTriCapa.png" style="width: 700px;" /></a>
 <p><strong>Cuya configuración es</strong></p>
 <div class="math notranslate nohighlight">
-\[\begin{split}  W^1 = \begin{pmatrix} w^1_{11} &amp; w^1_{21} \\  w^1_{12} &amp; w^1_{22} \end{pmatrix}    \phantom{abc} 
-    B^1 = \begin{pmatrix} b^1_1 &amp; b^1_2 \end{pmatrix}    \phantom{abc} 
-    W^2 = \begin{pmatrix} w^2_{11} &amp; w^2_{21} \\  w^2_{12} &amp; w^2_{22} \end{pmatrix}    \phantom{abc} 
-    B^2 = \begin{pmatrix} b^2_1 &amp; b^2_2 \end{pmatrix} \end{split}\]</div>
-<p>El <strong>superindice</strong> se utiliza aquí en la notación para identificar la capa del número, vector o matriz. Para no confudir donde se emple un cuadrado aparecerá en negrita y con tamaño mayor.</p>
+\[\begin{split}  W^1 = \begin{pmatrix} w^1_{11} &amp; w^1_{12} \\  w^1_{21} &amp; w^1_{22} \end{pmatrix}   
+  \phantom{abc} 
+    B^1 = \begin{pmatrix} b^1_1 \\ b^1_2 \end{pmatrix}    \phantom{abc} 
+    W^2 = \begin{pmatrix} w^2_{11} &amp; w^2_{12} \\  w^2_{21} &amp; w^2_{22} \end{pmatrix}    \phantom{abc} 
+    B^2 = \begin{pmatrix} b^2_1 \\ b^2_2 \end{pmatrix} 
+    \end{split}\]</div>
+<p>El <strong>superindice</strong> se utiliza aquí en la notación para identificar el número de capa. Para no confudir, donde se emplee como elevado al cuadrado, aparecerá en negrita y con tamaño mayor.</p>
 <section id="entrenamiento-en-la-capa-2">
 <h3>Entrenamiento en la capa 2<a class="headerlink" href="#entrenamiento-en-la-capa-2" title="Link to this heading">#</a></h3>
 <p>El entrenamiento que produce una observación <span class="math notranslate nohighlight">\(\bar{x}=(x_1, x_2)\)</span> en los pesos de la segunda capa conduce a resultados similares a los obtenidos en el modelo bicapa. Para seguir la aplicación de la regla de la cadena las derivadas de la <strong>función de pérdida</strong></p>
@@ -535,6 +538,32 @@ document.write(`
 <p>De igual forma se tiene:</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial C}{\partial w^1_{22}} = \delta^1_2 x_2 \phantom{abc}  \frac{\partial C}{\partial b^1_2} = \delta^1_2\]</div>
+<p><strong>Para optimizar el peso</strong> <span class="math notranslate nohighlight">\(w^1_{21}\)</span> requiere también dos caminos simultáneos (verde y amarillo) como se puede comprobar en el siguiente gráfico:</p>
+<a class="reference internal image-reference" href="_images/RedTriCapa4.png"><img alt="_images/RedTriCapa4.png" class="align-center" src="_images/RedTriCapa4.png" style="width: 700px;" /></a>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{21}} = \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial w^1_{21}} +  \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial w^1_{21}} \]</div>
+<p>Desarrollando cada uno de los sumandos:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial C}{\partial a^2_1} \frac{\partial a^2_1}{\partial w^1_{21}} = 
+ \frac{\partial C}{\partial a^2_1} 
+ \frac{\partial a^2_1}{\partial z^2_1}
+ \frac{\partial z^2_1}{\partial a^1_2}
+ \frac{\partial a^1_2}{\partial z^1_2}
+ \frac{\partial z^1_2}{\partial  w^1_{21}} \]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial C}{\partial a^2_2} \frac{\partial a^2_2}{\partial w^1_{21}} = 
+ \frac{\partial C}{\partial a^2_2} 
+ \frac{\partial a^2_2}{\partial z^2_2}
+ \frac{\partial z^2_2}{\partial a^1_2}
+ \frac{\partial a^1_2}{\partial z^1_2}
+ \frac{\partial z^1_2}{\partial  w^1_{21}} \]</div>
+<p>Permite poner:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{21}} = \delta^2_1 w^2_{12} f'(z^1_2) x_1 + \delta^2_2 w^2_{22} f'(z^1_2) x_1 = 
+(\delta^2_1 w^2_{12} + \delta^2_2 w^2_{22}) f'(z^1_2)  x_1 = \delta^1_2 x_1\]</div>
+<p>De igual forma se tiene:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial C}{\partial w^1_{22}} = \delta^1_2 x_2 \phantom{abc}  \frac{\partial C}{\partial b^1_2} = \delta^1_2\]</div>
 </section>
 </section>
 <section id="retropropagacion">
@@ -544,16 +573,63 @@ document.write(`
 \[\bar{\delta}^1 = (\delta^1_1, \delta^1_2) = (\delta^2_1 w^2_{11} + \delta^2_2 w^2_{21},  \delta^2_1 w^2_{12} + \delta^2_2 w^2_{22}) \odot f'(z^1_1, z^1_2)
 \]</div>
 <div class="math notranslate nohighlight">
-\[\begin{split} \bar{\delta}^1 = \begin{bmatrix} (\delta^2_1, \delta^2_2) \begin{pmatrix} w^2_{11} &amp; w^2_{12} \\  w^2_{21} &amp; w^2_{22} \end{pmatrix} \end{bmatrix}  \odot f'\begin{pmatrix}\bar{z}^1\end{pmatrix} = 
-\begin{bmatrix} \bar{\delta}^2 \cdot  (W^2)^T  \end{bmatrix} \odot f'\begin{pmatrix}\bar{z}^1\end{pmatrix}\end{split}\]</div>
+\[\begin{split} \begin{bmatrix} \bar{\delta}^1 \end{bmatrix}^T= \begin{bmatrix}  \begin{pmatrix} w^2_{11} &amp; w^2_{21} \\  w^2_{12} &amp; w^2_{22} \end{pmatrix} \begin{pmatrix}\delta^2_1 \\ \delta^2_2 \end{pmatrix} \end{bmatrix}  \odot f'\begin{pmatrix} \begin{bmatrix} \bar{z}^1 \end{bmatrix}^T \end{pmatrix} = 
+(W^2)^T \cdot \begin{bmatrix} \bar{\delta}^2     \end{bmatrix} ^T \odot f'\begin{pmatrix} \begin{bmatrix} \bar{z}^1 \end{bmatrix}^T \end{pmatrix}\end{split}\]</div>
+<p>Que también se puede poner como:</p>
+<div class="math notranslate nohighlight">
+\[ \bar{\delta}^1 =  
+\begin{bmatrix} \bar{\delta}^2 \cdot  W^2  \end{bmatrix} \odot f'\begin{pmatrix}\bar{z}^1\end{pmatrix}\]</div>
 <p><strong>Graficamente</strong> se puede observar que el gradiente <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> se transmite desde la última capa hasta la capa 1 <strong>funcionando la red densa de forma inversa</strong>. Está transformación lineal para pasar de <span class="math notranslate nohighlight">\(\bar{\delta}^2\)</span> a <span class="math notranslate nohighlight">\(\bar{\delta}^1\)</span> tiene lugar con una matriz <span class="math notranslate nohighlight">\(W^2\)</span> <strong>traspuesta</strong> con respecto al proceso de activación.</p>
 <a class="reference internal image-reference" href="_images/RedTriCapa5.png"><img alt="_images/RedTriCapa5.png" class="align-center" src="_images/RedTriCapa5.png" style="width: 600px;" /></a>
 <p><strong>Finalmente</strong> las formulas que permiten obtener los <strong>gradientes</strong> <span class="math notranslate nohighlight">\(\bar{\delta}\)</span> en una capa <span class="math notranslate nohighlight">\(l &lt; L\)</span> para una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> o para un bloque de observaciones <span class="math notranslate nohighlight">\(X\)</span> es:</p>
 <div class="math notranslate nohighlight">
-\[\bar{\delta}^l = \bar{\delta}^{l+1} \cdot (W^{l+1})^T \odot f'(z^l) \]</div>
+\[ ( \bar{\delta}^l )^T =  (W^{l+1})^T \cdot (\bar{\delta}^{l+1} )^T \odot f'\begin{bmatrix} (z^l)^T \end{bmatrix} \]</div>
+<p>que puede adoptar también la siguiente forma:</p>
+<div class="math notranslate nohighlight">
+\[\bar{\delta}^l = \bar{\delta}^{l+1} \cdot W^{l+1} \odot f'(z^l) \]</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Los gradientes delta se transmiten desde la capa superior a partir de la matriz de pesos transpuesta. La transposición hace que el sentido de transmisión en la red sea el opuesto.</p>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Activación (forward)</div>
+<div class="math notranslate nohighlight">
+\[\begin{pmatrix} \bar{z}^l \end{pmatrix}^T = W^l \cdot \begin{pmatrix} \bar{a}^{(l-1)} \end{pmatrix}^T + B^l\]</div>
+<div class="math notranslate nohighlight">
+\[\bar{a}^l = f \begin{pmatrix} \bar{z}^l \end{pmatrix}\]</div>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Retro-Propagación (backward)</div>
+<div class="math notranslate nohighlight">
+\[( \bar{\delta}^l )^T =  (W^{l+1})^T \cdot (\bar{\delta}^{l+1} )^T \odot f'\begin{bmatrix} (z^l)^T \end{bmatrix}\]</div>
+<div class="math notranslate nohighlight">
+\[\bar{\delta}^l = \bar{\delta}^{l+1} \cdot W^{l+1} \odot f'(z^l) \]</div>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Entrenamiento</div>
+<div class="math notranslate nohighlight">
+\[  W^l[t+1] = W^l[t] - \eta \cdot    \begin{pmatrix} \bar{\delta}^l \end{pmatrix} ^T \cdot \bar{a}^{(l-1)} \]</div>
+<div class="math notranslate nohighlight">
+\[  B^l[t+1] = B^l[t] - \eta  \cdot \begin{pmatrix} \bar{\delta}^l \end{pmatrix} ^T  \]</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 </section>

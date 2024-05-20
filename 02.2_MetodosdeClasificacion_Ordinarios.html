@@ -202,6 +202,7 @@
 <li class="toctree-l2"><a class="reference internal" href="03.10_RedesNeurConv_PlantVillage.html">PlantVillage. Cultivos con patologías</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cuestionario.html">Cuestionario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ymas.html">Y más …</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Bibliografia.html">Bibliografía</a></li>
 </ul>
@@ -474,8 +475,8 @@ document.write(`
 \[ clase(\bar{x}) = \underset{k \in \{1,...,m\}}{\arg\max} \begin{bmatrix} f_k\prod\limits_{i=1}^{n} N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2) \end{bmatrix}\]</div>
 <p>Donde:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2)\)</span> : es la función de densidad normal gaussiana del valor <span class="math notranslate nohighlight">\(x_i\)</span> observado en la columna <span class="math notranslate nohighlight">\(X_i\)</span> para la clase <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(f_k\)</span> : es la frecuencia de la clase <span class="math notranslate nohighlight">\(k\)</span> en la matriz <span class="math notranslate nohighlight">\(X\)</span> se obtiene a partir del número de observaciones etiquetadas como clase <span class="math notranslate nohighlight">\(k\)</span> sobre el total.</p></li>
+<li><p><span class="math notranslate nohighlight">\(N(x_i, \mu_{i,k}\thinspace, \sigma_{i,k}^2)\)</span> : es la función de densidad normal gaussiana del valor <span class="math notranslate nohighlight">\(x_i\)</span> (columna <span class="math notranslate nohighlight">\(X_i\)</span>), siendo <span class="math notranslate nohighlight">\(\mu_{i,k}\)</span> y <span class="math notranslate nohighlight">\(\sigma_{i,k}^2\)</span> la media y la varianza de los valores de la columna <span class="math notranslate nohighlight">\(X_i\)</span> ‘<em>filtrados</em>’ por la clase <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_k\)</span> : es la frecuencia de la clase <span class="math notranslate nohighlight">\(k\)</span> en la matriz <span class="math notranslate nohighlight">\(X\)</span>, que se obtiene a partir del número de observaciones etiquetadas como clase <span class="math notranslate nohighlight">\(k\)</span> sobre el total.</p></li>
 </ul>
 <p>Observe que para definir el modelo son necesarias <span class="math notranslate nohighlight">\(n \times m\)</span> distribuciones normales distintas.</p>
 <section id="entrenamiento-con-naive-bayes">
@@ -608,10 +609,10 @@ document.write(`
 <li><p>Para hacer esta división del conjunto se utiliza una función de la librería sk-learn: <strong>train_test_split</strong></p></li>
 <li><p>Los parámetro <strong>train_test</strong> o <strong>test_size</strong> : indica el ratio que tiene el conjunto de entrenamiento o validación respecto al total.</p></li>
 <li><p>El parámetro <strong>shuffle</strong> : indica si los datos se barajan antes de dividirse</p></li>
-<li><p>El parámetro <strong>random_state</strong> : se indica que la división aleatoria ha de ser reproducible</p></li>
-<li><p>El parámetro <strong>stratity</strong> : indica que la división se realiza proporcional a los valores de las etiquetas</p></li>
+<li><p>El parámetro <strong>random_state</strong> : fija un valor de la semilla aleatoria, para que la división sea reproducible</p></li>
+<li><p>El parámetro <strong>stratify</strong> : indica que la división se realiza proporcional a los valores de las etiquetas</p></li>
 </ul>
-<p>Mas detalles : https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html</p>
+<p>Mas detalles : <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html">https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -638,7 +639,7 @@ document.write(`
 </section>
 <section id="se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn">
 <h4>Se Resuelve utilizando el clasificador Naive Bayes de sklearn<a class="headerlink" href="#se-resuelve-utilizando-el-clasificador-naive-bayes-de-sklearn" title="Link to this heading">#</a></h4>
-<p>Se utiliza la clase <strong>GaussianNB</strong> de la librería <strong>naive_bayes</strong>. Lo primero es crear un objeto, por ejemplo <strong>clf_NB</strong>, llamandoa al <strong>constructor</strong>.</p>
+<p>Se utiliza la clase <strong>GaussianNB</strong> de la librería <strong>naive_bayes</strong> (<a href="https://scikit-learn.org/stable/modules/naive_bayes.html#">ver aquí</a>). Lo primero es crear un objeto, por ejemplo <strong>clf_NB</strong>, llamandoa al <strong>constructor</strong>.</p>
 <p>Llamando al método <strong>fit</strong> desde el objeto <strong>clf_NB</strong> se ajusta el modelo contra el conjunto de entrenamiento.</p>
 <p>Para validar el modelo se predicen las observaciones <strong>X_test</strong> del conjunto de validación se comparan las clases obtenidas contra los valores correctos de <strong>y_test</strong>. El porcentaje de aciertos es la precisión del clasificador</p>
 <div class="cell docutils container">
@@ -703,17 +704,17 @@ document.write(`
 <ul class="simple">
 <li><p>Los árboles son fáciles de interpretar aun cuando las relaciones entre predictores son complejas.</p></li>
 <li><p>Los árboles pueden, en teoría, manejar tanto predictores numéricos como categóricos.</p></li>
-<li><p>No se ven muy influenciados por outliers.</p></li>
+<li><p>No se ven muy influenciados por datos atípicos (’<em>outliers</em>’).</p></li>
 <li><p>Son muy útiles en la exploración de datos, permiten identificar de forma rápida y eficiente las variables (predictores) más importantes.</p></li>
 <li><p>Pueden aplicarse a problemas de regresión y clasificación.</p></li>
 </ul>
 <p><strong>Desventajas</strong></p>
 <ul class="simple">
-<li><p>Su tendencia al overfitting y alta varianza. Sin embargo, existen técnicas más complejas que, haciendo uso de la combinación de múltiples árboles (bagging, random forest, boosting), consiguen mejorar en gran medida este problema.</p></li>
+<li><p>Su tendencia al sobreajuste (’<em>overfitting</em>’) y alta varianza. Sin embargo, existen técnicas más complejas que, haciendo uso de la combinación de múltiples árboles (bagging, random forest, boosting), consiguen mejorar en gran medida este problema.</p></li>
 <li><p>Son sensibles a datos de entrenamiento desbalanceados (una de las clases domina sobre las demás).</p></li>
 <li><p>No son capaces de extrapolar fuera del rango de los predictores observado en los datos de entrenamiento.</p></li>
 </ul>
-<p><strong>Implementados en sk-learn</strong> en las clases <strong>DecissionTreeClassifier</strong> y <strong>DecissionTreeRegressor</strong></p>
+<p><strong>Implementados en sk-learn</strong> en las clases <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html">DecissionTreeClassifier</a> y <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html">DecissionTreeRegressor</a></p>
 <p><strong>Obtención del árbol de decisión</strong></p>
 <p>La <strong>entropía</strong> es una forma de cuantificar el <strong>desorden</strong> de un sistema. En el caso de los nodos, el desorden se corresponde con la impureza. Si un nodo es <strong>puro</strong>, contiene únicamente observaciones de <strong>una clase</strong>, su <strong>entropía es cero</strong>.</p>
 <div class="math notranslate nohighlight">
@@ -765,8 +766,8 @@ document.write(`
 </section>
 <section id="k-vecinos-cercanos">
 <h2>K vecinos cercanos<a class="headerlink" href="#k-vecinos-cercanos" title="Link to this heading">#</a></h2>
-<p>El algoritmo de <strong>K Vecinos</strong> (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifierhttps://www.yourhomepage.com"> KNeighborsClassifier</a> ) implementa la selección de la clase más probable a partir del <strong>voto mayoritario</strong> de las <strong>K</strong> observaciones más cercanas del conjunto <strong>X</strong>.</p>
-<p>El cuello de botella computacional de este algoritmo es la búsqueda de los vecinos cercanos de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> en <strong>X</strong>, que se presenta si el número de elementos de <strong>X</strong>  es elevado y se usa un método de fuerza bruta. Por ello se suele estructurar el conjunto <strong>X</strong> de forma que sea más ágil el encontrar los vecinos. Esto se consigue con <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree">BallTree</a> o <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree">KDTree</a>, por ejemplo. El tipo de algoritmo de búsqueda se pasa en el parámetro <strong>algorithm</strong>, aunque por defecto lleva el valor <em>‘auto’</em> en el que se decide que estrategia tomar en función del conjunto <strong>X</strong> que se pase en el método <strong>fit()</strong>.</p>
+<p>El algoritmo de <strong>K Vecinos</strong> (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier"> KNeighborsClassifier</a> ) implementa la selección de la clase más probable a partir del <strong>voto mayoritario</strong> de las <strong>K</strong> observaciones más cercanas del conjunto <strong>X</strong>.</p>
+<p>El cuello de botella computacional de este algoritmo es la búsqueda de los vecinos cercanos de una observación <span class="math notranslate nohighlight">\(\bar{x}\)</span> en <strong>X</strong>, que se presenta si el número de elementos de <strong>X</strong>  es elevado y se usa un método de fuerza bruta. Por ello se suele estructurar el conjunto <strong>X</strong> de forma que sea más ágil en la busqueda de los vecinos. Esto se consigue con <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree">BallTree</a> o <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree">KDTree</a>, por ejemplo. El tipo de algoritmo de búsqueda se pasa en el parámetro <strong>algorithm</strong>, aunque por defecto lleva el valor <em>‘auto’</em> en el que se decide que estrategia tomar en función del tipo de datos existentes en el conjunto <strong>X</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
